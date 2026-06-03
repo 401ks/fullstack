@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+    <title>Settings | NaijaAssets Student Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Hanken+Grotesk:wght@100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#76777d",
+                    "on-surface": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "primary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "primary-container": "#131b2e",
+                    "on-secondary-fixed": "#00174b",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "surface": "#f7f9fb",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e0e3e5",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-fixed-dim": "#4fdbc8",
+                    "on-tertiary-container": "#009485",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#00201c",
+                    "on-primary": "#ffffff",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#316bf3",
+                    "surface-container": "#eceef0",
+                    "primary-fixed-dim": "#bec6e0",
+                    "outline-variant": "#c6c6cd",
+                    "secondary": "#0051d5",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#003ea8",
+                    "surface-tint": "#565e74",
+                    "surface-dim": "#d8dadc",
+                    "inverse-primary": "#bec6e0",
+                    "inverse-on-surface": "#eff1f3",
+                    "primary-fixed": "#dae2fd",
+                    "tertiary-container": "#00201c",
+                    "on-background": "#191c1e",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-fixed": "#71f8e4",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-primary-fixed": "#131b2e"
+            },
+            "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+            "spacing": { "stack-md": "16px", "margin-mobile": "16px", "gutter": "24px", "stack-lg": "32px", "stack-sm": "8px", "unit": "8px", "margin-desktop": "32px", "container-max": "1280px" },
+            "fontFamily": { "display-lg-mobile": ["Hanken Grotesk"], "headline-md": ["Hanken Grotesk"], "headline-lg": ["Hanken Grotesk"], "label-md": ["Geist"], "display-lg": ["Hanken Grotesk"], "label-sm": ["Geist"], "body-md": ["Manrope"], "body-lg": ["Manrope"] },
+            "fontSize": {
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+        body { background-color: #F8FAFC; color: #191c1e; font-family: 'Manrope', sans-serif; overflow-x: hidden; }
+        .fa-solid, .fa-regular, .fa-brands { font-size: 1.25rem; }
+        .card-shadow { box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); border: 1px solid #e2e8f0; }
+        .settings-card { transition: all 0.2s ease; }
+        .settings-card:hover { border-color: #0051d5; transform: translateX(2px); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        #mainWrapper { transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .ai-floating-btn { transition: opacity 0.3s ease, transform 0.3s ease; }
+        .ai-floating-btn.hidden { opacity: 0; transform: scale(0.8); pointer-events: none; }
+        
+        /* SIDEBAR - Same for Desktop & Mobile */
+        #sidebar { 
+            width: 256px; 
+            overflow: hidden; 
+            position: sticky; 
+            top: 0; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s ease-in-out; 
+            background: #ffffff; 
+            z-index: 50; 
+            border-right: 1px solid #c6c6cd; 
+        }
+        #sidebar.collapsed { width: 80px; }
+        #sidebar.collapsed .sidebar-text, #sidebar.collapsed .profile-details, #sidebar.collapsed .submenu, #sidebar.collapsed .sidebar-header-text { display: none; }
+        #sidebar.collapsed .sidebar-item { justify-content: center; padding-left: 0; padding-right: 0; }
+        #sidebar.collapsed .sidebar-chevron { display: none; }
+        #sidebar.collapsed .sidebar-logo-container { justify-content: center; padding: 0; }
+        #sidebar.collapsed .profile-section { padding: 16px 8px; justify-content: center; }
+        #sidebar.collapsed .profile-section img { margin-right: 0; }
+        .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .menu-expanded .submenu { max-height: 500px; }
+        .menu-expanded .sidebar-chevron { transform: rotate(180deg); }
+        
+        /* MOBILE: Sidebar becomes slide-in menu (FULL DESKTOP CONTENT) */
+        @media (max-width: 1023px) {
+            #sidebar { 
+                position: fixed; 
+                left: -100%; 
+                top: 0;
+                z-index: 100; 
+                width: 280px; 
+                box-shadow: 0 0 20px rgba(0,0,0,0.1); 
+                /* Ensure full content is visible on mobile */
+            }
+            #sidebar.active { left: 0; }
+            /* On mobile, never collapse - always show full content */
+            #sidebar.collapsed { width: 280px; }
+            #sidebar.collapsed .sidebar-text, 
+            #sidebar.collapsed .profile-details, 
+            #sidebar.collapsed .submenu, 
+            #sidebar.collapsed .sidebar-header-text { display: block !important; }
+            #sidebar.collapsed .sidebar-item { justify-content: flex-start !important; padding-left: 16px !important; padding-right: 16px !important; }
+            #sidebar.collapsed .sidebar-chevron { display: block !important; }
+            #sidebar.collapsed .sidebar-logo-container { justify-content: flex-start !important; padding: 0 16px !important; }
+            #sidebar.collapsed .profile-section { padding: 16px !important; justify-content: flex-start !important; }
+            #sidebar.collapsed .profile-section img { margin-right: 12px !important; }
+            
+            .mobile-menu-overlay { 
+                position: fixed; 
+                inset: 0; 
+                background: rgba(13, 28, 46, 0.5); 
+                z-index: 90; 
+                opacity: 0; 
+                visibility: hidden; 
+                transition: all 0.3s ease-in-out; 
+                backdrop-filter: blur(4px); 
+            }
+            .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+            .mobile-menu-toggle { display: block; }
+            .desktop-menu-toggle { display: none !important; }
+            header { padding-left: 60px !important; padding-right: 16px !important; }
+            .header-profile { display: none; }
+            #aiChatPane { width: 100%; }
+            body.menu-open { overflow: hidden; }
+            .settings-nav-desktop { display: none !important; }
+        }
+        @media (min-width: 1024px) { 
+            .mobile-menu-toggle { display: none; } 
+            .desktop-menu-toggle { display: block; }
+        }
+        
+        .btn-scale:active { transform: scale(0.98); }
+        
+        /* Toggle Switches */
+        .toggle-container { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .toggle-input { opacity: 0; width: 0; height: 0; position: absolute; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #e0e3e5; transition: 0.3s; border-radius: 24px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .toggle-input:checked + .toggle-slider { background-color: #0051d5; }
+        .toggle-input:checked + .toggle-slider:before { transform: translateX(20px); }
+        
+        /* Disabled appearance buttons */
+        .appearance-btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+            position: relative;
+        }
+        .appearance-btn-disabled .coming-soon-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #76777d;
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Active section highlight */
+        .settings-section-active {
+            border-color: #0051d5 !important;
+            box-shadow: 0 0 0 2px rgba(0, 81, 213, 0.1), 0px 4px 20px rgba(15, 23, 42, 0.05) !important;
+        }
+        
+        /* Settings submenu active item */
+        .settings-subitem-active {
+            color: #0051d5 !important;
+            font-weight: 600 !important;
+            background: rgba(0, 81, 213, 0.05) !important;
+        }
+        
+        /* Settings submenu divider */
+        .settings-submenu-divider {
+            margin: 8px 0;
+            border-top: 1px solid rgba(198, 198, 205, 0.3);
+        }
+        
+        /* Get Help link - blue */
+        .settings-help-link {
+            color: #0051d5 !important;
+        }
+        .settings-help-link:hover {
+            color: #003ea8 !important;
+            background: rgba(0, 81, 213, 0.05) !important;
+        }
+        
+        /* Logout link - red */
+        .settings-logout-link {
+            color: #dc2626 !important;
+        }
+        .settings-logout-link:hover {
+            color: #b91c1c !important;
+            background: rgba(220, 38, 38, 0.05) !important;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<div class="mobile-menu-overlay" id="mobileOverlay"></div>
+<div class="flex min-h-screen">
+    <!-- Mobile Menu Toggle (Hamburger) -->
+    <button class="mobile-menu-toggle fixed top-4 left-4 z-50 p-2 bg-surface-container-lowest rounded-lg shadow-lg border border-outline-variant text-on-surface lg:hidden" id="mobileMenuToggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars text-xl"></i>
+    </button>
+
+    <!-- FULL SIDEBAR - Identical for Desktop & Mobile -->
+    <aside class="h-screen sticky left-0 top-0 w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col py-stack-lg shadow-sm z-50" id="sidebar">
+        <!-- Logo Section -->
+        <div class="px-4 mb-6 flex items-center justify-between sidebar-logo-container">
+            <div class="flex items-center gap-3 overflow-hidden">
+                <i class="fa-solid fa-graduation-cap text-secondary text-2xl flex-shrink-0"></i>
+                <div class="flex flex-col sidebar-header-text">
+                    <span class="font-display-lg text-primary text-lg font-bold leading-tight">NaijaAssets</span>
+                    <span class="font-label-sm text-outline text-[10px] uppercase tracking-wider">Student Portal</span>
+                </div>
+            </div>
+            <!-- Desktop collapse toggle (hidden on mobile) -->
+            <button class="p-1 hover:bg-surface-container rounded-full text-outline hover:text-primary transition-colors desktop-menu-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+                <i class="fa-solid fa-chevron-left text-xl" id="sidebarToggleIcon"></i>
+            </button>
+        </div>
+        
+        <!-- Profile Section -->
+        <div class="px-4 mb-6 profile-section">
+            <a href="#" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors">
+                <img alt="Profile" class="w-10 h-10 rounded-full object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUUlOjD2NqHiozDk74aw-A3BNeSSnSOK0DLyDmSxUPw8t4VSZmRCrOTViEmVvpzn5AUNClDA6xEGSji0HYodD1cyh5n9koyszAs6Mzzhb9W_9fvAD8lO7LQjq5oENJXH449vkUJ5BbAckI0JvGCk8X-dMKB1lOoxn_CTP6eRTZSy-jKMAHXx2OC697aMu3wXPhDWV9I_Yq0-yl0XugRusbGJHhLeKubyGTw4Wy7YePrOlNy1XXHHka3WgFKcCXqEixu9-qPSYsWCk"/>
+                <div class="profile-details overflow-hidden">
+                    <p class="font-label-md text-primary font-bold truncate">Loading...</p>
+                    <p class="text-[10px] text-outline truncate mb-1">...</p>
+                    <span class="text-[10px] text-secondary font-bold">View Profile</span>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Main Navigation -->
+        <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="/dashboard/">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span class="font-label-md text-label-md sidebar-text">Dashboard</span>
+            </a>
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="/dashboard/classes/">
+                <i class="fa-solid fa-school"></i>
+                <span class="font-label-md text-label-md sidebar-text">Classes</span>
+            </a>
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="/dashboard/recordings/">
+                <i class="fa-solid fa-video"></i>
+                <span class="<think>-md text-label-md sidebar-text">Recordings</span>
+            </a>
+            
+            <!-- Resources Dropdown -->
+            <div class="group" id="resources-menu">
+                <button class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" onclick="toggleMenu('resources-menu')" aria-expanded="false">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <span class="font-label-md text-label-md sidebar-text">Resources</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i>
+                </button>
+                <div class="submenu pl-10 space-y-1 mt-1">
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/resources/#all"><i class="fa-solid fa-book text-xs"></i><span>Books</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/resources/#multimedia"><i class="fa-solid fa-film text-xs"></i><span>Multimedia</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/resources/#papers"><i class="fa-solid fa-file-lines text-xs"></i><span>Past Papers</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/resources/#other"><i class="fa-solid fa-folder-plus text-xs"></i><span>Other Resources</span></a>
+                </div>
+            </div>
+            
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="/dashboard/payments/">
+                <i class="fa-solid fa-credit-card"></i>
+                <span class="font-label-md text-label-md sidebar-text">Payments</span>
+            </a>
+            
+            <!-- Settings Dropdown (Expanded by Default) -->
+            <div class="group menu-expanded" id="settings-menu">
+                <button class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-primary font-bold border-r-4 border-secondary bg-surface-container rounded-l-lg transition-colors duration-200" onclick="toggleMenu('settings-menu')" aria-expanded="true">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-gear"></i>
+                        <span class="font-label-md text-label-md sidebar-text">Settings</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i>
+                </button>
+                <div class="submenu pl-10 space-y-1 mt-1">
+                    <!-- Account Settings -->
+                    <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=account" data-section="account-section" onclick="navigateToSection(event, 'account-section')">
+                        <i class="fa-solid fa-user-gear text-xs"></i><span>Account Settings</span>
+                    </a>
+                    <!-- Profile Settings -->
+                    <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=profile" data-section="profile-section" onclick="navigateToSection(event, 'profile-section')">
+                        <i class="fa-solid fa-id-card text-xs"></i><span>Profile Settings</span>
+                    </a>
+                    <!-- Visual Settings -->
+                    <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=appearance" data-section="appearance-section" onclick="navigateToSection(event, 'appearance-section')">
+                        <i class="fa-solid fa-palette text-xs"></i><span>Visual Settings</span>
+                    </a>
+                    
+                    <!-- Divider -->
+                    <div class="settings-submenu-divider"></div>
+                    
+                    <!-- Get Help - BLUE -->
+                    <a class="settings-help-link block py-2 text-sm font-medium transition-colors flex items-center gap-2" href="#" onclick="openAIChat(event)">
+                        <i class="fa-solid fa-circle-question text-xs"></i><span>Get Help</span>
+                    </a>
+                    <!-- Logout - RED -->
+                    <a class="settings-logout-link block py-2 text-sm font-medium transition-colors flex items-center gap-2" href="#" onclick="handleLogout(event)">
+                        <i class="fa-solid fa-right-from-bracket text-xs"></i><span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Footer Links -->
+        <div class="px-4 py-4 border-t border-outline-variant/30 mt-auto">
+            <div class="flex flex-wrap gap-4 text-[11px]">
+                <a href="/privacy" class="text-outline hover:text-primary transition-colors">Privacy</a>
+                <a href="/terms" class="text-outline hover:text-primary transition-colors">Terms</a>
+                <a href="/support" class="text-outline hover:text-primary transition-colors">Support</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div id="mainWrapper" class="flex-1 overflow-y-auto">
+        <header class="sticky top-0 z-40 w-full flex gap-4 px-margin-desktop py-4 bg-background/50 backdrop-blur-md">
+            <div class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-4 flex items-center gap-3 card-shadow">
+                <i class="fa-solid fa-magnifying-glass text-outline"></i>
+                <input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface" placeholder="Search settings, courses, help..." type="text" id="searchInput"/>
+            </div>
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-3 flex items-center gap-2 card-shadow">
+                <a href="#" class="relative p-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full transition-all">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                </a>
+                <a href="#" class="p-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full transition-all">
+                    <i class="fa-regular fa-circle-question"></i>
+                </a>
+            </div>
+            <a href="#" class="header-profile bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 pl-4 pr-2 flex items-center gap-3 card-shadow">
+                <div class="text-right hidden xl:block">
+                    <p class="font-label-md text-label-md text-primary leading-none">Loading...</p>
+                    <p class="font-label-sm text-[10px] text-outline uppercase tracking-wider mt-1">Student</p>
+                </div>
+                <img alt="Student Profile Avatar" class="w-10 h-10 rounded-full border border-outline-variant object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUUlOjD2NqHiozDk74aw-A3BNeSSnSOK0DLyDmSxUPw8t4VSZmRCrOTViEmVvpzn5AUNClDA6xEGSji0HYodD1cyh5n9koyszAs6Mzzhb9W_9fvAD8lO7LQjq5oENJXH449vkUJ5BbAckI0JvGCk8X-dMKB1lOoxn_CTP6eRTZSy-jKMAHXx2OC697aMu3wXPhDWV9I_Yq0-yl0XugRusbGJHhLeKubyGTw4Wy7YePrOlNy1XXHHka3WgFKcCXqEixu9-qPSYsWCk"/>
+            </a>
+        </header>
+
+        <main class="px-margin-mobile md:px-margin-desktop pb-margin-desktop max-w-6xl mx-auto space-y-8">
+            <!-- Page Header -->
+            <div>
+                <h2 class="font-headline-lg text-headline-lg text-primary">Settings</h2>
+                <p class="font-body-md text-on-surface-variant mt-1">Manage your student profile, account preferences, and security settings.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8 min-h-[calc(100vh-240px)]">
+                <!-- Left Column: Categories (HIDDEN ON MOBILE) -->
+                <div class="settings-nav-desktop lg:w-1/3 flex flex-col gap-2 overflow-y-auto pr-2 custom-scrollbar max-h-[calc(100vh-200px)]">
+                    <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'profile-section')">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-user text-secondary"></i><span class="font-label-md text-label-md">Profile Settings</span></div>
+                        <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
+                    </button>
+                    <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'account-section')">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-sliders text-secondary"></i><span class="font-label-md text-label-md">Account Preferences</span></div>
+                        <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
+                    </button>
+                    <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'notif-section')">
+                        <div class="flex items-center gap-3"><i class="fa-regular fa-bell text-secondary"></i><span class="font-label-md text-label-md">Notifications</span></div>
+                        <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
+                    </button>
+                    <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'security-section')">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-shield-halved text-secondary"></i><span class="font-label-md text-label-md">Security</span></div>
+                        <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
+                    </button>
+                    <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'appearance-section')">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-palette text-secondary"></i><span class="font-label-md text-label-md">Appearance</span></div>
+                        <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
+                    </button>
+                    <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'api-section')">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-code text-secondary"></i><span class="font-label-md text-label-md">API Controls</span></div>
+                        <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
+                    </button>
+                    <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'study-section')">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-book-open text-secondary"></i><span class="font-label-md text-label-md">Study Preferences</span></div>
+                        <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
+                    </button>
+                    <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'data-section')">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-database text-secondary"></i><span class="font-label-md text-label-md">Data Management</span></div>
+                        <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
+                    </button>
+                </div>
+
+                <!-- Right Column: Detail Pane -->
+                <div class="lg:w-2/3 flex flex-col gap-6 overflow-y-auto pr-2 custom-scrollbar max-h-[calc(100vh-200px)]">
+                    <!-- Profile Settings -->
+                    <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="profile-section" data-section-name="profile">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-user"></i> Profile Settings</h3>
+                        <div class="flex flex-col md:flex-row gap-8 mb-8 items-start">
+                            <div class="relative group">
+                                <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-surface-container-low shadow-sm">
+                                    <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe_dZk_PWT-Fqi5SWTPtaUslwc2iDNqO69qgI_deUvZMHmULa2hhPfoL1OTB4wlCWHciuLFf0EVF1DhzXSYgp9qxloUsP8mBTtY2_RpeYU-m7MRtOdRoxOQ2LbtLh6IeMrjlW3FUzou1v9oA77XkKw6spwF_lTfO_Z02utM34xfvmi1a1Ks9cNkVgyIDzvB-AY1tL9MYNE5vM0NguZQymSuKGUB2CXv5VXhSSX_LT9dS-NarwZznb9VYkCcXW5ANt79CsPP2PUOZo"/>
+                                </div>
+                                <button class="absolute bottom-0 right-0 p-1.5 bg-secondary text-on-secondary rounded-full border-2 border-surface-container-lowest hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-camera text-sm"></i>
+                                </button>
+                            </div>
+                            <div class="flex-1 space-y-4 w-full">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="font-label-sm text-on-surface-variant block">Full Name</label>
+                                        <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" type="text" value="Loading..."/>
+                                    </div>
+                                    <div>
+                                        <label class="font-label-sm text-on-surface-variant block">Email Address</label>
+                                        <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" type="email" value="..."/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="font-label-sm text-on-surface-variant block">Phone Number</label>
+                                    <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" type="tel" value=""/>
+                                </div>
+                                <div>
+                                    <label class="font-label-sm text-on-surface-variant block">Bio</label>
+                                    <textarea class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none resize-none" rows="3">Final year Economics student. Passionate about asset management and financial technology.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end pt-4 border-t border-outline-variant">
+                            <button class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 transition-all btn-scale">Save Profile Changes</button>
+                        </div>
+                    </section>
+
+                    <!-- Account Preferences -->
+                    <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="account-section" data-section-name="account">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-sliders"></i> Account Preferences</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="font-label-sm text-on-surface-variant block">Primary Language</label>
+                                <select class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none bg-surface-container-lowest">
+                                    <option>English</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="font-label-sm text-on-surface-variant block">Timezone</label>
+                                <select class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none bg-surface-container-lowest">
+                                    <option>(GMT+01:00) West Africa Time</option>
+                                    <option>(GMT+00:00) Greenwich Mean Time</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Notifications -->
+                    <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="notif-section" data-section-name="notifications">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-regular fa-bell"></i> Notifications</h3>
+                        <div class="space-y-2">
+                            <div class="grid grid-cols-6 items-center px-2 py-3 border-b border-outline-variant/30">
+                                <div class="col-span-4 text-xs font-bold text-outline uppercase">Event</div>
+                                <div class="col-span-1 text-center text-xs font-bold text-outline">Email</div>
+                                <div class="col-span-1 text-center text-xs font-bold text-outline">Push</div>
+                            </div>
+                            <div class="grid grid-cols-6 items-center py-4 hover:bg-surface-container-low/30 rounded-lg px-2">
+                                <div class="col-span-4">
+                                    <p class="font-label-md text-label-md text-primary">Class Reminders</p>
+                                    <p class="text-xs text-outline">Get notified 15 mins before a live session</p>
+                                </div>
+                                <div class="col-span-1 flex justify-center">
+                                    <label class="toggle-container">
+                                        <input type="checkbox" class="toggle-input" checked/>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="col-span-1 flex justify-center">
+                                    <label class="toggle-container">
+                                        <input type="checkbox" class="toggle-input" checked/>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-6 items-center py-4 hover:bg-surface-container-low/30 rounded-lg px-2">
+                                <div class="col-span-4">
+                                    <p class="font-label-md text-label-md text-primary">New Resources</p>
+                                    <p class="text-xs text-outline">Alerts for new lecture notes or recordings</p>
+                                </div>
+                                <div class="col-span-1 flex justify-center">
+                                    <label class="toggle-container">
+                                        <input type="checkbox" class="toggle-input" checked/>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="col-span-1 flex justify-center">
+                                    <label class="toggle-container">
+                                        <input type="checkbox" class="toggle-input"/>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-6 items-center py-4 hover:bg-surface-container-low/30 rounded-lg px-2">
+                                <div class="col-span-4">
+                                    <p class="font-label-md text-label-md text-primary">Payment Confirmations</p>
+                                    <p class="text-xs text-outline">Receipt and invoice updates</p>
+                                </div>
+                                <div class="col-span-1 flex justify-center">
+                                    <label class="toggle-container">
+                                        <input type="checkbox" class="toggle-input" checked/>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="col-span-1 flex justify-center">
+                                    <label class="toggle-container">
+                                        <input type="checkbox" class="toggle-input" checked/>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Security -->
+                    <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="security-section" data-section-name="security">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-shield-halved"></i> Security</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-label-md text-label-md text-outline mb-3">Change Password</h4>
+                                <div class="space-y-3">
+                                    <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" placeholder="Current Password" type="password"/>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <input class="p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" placeholder="New Password" type="password"/>
+                                        <input class="p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" placeholder="Confirm New Password" type="password"/>
+                                    </div>
+                                </div>
+                                <button class="px-4 py-2 mt-3 bg-surface-container-high text-primary rounded-lg font-label-md hover:bg-outline-variant transition-all">Update Password</button>
+                            </div>
+                            <div class="pt-6 border-t border-outline-variant flex items-center justify-between">
+                                <div class="flex gap-4 items-start">
+                                    <div class="p-2 bg-secondary/10 text-secondary rounded-lg">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-label-md text-label-md text-primary">Two-Factor Authentication</p>
+                                        <p class="text-xs text-outline">Protect your account with SMS or Auth App</p>
+                                    </div>
+                                </div>
+                                <label class="toggle-container">
+                                    <input type="checkbox" class="toggle-input" checked/>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Appearance -->
+                    <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="appearance-section" data-section-name="appearance">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-palette"></i> Appearance</h3>
+                        <p class="text-sm text-outline mb-4">Choose your preferred theme. Dark mode and system sync are coming soon.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <button class="flex flex-col gap-3 p-4 border-2 border-secondary rounded-xl bg-surface-container/30 transition-all relative">
+                                <span class="absolute top-2 right-2 bg-secondary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Active</span>
+                                <div class="w-full aspect-video bg-white rounded-lg border border-outline-variant shadow-sm flex items-center justify-center">
+                                    <i class="fa-solid fa-sun text-outline text-2xl"></i>
+                                </div>
+                                <span class="font-label-md text-label-md text-primary text-center font-semibold">Light</span>
+                            </button>
+                            <div class="appearance-btn-disabled relative">
+                                <span class="coming-soon-badge">Coming Soon</span>
+                                <div class="flex flex-col gap-3 p-4 border-2 border-outline-variant/50 rounded-xl bg-surface-container-low/50">
+                                    <div class="w-full aspect-video bg-primary-container rounded-lg border border-outline-variant shadow-sm flex items-center justify-center">
+                                        <i class="fa-solid fa-moon text-white/30 text-2xl"></i>
+                                    </div>
+                                    <span class="font-label-md text-label-md text-on-surface-variant text-center">Dark</span>
+                                </div>
+                            </div>
+                            <div class="appearance-btn-disabled relative">
+                                <span class="coming-soon-badge">Coming Soon</span>
+                                <div class="flex flex-col gap-3 p-4 border-2 border-outline-variant/50 rounded-xl bg-surface-container-low/50">
+                                    <div class="w-full aspect-video bg-gradient-to-br from-white to-primary-container rounded-lg border border-outline-variant shadow-sm flex items-center justify-center">
+                                        <i class="fa-solid fa-display text-outline/50 text-2xl"></i>
+                                    </div>
+                                    <span class="font-label-md text-label-md text-on-surface-variant text-center">System</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- API Controls -->
+                    <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="api-section" data-section-name="api">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-code"></i> API Controls</h3>
+                        <div class="space-y-6">
+                            <div class="bg-surface-container-low/50 p-5 rounded-xl border border-outline-variant">
+                                <div class="flex items-start gap-4 mb-4">
+                                    <div class="p-3 bg-secondary/10 rounded-xl">
+                                        <i class="fa-solid fa-key text-secondary text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-label-md text-label-md text-primary font-bold">Developer API Access</h4>
+                                        <p class="text-sm text-outline mt-1">Integrate NaijaAssets data into your own applications. Get API keys, documentation, and support for building on our platform.</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-4 mt-4">
+                                    <a href="mailto:api@naijaassets.com?subject=API%20Access%20Request%20-%20Student%20Portal&body=Hello%2C%20I%20am%20interested%20in%20getting%20API%20access%20for%20my%20integration.%0A%0AMy%20name%3A%20Daniel%20Okafor%0AStudent%20ID%3A%20NASS-4002%0AUse%20case%3A%20">
+                                        <button class="px-6 py-3 bg-secondary text-white rounded-xl font-label-md hover:bg-secondary/90 transition-all btn-scale flex items-center gap-2">
+                                            <i class="fa-regular fa-envelope"></i> Request API Access
+                                        </button>
+                                    </a>
+                                    <a href="https://docs.naijaassets.com/api" target="_blank" rel="noopener noreferrer">
+                                        <button class="px-6 py-3 border-2 border-outline-variant text-primary rounded-xl font-label-md hover:bg-surface-container transition-all flex items-center gap-2">
+                                            <i class="fa-solid fa-book"></i> View API Documentation <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="mt-5 pt-4 border-t border-outline-variant/40">
+                                    <p class="text-xs text-outline"><i class="fa-regular fa-clock mr-1"></i> API requests are rate-limited to 1000 calls per hour. Enterprise plans available for higher volume.</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-4 bg-surface-container-low rounded-lg">
+                                    <p class="font-label-sm text-label-sm text-outline">Current API Status</p>
+                                    <p class="text-sm font-bold text-on-tertiary-container mt-1"><i class="fa-solid fa-circle text-green-500 text-xs mr-1"></i> Operational</p>
+                                </div>
+                                <div class="p-4 bg-surface-container-low rounded-lg">
+                                    <p class="font-label-sm text-label-sm text-outline">API Version</p>
+                                    <p class="text-sm font-bold text-primary mt-1">v2.4.0 (Stable)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Study Preferences -->
+                    <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="study-section" data-section-name="study">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-book-open"></i> Study Preferences</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+                                <div>
+                                    <p class="font-label-md text-label-md text-primary">Weekly Study Reminders</p>
+                                    <p class="text-xs text-outline">Get a digest of upcoming classes and tasks</p>
+                                </div>
+                                <label class="toggle-container">
+                                    <input type="checkbox" class="toggle-input" checked/>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+                                <div>
+                                    <p class="font-label-md text-label-md text-primary">Focus Mode</p>
+                                    <p class="text-xs text-outline">Minimize distractions during study sessions</p>
+                                </div>
+                                <label class="toggle-container">
+                                    <input type="checkbox" class="toggle-input"/>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="font-label-sm text-outline block mb-2">Default Study Duration</label>
+                                <select class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none">
+                                    <option>25 minutes (Pomodoro)</option>
+                                    <option>45 minutes (Classic)</option>
+                                    <option>60 minutes (Extended)</option>
+                                    <option>90 minutes (Deep Work)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Data Management -->
+                    <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="data-section" data-section-name="data">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-database"></i> Data Management</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-surface-container-low rounded-lg">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-label-md text-primary">Storage Used</span>
+                                    <span class="text-sm font-bold">2.8 GB / 10 GB</span>
+                                </div>
+                                <div class="w-full bg-surface-container-highest rounded-full h-2">
+                                    <div class="bg-secondary h-2 rounded-full" style="width: 28%"></div>
+                                </div>
+                            </div>
+                            <button class="w-full py-3 bg-primary/5 border border-outline-variant rounded-xl font-label-md hover:bg-primary/10 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-regular fa-trash-can"></i> Clear Download Cache
+                            </button>
+                            <button class="w-full py-3 bg-error/10 border border-error/20 rounded-xl text-error font-label-md hover:bg-error/20 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-circle-exclamation"></i> Request Account Data Export
+                            </button>
+                            <div class="pt-4 border-t border-outline-variant/30">
+                                <p class="text-xs text-outline text-center">Data retention: 7 years for academic records. <a href="#" class="text-secondary hover:underline">Learn more</a></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Logout -->
+                    <div class="mt-4 mb-10">
+                        <button class="w-full py-5 bg-error/10 hover:bg-error/20 text-error border-2 border-error/20 rounded-2xl flex items-center justify-center gap-3 transition-all btn-scale" onclick="handleLogout(event)">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span class="font-headline-md text-headline-md">Logout Session</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- AI Chat Pane -->
+<div id="aiChatPane" class="fixed top-0 right-0 h-full w-96 bg-surface-container-lowest border-l border-outline-variant shadow-xl z-40 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest flex-shrink-0">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-robot text-secondary text-lg"></i>
+            <h3 class="font-label-md text-primary font-bold">AI Support</h3>
+        </div>
+        <button id="closeAiChat" class="p-2 hover:bg-surface-container rounded-full transition-colors">
+            <i class="fa-solid fa-times"></i>
+        </button>
+    </div>
+    <div class="flex-1 w-full bg-white">
+        <iframe src="https://supportbot.naijaassets.com" class="w-full h-full border-0" title="NaijaAssets AI Assistant" loading="lazy"></iframe>
+    </div>
+</div>
+
+<!-- Floating AI Chat Button -->
+<button id="aiChatToggle" class="ai-floating-btn fixed bottom-6 right-6 z-50 w-14 h-14 bg-secondary text-white rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center justify-center" aria-label="Open AI Chat">
+    <i class="fa-solid fa-comments text-xl"></i>
+</button>
+
+<!-- Existing UI Logic (Unchanged) -->
+<script>
+    // ===== SIDEBAR TOGGLE (Desktop only) =====
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const icon = document.getElementById('sidebarToggleIcon');
+        sidebar.classList.toggle('collapsed');
+        if (sidebar.classList.contains('collapsed')) {
+            icon.className = 'fa-solid fa-chevron-right text-xl';
+            document.querySelectorAll('.menu-expanded').forEach(el => {
+                if (el.id !== 'settings-menu') el.classList.remove('menu-expanded');
+            });
+        } else { 
+            icon.className = 'fa-solid fa-chevron-left text-xl'; 
+        }
+    }
+    
+    // ===== SUBMENU TOGGLE =====
+    function toggleMenu(id) {
+        const menu = document.getElementById(id);
+        const button = menu.querySelector('button');
+        const isExpanded = menu.classList.toggle('menu-expanded');
+        button.setAttribute('aria-expanded', isExpanded);
+    }
+    
+    // ===== MOBILE MENU (Uses Full Desktop Sidebar) =====
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const sidebar = document.getElementById('sidebar');
+    
+    function openMobileMenu() {
+        // Ensure sidebar is fully expanded on mobile
+        sidebar.classList.remove('collapsed');
+        sidebar.classList.add('active');
+        mobileOverlay.classList.add('active');
+        document.body.classList.add('menu-open');
+    }
+    
+    function closeMobileMenu() {
+        sidebar.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    }
+    
+    if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', openMobileMenu);
+    if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
+    
+    // Close mobile menu when clicking non-settings links
+    document.querySelectorAll('#sidebar a:not([data-section])').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 1024) closeMobileMenu();
+        });
+    });
+    
+    // ===== OPEN AI CHAT =====
+    function openAIChat(event) {
+        if (event) event.preventDefault();
+        const aiPane = document.getElementById('aiChatPane');
+        const aiToggle = document.getElementById('aiChatToggle');
+        const mainWrapper = document.getElementById('mainWrapper');
+        
+        aiPane.classList.remove('translate-x-full');
+        aiPane.classList.add('translate-x-0');
+        aiToggle.classList.add('hidden');
+        if (window.innerWidth >= 1024) {
+            mainWrapper.style.marginRight = '24rem';
+        }
+        if (window.innerWidth < 1024) closeMobileMenu();
+    }
+    
+    // ===== HANDLE LOGOUT =====
+    function handleLogout(event) {
+        if (event) event.preventDefault();
+        if (confirm('Are you sure you want to logout?')) {
+            window.location.href = '/login';
+        }
+    }
+    
+    // ===== NAVIGATE TO SECTION =====
+    function navigateToSection(event, sectionId) {
+        if (event) event.preventDefault();
+        
+        const section = document.getElementById(sectionId);
+        if (!section) return;
+        
+        const sectionName = section.getAttribute('data-section-name');
+        
+        const url = new URL(window.location);
+        url.searchParams.set('section', sectionName);
+        history.pushState({ section: sectionName }, '', url);
+        
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        highlightActiveSection(sectionId);
+        
+        if (window.innerWidth < 1024) closeMobileMenu();
+    }
+    
+    // ===== HIGHLIGHT ACTIVE SECTION =====
+    function highlightActiveSection(sectionId) {
+        document.querySelectorAll('.settings-section-active').forEach(el => {
+            el.classList.remove('settings-section-active');
+        });
+        document.querySelectorAll('.settings-subitem-active').forEach(el => {
+            el.classList.remove('settings-subitem-active');
+        });
+        
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.classList.add('settings-section-active');
+            
+            const sectionName = section.getAttribute('data-section-name');
+            const sidebarItem = document.querySelector(`.settings-subitem[data-section="${sectionId}"]`);
+            if (sidebarItem) {
+                sidebarItem.classList.add('settings-subitem-active');
+                
+                const settingsMenu = document.getElementById('settings-menu');
+                if (settingsMenu && !settingsMenu.classList.contains('menu-expanded')) {
+                    settingsMenu.classList.add('menu-expanded');
+                }
+            }
+        }
+    }
+    
+    // ===== HANDLE URL ON PAGE LOAD =====
+    function handleInitialUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const sectionName = urlParams.get('section');
+        
+        if (sectionName) {
+            const sectionMap = {
+                'profile': 'profile-section',
+                'account': 'account-section',
+                'notifications': 'notif-section',
+                'security': 'security-section',
+                'appearance': 'appearance-section',
+                'api': 'api-section',
+                'study': 'study-section',
+                'data': 'data-section'
+            };
+            
+            const sectionId = sectionMap[sectionName];
+            if (sectionId) {
+                setTimeout(() => {
+                    highlightActiveSection(sectionId);
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 300);
+            }
+        } else {
+            highlightActiveSection('profile-section');
+        }
+    }
+    
+    // ===== HANDLE BROWSER BACK/FORWARD =====
+    window.addEventListener('popstate', (event) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const sectionName = urlParams.get('section');
+        
+        const sectionMap = {
+            'profile': 'profile-section',
+            'account': 'account-section',
+            'notifications': 'notif-section',
+            'security': 'security-section',
+            'appearance': 'appearance-section',
+            'api': 'api-section',
+            'study': 'study-section',
+            'data': 'data-section'
+        };
+        
+        if (sectionName && sectionMap[sectionName]) {
+            highlightActiveSection(sectionMap[sectionName]);
+            const section = document.getElementById(sectionMap[sectionName]);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    });
+    
+    // ===== AI CHAT TOGGLE =====
+    const aiToggle = document.getElementById('aiChatToggle');
+    const aiPane = document.getElementById('aiChatPane');
+    const closeAi = document.getElementById('closeAiChat');
+    const mainWrapper = document.getElementById('mainWrapper');
+    let aiOpen = false;
+
+    function toggleAiPane() {
+        aiOpen = !aiOpen;
+        if (aiOpen) {
+            aiPane.classList.remove('translate-x-full');
+            aiPane.classList.add('translate-x-0');
+            aiToggle.classList.add('hidden');
+            if (window.innerWidth >= 1024) {
+                mainWrapper.style.marginRight = '24rem';
+            }
+        } else {
+            aiPane.classList.add('translate-x-full');
+            aiPane.classList.remove('translate-x-0');
+            aiToggle.classList.remove('hidden');
+            mainWrapper.style.marginRight = '0';
+        }
+    }
+
+    aiToggle.addEventListener('click', toggleAiPane);
+    closeAi.addEventListener('click', toggleAiPane);
+    
+    // ===== SEARCH FILTER =====
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const sections = document.querySelectorAll('.settings-cat');
+            sections.forEach(section => {
+                const text = section.innerText.toLowerCase();
+                section.style.display = text.includes(term) ? 'flex' : 'none';
+            });
+        });
+    }
+    
+    // ===== WINDOW RESIZE =====
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024) {
+            sidebar.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            if (aiOpen) mainWrapper.style.marginRight = '24rem';
+        } else {
+            mainWrapper.style.marginRight = '0';
+        }
+    });
+    
+    // ===== TOGGLE SWITCHES =====
+    document.querySelectorAll('.toggle-input').forEach(toggle => {
+        toggle.addEventListener('change', function() {
+            console.log('Toggle changed:', this.checked);
+        });
+    });
+    
+    // ===== INTERSECTION OBSERVER =====
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.id;
+                const sectionName = entry.target.getAttribute('data-section-name');
+                
+                const url = new URL(window.location);
+                url.searchParams.set('section', sectionName);
+                history.replaceState({ section: sectionName }, '', url);
+                
+                highlightActiveSection(sectionId);
+            }
+        });
+    }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+    });
+    
+    document.querySelectorAll('section[data-section-name]').forEach(section => {
+        sectionObserver.observe(section);
+    });
+    
+    // ===== INITIALIZE =====
+    document.addEventListener('DOMContentLoaded', handleInitialUrl);
+</script>
+
+<!-- NEW: Supabase Integration Logic -->
+<script type="module">
+    import { initializeAuth, requireAuth, signOut } from '../../auth.js';
+    import { getSubscriptionStatus, getRexStatus } from '../../utils.js';
+
+    async function initSettingsPage() {
+        // 1. Initialize Auth & Check Session
+        await initializeAuth();
+        if (!requireAuth()) return;
+
+        const user = window.currentUser;
+        const session = window.currentSession;
+
+        // 2. Dynamic Profile Data Injection
+        const meta = session.user.user_metadata || {};
+        const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
+        
+        // Sidebar Profile
+        const sidebarName = document.querySelector('.profile-section .profile-details p.font-bold');
+        const sidebarEmail = document.querySelector('.profile-section .profile-details p.text-outline');
+        if (sidebarName) sidebarName.textContent = fullName;
+        if (sidebarEmail) sidebarEmail.textContent = user.email;
+
+        // Header Profile
+        const headerName = document.querySelector('.header-profile .text-right p.text-primary');
+        const headerLevel = document.querySelector('.header-profile .text-right p.text-outline');
+        if (headerName) headerName.textContent = fullName;
+        if (headerLevel) headerLevel.textContent = user.grade || 'Student';
+
+        // Profile Settings Inputs
+        const profileNameInput = document.querySelector('#profile-section input[type="text"]');
+        const profileEmailInput = document.querySelector('#profile-section input[type="email"]');
+        const profilePhoneInput = document.querySelector('#profile-section input[type="tel"]');
+        
+        if (profileNameInput) profileNameInput.value = fullName;
+        if (profileEmailInput) profileEmailInput.value = user.email;
+        if (profilePhoneInput && meta.phone) profilePhoneInput.value = meta.phone;
+
+        // 3. Subscription & REX Display
+        const accountSection = document.getElementById('account-section');
+        if (accountSection) {
+            const subStatus = getSubscriptionStatus(user.subscription_expires_at);
+            const rexStatus = getRexStatus(user);
+
+            const statusHtml = `
+                <div class="mt-6 pt-6 border-t border-outline-variant">
+                    <h4 class="font-label-md text-label-md text-outline mb-4 flex items-center gap-2"><i class="fa-solid fa-crown"></i> Subscription Status</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant/30">
+                            <p class="font-label-sm text-label-sm text-outline mb-1">Tuition Subscription</p>
+                            <p class="text-sm font-bold ${subStatus.status === 'active' || subStatus.status === 'expires_soon' ? 'text-on-tertiary-container' : 'text-error'} flex items-center gap-1">
+                                <i class="fa-solid fa-circle text-[8px]"></i> ${subStatus.status.charAt(0).toUpperCase() + subStatus.status.slice(1).replace('_', ' ')}
+                            </p>
+                            <p class="text-xs text-outline mt-1">${subStatus.message}</p>
+                        </div>
+                        <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant/30">
+                            <p class="font-label-sm text-label-sm text-outline mb-1">REX Recording Access</p>
+                            <p class="text-sm font-bold ${rexStatus.active ? 'text-on-tertiary-container' : 'text-outline'} flex items-center gap-1">
+                                <i class="fa-solid fa-circle text-[8px]"></i> ${rexStatus.active ? 'Active' : 'Inactive'}
+                            </p>
+                            <p class="text-xs text-outline mt-1">${rexStatus.message}</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-outline mt-4 italic flex items-center gap-1"><i class="fa-solid fa-circle-info"></i> Subscription changes are managed by the administration. Please contact support to renew or upgrade.</p>
+                </div>
+            `;
+            accountSection.insertAdjacentHTML('beforeend', statusHtml);
+        }
+
+        // 4. Logout Functionality Override
+        window.handleLogout = function(event) {
+            if (event) event.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                signOut();
+            }
+        };
+    }
+
+    // Run initialization
+    initSettingsPage();
+</script>
+</body>
+</html>

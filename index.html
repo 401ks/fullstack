@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>NaijaAssets | Structured Online Learning</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=Geist:wght@500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#76777d",
+                    "on-surface": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "primary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "primary-container": "#131b2e",
+                    "on-secondary-fixed": "#00174b",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "surface": "#f7f9fb",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e0e3e5",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-fixed-dim": "#4fdbc8",
+                    "on-tertiary-container": "#009485",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#00201c",
+                    "on-primary": "#ffffff",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#316bf3",
+                    "surface-container": "#eceef0",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary-fixed-variant": "#005048",
+                    "outline-variant": "#c6c6cd",
+                    "secondary": "#0051d5",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#003ea8",
+                    "surface-tint": "#565e74",
+                    "surface-dim": "#d8dadc",
+                    "inverse-primary": "#bec6e0",
+                    "inverse-on-surface": "#eff1f3",
+                    "primary-fixed": "#dae2fd",
+                    "tertiary-container": "#00201c",
+                    "on-background": "#191c1e",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-fixed": "#71f8e4",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-primary-fixed": "#131b2e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "stack-sm": "8px",
+                    "unit": "8px",
+                    "margin-desktop": "32px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "label-md": ["Geist"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Geist"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body { font-family: 'Manrope', sans-serif; background-color: #f7f9fb; overflow-x: hidden; }
+      
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      
+      .hero-gradient {
+        background: radial-gradient(circle at 50% 50%, rgba(0, 81, 213, 0.08) 0%, rgba(247, 249, 251, 0) 70%);
+      }
+      
+      .hero-bg {
+        background-image: url('https://data.naijaassets.com/coverim.jpeg');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+      .hero-bg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top, 
+          rgba(247, 249, 251, 0.97) 0%, 
+          rgba(247, 249, 251, 0.9) 30%, 
+          rgba(247, 249, 251, 0.65) 60%, 
+          rgba(247, 249, 251, 0.3) 100%
+        );
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+      }
+      
+      /* Mobile Menu - Slides from LEFT like dashboard */
+      .mobile-menu-overlay {
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+      }
+      .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .mobile-menu-overlay.inactive {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .mobile-menu {
+        transition: transform 0.3s ease-in-out;
+      }
+      .mobile-menu.active {
+        transform: translateX(0);
+      }
+      .mobile-menu.inactive {
+        transform: translateX(-100%);
+      }
+      
+      /* Custom scrollbar */
+      .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+      
+      /* Scroll animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased">
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay inactive fixed inset-0 bg-[#0d1c2e]/50 backdrop-blur-sm z-[90] md:hidden" id="mobile-menu-overlay"></div>
+
+<!-- Mobile Menu - Slides from LEFT -->
+<div class="mobile-menu inactive fixed top-0 left-0 h-full w-[85%] max-w-[320px] bg-surface-container-lowest shadow-2xl z-[100] md:hidden flex flex-col" id="mobile-menu">
+    <div class="flex justify-between items-center p-5 border-b border-outline-variant/30">
+        <a href="/" class="flex items-center gap-3">
+            <i class="fa-solid fa-graduation-cap text-secondary text-2xl flex-shrink-0"></i>
+            <div class="flex flex-col">
+                <span class="font-display-lg text-primary text-lg font-bold leading-tight">NaijaAssets</span>
+                <span class="font-label-sm text-outline text-[10px] uppercase tracking-wider">Student Portal</span>
+            </div>
+        </a>
+        <button class="text-on-surface-variant text-2xl p-2 hover:text-secondary transition-colors" id="mobile-menu-close" aria-label="Close menu">
+            <i class="fa-solid fa-times"></i>
+        </button>
+    </div>
+    
+    <!-- Profile Card -->
+    <div class="px-4 py-4 border-b border-outline-variant/30">
+        <a href="/login" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors">
+            <img alt="Guest User" class="w-10 h-10 rounded-full object-cover flex-shrink-0 bg-secondary/10" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230051d5'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E"/>
+            <div class="profile-details overflow-hidden">
+                <p class="font-label-md text-primary font-bold truncate">Guest User</p>
+                <p class="text-[10px] text-outline truncate mb-1">Not signed in</p>
+                <span class="text-[10px] text-secondary font-bold">Sign in to continue</span>
+            </div>
+        </a>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto custom-scrollbar">
+        <a href="/" class="flex items-center gap-3 px-4 py-3 text-primary font-semibold bg-surface-container rounded-lg">
+            <i class="fa-solid fa-house w-5 text-center"></i>
+            <span class="font-label-md text-label-md">Home</span>
+        </a>
+        <a href="/about" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-circle-info w-5 text-center"></i>
+            <span class="font-label-md text-label-md">About</span>
+        </a>
+        <a href="/subjects" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-book-open w-5 text-center"></i>
+            <span class="font-label-md text-label-md">Subjects</span>
+        </a>
+        <a href="/pricing" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-tag w-5 text-center"></i>
+            <span class="font-label-md text-label-md">Pricing</span>
+        </a>
+        <a href="/faq" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-circle-question w-5 text-center"></i>
+            <span class="font-label-md text-label-md">FAQ</span>
+        </a>
+        <a href="/contact" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-envelope w-5 text-center"></i>
+            <span class="font-label-md text-label-md">Contact</span>
+        </a>
+    </nav>
+    
+    <!-- Footer Links -->
+    <div class="px-4 py-4 border-t border-outline-variant/30">
+        <div class="flex flex-wrap gap-4 text-[11px]">
+            <a href="/privacy" class="text-outline hover:text-primary transition-colors">Privacy</a>
+            <a href="/terms" class="text-outline hover:text-primary transition-colors">Terms</a>
+            <a href="/support" class="text-outline hover:text-primary transition-colors">Support</a>
+        </div>
+    </div>
+</div>
+
+<!-- TopNavBar - Matches Dashboard -->
+<nav class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md shadow-sm border-b border-outline-variant/30">
+    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-16">
+        <a href="/" class="flex items-center gap-3">
+            <i class="fa-solid fa-graduation-cap text-secondary text-2xl flex-shrink-0"></i>
+            <div class="flex flex-col">
+                <span class="font-display-lg text-primary text-lg font-bold leading-tight">NaijaAssets</span>
+                <span class="font-label-sm text-outline text-[10px] uppercase tracking-wider hidden sm:block">Student Portal</span>
+            </div>
+        </a>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center gap-6">
+            <a href="/" class="font-body-md text-body-md text-primary font-semibold">Home</a>
+            <a href="/about" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">About</a>
+            <a href="/subjects" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Subjects</a>
+            <a href="/pricing" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Pricing</a>
+            <a href="/faq" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">FAQ</a>
+            <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
+        </div>
+        
+        <!-- Desktop Auth Buttons -->
+        <div class="hidden md:flex items-center gap-3">
+            <a href="/login" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors px-4 py-2">
+                Login
+            </a>
+            <a href="/login?create=account" class="font-body-md text-body-md bg-secondary text-white hover:bg-secondary/90 transition-colors px-5 py-2 rounded-xl shadow-sm active:scale-95 transition-transform">
+                Get Started
+            </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-on-surface text-2xl p-2 focus:outline-none" id="mobile-menu-btn" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<main class="pt-16">
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden pt-20 pb-28 md:pt-28 md:pb-40 hero-bg">
+        <div class="relative max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col items-center text-center z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-secondary/10 text-secondary rounded-full border border-secondary/20 mb-8 reveal">
+                <i class="fa-solid fa-graduation-cap text-[16px]"></i>
+                <span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Next-Gen Education</span>
+            </div>
+            <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg max-w-4xl text-on-surface mb-6 leading-tight reveal">
+                Structured Online Learning That Actually Helps Students Understand
+            </h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-10 leading-relaxed reveal">
+                Experience educational excellence with live tutoring sessions, automated class reminders, and 24/7 access to high-definition recordings. We bridge the gap between curriculum and comprehension.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 items-center w-full sm:w-auto reveal">
+                <a href="/login?create=account" class="w-full sm:w-auto font-body-md text-body-md bg-secondary text-white px-10 py-4 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95 text-center font-semibold">
+                    Create Account
+                </a>
+                <a href="/login" class="w-full sm:w-auto font-body-md text-body-md bg-surface-container-lowest text-on-surface border border-outline-variant/30 px-10 py-4 rounded-xl hover:bg-surface-container transition-colors active:scale-95 text-center font-semibold">
+                    Login
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Grid -->
+    <section class="py-20 md:py-28 bg-surface-container-lowest">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="font-headline-lg text-headline-lg mb-4">Why Students Choose Us</h2>
+                <p class="text-on-surface-variant font-body-md max-w-xl mx-auto">Everything you need to succeed, built around how you actually learn.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <!-- Feature 1 -->
+                <div class="group p-6 md:p-8 rounded-2xl bg-surface border border-outline-variant/20 hover:border-secondary/40 transition-all duration-300 hover:shadow-xl hover:shadow-secondary/5 reveal">
+                    <div class="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 group-hover:bg-secondary group-hover:text-white transition-all">
+                        <i class="fa-solid fa-video text-2xl"></i>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md mb-3">Live Classes</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant">
+                        Interactive real-time sessions with subject matter experts. Ask questions, get instant feedback, and learn in a collaborative environment.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="group p-6 md:p-8 rounded-2xl bg-surface border border-outline-variant/20 hover:border-secondary/40 transition-all duration-300 hover:shadow-xl hover:shadow-secondary/5 reveal">
+                    <div class="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 group-hover:bg-secondary group-hover:text-white transition-all">
+                        <i class="fa-solid fa-bell text-2xl"></i>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md mb-3">Class Reminders</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant">
+                        Never miss a lesson. Automated SMS and push notifications keep your schedule organized and ensure you're always ready for your next class.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="group p-6 md:p-8 rounded-2xl bg-surface border border-outline-variant/20 hover:border-secondary/40 transition-all duration-300 hover:shadow-xl hover:shadow-secondary/5 reveal">
+                    <div class="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 group-hover:bg-secondary group-hover:text-white transition-all">
+                        <i class="fa-solid fa-clock-rotate-left text-2xl"></i>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md mb-3">Recordings Access</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant">
+                        Life happens. Access the full library of past classes anytime. Re-watch difficult concepts and learn at your own comfortable pace.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="py-20 md:py-28 bg-background relative overflow-hidden">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="font-headline-lg text-headline-lg mb-4">Your Learning Hub, Simplified</h2>
+                <p class="text-on-surface-variant font-body-md max-w-xl mx-auto">Everything you need to succeed, organized into a clean, distraction-free environment.</p>
+            </div>
+            
+            <!-- Dashboard Mockup -->
+            <div class="relative mx-auto max-w-5xl rounded-2xl border border-outline-variant/30 shadow-2xl bg-white p-2 md:p-4 overflow-hidden reveal">
+                <div class="bg-surface-container-low rounded-xl overflow-hidden flex flex-col md:flex-row h-[600px] md:h-[500px]">
+                    <!-- Sidebar Mockup -->
+                    <div class="w-full md:w-56 border-b md:border-b-0 md:border-r border-outline-variant/20 bg-white p-4 flex md:flex-col gap-4 overflow-x-auto">
+                        <div class="h-8 w-8 bg-secondary rounded-lg flex-shrink-0 hidden md:block"></div>
+                        <div class="space-y-3 flex md:flex-col gap-3 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
+                            <div class="h-4 bg-surface-container-high rounded w-24 md:w-full flex-shrink-0"></div>
+                            <div class="h-4 bg-surface-container-high rounded w-20 md:w-3/4 flex-shrink-0"></div>
+                            <div class="h-4 bg-surface-container-high rounded w-28 md:w-5/6 flex-shrink-0"></div>
+                            <div class="h-4 bg-surface-container-high rounded w-16 md:w-2/3 flex-shrink-0"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dashboard Content -->
+                    <div class="flex-1 p-4 md:p-8 overflow-y-auto space-y-6 md:space-y-8">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h4 class="font-headline-md text-headline-md">Welcome back, Alex!</h4>
+                                <p class="font-label-md text-label-md text-on-surface-variant">You have 2 classes scheduled for today.</p>
+                            </div>
+                            <div class="hidden md:block">
+                                <span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-label-sm font-semibold">Active Subscription</span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                            <!-- Next Class Card -->
+                            <div class="bg-white p-4 md:p-6 rounded-xl border border-outline-variant/30 shadow-sm">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="font-label-md text-label-md text-secondary font-semibold">LIVE NOW</div>
+                                    <i class="fa-solid fa-signal-stream text-secondary"></i>
+                                </div>
+                                <h5 class="font-bold text-lg mb-1">Advanced Mathematics</h5>
+                                <p class="text-on-surface-variant text-sm mb-6">Topic: Differential Equations</p>
+                                <a href="/login" class="w-full py-3 bg-secondary text-white rounded-lg font-bold hover:bg-secondary/90 flex items-center justify-center gap-2 transition-colors">
+                                    <i class="fa-solid fa-circle-play text-[20px]"></i>
+                                    Join Class
+                                </a>
+                            </div>
+                            
+                            <!-- Payment Status Card -->
+                            <div class="bg-white p-4 md:p-6 rounded-xl border border-outline-variant/30 shadow-sm flex flex-col justify-between">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h5 class="font-bold text-lg">Billing &amp; Status</h5>
+                                    <span class="text-xs text-on-surface-variant">Last paid: Oct 12</span>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm">
+                                        <span>Current Plan: Professional</span>
+                                        <span class="font-bold">₦25,000/mo</span>
+                                    </div>
+                                    <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+                                        <div class="bg-secondary h-full w-[80%]"></div>
+                                    </div>
+                                    <p class="text-xs text-on-surface-variant">Next billing in 12 days</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recordings Section -->
+                        <div class="space-y-4">
+                            <h5 class="font-bold text-lg">Recent Recordings</h5>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                <div class="group cursor-pointer">
+                                    <div class="relative aspect-video rounded-lg bg-surface-container-high overflow-hidden mb-2">
+                                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0GLIKEirb6Lf7yShs9u4peEbbUitNH8-r8-80kdQJo2esPMzu_uqIb--8vIaGUPumP5tTYY-HPcxkoj81QjDYy2oMvZdTP3AQBNHnZn_4pSEWz7a6nC5ODsqCx3XH6dL-04uP6n3tZ24460Cp-Tgd8sLCgeskKw-lHixmS8n4AnDWGPUFYQ2pYjziyE42_0VJ4QUzqM1jaahYNjz6xKIGI_y1V2btbPgj348PCOigsgHtzxgLbjNFJ3gEXehYtdeWTaAuGYOPV1s"/>
+                                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <i class="fa-solid fa-circle-play text-white text-4xl"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm font-bold truncate">Physics: Mechanics 101</p>
+                                    <p class="text-xs text-on-surface-variant">Duration: 45m</p>
+                                </div>
+                                
+                                <div class="group cursor-pointer">
+                                    <div class="relative aspect-video rounded-lg bg-surface-container-high overflow-hidden mb-2">
+                                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCprQwvSlZ9oJDKKtHmQ2_dQL8WZWpOMjHXfqMFIoab9lsRV0VJEoRBLQIfzuwEndP4IIynCEao7vFI_4FFqnHFwAorH46r5k483FuzDqlZasgkzHmY5-AVuXHjNoIlC0L13CUHKZuk83FFBu0kBxkwJrRaQUXHZSLglCPOknv7lrnQPfo-e7gZjcJNLmd5RVYRwqB9dlJtpfu1tL9Z_xkdlnIcZgXmUoRGIiw4CjeeyWH-s7bjJLaYdJLqIpcceEeZgzifOcVYqjE"/>
+                                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <i class="fa-solid fa-circle-play text-white text-4xl"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm font-bold truncate">Biology: Cell Theory</p>
+                                    <p class="text-xs text-on-surface-variant">Duration: 52m</p>
+                                </div>
+                                
+                                <div class="group cursor-pointer hidden md:block">
+                                    <div class="relative aspect-video rounded-lg bg-surface-container-high overflow-hidden mb-2">
+                                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzNLkd6BLWDO_xFiFBAopycvejYMoBy_oNpHN1JyVq2J5Gi6nCIojwm72JBBZRVdaHgO2cS3qvN206vDUvX6Qw7VaMv7h3w75lXEMLrnRnNlP_oOjO1Ai0joPPPtIjg3-h7L2bIKmxOm2dtbrJz4x38Aft71rLoqVTzi1NubyGPaE8YZzgJruz9QVKHwwKwX7QWwg_eHg7xs00ajReCAZRGdN9Ygg_HlRhDJhU32sCiubq1feb4hwflR9wncgEqeDbDo4bJ9SY81c"/>
+                                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <i class="fa-solid fa-circle-play text-white text-4xl"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm font-bold truncate">Chemistry: Stoichiometry</p>
+                                    <p class="text-xs text-on-surface-variant">Duration: 38m</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Decorative accents -->
+                <div class="absolute -top-12 -right-12 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-12 -left-12 w-64 h-64 bg-secondary-container/10 rounded-full blur-3xl"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 md:py-28 bg-surface-container-low">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
+            <h2 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-6">Ready to start your journey?</h2>
+            <p class="text-on-surface-variant font-body-lg max-w-2xl mx-auto mb-10">Join thousands of students across Nigeria achieving academic excellence through structured online learning.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="/login?create=account" class="bg-secondary text-white px-10 py-4 rounded-xl font-bold hover:bg-secondary/90 transition-colors text-center">Create Free Account</a>
+                <a href="/contact" class="bg-transparent border border-outline-variant/30 text-on-surface px-10 py-4 rounded-xl font-bold hover:bg-surface-container transition-colors text-center">Contact Support</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface-dim border-t border-outline-variant/30 py-stack-lg px-margin-mobile md:px-margin-desktop">
+    <div class="max-w-container-max mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div class="md:col-span-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fa-solid fa-graduation-cap text-secondary text-2xl"></i>
+                    <div class="flex flex-col">
+                        <span class="font-headline-md font-bold text-primary">NaijaAssets</span>
+                        <span class="text-[10px] text-outline uppercase tracking-wider">Student Portal</span>
+                    </div>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant mb-6 max-w-xs">
+                    Structured online tutoring for Nigerian secondary school students.
+                </p>
+                <div class="flex gap-3">
+                    <a href="/fb" aria-label="Facebook" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="/tk" aria-label="TikTok" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="/ig" aria-label="Instagram" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="/x" aria-label="X/Twitter" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="md:col-span-1">
+                <h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-4 uppercase tracking-wide">Navigation</h4>
+                <nav class="flex flex-col gap-3">
+                    <a href="/" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Home</a>
+                    <a href="/about" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">About</a>
+                    <a href="/subjects" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Subjects</a>
+                    <a href="/pricing" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Pricing</a>
+                    <a href="/faq" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">FAQ</a>
+                    <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
+                </nav>
+            </div>
+
+            <div class="md:col-span-1">
+                <h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-4 uppercase tracking-wide">Subjects</h4>
+                <nav class="flex flex-col gap-3">
+                    <a href="/subjects/mathematics" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Mathematics</a>
+                    <a href="/subjects/science" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Science</a>
+                    <a href="/subjects/waec" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">WAEC Prep</a>
+                </nav>
+            </div>
+
+            <div class="md:col-span-1">
+                <h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-4 uppercase tracking-wide">Legal</h4>
+                <nav class="flex flex-col gap-3">
+                    <a href="/privacy" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Privacy Policy</a>
+                    <a href="/terms" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Terms of Service</a>
+                    <a href="/support" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Support</a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-outline-variant/30 gap-4">
+            <p class="font-label-sm text-label-sm text-on-surface-variant">© 2026 NaijaAssets. All rights reserved.</p>
+            <div class="flex gap-5">
+                <a href="/fb" aria-label="Facebook" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
+                    <i class="fa-brands fa-facebook-f"></i> Facebook
+                </a>
+                <a href="/tk" aria-label="TikTok" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
+                    <i class="fa-brands fa-tiktok"></i> TikTok
+                </a>
+                <a href="/ig" aria-label="Instagram" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
+                    <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+                <a href="/x" aria-label="X/Twitter" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
+                    <i class="fa-brands fa-x-twitter"></i> X
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const body = document.body;
+
+    function openMenu() {
+        mobileMenu.classList.remove('inactive');
+        mobileMenu.classList.add('active');
+        mobileMenuOverlay.classList.remove('inactive');
+        mobileMenuOverlay.classList.add('active');
+        body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+        mobileMenu.classList.remove('active');
+        mobileMenu.classList.add('inactive');
+        mobileMenuOverlay.classList.remove('active');
+        mobileMenuOverlay.classList.add('inactive');
+        body.style.overflow = '';
+    }
+
+    mobileMenuBtn.addEventListener('click', openMenu);
+    mobileMenuClose.addEventListener('click', closeMenu);
+    mobileMenuOverlay.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) closeMenu();
+    });
+
+    // Scroll reveal animations
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    });
+</script>
+</body>
+</html>
