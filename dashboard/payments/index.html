@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>NaijaAssets · Payments | Student Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Hanken+Grotesk:wght@100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#76777d",
+                    "on-surface": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "primary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "primary-container": "#131b2e",
+                    "on-secondary-fixed": "#00174b",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "surface": "#f7f9fb",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e0e3e5",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-fixed-dim": "#4fdbc8",
+                    "on-tertiary-container": "#009485",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#00201c",
+                    "on-primary": "#ffffff",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#316bf3",
+                    "surface-container": "#eceef0",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary-fixed-variant": "#005048",
+                    "outline-variant": "#c6c6cd",
+                    "secondary": "#0051d5",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#003ea8",
+                    "surface-tint": "#565e74",
+                    "surface-dim": "#d8dadc",
+                    "inverse-primary": "#bec6e0",
+                    "inverse-on-surface": "#eff1f3",
+                    "primary-fixed": "#dae2fd",
+                    "tertiary-container": "#00201c",
+                    "on-background": "#191c1e",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-fixed": "#71f8e4",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-primary-fixed": "#131b2e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "stack-sm": "8px",
+                    "unit": "8px",
+                    "margin-desktop": "32px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "label-md": ["Geist"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Geist"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+        body { 
+            background-color: #F8FAFC; 
+            color: #191c1e;
+            font-family: 'Manrope', sans-serif; 
+        }
+        .fa-solid, .fa-regular { font-size: 1.25rem; }
+        .card-shadow { box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
+        .transition-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .transition-lift:hover { transform: translateY(-4px); box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.1); }
+        
+        /* Sidebar - NO Hover Expand */
+        #sidebar { 
+            width: 256px; 
+            overflow: hidden; 
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #sidebar.collapsed { width: 80px; }
+        #sidebar.collapsed .sidebar-text,
+        #sidebar.collapsed .profile-details,
+        #sidebar.collapsed .submenu,
+        #sidebar.collapsed .sidebar-header-text { display: none; }
+        #sidebar.collapsed .sidebar-item { justify-content: center; padding-left: 0; padding-right: 0; }
+        #sidebar.collapsed .sidebar-chevron { display: none; }
+        #sidebar.collapsed .sidebar-logo-container { justify-content: center; padding: 0; }
+        #sidebar.collapsed .profile-section { padding: 16px 8px; justify-content: center; }
+        #sidebar.collapsed .profile-section img { margin-right: 0; }
+        
+        /* Submenu - Click to Expand Only */
+        .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .menu-expanded .submenu { max-height: 300px; }
+        .menu-expanded .sidebar-chevron { transform: rotate(180deg); }
+        
+        /* AI Chat Pane Transitions */
+        #mainWrapper { transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .ai-floating-btn {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .ai-floating-btn.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+        
+        /* Receipt Upload Widget Styles */
+        .receipt-upload-widget {
+            background: #fff;
+            padding: 28px;
+            border-radius: 28px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            transition: box-shadow 0.2s;
+        }
+        .receipt-upload-widget:hover { box-shadow: 0 12px 28px rgba(0,0,0,0.08); }
+        .ruw-group { margin-bottom: 20px; }
+        .ruw-label { display: block; font-size: 14px; font-weight: 600; color: #2d3748; margin-bottom: 8px; }
+        .ruw-input { 
+            width: 100%; padding: 14px 16px; border: 1px solid #cbd5e0; border-radius: 20px; 
+            box-sizing: border-box; font-family: inherit; transition: all 0.2s; background: #fafbfc;
+        }
+        .ruw-input:focus { outline: none; border-color: #0051D5; box-shadow: 0 0 0 3px rgba(0,81,213,0.1); background: white; }
+        .ruw-dropzone { 
+            border: 2px dashed #cbd5e0; padding: 36px 24px; text-align: center; 
+            border-radius: 24px; cursor: pointer; color: #718096; transition: 0.2s; background: #f8fafc;
+        }
+        .ruw-dropzone:hover { border-color: #0051D5; color: #0051D5; background: #eff6ff; }
+        .ruw-dropzone i { font-size: 2.5rem; margin-bottom: 12px; display: block; color: #0051D5; }
+        .ruw-preview { margin-top: 16px; display: none; text-align: center; background: #f1f5f9; padding: 12px; border-radius: 20px; }
+        .ruw-preview img { max-width: 100%; max-height: 140px; border-radius: 16px; border: 1px solid #e2e8f0; }
+        .ruw-progress-wrap { margin-top: 16px; display: none; }
+        .ruw-progress-bar { height: 8px; background: #e2e8f0; border-radius: 20px; overflow: hidden; }
+        .ruw-fill { height: 100%; background: #0051D5; width: 0%; transition: width 0.3s; border-radius: 20px; }
+        .ruw-btn { 
+            width: 100%; background: #0051D5; color: white; border: none; 
+            padding: 14px; border-radius: 40px; font-weight: 600; cursor: pointer; margin-top: 20px; 
+            font-size: 15px; transition: all 0.2s;
+        }
+        .ruw-btn:hover { background: #003ea8; transform: translateY(-1px); }
+        .ruw-btn:active { transform: translateY(0); }
+        
+        /* Mobile Responsive */
+        @media (max-width: 1023px) {
+            #sidebar { position: fixed; left: -100%; z-index: 60; width: 280px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+            #sidebar.active { left: 0; }
+            .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; opacity: 0; visibility: hidden; transition: all 0.3s; }
+            .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+            .mobile-menu-toggle { display: block; }
+            .desktop-menu-toggle { display: none; }
+            header { padding-left: 60px !important; }
+            .header-profile { display: none; }
+            .grid-cols-2 { grid-template-columns: 1fr; }
+            .font-display-lg { font-size: 28px !important; line-height: 36px !important; }
+            .font-headline-md { font-size: 20px !important; }
+            .font-label-md { font-size: 13px !important; }
+            .rounded-3xl { border-radius: 20px !important; }
+            .p-stack-lg { padding: 20px !important; }
+            #aiChatPane { width: 100%; }
+        }
+        @media (min-width: 1024px) {
+            .mobile-menu-toggle { display: none; }
+            .desktop-menu-toggle { display: block; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<div class="mobile-menu-overlay" id="mobileOverlay"></div>
+
+<div class="flex min-h-screen">
+    <button class="mobile-menu-toggle fixed top-4 left-4 z-50 p-2 bg-surface-container-lowest rounded-lg shadow-lg border border-outline-variant text-on-surface lg:hidden" id="mobileMenuToggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars text-xl"></i>
+    </button>
+
+    <aside class="h-screen sticky left-0 top-0 w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col py-stack-lg shadow-sm z-50" id="sidebar">
+        <div class="px-4 mb-6 flex items-center justify-between sidebar-logo-container">
+            <div class="flex items-center gap-3 overflow-hidden">
+                <i class="fa-solid fa-graduation-cap text-secondary text-2xl flex-shrink-0"></i>
+                <div class="flex flex-col sidebar-header-text">
+                    <span class="font-display-lg text-primary text-lg font-bold leading-tight">NaijaAssets</span>
+                    <span class="font-label-sm text-outline text-[10px] uppercase tracking-wider">Student Portal</span>
+                </div>
+            </div>
+            <button class="p-1 hover:bg-surface-container rounded-full text-outline hover:text-primary transition-colors desktop-menu-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+                <i class="fa-solid fa-chevron-left text-xl" id="sidebarToggleIcon"></i>
+            </button>
+        </div>
+        
+        <div class="px-4 mb-6 profile-section">
+            <a href="#" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors">
+                <img alt="Daniel Okafor" class="w-10 h-10 rounded-full object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUUlOjD2NqHiozDk74aw-A3BNeSSnSOK0DLyDmSxUPw8t4VSZmRCrOTViEmVvpzn5AUNClDA6xEGSji0HYodD1cyh5n9koyszAs6Mzzhb9W_9fvAD8lO7LQjq5oENJXH449vkUJ5BbAckI0JvGCk8X-dMKB1lOoxn_CTP6eRTZSy-jKMAHXx2OC697aMu3wXPhDWV9I_Yq0-yl0XugRusbGJHhLeKubyGTw4Wy7YePrOlNy1XXHHka3WgFKcCXqEixu9-qPSYsWCk"/>
+                <div class="profile-details overflow-hidden">
+                    <p class="font-label-md text-primary font-bold truncate">Daniel Okafor</p>
+                    <p class="text-[10px] text-outline truncate mb-1">daniel.o@student.naijaassets.com</p>
+                    <span class="text-[10px] text-secondary font-bold">View Profile</span>
+                </div>
+            </a>
+        </div>
+        
+        <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span class="font-label-md text-label-md sidebar-text">Dashboard</span>
+            </a>
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+                <i class="fa-solid fa-school"></i>
+                <span class="font-label-md text-label-md sidebar-text">Classes</span>
+            </a>
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+                <i class="fa-solid fa-video"></i>
+                <span class="font-label-md text-label-md sidebar-text">Recordings</span>
+            </a>
+            <div class="group" id="resources-menu">
+                <button class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" onclick="toggleMenu('resources-menu')" aria-expanded="false">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <span class="font-label-md text-label-md sidebar-text">Resources</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i>
+                </button>
+                <div class="submenu pl-10 space-y-1 mt-1">
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-book text-xs"></i><span>Books</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-film text-xs"></i><span>Multimedia</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-file-lines text-xs"></i><span>Past Papers</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-folder-plus text-xs"></i><span>Other Resources</span></a>
+                </div>
+            </div>
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-primary font-bold border-r-4 border-secondary bg-surface-container rounded-l-lg transition-all" href="#">
+                <i class="fa-solid fa-credit-card"></i>
+                <span class="font-label-md text-label-md sidebar-text">Payments</span>
+            </a>
+            <div class="group" id="settings-menu">
+                <button class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" onclick="toggleMenu('settings-menu')" aria-expanded="false">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-gear"></i>
+                        <span class="font-label-md text-label-md sidebar-text">Settings</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i>
+                </button>
+                <div class="submenu pl-10 space-y-1 mt-1">
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-user-gear text-xs"></i><span>Account Settings</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-id-card text-xs"></i><span>Profile Settings</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-palette text-xs"></i><span>Visual Settings</span></a>
+                    <div class="pt-2 mt-2 border-t border-outline-variant/30 space-y-1">
+                        <a class="block py-2 text-sm text-secondary hover:opacity-80 transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-circle-question text-xs"></i><span>Get Help</span></a>
+                        <a class="block py-2 text-sm text-red-600 hover:opacity-80 transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-right-from-bracket text-xs"></i><span>Logout</span></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Footer Links -->
+        <div class="px-4 py-4 border-t border-outline-variant/30 mt-auto">
+            <div class="flex flex-wrap gap-4 text-[11px]">
+                <a href="/privacy" class="text-outline hover:text-primary transition-colors">Privacy</a>
+                <a href="/terms" class="text-outline hover:text-primary transition-colors">Terms</a>
+                <a href="/support" class="text-outline hover:text-primary transition-colors">Support</a>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Main Content Wrapper -->
+    <div id="mainWrapper" class="flex-1 overflow-y-auto">
+        <header class="sticky top-0 z-40 w-full flex gap-4 px-margin-desktop py-4 bg-background/50 backdrop-blur-md">
+            <div class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-4 flex items-center gap-3 card-shadow">
+                <i class="fa-solid fa-magnifying-glass text-outline"></i>
+                <input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface" placeholder="Search invoices, plans..." type="text" id="searchInput"/>
+            </div>
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-3 flex items-center gap-2 card-shadow">
+                <a href="#" class="relative p-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full transition-all"><i class="fa-regular fa-bell"></i><span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span></a>
+                <a href="#" class="p-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full transition-all"><i class="fa-regular fa-circle-question"></i></a>
+            </div>
+            <a href="#" class="header-profile bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 pl-4 pr-2 flex items-center gap-3 card-shadow">
+                <div class="text-right hidden xl:block">
+                    <p class="font-label-md text-label-md text-primary leading-none">Daniel Okafor</p>
+                    <p class="font-label-sm text-[10px] text-outline uppercase tracking-wider mt-1">Level 400 Student</p>
+                </div>
+                <img alt="Student Profile Avatar" class="w-10 h-10 rounded-full border border-outline-variant object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUUlOjD2NqHiozDk74aw-A3BNeSSnSOK0DLyDmSxUPw8t4VSZmRCrOTViEmVvpzn5AUNClDA6xEGSji0HYodD1cyh5n9koyszAs6Mzzhb9W_9fvAD8lO7LQjq5oENJXH449vkUJ5BbAckI0JvGCk8X-dMKB1lOoxn_CTP6eRTZSy-jKMAHXx2OC697aMu3wXPhDWV9I_Yq0-yl0XugRusbGJHhLeKubyGTw4Wy7YePrOlNy1XXHHka3WgFKcCXqEixu9-qPSYsWCk"/>
+            </a>
+        </header>
+        
+        <main class="px-margin-mobile md:px-margin-desktop pb-margin-desktop max-w-container-max mx-auto space-y-stack-lg">
+            <!-- Tuition Overview Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h2 class="font-headline-lg text-headline-lg text-primary">Tuition Overview</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Manage your academic investments, view active subscription models, and track your financial journey at NaijaAssets.</p>
+                </div>
+                <button class="bg-secondary text-on-secondary px-6 py-3 rounded-xl font-label-md flex items-center gap-2 shadow-premium hover:shadow-lg hover:-translate-y-0.5 transition-all btn-scale">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <span>Pay Tuition Now</span>
+                </button>
+            </div>
+
+            <!-- Bento Layout Top -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+                <!-- Active Plan Card -->
+                <div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl border border-outline-variant card-shadow relative overflow-hidden flex flex-col justify-between min-h-[240px]">
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <span class="bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full font-label-sm uppercase tracking-wider mb-2 inline-block">
+                                    <i class="fa-solid fa-circle-check mr-1 text-xs"></i>Active Plan
+                                </span>
+                                <h3 class="font-headline-md text-headline-md text-primary mt-2">Professional Plan</h3>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-headline-md text-headline-md text-secondary">₦25,000<span class="text-label-md text-outline font-normal">/mo</span></p>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Next billing: Oct 12, 2026</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-surface-container-low p-4 rounded-lg border border-outline-variant">
+                            <div class="w-12 h-8 bg-primary rounded flex items-center justify-center">
+                                <span class="text-[10px] text-white font-bold tracking-tighter">VISA</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-label-md text-label-md text-primary font-bold">•••• •••• •••• 4242</p>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Default Payment Method</p>
+                            </div>
+                            <i class="fa-solid fa-check-circle text-secondary text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="absolute top-0 right-0 w-64 h-64 opacity-[0.03] pointer-events-none -mr-16 -mt-16">
+                        <i class="fa-solid fa-chart-line text-8xl"></i>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-surface-container-lowest p-8 rounded-xl border border-outline-variant card-shadow flex flex-col justify-between">
+                    <h4 class="font-label-md text-label-md text-primary font-bold mb-4">Quick Actions</h4>
+                    <div class="space-y-3">
+                        <button class="w-full flex items-center justify-between p-4 bg-surface-bright border border-outline-variant rounded-lg hover:border-secondary transition-colors group">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-credit-card text-secondary text-lg"></i>
+                                <span class="font-label-md text-label-md">Update Payment Method</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-outline group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                        <button class="w-full flex items-center justify-between p-4 bg-surface-bright border border-outline-variant rounded-lg hover:border-secondary transition-colors group">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-file-invoice text-secondary text-lg"></i>
+                                <span class="font-label-md text-label-md">View Billing Policy</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-outline group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-outline-variant">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">Auto-renew is <span class="text-on-tertiary-container font-bold">Enabled</span>. You can manage this in settings.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECEIPT UPLOAD WIDGET SECTION -->
+            <div class="grid grid-cols-1 gap-gutter">
+                <div class="receipt-upload-widget" id="receiptWidget">
+                    <div class="flex items-center gap-3 mb-4 border-b border-outline-variant pb-3">
+                        <i class="fa-solid fa-receipt text-secondary text-xl"></i>
+                        <h3 class="font-headline-md text-headline-md text-primary">Upload Payment Confirmation</h3>
+                    </div>
+                    <div class="ruw-group">
+                        <label class="ruw-label"><i class="fa-solid fa-file-invoice mr-2"></i>Invoice Number</label>
+                        <input type="text" class="ruw-input" id="invoiceNumber" placeholder="e.g., INV-2026-0421">
+                    </div>
+
+                    <div class="ruw-dropzone" id="dropzone">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span style="display: block; margin-top: 8px;">Click or drag to upload receipt</span>
+                        <p class="text-xs mt-2 text-outline">Supported: JPG, PNG, PDF (max 5MB)</p>
+                    </div>
+                    <input type="file" id="receiptFile" class="ruw-input-file" hidden accept="image/*,application/pdf">
+
+                    <div class="ruw-preview" id="previewContainer">
+                        <img id="previewImg" class="ruw-preview-img">
+                        <p class="text-xs text-outline mt-1" id="fileNameDisplay"></p>
+                    </div>
+                    
+                    <div class="ruw-progress-wrap" id="progressWrap">
+                        <div class="ruw-progress-bar"><div class="ruw-fill" id="progressFill"></div></div>
+                        <p class="text-xs text-outline text-center mt-1">Uploading...</p>
+                    </div>
+
+                    <button class="ruw-btn" id="submitReceiptBtn">
+                        <i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT
+                    </button>
+                </div>
+            </div>
+
+            <!-- Payment History Table -->
+            <section class="bg-surface-container-lowest rounded-xl border border-outline-variant card-shadow overflow-hidden">
+                <div class="px-8 py-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low/30">
+                    <h3 class="font-headline-md text-headline-md text-primary">Payment History</h3>
+                    <button class="text-secondary font-label-md hover:underline flex items-center gap-1">
+                        <i class="fa-solid fa-filter text-xs"></i> Filter
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface-container-low text-on-surface-variant border-b border-outline-variant">
+                                <th class="px-8 py-4 font-label-md text-label-md font-bold uppercase tracking-wider">Date</th>
+                                <th class="px-8 py-4 font-label-md text-label-md font-bold uppercase tracking-wider">Description</th>
+                                <th class="px-8 py-4 font-label-md text-label-md font-bold uppercase tracking-wider">Amount</th>
+                                <th class="px-8 py-4 font-label-md text-label-md font-bold uppercase tracking-wider">Status</th>
+                                <th class="px-8 py-4 font-label-md text-label-md font-bold uppercase tracking-wider text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant">
+                            <tr class="hover:bg-surface-bright transition-colors group">
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Sept 12, 2025</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Tuition Fee - Professional Plan (Sept)</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦25,000</td>
+                                <td class="px-8 py-5">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-sm text-[12px] font-bold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Paid
+                                    </span>
+                                </td>
+                                <td class="px-8 py-5 text-right">
+                                    <button class="text-secondary font-label-md flex items-center gap-1 ml-auto group-hover:scale-105 transition-transform">
+                                        <i class="fa-solid fa-download text-sm"></i> Download Invoice
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-surface-bright transition-colors group">
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Aug 12, 2025</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Tuition Fee - Professional Plan (Aug)</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦25,000</td>
+                                <td class="px-8 py-5">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-sm text-[12px] font-bold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Paid
+                                    </span>
+                                </td>
+                                <td class="px-8 py-5 text-right">
+                                    <button class="text-secondary font-label-md flex items-center gap-1 ml-auto group-hover:scale-105 transition-transform">
+                                        <i class="fa-solid fa-download text-sm"></i> Download Invoice
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-surface-bright transition-colors group opacity-60">
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Oct 12, 2025</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Tuition Fee - Professional Plan (Oct)</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦25,000</td>
+                                <td class="px-8 py-5">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-[12px] font-bold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Pending
+                                    </span>
+                                </td>
+                                <td class="px-8 py-5 text-right">
+                                    <button class="text-outline font-label-md flex items-center gap-1 ml-auto cursor-not-allowed">
+                                        <i class="fa-solid fa-lock text-sm"></i> Coming Soon
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-surface-bright transition-colors group">
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Jul 12, 2025</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Registration Fee - Academic Year 2025/2026</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦15,000</td>
+                                <td class="px-8 py-5">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-sm text-[12px] font-bold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Paid
+                                    </span>
+                                </td>
+                                <td class="px-8 py-5 text-right">
+                                    <button class="text-secondary font-label-md flex items-center gap-1 ml-auto">
+                                        <i class="fa-solid fa-download text-sm"></i> Invoice
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Financial Support Teaser -->
+            <section class="bg-primary text-on-primary rounded-xl overflow-hidden relative card-shadow min-h-[200px] flex flex-col md:flex-row items-center">
+                <div class="p-10 flex-1 z-10">
+                    <h3 class="font-headline-md text-headline-md mb-2">Need Financial Support?</h3>
+                    <p class="font-body-md text-body-md opacity-80 mb-6 max-w-lg">Explore our scholarship opportunities and flexible payment plans designed to make high-quality academic assets accessible for everyone.</p>
+                    <button class="bg-secondary text-on-secondary px-8 py-3 rounded-xl font-label-md inline-flex items-center gap-2 hover:bg-secondary-container transition-colors btn-scale">
+                        <i class="fa-solid fa-graduation-cap"></i> View Scholarships <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+                <div class="hidden md:block w-1/3 h-full relative overflow-hidden bg-on-primary/10 rounded-r-xl">
+                    <img class="absolute inset-0 w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdqRLuTZNiktYA6nfD18u2qJof7AF7okMdtPyEzW1IXtX3p9uBg96y7iCbaL3FX1nZtVE1l7SGADG8vgbn2dqF0A6dVEhProLj5PS0b28kYK2PiHnVh8OZN8uC0Xq4VIFYu52FWxD6PUMjOBeRP1Yxw140m9RQnkCTEKTle1MtVdLTpqhd2dNjV8ckxXXbQU4UZCPb8XIFogcswP3Se51sN_R4Qc2Le_pCHjp_pXVNbtsuld1gmvzVzLeO-yuTb30A8F_2FN5ebNg" alt="Students collaborating"/>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<!-- AI Chat Side Pane -->
+<div id="aiChatPane" class="fixed top-0 right-0 h-full w-96 bg-surface-container-lowest border-l border-outline-variant shadow-xl z-40 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest flex-shrink-0">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-robot text-secondary text-lg"></i>
+            <h3 class="font-label-md text-primary font-bold">AI Support</h3>
+        </div>
+        <button id="closeAiChat" class="p-2 hover:bg-surface-container rounded-full transition-colors">
+            <i class="fa-solid fa-times"></i>
+        </button>
+    </div>
+    <div class="flex-1 w-full bg-white">
+        <iframe 
+            src="https://supportbot.naijaassets.com" 
+            class="w-full h-full border-0" 
+            title="NaijaAssets AI Assistant"
+            loading="lazy"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
+        ></iframe>
+    </div>
+</div>
+
+<!-- Floating AI Chat Button -->
+<button id="aiChatToggle" class="ai-floating-btn fixed bottom-6 right-6 z-50 w-14 h-14 bg-secondary text-white rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center justify-center" aria-label="Open AI Chat">
+    <i class="fa-solid fa-comments text-xl"></i>
+</button>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const icon = document.getElementById('sidebarToggleIcon');
+        sidebar.classList.toggle('collapsed');
+        if (sidebar.classList.contains('collapsed')) {
+            icon.className = 'fa-solid fa-chevron-right text-xl';
+            document.querySelectorAll('.menu-expanded').forEach(el => el.classList.remove('menu-expanded'));
+        } else { 
+            icon.className = 'fa-solid fa-chevron-left text-xl'; 
+        }
+    }
+
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const sidebar = document.getElementById('sidebar');
+    if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', () => { 
+        sidebar.classList.add('active'); 
+        mobileOverlay.classList.add('active'); 
+        document.body.style.overflow = 'hidden'; 
+    });
+    if (mobileOverlay) mobileOverlay.addEventListener('click', () => { 
+        sidebar.classList.remove('active'); 
+        mobileOverlay.classList.remove('active'); 
+        document.body.style.overflow = ''; 
+    });
+    document.querySelectorAll('#sidebar a').forEach(link => { 
+        link.addEventListener('click', () => { 
+            if (window.innerWidth < 1024) { 
+                sidebar.classList.remove('active'); 
+                mobileOverlay.classList.remove('active'); 
+                document.body.style.overflow = ''; 
+            } 
+        }); 
+    });
+
+    function toggleMenu(id) {
+        const menu = document.getElementById(id);
+        const button = menu.querySelector('button');
+        const isExpanded = menu.classList.toggle('menu-expanded');
+        button.setAttribute('aria-expanded', isExpanded);
+    }
+
+    // AI Chat Pane Toggle
+    const aiToggle = document.getElementById('aiChatToggle');
+    const aiPane = document.getElementById('aiChatPane');
+    const closeAi = document.getElementById('closeAiChat');
+    const mainWrapper = document.getElementById('mainWrapper');
+    let aiOpen = false;
+
+    function toggleAiPane() {
+        aiOpen = !aiOpen;
+        if (aiOpen) {
+            aiPane.classList.remove('translate-x-full');
+            aiPane.classList.add('translate-x-0');
+            aiToggle.classList.add('hidden');
+            if (window.innerWidth >= 1024) {
+                mainWrapper.style.marginRight = '24rem';
+            }
+        } else {
+            aiPane.classList.add('translate-x-full');
+            aiPane.classList.remove('translate-x-0');
+            aiToggle.classList.remove('hidden');
+            mainWrapper.style.marginRight = '0';
+        }
+    }
+
+    aiToggle.addEventListener('click', toggleAiPane);
+    closeAi.addEventListener('click', toggleAiPane);
+
+    // Search filter
+    const searchInput = document.getElementById('searchInput');
+    if(searchInput){
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(term) ? '' : 'none';
+            });
+        });
+    }
+    
+    // Receipt Upload Widget
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('receiptFile');
+    const previewContainer = document.getElementById('previewContainer');
+    const previewImg = document.getElementById('previewImg');
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+    const progressWrap = document.getElementById('progressWrap');
+    const progressFill = document.getElementById('progressFill');
+    const submitBtn = document.getElementById('submitReceiptBtn');
+    const invoiceInput = document.getElementById('invoiceNumber');
+    let selectedFile = null;
+    
+    dropzone.addEventListener('click', () => fileInput.click());
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.style.borderColor = '#0051D5'; dropzone.style.backgroundColor = '#eff6ff'; });
+    dropzone.addEventListener('dragleave', (e) => { e.preventDefault(); dropzone.style.borderColor = '#cbd5e0'; dropzone.style.backgroundColor = '#f8fafc'; });
+    dropzone.addEventListener('drop', (e) => { 
+        e.preventDefault(); 
+        dropzone.style.borderColor = '#cbd5e0'; 
+        dropzone.style.backgroundColor = '#f8fafc'; 
+        if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); 
+    });
+    fileInput.addEventListener('change', (e) => { if(e.target.files.length) handleFile(e.target.files[0]); });
+    
+    function handleFile(file) {
+        if (!file) return;
+        selectedFile = file;
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (e) => { 
+                previewImg.src = e.target.result; 
+                previewContainer.style.display = 'block'; 
+                fileNameDisplay.textContent = file.name; 
+                previewImg.style.display = 'block'; 
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewImg.style.display = 'none';
+            previewContainer.style.display = 'block';
+            fileNameDisplay.innerHTML = `<i class="fa-solid fa-file-pdf"></i> ${file.name}`;
+        }
+        progressWrap.style.display = 'block';
+        let width = 0;
+        const interval = setInterval(() => { 
+            width += 15; 
+            progressFill.style.width = width + '%'; 
+            if (width >= 100) { 
+                clearInterval(interval); 
+                setTimeout(() => { 
+                    progressWrap.style.display = 'none'; 
+                    progressFill.style.width = '0%'; 
+                }, 500); 
+            } 
+        }, 120);
+    }
+    
+    submitBtn.addEventListener('click', () => {
+        if (!invoiceInput.value.trim()) { alert('Please enter an invoice number'); invoiceInput.focus(); return; }
+        if (!selectedFile) { alert('Please select a receipt file to upload'); return; }
+        submitBtn.disabled = true; 
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Submitting...';
+        setTimeout(() => {
+            alert(`Receipt for invoice ${invoiceInput.value.trim()} submitted successfully!\nFile: ${selectedFile.name}\nOur team will verify your payment within 24 hours.`);
+            invoiceInput.value = ''; 
+            selectedFile = null; 
+            previewContainer.style.display = 'none'; 
+            previewImg.src = ''; 
+            fileInput.value = '';
+            submitBtn.disabled = false; 
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT';
+        }, 1500);
+    });
+    
+    window.addEventListener('resize', () => { 
+        if (window.innerWidth >= 1024) { 
+            sidebar.classList.remove('active'); 
+            mobileOverlay.classList.remove('active'); 
+            document.body.style.overflow = ''; 
+            if (aiOpen) mainWrapper.style.marginRight = '24rem';
+        } else {
+            mainWrapper.style.marginRight = '0';
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabaseClient.js"></script>
+<script src="/js/auth.js"></script>
+
+<script>
+// Auth guard only — no backend logic yet
+(async function() {
+  const isAuth = await Auth.requireAuth();
+  if (!isAuth) return;
+})();
+</script>
+</body>
+</html>

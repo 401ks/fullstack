@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Login | NaijaAssets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "outline": "#76777d",
+                "on-surface": "#191c1e",
+                "on-secondary": "#ffffff",
+                "primary": "#000000",
+                "on-primary-container": "#7c839b",
+                "primary-container": "#131b2e",
+                "on-secondary-fixed": "#00174b",
+                "on-error-container": "#93000a",
+                "surface-container-high": "#e6e8ea",
+                "secondary-fixed-dim": "#b4c5ff",
+                "surface": "#f7f9fb",
+                "secondary-fixed": "#dbe1ff",
+                "error": "#ba1a1a",
+                "surface-variant": "#e0e3e5",
+                "inverse-surface": "#2d3133",
+                "tertiary-fixed-dim": "#4fdbc8",
+                "on-tertiary-container": "#009485",
+                "error-container": "#ffdad6",
+                "on-error": "#ffffff",
+                "on-tertiary-fixed": "#00201c",
+                "on-primary": "#ffffff",
+                "background": "#f7f9fb",
+                "secondary-container": "#316bf3",
+                "surface-container": "#eceef0",
+                "primary-fixed-dim": "#bec6e0",
+                "on-tertiary-fixed-variant": "#005048",
+                "outline-variant": "#c6c6cd",
+                "secondary": "#0051d5",
+                "on-tertiary": "#ffffff",
+                "tertiary": "#000000",
+                "surface-container-lowest": "#ffffff",
+                "surface-bright": "#f7f9fb",
+                "surface-container-highest": "#e0e3e5",
+                "on-secondary-fixed-variant": "#003ea8",
+                "surface-tint": "#565e74",
+                "surface-dim": "#d8dadc",
+                "inverse-primary": "#bec6e0",
+                "inverse-on-surface": "#eff1f3",
+                "primary-fixed": "#dae2fd",
+                "tertiary-container": "#00201c",
+                "on-background": "#191c1e",
+                "surface-container-low": "#f2f4f6",
+                "on-surface-variant": "#45464d",
+                "tertiary-fixed": "#71f8e4",
+                "on-primary-fixed-variant": "#3f465c",
+                "on-primary-fixed": "#131b2e"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "unit": "8px",
+                "margin-mobile": "16px",
+                "stack-lg": "48px",
+                "gutter": "24px",
+                "stack-md": "24px",
+                "margin-desktop": "40px",
+                "stack-sm": "12px",
+                "container-max": "1280px"
+            },
+            "fontFamily": {
+                "label-md": ["Geist"],
+                "display-lg": ["Hanken Grotesk"],
+                "display-lg-mobile": ["Hanken Grotesk"],
+                "label-sm": ["Geist"],
+                "body-lg": ["Manrope"],
+                "headline-lg": ["Hanken Grotesk"],
+                "body-md": ["Manrope"],
+                "headline-md": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; background-color: #f7f9fb; overflow-x: hidden; }
+        
+        /* Mobile Menu - Slides from LEFT like dashboard */
+        .mobile-menu-overlay {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu-overlay.inactive { opacity: 0; visibility: hidden; }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.active { transform: translateX(0); }
+        .mobile-menu.inactive { transform: translateX(-100%); }
+        
+        /* Form Transition */
+        .form-container {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .form-container.hidden {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+        }
+        .form-container.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+            position: relative;
+        }
+        
+        /* Compact Form - NaijaAssets Blue Theme */
+        .compact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-width: 380px;
+            background-color: #ffffff;
+            padding: 28px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+            border: 1px solid rgba(198, 198, 205, 0.4);
+        }
+        .compact-title {
+            font-size: 24px;
+            color: #0051d5;
+            font-weight: 700;
+            letter-spacing: -1px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 30px;
+            margin-bottom: 4px;
+            font-family: 'Hanken Grotesk', sans-serif;
+        }
+        .compact-title::before, .compact-title::after {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            left: 0px;
+            background-color: #0051d5;
+        }
+        .compact-title::before {
+            width: 18px;
+            height: 18px;
+            background-color: #0051d5;
+        }
+        .compact-title::after {
+            width: 18px;
+            height: 18px;
+            animation: pulse 1s linear infinite;
+        }
+        .compact-message {
+            color: #45464d;
+            font-size: 13px;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+        .compact-signin {
+            text-align: center;
+            color: #45464d;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+        .compact-signin a {
+            color: #0051d5;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .compact-signin a:hover {
+            text-decoration: underline #0051d5;
+        }
+        .compact-flex {
+            display: flex;
+            width: 100%;
+            gap: 10px;
+        }
+        .compact-label {
+            position: relative;
+            flex: 1;
+        }
+        .compact-input {
+            width: 100%;
+            padding: 12px 12px 24px 12px;
+            outline: 0;
+            border: 1px solid #c6c6cd;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #f7f9fb;
+            font-family: 'Manrope', sans-serif;
+        }
+        .compact-input:focus {
+            border-color: #0051d5;
+            box-shadow: 0 0 0 3px rgba(0, 81, 213, 0.1);
+            background: #ffffff;
+        }
+        .compact-label span {
+            position: absolute;
+            left: 12px;
+            top: 16px;
+            color: #76777d;
+            font-size: 14px;
+            cursor: text;
+            transition: 0.3s ease;
+            pointer-events: none;
+            background: transparent;
+            padding: 0 4px;
+        }
+        .compact-input:placeholder-shown + span {
+            top: 16px;
+            font-size: 14px;
+        }
+        .compact-input:focus + span, .compact-input:valid + span {
+            top: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #0051d5;
+            background: #ffffff;
+        }
+        .compact-input:valid + span {
+            color: #0051d5;
+        }
+        .compact-submit {
+            border: none;
+            outline: none;
+            background-color: #0051d5;
+            padding: 13px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 4px;
+            font-family: 'Manrope', sans-serif;
+        }
+        .compact-submit:hover {
+            background-color: #003ea8;
+            transform: translateY(-1px);
+        }
+        .compact-submit:active {
+            transform: scale(0.98);
+        }
+        .compact-terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .compact-terms input {
+            margin-top: 3px;
+            accent-color: #0051d5;
+        }
+        .compact-terms label {
+            font-size: 12px;
+            color: #45464d;
+            line-height: 1.4;
+        }
+        .compact-terms a {
+            color: #0051d5;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .compact-terms a:hover {
+            text-decoration: underline #0051d5;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #76777d;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            font-size: 16px;
+            transition: color 0.2s;
+        }
+        .password-toggle:hover {
+            color: #0051d5;
+        }
+        @keyframes pulse {
+            from { transform: scale(0.9); opacity: 1; }
+            to { transform: scale(1.8); opacity: 0; }
+        }
+        @media (max-width: 768px) {
+            .compact-form {
+                padding: 22px;
+                max-width: 100%;
+            }
+            .compact-flex {
+                flex-direction: column;
+                gap: 14px;
+            }
+        }
+        
+        /* Custom scrollbar for mobile menu */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay inactive fixed inset-0 bg-[#0d1c2e]/50 backdrop-blur-sm z-[90] md:hidden" id="mobile-menu-overlay"></div>
+
+<!-- Mobile Menu - Slides from LEFT -->
+<div class="mobile-menu inactive fixed top-0 left-0 h-full w-[85%] max-w-[320px] bg-surface-container-lowest shadow-2xl z-[100] md:hidden flex flex-col" id="mobile-menu">
+    <div class="flex justify-between items-center p-5 border-b border-outline-variant/30">
+        <a href="/" class="flex items-center gap-3">
+            <i class="fa-solid fa-graduation-cap text-secondary text-2xl flex-shrink-0"></i>
+            <div class="flex flex-col">
+                <span class="font-display-lg text-primary text-lg font-bold leading-tight">NaijaAssets</span>
+                <span class="font-label-sm text-outline text-[10px] uppercase tracking-wider">Student Portal</span>
+            </div>
+        </a>
+        <button class="text-on-surface-variant text-2xl p-2 hover:text-secondary transition-colors" id="mobile-menu-close" aria-label="Close menu">
+            <i class="fa-solid fa-times"></i>
+        </button>
+    </div>
+    
+    <!-- Profile Card -->
+    <div class="px-4 py-4 border-b border-outline-variant/30">
+        <a href="#" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors">
+            <img alt="Guest User" class="w-10 h-10 rounded-full object-cover flex-shrink-0 bg-secondary/10" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230051d5'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E"/>
+            <div class="profile-details overflow-hidden">
+                <p class="font-label-md text-primary font-bold truncate">Guest User</p>
+                <p class="text-[10px] text-outline truncate mb-1">Not signed in</p>
+                <span class="text-[10px] text-secondary font-bold">Sign in to continue</span>
+            </div>
+        </a>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto custom-scrollbar">
+        <a href="/" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-house w-5 text-center"></i>
+            <span class="font-label-md text-label-md">Home</span>
+        </a>
+        <a href="/about" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-circle-info w-5 text-center"></i>
+            <span class="font-label-md text-label-md">About</span>
+        </a>
+        <a href="/subjects" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-book-open w-5 text-center"></i>
+            <span class="font-label-md text-label-md">Subjects</span>
+        </a>
+        <a href="/pricing" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-tag w-5 text-center"></i>
+            <span class="font-label-md text-label-md">Pricing</span>
+        </a>
+        <a href="/faq" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-circle-question w-5 text-center"></i>
+            <span class="font-label-md text-label-md">FAQ</span>
+        </a>
+        <a href="/contact" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-envelope w-5 text-center"></i>
+            <span class="font-label-md text-label-md">Contact</span>
+        </a>
+    </nav>
+    
+    <!-- Footer Links -->
+    <div class="px-4 py-4 border-t border-outline-variant/30">
+        <div class="flex flex-wrap gap-4 text-[11px]">
+            <a href="/privacy" class="text-outline hover:text-primary transition-colors">Privacy</a>
+            <a href="/terms" class="text-outline hover:text-primary transition-colors">Terms</a>
+            <a href="/support" class="text-outline hover:text-primary transition-colors">Support</a>
+        </div>
+    </div>
+</div>
+
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-16">
+        <a href="/" class="flex items-center gap-3">
+            <i class="fa-solid fa-graduation-cap text-secondary text-2xl flex-shrink-0"></i>
+            <div class="flex flex-col">
+                <span class="font-display-lg text-primary text-lg font-bold leading-tight">NaijaAssets</span>
+                <span class="font-label-sm text-outline text-[10px] uppercase tracking-wider hidden sm:block">Student Portal</span>
+            </div>
+        </a>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center gap-6">
+            <a href="/" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Home</a>
+            <a href="/about" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">About</a>
+            <a href="/subjects" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Subjects</a>
+            <a href="/pricing" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Pricing</a>
+            <a href="/faq" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">FAQ</a>
+            <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
+        </div>
+        
+        <!-- Desktop Auth Buttons -->
+        <div class="hidden md:flex items-center gap-3">
+            <a href="/login" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors px-4 py-2">
+                Login
+            </a>
+            <a href="/login?create=account" class="font-body-md text-body-md bg-secondary text-white hover:bg-secondary/90 transition-colors px-5 py-2 rounded-xl shadow-sm active:scale-95 transition-transform">
+                Get Started
+            </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-on-surface text-2xl p-2 focus:outline-none" id="mobile-menu-btn" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+</header>
+
+<main class="flex-grow flex items-center justify-center pt-24 pb-12 px-margin-mobile">
+    <div class="max-w-container-max w-full grid lg:grid-cols-2 gap-gutter items-center">
+        <!-- Left Side: Forms Container -->
+        <div class="flex flex-col items-center justify-center w-full order-2 lg:order-1">
+            <div class="w-full max-w-md relative flex justify-center">
+                <!-- Login Form -->
+                <div id="loginForm" class="form-container active bg-surface-container-lowest p-8 md:p-10 rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 transition-all duration-300 hover:shadow-[0px_10px_30px_rgba(15,23,42,0.1)]">
+                    <div class="text-center mb-8">
+                        <div class="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-2xl mb-4">
+                            <i class="fa-solid fa-right-to-bracket text-secondary text-2xl"></i>
+                        </div>
+                        <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Welcome Back</h1>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Login to access your classes, recordings, and schedules.</p>
+                    </div>
+                    <form class="space-y-5" onsubmit="event.preventDefault();">
+                        <div>
+                            <label class="block font-label-md text-label-md text-on-surface mb-2" for="email">Email address</label>
+                            <div class="relative">
+                                <i class="fa-regular fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-outline"></i>
+                                <input class="w-full pl-11 pr-4 py-3 rounded-xl border border-outline-variant bg-surface-bright focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all font-body-md text-body-md" id="email" placeholder="name@domain.com" type="email"/>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="block font-label-md text-label-md text-on-surface" for="password">Password</label>
+                                <a class="font-label-sm text-label-sm text-secondary hover:underline" href="#">Forgot Password?</a>
+                            </div>
+                            <div class="relative">
+                                <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-outline"></i>
+                                <input class="w-full pl-11 pr-11 py-3 rounded-xl border border-outline-variant bg-surface-bright focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all font-body-md text-body-md" id="password" placeholder="••••••••" type="password"/>
+                                <button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary transition-colors p-1" type="button" id="togglePassword">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="w-full py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2 group" type="submit">
+                            Login
+                            <i class="fa-solid fa-arrow-right text-[18px] group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </form>
+                    <div class="mt-8 text-center">
+                        <p class="font-body-md text-body-md text-on-surface-variant">
+                            Don't have an account? 
+                            <a class="text-secondary font-semibold hover:underline cursor-pointer" id="showCreateAccount">Create Account</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Create Account Form - Compact Layout -->
+                <div id="createAccountForm" class="form-container hidden flex justify-center">
+                    <form class="compact-form" onsubmit="event.preventDefault();">
+                        <p class="compact-title">Create Account</p>
+                        <p class="compact-message">Join NaijaAssets to start your learning journey.</p>
+                        
+                        <div class="compact-flex">
+                            <label class="compact-label">
+                                <input required class="compact-input" type="text" id="firstName"/>
+                                <span>First Name</span>
+                            </label>
+                            <label class="compact-label">
+                                <input required class="compact-input" type="text" id="lastName"/>
+                                <span>Last Name</span>
+                            </label>
+                        </div>
+                        
+                        <label class="compact-label">
+                            <input required class="compact-input" type="email" id="createEmail"/>
+                            <span>Email Address</span>
+                        </label>
+                        
+                        <label class="compact-label">
+                            <input required class="compact-input" type="tel" id="phone" pattern="^(\+234|0)[0-9]{10}$"/>
+                            <span>Phone Number *</span>
+                        </label>
+                        
+                        <label class="compact-label">
+                            <input required class="compact-input" type="password" id="createPassword"/>
+                            <span>Password</span>
+                            <button type="button" class="password-toggle" id="toggleCreatePassword">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </label>
+                        
+                        <label class="compact-label">
+                            <input required class="compact-input" type="password" id="confirmPassword"/>
+                            <span>Confirm Password</span>
+                            <button type="button" class="password-toggle" id="toggleConfirmPassword">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </label>
+                        
+                        <div class="compact-terms">
+                            <input type="checkbox" id="terms" required/>
+                            <label for="terms">
+                                I agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="compact-submit">
+                            Create Account
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        
+                        <p class="compact-signin">
+                            Already have an account? <a href="#" id="showLoginFromCreate">Login</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Side: Educational Visual/Preview -->
+        <div class="hidden lg:flex flex-col justify-center items-start space-y-stack-md order-1 lg:order-2">
+            <div class="relative w-full aspect-square max-w-xl mx-auto">
+                <div class="absolute -top-10 -right-10 w-64 h-64 bg-secondary/5 rounded-full blur-3xl animate-pulse"></div>
+                
+                <div class="relative z-10 bg-surface-container-lowest rounded-2xl shadow-xl border border-outline-variant/30 p-6 overflow-hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="space-y-1">
+                            <div class="h-4 w-32 bg-surface-container-high rounded-full"></div>
+                            <div class="h-3 w-20 bg-surface-container rounded-full"></div>
+                        </div>
+                        <div class="h-10 w-10 rounded-xl bg-secondary/10 flex items-center justify-center">
+                            <i class="fa-solid fa-school text-secondary"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="p-4 rounded-xl border border-outline-variant/20 bg-surface-bright shadow-sm">
+                            <div class="h-2 w-12 bg-secondary/20 rounded-full mb-3"></div>
+                            <div class="h-5 w-24 bg-surface-container-highest rounded-full"></div>
+                        </div>
+                        <div class="p-4 rounded-xl border border-outline-variant/20 bg-surface-bright shadow-sm">
+                            <div class="h-2 w-12 bg-secondary-container/20 rounded-full mb-3"></div>
+                            <div class="h-5 w-20 bg-surface-container-highest rounded-full"></div>
+                        </div>
+                    </div>
+                    
+                    <img alt="Student studying on laptop" class="w-full h-48 object-cover rounded-xl mb-4 opacity-90 hover:opacity-100 transition-opacity duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8vq3n6nrWFvqJwKQNEqCGfOBkrHvTDrh3-BcN9tKIBdcBOsBKANsGaaEHEnzVgfQ_G0d48LIT7Crt9L4CoG00NIc2EpGo_BVK2oWg971OlWT5xyJfR01zzh8giiWegWD0Mbx38lJJ3rfQ4LWaTVnQUpAyzxaASdelchdEV_sd7s5-RKSVCKi3c_E3Ep8RGVQ6WrtvGYTF1FpXJZGR2tswur6740bRnk-8bvEr_slD5KWTXGdp2F2RJQtu9hyMlJY07re_u37Lvq8"/>
+                    
+                    <div class="space-y-3">
+                        <div class="h-3 w-full bg-surface-container rounded-full"></div>
+                        <div class="h-3 w-4/5 bg-surface-container rounded-full"></div>
+                        <div class="h-3 w-2/3 bg-surface-container rounded-full"></div>
+                    </div>
+                </div>
+                
+                <div class="absolute -bottom-6 -left-6 bg-secondary text-white p-4 rounded-xl shadow-lg flex items-center gap-3 animate-bounce shadow-secondary/20">
+                    <i class="fa-solid fa-star"></i>
+                    <div>
+                        <p class="font-label-sm text-label-sm">Class of 2026</p>
+                        <p class="text-[10px] opacity-80">98% Success Rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface-dim border-t border-outline-variant/30 py-stack-lg px-margin-desktop">
+    <div class="max-w-container-max mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div class="md:col-span-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fa-solid fa-graduation-cap text-secondary text-2xl"></i>
+                    <div class="flex flex-col">
+                        <span class="font-headline-md font-bold text-primary">NaijaAssets</span>
+                        <span class="text-[10px] text-outline uppercase tracking-wider">Student Portal</span>
+                    </div>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant mb-6 max-w-xs">
+                    Structured online tutoring for Nigerian secondary school students.
+                </p>
+                <div class="flex gap-3">
+                    <a href="/fb" aria-label="Facebook" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="/tk" aria-label="TikTok" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="/ig" aria-label="Instagram" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="/x" aria-label="X/Twitter" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="md:col-span-1">
+                <h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-4 uppercase tracking-wide">Navigation</h4>
+                <nav class="flex flex-col gap-3">
+                    <a href="/" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Home</a>
+                    <a href="/about" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">About</a>
+                    <a href="/subjects" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Subjects</a>
+                    <a href="/pricing" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Pricing</a>
+                    <a href="/faq" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">FAQ</a>
+                    <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
+                </nav>
+            </div>
+
+            <div class="md:col-span-1">
+                <h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-4 uppercase tracking-wide">Subjects</h4>
+                <nav class="flex flex-col gap-3">
+                    <a href="/subjects/mathematics" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Mathematics</a>
+                    <a href="/subjects/science" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Science</a>
+                    <a href="/subjects/waec" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">WAEC Prep</a>
+                </nav>
+            </div>
+
+            <div class="md:col-span-1">
+                <h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-4 uppercase tracking-wide">Legal</h4>
+                <nav class="flex flex-col gap-3">
+                    <a href="/privacy" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Privacy Policy</a>
+                    <a href="/terms" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Terms of Service</a>
+                    <a href="/support" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Support</a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-outline-variant/30 gap-4">
+            <p class="font-label-sm text-label-sm text-on-surface-variant">© 2026 NaijaAssets. All rights reserved.</p>
+            <div class="flex gap-5">
+                <a href="/fb" aria-label="Facebook" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
+                    <i class="fa-brands fa-facebook-f"></i> Facebook
+                </a>
+                <a href="/tk" aria-label="TikTok" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
+                    <i class="fa-brands fa-tiktok"></i> TikTok
+                </a>
+                <a href="/ig" aria-label="Instagram" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
+                    <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+                <a href="/x" aria-label="X/Twitter" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
+                    <i class="fa-brands fa-x-twitter"></i> X
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const body = document.body;
+
+    function openMenu() {
+        mobileMenu.classList.remove('inactive');
+        mobileMenu.classList.add('active');
+        mobileMenuOverlay.classList.remove('inactive');
+        mobileMenuOverlay.classList.add('active');
+        body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+        mobileMenu.classList.remove('active');
+        mobileMenu.classList.add('inactive');
+        mobileMenuOverlay.classList.remove('active');
+        mobileMenuOverlay.classList.add('inactive');
+        body.style.overflow = '';
+    }
+
+    mobileMenuBtn.addEventListener('click', openMenu);
+    mobileMenuClose.addEventListener('click', closeMenu);
+    mobileMenuOverlay.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) closeMenu();
+    });
+
+    // Form Switching
+    const loginForm = document.getElementById('loginForm');
+    const createAccountForm = document.getElementById('createAccountForm');
+    const showCreateAccount = document.getElementById('showCreateAccount');
+    const showLoginFromCreate = document.getElementById('showLoginFromCreate');
+
+    function showForm(formToShow, formToHide) {
+        formToHide.classList.remove('active');
+        formToHide.classList.add('hidden');
+        setTimeout(() => {
+            formToShow.classList.remove('hidden');
+            formToShow.classList.add('active');
+        }, 150);
+    }
+
+    if (showCreateAccount) {
+        showCreateAccount.addEventListener('click', (e) => {
+            e.preventDefault();
+            showForm(createAccountForm, loginForm);
+            history.pushState({}, '', '/login?create=account');
+            document.title = 'Create Account | NaijaAssets';
+        });
+    }
+
+    if (showLoginFromCreate) {
+        showLoginFromCreate.addEventListener('click', (e) => {
+            e.preventDefault();
+            showForm(loginForm, createAccountForm);
+            history.pushState({}, '', '/login');
+            document.title = 'Login | NaijaAssets';
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('create') === 'account') {
+            showForm(createAccountForm, loginForm);
+            document.title = 'Create Account | NaijaAssets';
+        }
+    });
+
+    // Password Toggles
+    const toggleBtn = document.getElementById('togglePassword');
+    const passInput = document.getElementById('password');
+    if(toggleBtn && passInput) {
+        toggleBtn.addEventListener('click', () => {
+            const isPass = passInput.type === 'password';
+            passInput.type = isPass ? 'text' : 'password';
+            toggleBtn.innerHTML = isPass ? '<i class="fa-regular fa-eye-slash"></i>' : '<i class="fa-regular fa-eye"></i>';
+        });
+    }
+
+    const toggleCreateBtn = document.getElementById('toggleCreatePassword');
+    const createPassInput = document.getElementById('createPassword');
+    if(toggleCreateBtn && createPassInput) {
+        toggleCreateBtn.addEventListener('click', () => {
+            const isPass = createPassInput.type === 'password';
+            createPassInput.type = isPass ? 'text' : 'password';
+            toggleCreateBtn.innerHTML = isPass ? '<i class="fa-regular fa-eye-slash"></i>' : '<i class="fa-regular fa-eye"></i>';
+        });
+    }
+
+    const toggleConfirmBtn = document.getElementById('toggleConfirmPassword');
+    const confirmPassInput = document.getElementById('confirmPassword');
+    if(toggleConfirmBtn && confirmPassInput) {
+        toggleConfirmBtn.addEventListener('click', () => {
+            const isPass = confirmPassInput.type === 'password';
+            confirmPassInput.type = isPass ? 'text' : 'password';
+            toggleConfirmBtn.innerHTML = isPass ? '<i class="fa-regular fa-eye-slash"></i>' : '<i class="fa-regular fa-eye"></i>';
+        });
+    }
+
+    window.addEventListener('popstate', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('create') === 'account') {
+            showForm(createAccountForm, loginForm);
+            document.title = 'Create Account | NaijaAssets';
+        } else {
+            showForm(loginForm, createAccountForm);
+            document.title = 'Login | NaijaAssets';
+        }
+    });
+</script>
+<!-- Supabase + Auth Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabaseClient.js"></script>
+<script src="/js/auth.js"></script>
+
+<script>
+(function() {
+  // Check if already logged in — redirect to dashboard
+  (async function checkExistingSession() {
+    const session = await Auth.getSession();
+    if (session) {
+      window.location.href = '/dashboard/';
+    }
+  })();
+
+  // Form elements
+  const loginForm = document.getElementById('loginForm');
+  const createAccountForm = document.getElementById('createAccountForm');
+  const showCreateAccount = document.getElementById('showCreateAccount');
+  const showLoginFromCreate = document.getElementById('showLoginFromCreate');
+  const toggleBtn = document.getElementById('togglePassword');
+  const passInput = document.getElementById('password');
+  const toggleCreateBtn = document.getElementById('toggleCreatePassword');
+  const createPassInput = document.getElementById('createPassword');
+  const toggleConfirmBtn = document.getElementById('toggleConfirmPassword');
+  const confirmPassInput = document.getElementById('confirmPassword');
+
+  // --- LOGIN HANDLER ---
+  loginForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const password = passInput.value;
+    const submitBtn = loginForm.querySelector('button[type="submit"]');
+    const originalHTML = submitBtn.innerHTML;
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging in...';
+
+    try {
+      await Auth.login(email, password);
+      submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Success!';
+      setTimeout(() => { window.location.href = '/dashboard/'; }, 500);
+    } catch (error) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHTML;
+      
+      let message = 'Login failed. Please try again.';
+      if (error.message.includes('Invalid login credentials')) {
+        message = 'Invalid email or password.';
+      } else if (error.message.includes('Email not confirmed')) {
+        message = 'Please check your email to verify your account.';
+      }
+      alert(message);
+    }
+  });
+
+  // --- SIGNUP HANDLER ---
+  createAccountForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('createEmail').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const password = createPassInput.value;
+    const confirm = confirmPassInput.value;
+    const terms = document.getElementById('terms').checked;
+
+    // Client-side validation
+    if (password !== confirm) {
+      alert('Passwords do not match.');
+      return;
+    }
+    if (password.length < 6) {
+      alert('Password must be at least 6 characters.');
+      return;
+    }
+    if (!terms) {
+      alert('Please agree to the Terms of Service.');
+      return;
+    }
+
+    const submitBtn = createAccountForm.querySelector('button[type="submit"]');
+    const originalHTML = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating account...';
+
+    try {
+      await Auth.signup(email, password, {
+        first_name: firstName,
+        last_name: lastName,
+        phone: phone,
+        subscription_type: 'basic',
+        grade: null,
+        subjects: []
+      });
+
+      submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Account created!';
+      
+      // If email confirmation is enabled in Supabase
+      alert('Account created! Please check your email to verify your account, then login.');
+      
+      // Switch to login form
+      showLoginFromCreate.click();
+    } catch (error) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHTML;
+      
+      let message = 'Signup failed. Please try again.';
+      if (error.message.includes('already registered')) {
+        message = 'This email is already registered. Try logging in.';
+      }
+      alert(message);
+    }
+  });
+
+  // --- PASSWORD TOGGLES (existing logic preserved) ---
+  if (toggleBtn && passInput) {
+    toggleBtn.addEventListener('click', () => {
+      const isPass = passInput.type === 'password';
+      passInput.type = isPass ? 'text' : 'password';
+      toggleBtn.innerHTML = isPass 
+        ? '<i class="fa-regular fa-eye-slash"></i>' 
+        : '<i class="fa-regular fa-eye"></i>';
+    });
+  }
+
+  if (toggleCreateBtn && createPassInput) {
+    toggleCreateBtn.addEventListener('click', () => {
+      const isPass = createPassInput.type === 'password';
+      createPassInput.type = isPass ? 'text' : 'password';
+      toggleCreateBtn.innerHTML = isPass 
+        ? '<i class="fa-regular fa-eye-slash"></i>' 
+        : '<i class="fa-regular fa-eye"></i>';
+    });
+  }
+
+  if (toggleConfirmBtn && confirmPassInput) {
+    toggleConfirmBtn.addEventListener('click', () => {
+      const isPass = confirmPassInput.type === 'password';
+      confirmPassInput.type = isPass ? 'text' : 'password';
+      toggleConfirmBtn.innerHTML = isPass 
+        ? '<i class="fa-regular fa-eye-slash"></i>' 
+        : '<i class="fa-regular fa-eye"></i>';
+    });
+  }
+})();
+</script>
+</body>
+</html>

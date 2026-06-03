@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>NaijaAssets Student Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Hanken+Grotesk:wght@100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#76777d",
+                    "on-surface": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "primary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "primary-container": "#131b2e",
+                    "on-secondary-fixed": "#00174b",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "surface": "#f7f9fb",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e0e3e5",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-fixed-dim": "#4fdbc8",
+                    "on-tertiary-container": "#009485",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#00201c",
+                    "on-primary": "#ffffff",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#316bf3",
+                    "surface-container": "#eceef0",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary-fixed-variant": "#005048",
+                    "outline-variant": "#c6c6cd",
+                    "secondary": "#0051d5",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#003ea8",
+                    "surface-tint": "#565e74",
+                    "surface-dim": "#d8dadc",
+                    "inverse-primary": "#bec6e0",
+                    "inverse-on-surface": "#eff1f3",
+                    "primary-fixed": "#dae2fd",
+                    "tertiary-container": "#00201c",
+                    "on-background": "#191c1e",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-fixed": "#71f8e4",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-primary-fixed": "#131b2e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "stack-sm": "8px",
+                    "unit": "8px",
+                    "margin-desktop": "32px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "label-md": ["Geist"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Geist"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+        body { 
+            background-color: #F8FAFC; 
+            color: #191c1e;
+            font-family: 'Manrope', sans-serif; 
+        }
+        .fa-solid, .fa-regular { font-size: 1.25rem; }
+        .card-shadow { box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
+        .transition-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .transition-lift:hover { transform: translateY(-4px); box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.1); }
+        
+        /* Sidebar - NO Hover Expand */
+        #sidebar { 
+            width: 256px; 
+            overflow: hidden; 
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #sidebar.collapsed { width: 80px; }
+        #sidebar.collapsed .sidebar-text,
+        #sidebar.collapsed .profile-details,
+        #sidebar.collapsed .submenu,
+        #sidebar.collapsed .sidebar-header-text { display: none; }
+        #sidebar.collapsed .sidebar-item { justify-content: center; padding-left: 0; padding-right: 0; }
+        #sidebar.collapsed .sidebar-chevron { display: none; }
+        #sidebar.collapsed .sidebar-logo-container { justify-content: center; padding: 0; }
+        #sidebar.collapsed .profile-section { padding: 16px 8px; justify-content: center; }
+        #sidebar.collapsed .profile-section img { margin-right: 0; }
+        
+        /* Submenu - Click to Expand Only */
+        .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .menu-expanded .submenu { max-height: 300px; }
+        .menu-expanded .sidebar-chevron { transform: rotate(180deg); }
+        
+        /* Calendar Styles */
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+        .calendar-header { font-size: 10px; color: #76777d; font-weight: 500; padding: 4px 0; }
+        .calendar-day {
+            width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto; border-radius: 50%; cursor: pointer; font-size: 12px; transition: all 0.15s;
+            position: relative;
+        }
+        .calendar-day:hover:not(.empty):not(.header) { background-color: #316bf3; color: #fff; }
+        .calendar-day.today { background-color: #316bf3; color: #fff; font-weight: 600; }
+        .calendar-day.other-month { opacity: 0.3; cursor: default; }
+        .calendar-day.has-event::after {
+            content: ''; width: 4px; height: 4px; background-color: #ba1a1a; border-radius: 50%;
+            position: absolute; bottom: 2px;
+        }
+        
+        /* AI Chat Pane Transitions */
+        #mainWrapper { transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .ai-floating-btn {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .ai-floating-btn.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+        
+        /* Expandable Schedule Card */
+        .schedule-card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .schedule-card.expanded .schedule-card-content {
+            max-height: 500px;
+        }
+        .schedule-card.expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 1023px) {
+            #sidebar { position: fixed; left: -100%; z-index: 60; width: 280px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+            #sidebar.active { left: 0; }
+            .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; opacity: 0; visibility: hidden; transition: all 0.3s; }
+            .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+            .mobile-menu-toggle { display: block; }
+            .desktop-menu-toggle { display: none; }
+            header { padding-left: 60px !important; }
+            .header-profile { display: none; }
+            .grid-cols-2 { grid-template-columns: 1fr; }
+            .font-display-lg { font-size: 28px !important; line-height: 36px !important; }
+            .font-headline-md { font-size: 20px !important; }
+            .font-label-md { font-size: 13px !important; }
+            .rounded-3xl { border-radius: 20px !important; }
+            .p-stack-lg { padding: 20px !important; }
+            #aiChatPane { width: 100%; }
+        }
+        @media (min-width: 1024px) {
+            .mobile-menu-toggle { display: none; }
+            .desktop-menu-toggle { display: block; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<div class="mobile-menu-overlay" id="mobileOverlay"></div>
+
+<div class="flex min-h-screen">
+    <button class="mobile-menu-toggle fixed top-4 left-4 z-50 p-2 bg-surface-container-lowest rounded-lg shadow-lg border border-outline-variant text-on-surface lg:hidden" id="mobileMenuToggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars text-xl"></i>
+    </button>
+
+    <aside class="h-screen sticky left-0 top-0 w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col py-stack-lg shadow-sm z-50" id="sidebar">
+        <div class="px-4 mb-6 flex items-center justify-between sidebar-logo-container">
+            <div class="flex items-center gap-3 overflow-hidden">
+                <i class="fa-solid fa-graduation-cap text-secondary text-2xl flex-shrink-0"></i>
+                <div class="flex flex-col sidebar-header-text">
+                    <span class="font-display-lg text-primary text-lg font-bold leading-tight">NaijaAssets</span>
+                    <span class="font-label-sm text-outline text-[10px] uppercase tracking-wider">Student Portal</span>
+                </div>
+            </div>
+            <button class="p-1 hover:bg-surface-container rounded-full text-outline hover:text-primary transition-colors desktop-menu-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+                <i class="fa-solid fa-chevron-left text-xl" id="sidebarToggleIcon"></i>
+            </button>
+        </div>
+        
+        <div class="px-4 mb-6 profile-section">
+            <a href="#" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors">
+                <img alt="Daniel Okafor" class="w-10 h-10 rounded-full object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUUlOjD2NqHiozDk74aw-A3BNeSSnSOK0DLyDmSxUPw8t4VSZmRCrOTViEmVvpzn5AUNClDA6xEGSji0HYodD1cyh5n9koyszAs6Mzzhb9W_9fvAD8lO7LQjq5oENJXH449vkUJ5BbAckI0JvGCk8X-dMKB1lOoxn_CTP6eRTZSy-jKMAHXx2OC697aMu3wXPhDWV9I_Yq0-yl0XugRusbGJHhLeKubyGTw4Wy7YePrOlNy1XXHHka3WgFKcCXqEixu9-qPSYsWCk"/>
+                <div class="profile-details overflow-hidden">
+                    <p class="font-label-md text-primary font-bold truncate">Daniel Okafor</p>
+                    <p class="text-[10px] text-outline truncate mb-1">daniel.o@student.naijaassets.com</p>
+                    <span class="text-[10px] text-secondary font-bold">View Profile</span>
+                </div>
+            </a>
+        </div>
+        
+        <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-primary font-bold border-r-4 border-secondary bg-surface-container rounded-l-lg transition-all" href="#">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span class="font-label-md text-label-md sidebar-text">Dashboard</span>
+            </a>
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+                <i class="fa-solid fa-school"></i>
+                <span class="font-label-md text-label-md sidebar-text">Classes</span>
+            </a>
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+                <i class="fa-solid fa-video"></i>
+                <span class="font-label-md text-label-md sidebar-text">Recordings</span>
+            </a>
+            <div class="group" id="resources-menu">
+                <button class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" onclick="toggleMenu('resources-menu')" aria-expanded="false">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <span class="font-label-md text-label-md sidebar-text">Resources</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i>
+                </button>
+                <div class="submenu pl-10 space-y-1 mt-1">
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-book text-xs"></i><span>Books</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-film text-xs"></i><span>Multimedia</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-file-lines text-xs"></i><span>Past Papers</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-folder-plus text-xs"></i><span>Other Resources</span></a>
+                </div>
+            </div>
+            <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+                <i class="fa-solid fa-credit-card"></i>
+                <span class="font-label-md text-label-md sidebar-text">Payments</span>
+            </a>
+            <div class="group" id="settings-menu">
+                <button class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" onclick="toggleMenu('settings-menu')" aria-expanded="false">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-gear"></i>
+                        <span class="font-label-md text-label-md sidebar-text">Settings</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i>
+                </button>
+                <div class="submenu pl-10 space-y-1 mt-1">
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-user-gear text-xs"></i><span>Account Settings</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-id-card text-xs"></i><span>Profile Settings</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-palette text-xs"></i><span>Visual Settings</span></a>
+                    <div class="pt-2 mt-2 border-t border-outline-variant/30 space-y-1">
+                        <a class="block py-2 text-sm text-secondary hover:opacity-80 transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-circle-question text-xs"></i><span>Get Help</span></a>
+                        <a class="block py-2 text-sm text-red-600 hover:opacity-80 transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-right-from-bracket text-xs"></i><span>Logout</span></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Footer Links -->
+        <div class="px-4 py-4 border-t border-outline-variant/30 mt-auto">
+            <div class="flex flex-wrap gap-4 text-[11px]">
+                <a href="/privacy" class="text-outline hover:text-primary transition-colors">Privacy</a>
+                <a href="/terms" class="text-outline hover:text-primary transition-colors">Terms</a>
+                <a href="/support" class="text-outline hover:text-primary transition-colors">Support</a>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Main Content Wrapper (Resizes when AI pane opens) -->
+    <div id="mainWrapper" class="flex-1 overflow-y-auto">
+        <header class="sticky top-0 z-40 w-full flex gap-4 px-margin-desktop py-4 bg-background/50 backdrop-blur-md">
+            <div class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-4 flex items-center gap-3 card-shadow">
+                <i class="fa-solid fa-magnifying-glass text-outline"></i>
+                <input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface" placeholder="Search courses, tutors, or documents..." type="text"/>
+            </div>
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-3 flex items-center gap-2 card-shadow">
+                <a href="#" class="relative p-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full transition-all"><i class="fa-regular fa-bell"></i><span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span></a>
+                <a href="#" class="p-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full transition-all"><i class="fa-regular fa-circle-question"></i></a>
+            </div>
+            <a href="#" class="header-profile bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 pl-4 pr-2 flex items-center gap-3 card-shadow">
+                <div class="text-right hidden xl:block">
+                    <p class="font-label-md text-label-md text-primary leading-none">Daniel Okafor</p>
+                    <p class="font-label-sm text-[10px] text-outline uppercase tracking-wider mt-1">Level 400 Student</p>
+                </div>
+                <img alt="Student Profile Avatar" class="w-10 h-10 rounded-full border border-outline-variant object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUUlOjD2NqHiozDk74aw-A3BNeSSnSOK0DLyDmSxUPw8t4VSZmRCrOTViEmVvpzn5AUNClDA6xEGSji0HYodD1cyh5n9koyszAs6Mzzhb9W_9fvAD8lO7LQjq5oENJXH449vkUJ5BbAckI0JvGCk8X-dMKB1lOoxn_CTP6eRTZSy-jKMAHXx2OC697aMu3wXPhDWV9I_Yq0-yl0XugRusbGJHhLeKubyGTw4Wy7YePrOlNy1XXHHka3WgFKcCXqEixu9-qPSYsWCk"/>
+            </a>
+        </header>
+        
+        <main class="px-margin-desktop pb-margin-desktop max-w-container-max mx-auto space-y-stack-lg">
+            <div class="grid grid-cols-12 gap-gutter">
+                <section class="col-span-12 lg:col-span-8 relative overflow-hidden rounded-3xl bg-primary-container p-8 text-on-primary min-h-[220px] flex flex-col justify-center">
+                    <div class="relative z-10 max-w-md">
+                        <h1 class="font-display-lg text-headline-lg mb-2">Welcome back, Daniel</h1>
+                        <p class="font-body-lg text-on-primary-container opacity-90 leading-relaxed">You have 2 classes scheduled for today. Your academic progress is on track. Keep up the momentum!</p>
+                    </div>
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-secondary/20 rounded-full blur-[80px] -mr-32 -mt-32"></div>
+                </section>
+                <section class="col-span-12 lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-3xl p-6 card-shadow">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-label-md text-label-md text-primary font-bold" id="calendarTitle">January 2026</h3>
+                        <div class="flex gap-1">
+                            <button onclick="prevMonth()" class="p-1 text-outline hover:text-primary transition-colors rounded-full hover:bg-surface-container"><i class="fa-solid fa-chevron-left text-sm"></i></button>
+                            <button onclick="nextMonth()" class="p-1 text-outline hover:text-primary transition-colors rounded-full hover:bg-surface-container"><i class="fa-solid fa-chevron-right text-sm"></i></button>
+                        </div>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </section>
+            </div>
+            
+            <div class="grid grid-cols-12 gap-gutter">
+                <div class="col-span-12 lg:col-span-8 space-y-stack-lg">
+                    <section class="bg-surface-container-lowest border border-outline-variant rounded-3xl p-stack-lg card-shadow">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-headline-md text-headline-md text-primary">Your Upcoming Classes</h3>
+                            <a href="#" class="text-secondary font-label-md hover:underline">View All</a>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-2xl border border-outline-variant/30">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-secondary-fixed rounded-xl flex items-center justify-center"><i class="fa-solid fa-calculator text-secondary"></i></div>
+                                    <div><p class="font-label-md text-primary font-bold">Advanced Mathematics</p><p class="font-label-sm text-outline text-xs">by Dr. Adebayo</p></div>
+                                </div>
+                                <div class="flex items-center gap-6">
+                                    <div class="text-right"><p class="text-[10px] font-label-sm text-error uppercase tracking-widest leading-none mb-1">Live Soon</p><p class="font-label-md text-primary font-bold">Starting in 8 mins</p></div>
+                                    <a href="#" class="bg-secondary text-on-secondary px-6 py-2.5 rounded-xl font-label-md text-label-md hover:shadow-lg hover:bg-secondary-container transition-all active:scale-95">Join Class</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl border border-outline-variant">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-primary-fixed rounded-xl flex items-center justify-center"><i class="fa-solid fa-chart-simple text-primary"></i></div>
+                                    <div><p class="font-label-md text-primary font-bold">Statistics II</p><p class="font-label-sm text-outline text-xs">by Prof. Chinedu</p></div>
+                                </div>
+                                <div class="flex items-center gap-6">
+                                    <div class="text-right"><p class="text-[10px] font-label-sm text-outline uppercase tracking-widest leading-none mb-1">Today</p><p class="font-label-md text-on-surface-variant">Starts in 2 hours</p></div>
+                                    <a href="#" class="border border-outline-variant text-on-surface-variant px-6 py-2.5 rounded-xl font-label-md text-label-md hover:bg-surface-container-low transition-all">Remind Me</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl border border-outline-variant">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-tertiary-fixed rounded-xl flex items-center justify-center"><i class="fa-solid fa-flask text-on-tertiary-fixed"></i></div>
+                                    <div><p class="font-label-md text-primary font-bold">Physics Lab Practical</p><p class="font-label-sm text-outline text-xs">by Dr. Sarah</p></div>
+                                </div>
+                                <div class="flex items-center gap-6">
+                                    <div class="text-right"><p class="text-[10px] font-label-sm text-outline uppercase tracking-widest leading-none mb-1">Tomorrow</p><p class="font-label-md text-on-surface-variant">09:00 AM</p></div>
+                                    <a href="#" class="border border-outline-variant text-on-surface-variant px-6 py-2.5 rounded-xl font-label-md text-label-md hover:bg-surface-container-low transition-all">Remind Me</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="grid grid-cols-2 gap-gutter">
+                        <a href="#" class="bg-surface-container-lowest border border-outline-variant p-6 rounded-3xl card-shadow transition-lift flex items-center gap-4">
+                            <div class="w-16 h-16 bg-primary-fixed rounded-2xl flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-circle-play text-primary text-2xl"></i></div>
+                            <div><h3 class="font-label-md text-primary font-bold">12 New Recordings</h3><p class="font-body-md text-outline text-sm line-clamp-1">Last: Ethics in AI</p><span class="text-secondary font-label-sm text-xs mt-1 flex items-center gap-1 group">View Library <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i></span></div>
+                        </a>
+                        <a href="#" class="bg-surface-container-lowest border border-outline-variant p-6 rounded-3xl card-shadow transition-lift flex items-start gap-3">
+                            <div class="p-2 bg-error-container/50 rounded-xl"><i class="fa-solid fa-bullhorn text-error text-xl"></i></div>
+                            <div><h3 class="font-label-md text-primary font-bold">Announcement</h3><p class="text-xs text-on-surface-variant mt-1 line-clamp-2">Physics session moved to Friday at 5 PM.</p></div>
+                        </a>
+                    </div>
+                    
+                    <!-- Expandable Schedule Card for Tomorrow -->
+                    <div class="schedule-card bg-surface-container-lowest border border-outline-variant rounded-3xl card-shadow overflow-hidden">
+                        <button onclick="toggleScheduleCard()" class="w-full p-6 flex items-center justify-between hover:bg-surface-container transition-colors">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-secondary-fixed rounded-xl flex items-center justify-center">
+                                    <i class="fa-regular fa-calendar-check text-secondary text-xl"></i>
+                                </div>
+                                <div class="text-left">
+                                    <h3 class="font-label-md text-primary font-bold">Tomorrow's Schedule</h3>
+                                    <p class="text-xs text-outline">Wednesday, January 25, 2026</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-outline toggle-icon transition-transform"></i>
+                        </button>
+                        <div class="schedule-card-content border-t border-outline-variant/30">
+                            <div class="p-6 space-y-3">
+                                <div class="flex items-center gap-4 p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                                    <div class="w-16 text-center">
+                                        <p class="text-sm font-bold text-primary">09:00</p>
+                                        <p class="text-xs text-outline">AM</p>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-label-md text-primary font-bold">Physics Lab Practical</p>
+                                        <p class="text-xs text-outline">Dr. Sarah • Room 302</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-secondary-container text-on-secondary rounded-full text-[10px] font-bold">LAB</span>
+                                </div>
+                                <div class="flex items-center gap-4 p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                                    <div class="w-16 text-center">
+                                        <p class="text-sm font-bold text-primary">11:30</p>
+                                        <p class="text-xs text-outline">AM</p>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-label-md text-primary font-bold">Statistics II</p>
+                                        <p class="text-xs text-outline">Prof. Chinedu • Lecture Hall B</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-primary-fixed text-primary rounded-full text-[10px] font-bold">LECTURE</span>
+                                </div>
+                                <div class="flex items-center gap-4 p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                                    <div class="w-16 text-center">
+                                        <p class="text-sm font-bold text-primary">02:00</p>
+                                        <p class="text-xs text-outline">PM</p>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-label-md text-primary font-bold">Advanced Mathematics</p>
+                                        <p class="text-xs text-outline">Dr. Adebayo • Room 205</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-primary-fixed text-primary rounded-full text-[10px] font-bold">LECTURE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="col-span-12 lg:col-span-4 space-y-gutter">
+                    <div class="bg-surface-container-lowest border border-outline-variant p-stack-lg rounded-3xl card-shadow">
+                        <div class="flex justify-between items-start mb-6"><h3 class="font-label-md text-label-md text-outline uppercase tracking-widest">Tuition Status</h3><i class="fa-solid fa-wallet text-on-tertiary-container bg-tertiary-fixed/30 p-2 rounded-lg"></i></div>
+                        <div class="mb-6"><div class="flex items-center gap-2 mb-1"><h4 class="font-headline-md text-headline-md text-primary text-xl">January 2026</h4><span class="flex items-center gap-1 px-2 py-0.5 bg-on-tertiary-container/10 text-on-tertiary-container rounded font-label-sm text-[10px] uppercase">Paid</span></div><p class="font-body-md text-outline text-sm">Next due: Feb 1st, 2026</p></div>
+                        <div class="w-full bg-surface-container rounded-full h-1.5 mb-6"><div class="bg-on-tertiary-container h-full rounded-full" style="width: 100%"></div></div>
+                        <a href="#" class="w-full border border-outline-variant text-on-surface-variant hover:text-primary py-3 rounded-xl font-label-md text-label-md transition-all block text-center">View Invoices</a>
+                    </div>
+                    <div class="bg-surface-container-lowest border border-outline-variant rounded-3xl p-stack-lg card-shadow">
+                        <h3 class="font-label-md text-label-md text-primary font-bold mb-6">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <a href="#" class="w-full flex items-center gap-3 p-4 bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-primary rounded-2xl transition-all"><i class="fa-regular fa-calendar-plus text-secondary"></i><span class="font-label-md">Download Calendar</span></a>
+                            <a href="#" class="w-full flex items-center gap-3 p-4 bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-primary rounded-2xl transition-all"><i class="fa-solid fa-file-upload text-secondary"></i><span class="font-label-md">Upload Receipt</span></a>
+                        </div>
+                    </div>
+                    <div class="bg-primary text-on-primary rounded-3xl p-8 shadow-xl relative overflow-hidden">
+                        <div class="relative z-10"><h4 class="font-label-md text-label-md mb-2 opacity-80">Course Completion</h4><div class="text-4xl font-display-lg mb-4">78%</div><div class="w-full bg-on-primary/20 rounded-full h-2 mb-2"><div class="bg-tertiary-fixed-dim h-full rounded-full" style="width: 78%"></div></div><p class="text-[10px] font-label-sm opacity-60 uppercase tracking-widest">Next: Semester Finals</p></div>
+                        <div class="absolute -right-4 -bottom-4 opacity-10"><i class="fa-solid fa-chart-line text-9xl"></i></div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- AI Chat Side Pane -->
+<!-- AI Chat Side Pane (Modified to embed supportbot.naijaassets.com) -->
+<div id="aiChatPane" class="fixed top-0 right-0 h-full w-96 bg-surface-container-lowest border-l border-outline-variant shadow-xl z-40 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest flex-shrink-0">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-robot text-secondary text-lg"></i>
+            <h3 class="font-label-md text-primary font-bold">AI Support</h3>
+        </div>
+        <button id="closeAiChat" class="p-2 hover:bg-surface-container rounded-full transition-colors">
+            <i class="fa-solid fa-times"></i>
+        </button>
+    </div>
+    
+    <!-- Chatbot iframe - fills remaining space -->
+    <div class="flex-1 w-full bg-white">
+        <iframe 
+            src="https://supportbot.naijaassets.com" 
+            class="w-full h-full border-0" 
+            title="NaijaAssets AI Assistant"
+            loading="lazy"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
+        ></iframe>
+    </div>
+    
+    <!-- No footer input needed - chatbot handles its own input -->
+</div>
+
+<!-- Floating AI Chat Button -->
+<button id="aiChatToggle" class="ai-floating-btn fixed bottom-6 right-6 z-50 w-14 h-14 bg-secondary text-white rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center justify-center" aria-label="Open AI Chat">
+    <i class="fa-solid fa-comments text-xl"></i>
+</button>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const icon = document.getElementById('sidebarToggleIcon');
+        sidebar.classList.toggle('collapsed');
+        if (sidebar.classList.contains('collapsed')) {
+            icon.className = 'fa-solid fa-chevron-right text-xl';
+            document.querySelectorAll('.menu-expanded').forEach(el => el.classList.remove('menu-expanded'));
+        } else { icon.className = 'fa-solid fa-chevron-left text-xl'; }
+    }
+
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const sidebar = document.getElementById('sidebar');
+    if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', () => { sidebar.classList.add('active'); mobileOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
+    if (mobileOverlay) mobileOverlay.addEventListener('click', () => { sidebar.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; });
+    document.querySelectorAll('#sidebar a').forEach(link => { link.addEventListener('click', () => { if (window.innerWidth < 1024) { sidebar.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; } }); });
+
+    function toggleMenu(id) {
+        const menu = document.getElementById(id);
+        const button = menu.querySelector('button');
+        const isExpanded = menu.classList.toggle('menu-expanded');
+        button.setAttribute('aria-expanded', isExpanded);
+    }
+
+    // Toggle Schedule Card
+    function toggleScheduleCard() {
+        const card = document.querySelector('.schedule-card');
+        card.classList.toggle('expanded');
+    }
+
+    // AI Chat Pane Toggle
+    const aiToggle = document.getElementById('aiChatToggle');
+    const aiPane = document.getElementById('aiChatPane');
+    const closeAi = document.getElementById('closeAiChat');
+    const mainWrapper = document.getElementById('mainWrapper');
+    let aiOpen = false;
+
+    function toggleAiPane() {
+        aiOpen = !aiOpen;
+        if (aiOpen) {
+            aiPane.classList.remove('translate-x-full');
+            aiPane.classList.add('translate-x-0');
+            aiToggle.classList.add('hidden');
+            if (window.innerWidth >= 1024) {
+                mainWrapper.style.marginRight = '24rem';
+            }
+        } else {
+            aiPane.classList.add('translate-x-full');
+            aiPane.classList.remove('translate-x-0');
+            aiToggle.classList.remove('hidden');
+            mainWrapper.style.marginRight = '0';
+        }
+    }
+
+    aiToggle.addEventListener('click', toggleAiPane);
+    closeAi.addEventListener('click', toggleAiPane);
+
+    // JS Calendar Generator
+    let currentMonth = new Date().getMonth();
+    let currentYear = 2026;
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    const events = { '2026-0-5': 'Math Exam Prep', '2026-0-12': 'Physics Lab', '2026-0-15': 'Statistics Quiz' };
+
+    function renderCalendar() {
+        const grid = document.getElementById('calendarGrid');
+        grid.innerHTML = '';
+        document.getElementById('calendarTitle').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+        dayNames.forEach(d => { const el = document.createElement('div'); el.className = 'calendar-header'; el.textContent = d; grid.appendChild(el); });
+        
+        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+        const today = new Date();
+        
+        for (let i = firstDay - 1; i >= 0; i--) { const el = document.createElement('div'); el.className = 'calendar-day other-month'; el.textContent = daysInPrevMonth - i; grid.appendChild(el); }
+        for (let d = 1; d <= daysInMonth; d++) {
+            const el = document.createElement('div');
+            const isToday = d === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
+            const hasEvent = events[`${currentYear}-${currentMonth}-${d}`];
+            el.className = `calendar-day ${isToday ? 'today' : ''} ${hasEvent ? 'has-event' : ''}`;
+            el.textContent = d;
+            el.style.position = 'relative';
+            el.onclick = () => { document.querySelectorAll('.calendar-day').forEach(c => c.style.outline = 'none'); el.style.outline = '2px solid #316bf3'; };
+            grid.appendChild(el);
+        }
+        const totalCells = grid.children.length;
+        const remaining = totalCells <= 35 ? 35 - totalCells : 42 - totalCells;
+        for (let i = 1; i <= remaining; i++) { const el = document.createElement('div'); el.className = 'calendar-day other-month'; el.textContent = i; grid.appendChild(el); }
+    }
+
+    function prevMonth() { currentMonth--; if (currentMonth < 0) { currentMonth = 11; currentYear--; } renderCalendar(); }
+    function nextMonth() { currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; } renderCalendar(); }
+
+    document.addEventListener('DOMContentLoaded', () => { renderCalendar(); });
+    window.addEventListener('resize', () => { 
+        if (window.innerWidth >= 1024) { 
+            sidebar.classList.remove('active'); 
+            mobileOverlay.classList.remove('active'); 
+            document.body.style.overflow = ''; 
+            if (aiOpen) mainWrapper.style.marginRight = '24rem';
+        } else {
+            mainWrapper.style.marginRight = '0';
+        }
+    });
+    
+    document.querySelectorAll('a').forEach(link => { if(link.textContent.includes('Join Class')) { link.addEventListener('click', function(e) { e.preventDefault(); const o = this.innerHTML; this.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-lg"></i> Joining...'; this.classList.add('pointer-events-none'); setTimeout(() => { this.innerHTML = '<i class="fa-solid fa-check text-lg"></i> Joined'; this.classList.replace('bg-secondary', 'bg-on-tertiary-container'); setTimeout(() => { this.innerHTML = o; this.classList.remove('pointer-events-none'); this.classList.replace('bg-on-tertiary-container', 'bg-secondary'); }, 2000); }, 1200); }); } });
+</script>
+<!-- Supabase + Auth + API Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabaseClient.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/api.js"></script>
+
+<script>
+// Auth guard — redirects to /login/ if not authenticated
+(async function() {
+  const isAuth = await Auth.requireAuth();
+  if (!isAuth) return;
+
+  // Populate user info in the UI
+  const user = window.currentUser;
+  
+  // Update profile display areas (adjust selectors to match your HTML)
+  document.querySelectorAll('[data-user-email]').forEach(el => {
+    el.textContent = user.email;
+  });
+  document.querySelectorAll('[data-user-name]').forEach(el => {
+    el.textContent = `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.email;
+  });
+  document.querySelectorAll('[data-user-subscription]').forEach(el => {
+    el.textContent = user.subscription_type || 'basic';
+  });
+  document.querySelectorAll('[data-user-grade]').forEach(el => {
+    el.textContent = user.grade || 'Not set';
+  });
+})();
+</script>
+</body>
+</html>
