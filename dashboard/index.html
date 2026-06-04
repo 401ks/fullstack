@@ -8,6 +8,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Hanken+Grotesk:wght@100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+    
+    <!-- FIX 1: Dynamic GitHub Pages Routing Interceptor -->
+    <script>
+        // This automatically fixes all absolute HTML links (like /dashboard/classes/) 
+        // when hosted on a GitHub Pages subdirectory (e.g., username.github.io/naijaassets/)
+        (function() {
+            const isGitHubPages = window.location.hostname.includes('github.io') && window.location.pathname.split('/').length > 2;
+            if (isGitHubPages) {
+                const repoName = '/' + window.location.pathname.split('/')[1];
+                document.addEventListener('click', (e) => {
+                    const link = e.target.closest('a');
+                    if (link) {
+                        const href = link.getAttribute('href');
+                        // If link is absolute but doesn't already include the repo name, fix it
+                        if (href && href.startsWith('/') && !href.startsWith(repoName)) {
+                            e.preventDefault();
+                            window.location.href = repoName + href;
+                        }
+                    }
+                });
+            }
+        })();
+    </script>
+
     <script id="tailwind-config">
       tailwind.config = {
         theme: {
@@ -602,22 +626,32 @@
     document.querySelectorAll('a').forEach(link => { if(link.textContent.includes('Join Class')) { link.addEventListener('click', function(e) { e.preventDefault(); const o = this.innerHTML; this.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-lg"></i> Joining...'; this.classList.add('pointer-events-none'); setTimeout(() => { this.innerHTML = '<i class="fa-solid fa-check text-lg"></i> Joined'; this.classList.replace('bg-secondary', 'bg-on-tertiary-container'); setTimeout(() => { this.innerHTML = o; this.classList.remove('pointer-events-none'); this.classList.replace('bg-on-tertiary-container', 'bg-secondary'); }, 2000); }, 1200); }); } });
 </script>
 
-<!-- NEW: Supabase Integration Logic -->
+<!-- FIX 2: Supabase Integration Logic with Dynamic Routing -->
 <script type="module">
-    import { initializeAuth, requireAuth, signOut } from '../auth.js';
+    import { initializeAuth } from '../auth.js';
     import { getSubscriptionStatus } from '../utils.js';
+    import { supabase } from '../supabaseClient.js';
+
+    // Dynamically detect GitHub Pages subdirectory path for JS redirects
+    const isGitHubPages = window.location.hostname.includes('github.io') && window.location.pathname.split('/').length > 2;
+    const BASE_PATH = isGitHubPages ? '/' + window.location.pathname.split('/')[1] : '';
 
     async function initDashboard() {
         // 1. Initialize Auth & Check Session
         await initializeAuth();
-        if (!requireAuth()) return;
+        
+        // Robust Session Check & Redirect (Uses dynamic BASE_PATH)
+        if (!window.currentSession) {
+            window.location.replace(BASE_PATH + '/login/');
+            return;
+        }
 
         const user = window.currentUser;
         const session = window.currentSession;
 
         // 2. Onboarding Check (Redirect if profile incomplete)
-        if (!user.grade) {
-            window.location.href = '/login?onboarding';
+        if (!user || !user.grade) {
+            window.location.replace(BASE_PATH + '/login/?onboarding');
             return;
         }
 
@@ -668,12 +702,13 @@
             }
         }
 
-        // 5. Logout Functionality
+        // 5. Logout Functionality (Using dynamic BASE_PATH to prevent 404s on GitHub Pages)
         const logoutBtn = document.getElementById('logoutBtn');
         if (logoutBtn) {
-            logoutBtn.addEventListener('click', (e) => {
+            logoutBtn.addEventListener('click', async (e) => {
                 e.preventDefault();
-                signOut();
+                await supabase.auth.signOut();
+                window.location.replace(BASE_PATH + '/login/');
             });
         }
     }
