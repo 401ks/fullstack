@@ -7,56 +7,45 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Hanken+Grotesk:wght@100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+    
+    <!-- Dynamic GitHub Pages Routing Interceptor -->
+    <script>
+        (function() {
+            const isGitHubPages = window.location.hostname.includes('github.io') && window.location.pathname.split('/').length > 2;
+            if (isGitHubPages) {
+                const repoName = '/' + window.location.pathname.split('/')[1];
+                document.addEventListener('click', (e) => {
+                    const link = e.target.closest('a');
+                    if (link) {
+                        const href = link.getAttribute('href');
+                        if (href && href.startsWith('/') && !href.startsWith(repoName)) {
+                            e.preventDefault();
+                            window.location.href = repoName + href;
+                        }
+                    }
+                });
+            }
+        })();
+    </script>
+
     <script id="tailwind-config">
       tailwind.config = {
         theme: {
           extend: {
             "colors": {
-                    "outline": "#76777d",
-                    "on-surface": "#191c1e",
-                    "on-secondary": "#ffffff",
-                    "primary": "#000000",
-                    "on-primary-container": "#7c839b",
-                    "primary-container": "#131b2e",
-                    "on-secondary-fixed": "#00174b",
-                    "on-error-container": "#93000a",
-                    "surface-container-high": "#e6e8ea",
-                    "secondary-fixed-dim": "#b4c5ff",
-                    "surface": "#f7f9fb",
-                    "secondary-fixed": "#dbe1ff",
-                    "error": "#ba1a1a",
-                    "surface-variant": "#e0e3e5",
-                    "inverse-surface": "#2d3133",
-                    "tertiary-fixed-dim": "#4fdbc8",
-                    "on-tertiary-container": "#009485",
-                    "error-container": "#ffdad6",
-                    "on-error": "#ffffff",
-                    "on-tertiary-fixed": "#00201c",
-                    "on-primary": "#ffffff",
-                    "background": "#f7f9fb",
-                    "secondary-container": "#316bf3",
-                    "surface-container": "#eceef0",
-                    "primary-fixed-dim": "#bec6e0",
-                    "outline-variant": "#c6c6cd",
-                    "secondary": "#0051d5",
-                    "on-tertiary": "#ffffff",
-                    "tertiary": "#000000",
-                    "surface-container-lowest": "#ffffff",
-                    "surface-bright": "#f7f9fb",
-                    "surface-container-highest": "#e0e3e5",
-                    "on-secondary-fixed-variant": "#003ea8",
-                    "surface-tint": "#565e74",
-                    "surface-dim": "#d8dadc",
-                    "inverse-primary": "#bec6e0",
-                    "inverse-on-surface": "#eff1f3",
-                    "primary-fixed": "#dae2fd",
-                    "tertiary-container": "#00201c",
-                    "on-background": "#191c1e",
-                    "surface-container-low": "#f2f4f6",
-                    "on-surface-variant": "#45464d",
-                    "tertiary-fixed": "#71f8e4",
-                    "on-primary-fixed-variant": "#3f465c",
-                    "on-primary-fixed": "#131b2e"
+                    "outline": "#76777d", "on-surface": "#191c1e", "on-secondary": "#ffffff", "primary": "#000000",
+                    "on-primary-container": "#7c839b", "primary-container": "#131b2e", "on-secondary-fixed": "#00174b",
+                    "on-error-container": "#93000a", "surface-container-high": "#e6e8ea", "secondary-fixed-dim": "#b4c5ff",
+                    "surface": "#f7f9fb", "secondary-fixed": "#dbe1ff", "error": "#ba1a1a", "surface-variant": "#e0e3e5",
+                    "inverse-surface": "#2d3133", "tertiary-fixed-dim": "#4fdbc8", "on-tertiary-container": "#009485",
+                    "error-container": "#ffdad6", "on-error": "#ffffff", "on-tertiary-fixed": "#00201c", "on-primary": "#ffffff",
+                    "background": "#f7f9fb", "secondary-container": "#316bf3", "surface-container": "#eceef0", "primary-fixed-dim": "#bec6e0",
+                    "outline-variant": "#c6c6cd", "secondary": "#0051d5", "on-tertiary": "#ffffff", "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff", "surface-bright": "#f7f9fb", "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#003ea8", "surface-tint": "#565e74", "surface-dim": "#d8dadc", "inverse-primary": "#bec6e0",
+                    "inverse-on-surface": "#eff1f3", "primary-fixed": "#dae2fd", "tertiary-container": "#00201c", "on-background": "#191c1e",
+                    "surface-container-low": "#f2f4f6", "on-surface-variant": "#45464d", "tertiary-fixed": "#71f8e4",
+                    "on-primary-fixed-variant": "#3f465c", "on-primary-fixed": "#131b2e"
             },
             "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
             "spacing": { "stack-md": "16px", "margin-mobile": "16px", "gutter": "24px", "stack-lg": "32px", "stack-sm": "8px", "unit": "8px", "margin-desktop": "32px", "container-max": "1280px" },
@@ -88,20 +77,7 @@
         .ai-floating-btn { transition: opacity 0.3s ease, transform 0.3s ease; }
         .ai-floating-btn.hidden { opacity: 0; transform: scale(0.8); pointer-events: none; }
         
-        /* SIDEBAR - Same for Desktop & Mobile */
-        #sidebar { 
-            width: 256px; 
-            overflow: hidden; 
-            position: sticky; 
-            top: 0; 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s ease-in-out; 
-            background: #ffffff; 
-            z-index: 50; 
-            border-right: 1px solid #c6c6cd; 
-        }
+        #sidebar { width: 256px; overflow: hidden; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s ease-in-out; background: #ffffff; z-index: 50; border-right: 1px solid #c6c6cd; }
         #sidebar.collapsed { width: 80px; }
         #sidebar.collapsed .sidebar-text, #sidebar.collapsed .profile-details, #sidebar.collapsed .submenu, #sidebar.collapsed .sidebar-header-text { display: none; }
         #sidebar.collapsed .sidebar-item { justify-content: center; padding-left: 0; padding-right: 0; }
@@ -113,40 +89,18 @@
         .menu-expanded .submenu { max-height: 500px; }
         .menu-expanded .sidebar-chevron { transform: rotate(180deg); }
         
-        /* MOBILE: Sidebar becomes slide-in menu (FULL DESKTOP CONTENT) */
         @media (max-width: 1023px) {
-            #sidebar { 
-                position: fixed; 
-                left: -100%; 
-                top: 0;
-                z-index: 100; 
-                width: 280px; 
-                box-shadow: 0 0 20px rgba(0,0,0,0.1); 
-                /* Ensure full content is visible on mobile */
-            }
+            #sidebar { position: fixed; left: -100%; top: 0; z-index: 100; width: 280px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
             #sidebar.active { left: 0; }
-            /* On mobile, never collapse - always show full content */
             #sidebar.collapsed { width: 280px; }
-            #sidebar.collapsed .sidebar-text, 
-            #sidebar.collapsed .profile-details, 
-            #sidebar.collapsed .submenu, 
-            #sidebar.collapsed .sidebar-header-text { display: block !important; }
+            #sidebar.collapsed .sidebar-text, #sidebar.collapsed .profile-details, #sidebar.collapsed .submenu, #sidebar.collapsed .sidebar-header-text { display: block !important; }
             #sidebar.collapsed .sidebar-item { justify-content: flex-start !important; padding-left: 16px !important; padding-right: 16px !important; }
             #sidebar.collapsed .sidebar-chevron { display: block !important; }
             #sidebar.collapsed .sidebar-logo-container { justify-content: flex-start !important; padding: 0 16px !important; }
             #sidebar.collapsed .profile-section { padding: 16px !important; justify-content: flex-start !important; }
             #sidebar.collapsed .profile-section img { margin-right: 12px !important; }
             
-            .mobile-menu-overlay { 
-                position: fixed; 
-                inset: 0; 
-                background: rgba(13, 28, 46, 0.5); 
-                z-index: 90; 
-                opacity: 0; 
-                visibility: hidden; 
-                transition: all 0.3s ease-in-out; 
-                backdrop-filter: blur(4px); 
-            }
+            .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(13, 28, 46, 0.5); z-index: 90; opacity: 0; visibility: hidden; transition: all 0.3s ease-in-out; backdrop-filter: blur(4px); }
             .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
             .mobile-menu-toggle { display: block; }
             .desktop-menu-toggle { display: none !important; }
@@ -156,14 +110,10 @@
             body.menu-open { overflow: hidden; }
             .settings-nav-desktop { display: none !important; }
         }
-        @media (min-width: 1024px) { 
-            .mobile-menu-toggle { display: none; } 
-            .desktop-menu-toggle { display: block; }
-        }
+        @media (min-width: 1024px) { .mobile-menu-toggle { display: none; } .desktop-menu-toggle { display: block; } }
         
         .btn-scale:active { transform: scale(0.98); }
         
-        /* Toggle Switches */
         .toggle-container { position: relative; display: inline-block; width: 44px; height: 24px; }
         .toggle-input { opacity: 0; width: 0; height: 0; position: absolute; }
         .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #e0e3e5; transition: 0.3s; border-radius: 24px; }
@@ -171,76 +121,26 @@
         .toggle-input:checked + .toggle-slider { background-color: #0051d5; }
         .toggle-input:checked + .toggle-slider:before { transform: translateX(20px); }
         
-        /* Disabled appearance buttons */
-        .appearance-btn-disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-            position: relative;
-        }
-        .appearance-btn-disabled .coming-soon-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #76777d;
-            color: white;
-            font-size: 9px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .appearance-btn-disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; position: relative; }
+        .appearance-btn-disabled .coming-soon-badge { position: absolute; top: 8px; right: 8px; background: #76777d; color: white; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* Active section highlight */
-        .settings-section-active {
-            border-color: #0051d5 !important;
-            box-shadow: 0 0 0 2px rgba(0, 81, 213, 0.1), 0px 4px 20px rgba(15, 23, 42, 0.05) !important;
-        }
-        
-        /* Settings submenu active item */
-        .settings-subitem-active {
-            color: #0051d5 !important;
-            font-weight: 600 !important;
-            background: rgba(0, 81, 213, 0.05) !important;
-        }
-        
-        /* Settings submenu divider */
-        .settings-submenu-divider {
-            margin: 8px 0;
-            border-top: 1px solid rgba(198, 198, 205, 0.3);
-        }
-        
-        /* Get Help link - blue */
-        .settings-help-link {
-            color: #0051d5 !important;
-        }
-        .settings-help-link:hover {
-            color: #003ea8 !important;
-            background: rgba(0, 81, 213, 0.05) !important;
-        }
-        
-        /* Logout link - red */
-        .settings-logout-link {
-            color: #dc2626 !important;
-        }
-        .settings-logout-link:hover {
-            color: #b91c1c !important;
-            background: rgba(220, 38, 38, 0.05) !important;
-        }
+        .settings-section-active { border-color: #0051d5 !important; box-shadow: 0 0 0 2px rgba(0, 81, 213, 0.1), 0px 4px 20px rgba(15, 23, 42, 0.05) !important; }
+        .settings-subitem-active { color: #0051d5 !important; font-weight: 600 !important; background: rgba(0, 81, 213, 0.05) !important; }
+        .settings-submenu-divider { margin: 8px 0; border-top: 1px solid rgba(198, 198, 205, 0.3); }
+        .settings-help-link { color: #0051d5 !important; }
+        .settings-help-link:hover { color: #003ea8 !important; background: rgba(0, 81, 213, 0.05) !important; }
+        .settings-logout-link { color: #dc2626 !important; }
+        .settings-logout-link:hover { color: #b91c1c !important; background: rgba(220, 38, 38, 0.05) !important; }
     </style>
 </head>
 <body class="bg-background text-on-surface">
 <div class="mobile-menu-overlay" id="mobileOverlay"></div>
 <div class="flex min-h-screen">
-    <!-- Mobile Menu Toggle (Hamburger) -->
     <button class="mobile-menu-toggle fixed top-4 left-4 z-50 p-2 bg-surface-container-lowest rounded-lg shadow-lg border border-outline-variant text-on-surface lg:hidden" id="mobileMenuToggle" aria-label="Toggle menu">
         <i class="fa-solid fa-bars text-xl"></i>
     </button>
 
-    <!-- FULL SIDEBAR - Identical for Desktop & Mobile -->
     <aside class="h-screen sticky left-0 top-0 w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col py-stack-lg shadow-sm z-50" id="sidebar">
-        <!-- Logo Section -->
         <div class="px-4 mb-6 flex items-center justify-between sidebar-logo-container">
             <div class="flex items-center gap-3 overflow-hidden">
                 <i class="fa-solid fa-graduation-cap text-secondary text-2xl flex-shrink-0"></i>
@@ -249,13 +149,11 @@
                     <span class="font-label-sm text-outline text-[10px] uppercase tracking-wider">Student Portal</span>
                 </div>
             </div>
-            <!-- Desktop collapse toggle (hidden on mobile) -->
             <button class="p-1 hover:bg-surface-container rounded-full text-outline hover:text-primary transition-colors desktop-menu-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
                 <i class="fa-solid fa-chevron-left text-xl" id="sidebarToggleIcon"></i>
             </button>
         </div>
         
-        <!-- Profile Section -->
         <div class="px-4 mb-6 profile-section">
             <a href="#" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors">
                 <img alt="Profile" class="w-10 h-10 rounded-full object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUUlOjD2NqHiozDk74aw-A3BNeSSnSOK0DLyDmSxUPw8t4VSZmRCrOTViEmVvpzn5AUNClDA6xEGSji0HYodD1cyh5n9koyszAs6Mzzhb9W_9fvAD8lO7LQjq5oENJXH449vkUJ5BbAckI0JvGCk8X-dMKB1lOoxn_CTP6eRTZSy-jKMAHXx2OC697aMu3wXPhDWV9I_Yq0-yl0XugRusbGJHhLeKubyGTw4Wy7YePrOlNy1XXHHka3WgFKcCXqEixu9-qPSYsWCk"/>
@@ -267,7 +165,6 @@
             </a>
         </div>
         
-        <!-- Main Navigation -->
         <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
             <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="/dashboard/">
                 <i class="fa-solid fa-gauge-high"></i>
@@ -279,10 +176,9 @@
             </a>
             <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="/dashboard/recordings/">
                 <i class="fa-solid fa-video"></i>
-                <span class="<think>-md text-label-md sidebar-text">Recordings</span>
+                <span class="font-label-md text-label-md sidebar-text">Recordings</span>
             </a>
             
-            <!-- Resources Dropdown -->
             <div class="group" id="resources-menu">
                 <button class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg" onclick="toggleMenu('resources-menu')" aria-expanded="false">
                     <div class="flex items-center gap-3">
@@ -304,7 +200,6 @@
                 <span class="font-label-md text-label-md sidebar-text">Payments</span>
             </a>
             
-            <!-- Settings Dropdown (Expanded by Default) -->
             <div class="group menu-expanded" id="settings-menu">
                 <button class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-primary font-bold border-r-4 border-secondary bg-surface-container rounded-l-lg transition-colors duration-200" onclick="toggleMenu('settings-menu')" aria-expanded="true">
                     <div class="flex items-center gap-3">
@@ -314,27 +209,21 @@
                     <i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i>
                 </button>
                 <div class="submenu pl-10 space-y-1 mt-1">
-                    <!-- Account Settings -->
                     <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=account" data-section="account-section" onclick="navigateToSection(event, 'account-section')">
                         <i class="fa-solid fa-user-gear text-xs"></i><span>Account Settings</span>
                     </a>
-                    <!-- Profile Settings -->
                     <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=profile" data-section="profile-section" onclick="navigateToSection(event, 'profile-section')">
                         <i class="fa-solid fa-id-card text-xs"></i><span>Profile Settings</span>
                     </a>
-                    <!-- Visual Settings -->
                     <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=appearance" data-section="appearance-section" onclick="navigateToSection(event, 'appearance-section')">
                         <i class="fa-solid fa-palette text-xs"></i><span>Visual Settings</span>
                     </a>
                     
-                    <!-- Divider -->
                     <div class="settings-submenu-divider"></div>
                     
-                    <!-- Get Help - BLUE -->
                     <a class="settings-help-link block py-2 text-sm font-medium transition-colors flex items-center gap-2" href="#" onclick="openAIChat(event)">
                         <i class="fa-solid fa-circle-question text-xs"></i><span>Get Help</span>
                     </a>
-                    <!-- Logout - RED -->
                     <a class="settings-logout-link block py-2 text-sm font-medium transition-colors flex items-center gap-2" href="#" onclick="handleLogout(event)">
                         <i class="fa-solid fa-right-from-bracket text-xs"></i><span>Logout</span>
                     </a>
@@ -342,7 +231,6 @@
             </div>
         </nav>
         
-        <!-- Footer Links -->
         <div class="px-4 py-4 border-t border-outline-variant/30 mt-auto">
             <div class="flex flex-wrap gap-4 text-[11px]">
                 <a href="/privacy" class="text-outline hover:text-primary transition-colors">Privacy</a>
@@ -352,7 +240,6 @@
         </div>
     </aside>
 
-    <!-- Main Content Area -->
     <div id="mainWrapper" class="flex-1 overflow-y-auto">
         <header class="sticky top-0 z-40 w-full flex gap-4 px-margin-desktop py-4 bg-background/50 backdrop-blur-md">
             <div class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-4 flex items-center gap-3 card-shadow">
@@ -378,14 +265,12 @@
         </header>
 
         <main class="px-margin-mobile md:px-margin-desktop pb-margin-desktop max-w-6xl mx-auto space-y-8">
-            <!-- Page Header -->
             <div>
                 <h2 class="font-headline-lg text-headline-lg text-primary">Settings</h2>
                 <p class="font-body-md text-on-surface-variant mt-1">Manage your student profile, account preferences, and security settings.</p>
             </div>
 
             <div class="flex flex-col lg:flex-row gap-8 min-h-[calc(100vh-240px)]">
-                <!-- Left Column: Categories (HIDDEN ON MOBILE) -->
                 <div class="settings-nav-desktop lg:w-1/3 flex flex-col gap-2 overflow-y-auto pr-2 custom-scrollbar max-h-[calc(100vh-200px)]">
                     <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'profile-section')">
                         <div class="flex items-center gap-3"><i class="fa-solid fa-user text-secondary"></i><span class="font-label-md text-label-md">Profile Settings</span></div>
@@ -421,7 +306,6 @@
                     </button>
                 </div>
 
-                <!-- Right Column: Detail Pane -->
                 <div class="lg:w-2/3 flex flex-col gap-6 overflow-y-auto pr-2 custom-scrollbar max-h-[calc(100vh-200px)]">
                     <!-- Profile Settings -->
                     <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="profile-section" data-section-name="profile">
@@ -439,25 +323,25 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="font-label-sm text-on-surface-variant block">Full Name</label>
-                                        <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" type="text" value="Loading..."/>
+                                        <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" type="text" id="profile_name" value="Loading..."/>
                                     </div>
                                     <div>
                                         <label class="font-label-sm text-on-surface-variant block">Email Address</label>
-                                        <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" type="email" value="..."/>
+                                        <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none bg-surface-container-lowest cursor-not-allowed" type="email" id="profile_email" value="..." readonly/>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="font-label-sm text-on-surface-variant block">Phone Number</label>
-                                    <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" type="tel" value=""/>
+                                    <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" type="tel" id="profile_phone" value=""/>
                                 </div>
                                 <div>
                                     <label class="font-label-sm text-on-surface-variant block">Bio</label>
-                                    <textarea class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none resize-none" rows="3">Final year Economics student. Passionate about asset management and financial technology.</textarea>
+                                    <textarea class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none resize-none" rows="3" id="profile_bio">Final year Economics student. Passionate about asset management and financial technology.</textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="flex justify-end pt-4 border-t border-outline-variant">
-                            <button class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 transition-all btn-scale">Save Profile Changes</button>
+                            <button id="save_profile_btn" class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 transition-all btn-scale">Save Profile Changes</button>
                         </div>
                     </section>
 
@@ -467,13 +351,13 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="font-label-sm text-on-surface-variant block">Primary Language</label>
-                                <select class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none bg-surface-container-lowest">
+                                <select id="pref_language" class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none bg-surface-container-lowest">
                                     <option>English</option>
                                 </select>
                             </div>
                             <div>
                                 <label class="font-label-sm text-on-surface-variant block">Timezone</label>
-                                <select class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none bg-surface-container-lowest">
+                                <select id="pref_timezone" class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none bg-surface-container-lowest">
                                     <option>(GMT+01:00) West Africa Time</option>
                                     <option>(GMT+00:00) Greenwich Mean Time</option>
                                 </select>
@@ -496,16 +380,10 @@
                                     <p class="text-xs text-outline">Get notified 15 mins before a live session</p>
                                 </div>
                                 <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container">
-                                        <input type="checkbox" class="toggle-input" checked/>
-                                        <span class="toggle-slider"></span>
-                                    </label>
+                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_class_email" checked/><span class="toggle-slider"></span></label>
                                 </div>
                                 <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container">
-                                        <input type="checkbox" class="toggle-input" checked/>
-                                        <span class="toggle-slider"></span>
-                                    </label>
+                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_class_push" checked/><span class="toggle-slider"></span></label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-6 items-center py-4 hover:bg-surface-container-low/30 rounded-lg px-2">
@@ -514,16 +392,10 @@
                                     <p class="text-xs text-outline">Alerts for new lecture notes or recordings</p>
                                 </div>
                                 <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container">
-                                        <input type="checkbox" class="toggle-input" checked/>
-                                        <span class="toggle-slider"></span>
-                                    </label>
+                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_resource_email" checked/><span class="toggle-slider"></span></label>
                                 </div>
                                 <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container">
-                                        <input type="checkbox" class="toggle-input"/>
-                                        <span class="toggle-slider"></span>
-                                    </label>
+                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_resource_push"/><span class="toggle-slider"></span></label>
                                 </div>
                             </div>
                             <div class="grid grid-cols-6 items-center py-4 hover:bg-surface-container-low/30 rounded-lg px-2">
@@ -532,16 +404,10 @@
                                     <p class="text-xs text-outline">Receipt and invoice updates</p>
                                 </div>
                                 <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container">
-                                        <input type="checkbox" class="toggle-input" checked/>
-                                        <span class="toggle-slider"></span>
-                                    </label>
+                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_payment_email" checked/><span class="toggle-slider"></span></label>
                                 </div>
                                 <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container">
-                                        <input type="checkbox" class="toggle-input" checked/>
-                                        <span class="toggle-slider"></span>
-                                    </label>
+                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_payment_push" checked/><span class="toggle-slider"></span></label>
                                 </div>
                             </div>
                         </div>
@@ -560,7 +426,7 @@
                                         <input class="p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" placeholder="Confirm New Password" type="password"/>
                                     </div>
                                 </div>
-                                <button class="px-4 py-2 mt-3 bg-surface-container-high text-primary rounded-lg font-label-md hover:bg-outline-variant transition-all">Update Password</button>
+                                <button id="update_password_btn" class="px-4 py-2 mt-3 bg-surface-container-high text-primary rounded-lg font-label-md hover:bg-outline-variant transition-all">Update Password</button>
                             </div>
                             <div class="pt-6 border-t border-outline-variant flex items-center justify-between">
                                 <div class="flex gap-4 items-start">
@@ -573,7 +439,7 @@
                                     </div>
                                 </div>
                                 <label class="toggle-container">
-                                    <input type="checkbox" class="toggle-input" checked/>
+                                    <input type="checkbox" class="toggle-input" data-key="security_2fa" checked/>
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
@@ -585,7 +451,7 @@
                         <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-palette"></i> Appearance</h3>
                         <p class="text-sm text-outline mb-4">Choose your preferred theme. Dark mode and system sync are coming soon.</p>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <button class="flex flex-col gap-3 p-4 border-2 border-secondary rounded-xl bg-surface-container/30 transition-all relative">
+                            <button data-theme="light" class="flex flex-col gap-3 p-4 border-2 border-secondary rounded-xl bg-surface-container/30 transition-all relative">
                                 <span class="absolute top-2 right-2 bg-secondary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Active</span>
                                 <div class="w-full aspect-video bg-white rounded-lg border border-outline-variant shadow-sm flex items-center justify-center">
                                     <i class="fa-solid fa-sun text-outline text-2xl"></i>
@@ -666,7 +532,7 @@
                                     <p class="text-xs text-outline">Get a digest of upcoming classes and tasks</p>
                                 </div>
                                 <label class="toggle-container">
-                                    <input type="checkbox" class="toggle-input" checked/>
+                                    <input type="checkbox" class="toggle-input" data-key="study_reminders" checked/>
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
@@ -676,13 +542,13 @@
                                     <p class="text-xs text-outline">Minimize distractions during study sessions</p>
                                 </div>
                                 <label class="toggle-container">
-                                    <input type="checkbox" class="toggle-input"/>
+                                    <input type="checkbox" class="toggle-input" data-key="study_focus"/>
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
                             <div>
                                 <label class="font-label-sm text-outline block mb-2">Default Study Duration</label>
-                                <select class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none">
+                                <select id="pref_study_duration" class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none">
                                     <option>25 minutes (Pomodoro)</option>
                                     <option>45 minutes (Classic)</option>
                                     <option>60 minutes (Extended)</option>
@@ -705,10 +571,10 @@
                                     <div class="bg-secondary h-2 rounded-full" style="width: 28%"></div>
                                 </div>
                             </div>
-                            <button class="w-full py-3 bg-primary/5 border border-outline-variant rounded-xl font-label-md hover:bg-primary/10 transition-all flex items-center justify-center gap-2">
+                            <button id="clear_cache_btn" class="w-full py-3 bg-primary/5 border border-outline-variant rounded-xl font-label-md hover:bg-primary/10 transition-all flex items-center justify-center gap-2">
                                 <i class="fa-regular fa-trash-can"></i> Clear Download Cache
                             </button>
-                            <button class="w-full py-3 bg-error/10 border border-error/20 rounded-xl text-error font-label-md hover:bg-error/20 transition-all flex items-center justify-center gap-2">
+                            <button id="export_data_btn" class="w-full py-3 bg-error/10 border border-error/20 rounded-xl text-error font-label-md hover:bg-error/20 transition-all flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-circle-exclamation"></i> Request Account Data Export
                             </button>
                             <div class="pt-4 border-t border-outline-variant/30">
@@ -753,7 +619,6 @@
 
 <!-- Existing UI Logic (Unchanged) -->
 <script>
-    // ===== SIDEBAR TOGGLE (Desktop only) =====
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
         const icon = document.getElementById('sidebarToggleIcon');
@@ -768,7 +633,6 @@
         }
     }
     
-    // ===== SUBMENU TOGGLE =====
     function toggleMenu(id) {
         const menu = document.getElementById(id);
         const button = menu.querySelector('button');
@@ -776,13 +640,11 @@
         button.setAttribute('aria-expanded', isExpanded);
     }
     
-    // ===== MOBILE MENU (Uses Full Desktop Sidebar) =====
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mobileOverlay = document.getElementById('mobileOverlay');
     const sidebar = document.getElementById('sidebar');
     
     function openMobileMenu() {
-        // Ensure sidebar is fully expanded on mobile
         sidebar.classList.remove('collapsed');
         sidebar.classList.add('active');
         mobileOverlay.classList.add('active');
@@ -798,14 +660,12 @@
     if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', openMobileMenu);
     if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
     
-    // Close mobile menu when clicking non-settings links
     document.querySelectorAll('#sidebar a:not([data-section])').forEach(link => {
         link.addEventListener('click', () => {
             if (window.innerWidth < 1024) closeMobileMenu();
         });
     });
     
-    // ===== OPEN AI CHAT =====
     function openAIChat(event) {
         if (event) event.preventDefault();
         const aiPane = document.getElementById('aiChatPane');
@@ -821,7 +681,6 @@
         if (window.innerWidth < 1024) closeMobileMenu();
     }
     
-    // ===== HANDLE LOGOUT =====
     function handleLogout(event) {
         if (event) event.preventDefault();
         if (confirm('Are you sure you want to logout?')) {
@@ -829,7 +688,6 @@
         }
     }
     
-    // ===== NAVIGATE TO SECTION =====
     function navigateToSection(event, sectionId) {
         if (event) event.preventDefault();
         
@@ -849,7 +707,6 @@
         if (window.innerWidth < 1024) closeMobileMenu();
     }
     
-    // ===== HIGHLIGHT ACTIVE SECTION =====
     function highlightActiveSection(sectionId) {
         document.querySelectorAll('.settings-section-active').forEach(el => {
             el.classList.remove('settings-section-active');
@@ -875,21 +732,15 @@
         }
     }
     
-    // ===== HANDLE URL ON PAGE LOAD =====
     function handleInitialUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         const sectionName = urlParams.get('section');
         
         if (sectionName) {
             const sectionMap = {
-                'profile': 'profile-section',
-                'account': 'account-section',
-                'notifications': 'notif-section',
-                'security': 'security-section',
-                'appearance': 'appearance-section',
-                'api': 'api-section',
-                'study': 'study-section',
-                'data': 'data-section'
+                'profile': 'profile-section', 'account': 'account-section', 'notifications': 'notif-section',
+                'security': 'security-section', 'appearance': 'appearance-section', 'api': 'api-section',
+                'study': 'study-section', 'data': 'data-section'
             };
             
             const sectionId = sectionMap[sectionName];
@@ -907,20 +758,14 @@
         }
     }
     
-    // ===== HANDLE BROWSER BACK/FORWARD =====
     window.addEventListener('popstate', (event) => {
         const urlParams = new URLSearchParams(window.location.search);
         const sectionName = urlParams.get('section');
         
         const sectionMap = {
-            'profile': 'profile-section',
-            'account': 'account-section',
-            'notifications': 'notif-section',
-            'security': 'security-section',
-            'appearance': 'appearance-section',
-            'api': 'api-section',
-            'study': 'study-section',
-            'data': 'data-section'
+            'profile': 'profile-section', 'account': 'account-section', 'notifications': 'notif-section',
+            'security': 'security-section', 'appearance': 'appearance-section', 'api': 'api-section',
+            'study': 'study-section', 'data': 'data-section'
         };
         
         if (sectionName && sectionMap[sectionName]) {
@@ -932,7 +777,6 @@
         }
     });
     
-    // ===== AI CHAT TOGGLE =====
     const aiToggle = document.getElementById('aiChatToggle');
     const aiPane = document.getElementById('aiChatPane');
     const closeAi = document.getElementById('closeAiChat');
@@ -959,7 +803,6 @@
     aiToggle.addEventListener('click', toggleAiPane);
     closeAi.addEventListener('click', toggleAiPane);
     
-    // ===== SEARCH FILTER =====
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -972,7 +815,6 @@
         });
     }
     
-    // ===== WINDOW RESIZE =====
     window.addEventListener('resize', () => {
         if (window.innerWidth >= 1024) {
             sidebar.classList.remove('active');
@@ -984,14 +826,6 @@
         }
     });
     
-    // ===== TOGGLE SWITCHES =====
-    document.querySelectorAll('.toggle-input').forEach(toggle => {
-        toggle.addEventListener('change', function() {
-            console.log('Toggle changed:', this.checked);
-        });
-    });
-    
-    // ===== INTERSECTION OBSERVER =====
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -1014,56 +848,68 @@
         sectionObserver.observe(section);
     });
     
-    // ===== INITIALIZE =====
     document.addEventListener('DOMContentLoaded', handleInitialUrl);
 </script>
 
-<!-- NEW: Supabase Integration Logic -->
+<!-- NEW: Supabase Integration Logic (Fully Functional Settings) -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
     import { getSubscriptionStatus, getRexStatus } from '../../utils.js';
+    import { supabase } from '../../supabaseClient.js';
+
+    // Dynamically detect GitHub Pages subdirectory path for JS redirects
+    const isGitHubPages = window.location.hostname.includes('github.io') && window.location.pathname.split('/').length > 2;
+    const BASE_PATH = isGitHubPages ? '/' + window.location.pathname.split('/')[1] : '';
 
     async function initSettingsPage() {
-        // 1. Initialize Auth & Check Session
         await initializeAuth();
         if (!requireAuth()) return;
 
         const user = window.currentUser;
         const session = window.currentSession;
-
-        // 2. Dynamic Profile Data Injection
         const meta = session.user.user_metadata || {};
+        
+        // Load saved preferences (merge from metadata if they exist)
+        const prefs = meta.prefs || JSON.parse(localStorage.getItem('user_prefs') || '{}');
+        if (meta.prefs) localStorage.setItem('user_prefs', JSON.stringify(meta.prefs));
+
+        // 1. Populate Profile Fields
         const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
-        
-        // Sidebar Profile
-        const sidebarName = document.querySelector('.profile-section .profile-details p.font-bold');
-        const sidebarEmail = document.querySelector('.profile-section .profile-details p.text-outline');
-        if (sidebarName) sidebarName.textContent = fullName;
-        if (sidebarEmail) sidebarEmail.textContent = user.email;
+        document.getElementById('profile_name').value = fullName;
+        document.getElementById('profile_email').value = user.email;
+        document.getElementById('profile_phone').value = meta.phone || '';
+        document.getElementById('profile_bio').value = meta.bio || '';
 
-        // Header Profile
-        const headerName = document.querySelector('.header-profile .text-right p.text-primary');
-        const headerLevel = document.querySelector('.header-profile .text-right p.text-outline');
-        if (headerName) headerName.textContent = fullName;
-        if (headerLevel) headerLevel.textContent = user.grade || 'Student';
+        // 2. Populate Toggles and Selects
+        document.querySelectorAll('[data-key]').forEach(el => {
+            if (el.type === 'checkbox') {
+                el.checked = prefs[el.dataset.key] !== undefined ? prefs[el.dataset.key] : el.checked;
+            }
+        });
+        document.getElementById('pref_language').value = prefs.language || 'English';
+        document.getElementById('pref_timezone').value = prefs.timezone || '(GMT+01:00) West Africa Time';
+        document.getElementById('pref_study_duration').value = prefs.study_duration || '25 minutes (Pomodoro)';
 
-        // Profile Settings Inputs
-        const profileNameInput = document.querySelector('#profile-section input[type="text"]');
-        const profileEmailInput = document.querySelector('#profile-section input[type="email"]');
-        const profilePhoneInput = document.querySelector('#profile-section input[type="tel"]');
-        
-        if (profileNameInput) profileNameInput.value = fullName;
-        if (profileEmailInput) profileEmailInput.value = user.email;
-        if (profilePhoneInput && meta.phone) profilePhoneInput.value = meta.phone;
+        // 3. Populate Appearance
+        const savedTheme = prefs.theme || 'light';
+        document.querySelectorAll('#appearance-section button[data-theme]').forEach(btn => {
+            if (btn.dataset.theme === savedTheme) {
+                btn.classList.add('border-secondary', 'bg-surface-container/30');
+                btn.classList.remove('border-outline-variant/50', 'bg-surface-container-low/50');
+                if(!btn.querySelector('.absolute')) {
+                    btn.insertAdjacentHTML('afterbegin', `<span class="absolute top-2 right-2 bg-secondary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Active</span>`);
+                }
+            }
+        });
 
-        // 3. Subscription & REX Display
+        // 4. Populate Subscription Status
         const accountSection = document.getElementById('account-section');
-        if (accountSection) {
+        if (accountSection && !document.getElementById('subscription_status_block')) {
             const subStatus = getSubscriptionStatus(user.subscription_expires_at);
             const rexStatus = getRexStatus(user);
 
             const statusHtml = `
-                <div class="mt-6 pt-6 border-t border-outline-variant">
+                <div id="subscription_status_block" class="mt-6 pt-6 border-t border-outline-variant">
                     <h4 class="font-label-md text-label-md text-outline mb-4 flex items-center gap-2"><i class="fa-solid fa-crown"></i> Subscription Status</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant/30">
@@ -1081,22 +927,160 @@
                             <p class="text-xs text-outline mt-1">${rexStatus.message}</p>
                         </div>
                     </div>
-                    <p class="text-xs text-outline mt-4 italic flex items-center gap-1"><i class="fa-solid fa-circle-info"></i> Subscription changes are managed by the administration. Please contact support to renew or upgrade.</p>
+                    <p class="text-xs text-outline mt-4 italic flex items-center gap-1"><i class="fa-solid fa-circle-info"></i> Subscription changes are managed by the administration.</p>
                 </div>
             `;
             accountSection.insertAdjacentHTML('beforeend', statusHtml);
         }
 
-        // 4. Logout Functionality Override
+        // ==========================================
+        // EVENT LISTENERS FOR SAVING
+        // ==========================================
+
+        // Helper to save all preferences to Supabase & LocalStorage
+        async function savePrefs() {
+            const allPrefs = {};
+            document.querySelectorAll('[data-key]').forEach(el => {
+                if (el.type === 'checkbox') allPrefs[el.dataset.key] = el.checked;
+            });
+            allPrefs.language = document.getElementById('pref_language').value;
+            allPrefs.timezone = document.getElementById('pref_timezone').value;
+            allPrefs.study_duration = document.getElementById('pref_study_duration').value;
+            allPrefs.theme = localStorage.getItem('theme') || 'light';
+            
+            localStorage.setItem('user_prefs', JSON.stringify(allPrefs));
+            await supabase.auth.updateUser({ data: { prefs: allPrefs } });
+        }
+
+        // Auto-save toggles and selects on change
+        document.querySelectorAll('[data-key], #pref_language, #pref_timezone, #pref_study_duration').forEach(el => {
+            el.addEventListener('change', savePrefs);
+        });
+
+        // Appearance buttons
+        document.querySelectorAll('#appearance-section button[data-theme]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if(this.closest('.appearance-btn-disabled')) return; 
+                
+                document.querySelectorAll('#appearance-section button[data-theme]').forEach(b => {
+                    if(!b.closest('.appearance-btn-disabled')) {
+                        b.classList.remove('border-secondary', 'bg-surface-container/30');
+                        b.classList.add('border-outline-variant/50', 'bg-surface-container-low/50');
+                        const badge = b.querySelector('.absolute');
+                        if(badge) badge.remove();
+                    }
+                });
+                
+                this.classList.remove('border-outline-variant/50', 'bg-surface-container-low/50');
+                this.classList.add('border-secondary', 'bg-surface-container/30');
+                this.insertAdjacentHTML('afterbegin', `<span class="absolute top-2 right-2 bg-secondary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Active</span>`);
+                
+                const theme = this.dataset.theme;
+                localStorage.setItem('theme', theme);
+                savePrefs();
+            });
+        });
+
+        // Save Profile Button
+        document.getElementById('save_profile_btn').addEventListener('click', async function() {
+            const name = document.getElementById('profile_name').value;
+            const phone = document.getElementById('profile_phone').value;
+            const bio = document.getElementById('profile_bio').value;
+            
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Saving...';
+            this.disabled = true;
+
+            const { error } = await supabase.auth.updateUser({
+                data: { full_name: name, phone: phone, bio: bio }
+            });
+
+            if (error) {
+                alert('Error saving profile: ' + error.message);
+            } else {
+                alert('Profile updated successfully!');
+                if(window.currentSession) {
+                    window.currentSession.user.user_metadata = {
+                        ...window.currentSession.user.user_metadata,
+                        full_name: name, phone: phone, bio: bio
+                    };
+                }
+                // Update UI globally
+                const sidebarName = document.querySelector('.profile-section .profile-details p.font-bold');
+                if (sidebarName) sidebarName.textContent = name;
+                const headerName = document.querySelector('.header-profile .text-right p.text-primary');
+                if (headerName) headerName.textContent = name;
+            }
+            
+            this.innerHTML = 'Save Profile Changes';
+            this.disabled = false;
+        });
+
+        // Update Password Button
+        document.getElementById('update_password_btn').addEventListener('click', async function() {
+            const inputs = document.querySelectorAll('#security-section input[type="password"]');
+            const newPass = inputs[1].value;
+            const confirmPass = inputs[2].value;
+
+            if (!newPass || newPass.length < 8) {
+                alert('New password must be at least 8 characters.');
+                return;
+            }
+            if (newPass !== confirmPass) {
+                alert('New passwords do not match.');
+                return;
+            }
+
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Updating...';
+            this.disabled = true;
+
+            const { error } = await supabase.auth.updateUser({ password: newPass });
+
+            if (error) {
+                alert('Error updating password: ' + error.message);
+            } else {
+                alert('Password updated successfully! For security, please log in again.');
+                await supabase.auth.signOut();
+                window.location.replace(BASE_PATH + '/login/');
+            }
+
+            this.innerHTML = 'Update Password';
+            this.disabled = false;
+        });
+
+        // Data Management Buttons
+        document.getElementById('clear_cache_btn').addEventListener('click', () => {
+            if(confirm('Clear all downloaded cache and local data? You will need to log in again.')) {
+                localStorage.clear();
+                alert('Cache cleared successfully.');
+                window.location.reload();
+            }
+        });
+
+        document.getElementById('export_data_btn').addEventListener('click', () => {
+            const dataStr = JSON.stringify({
+                profile: window.currentUser,
+                metadata: window.currentSession.user.user_metadata,
+                preferences: JSON.parse(localStorage.getItem('user_prefs') || '{}')
+            }, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            const exportFileDefaultName = `naijaassets_data_export_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        });
+
+        // Override Logout Functionality
         window.handleLogout = function(event) {
             if (event) event.preventDefault();
             if (confirm('Are you sure you want to logout?')) {
-                signOut();
+                supabase.auth.signOut();
+                window.location.replace(BASE_PATH + '/login/');
             }
         };
     }
 
-    // Run initialization
     initSettingsPage();
 </script>
 </body>
