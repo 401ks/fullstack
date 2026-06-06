@@ -8,26 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Hanken+Grotesk:wght@100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
     
-    <!-- Dynamic GitHub Pages Routing Interceptor -->
-    <script>
-        (function() {
-            const isGitHubPages = window.location.hostname.includes('github.io') && window.location.pathname.split('/').length > 2;
-            if (isGitHubPages) {
-                const repoName = '/' + window.location.pathname.split('/')[1];
-                document.addEventListener('click', (e) => {
-                    const link = e.target.closest('a');
-                    if (link) {
-                        const href = link.getAttribute('href');
-                        if (href && href.startsWith('/') && !href.startsWith(repoName)) {
-                            e.preventDefault();
-                            window.location.href = repoName + href;
-                        }
-                    }
-                });
-            }
-        })();
-    </script>
-
     <script id="tailwind-config">
       tailwind.config = {
         theme: {
@@ -131,6 +111,12 @@
         .settings-help-link:hover { color: #003ea8 !important; background: rgba(0, 81, 213, 0.05) !important; }
         .settings-logout-link { color: #dc2626 !important; }
         .settings-logout-link:hover { color: #b91c1c !important; background: rgba(220, 38, 38, 0.05) !important; }
+        
+        /* Username input feedback styles */
+        .username-feedback { font-size: 12px; margin-top: 4px; min-height: 16px; }
+        .username-feedback.success { color: #009485; }
+        .username-feedback.error { color: #ba1a1a; }
+        .username-feedback.checking { color: #76777d; }
     </style>
 </head>
 <body class="bg-background text-on-surface">
@@ -320,6 +306,16 @@
                                 </button>
                             </div>
                             <div class="flex-1 space-y-4 w-full">
+                                <!-- Username Field -->
+                                <div>
+                                    <label class="font-label-sm text-on-surface-variant block mb-1">Username</label>
+                                    <div class="flex gap-2">
+                                        <input class="flex-1 p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" type="text" id="profile_username" placeholder="your_username" pattern="[a-zA-Z0-9_]+" maxlength="30"/>
+                                        <button id="check_username_btn" class="px-4 py-2 bg-surface-container-high text-primary rounded-lg font-label-md hover:bg-outline-variant transition-all whitespace-nowrap">Check</button>
+                                    </div>
+                                    <p class="username-feedback" id="username_feedback">Lowercase letters, numbers, and underscores only</p>
+                                </div>
+                                
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="font-label-sm text-on-surface-variant block">Full Name</label>
@@ -684,7 +680,7 @@
     function handleLogout(event) {
         if (event) event.preventDefault();
         if (confirm('Are you sure you want to logout?')) {
-            window.location.href = '/login';
+            window.location.href = '/login/';
         }
     }
     
@@ -857,13 +853,15 @@
     import { getSubscriptionStatus, getRexStatus } from '../../utils.js';
     import { supabase } from '../../supabaseClient.js';
 
-    // Dynamically detect GitHub Pages subdirectory path for JS redirects
-    const isGitHubPages = window.location.hostname.includes('github.io') && window.location.pathname.split('/').length > 2;
-    const BASE_PATH = isGitHubPages ? '/' + window.location.pathname.split('/')[1] : '';
-
     async function initSettingsPage() {
+        // 1. Initialize Auth & Check Session
         await initializeAuth();
-        if (!requireAuth()) return;
+        
+        // Explicit session check with redirect
+        if (!window.currentSession) {
+            window.location.replace('/login/');
+            return;
+        }
 
         const user = window.currentUser;
         const session = window.currentSession;
@@ -873,14 +871,15 @@
         const prefs = meta.prefs || JSON.parse(localStorage.getItem('user_prefs') || '{}');
         if (meta.prefs) localStorage.setItem('user_prefs', JSON.stringify(meta.prefs));
 
-        // 1. Populate Profile Fields
+        // 2. Populate Profile Fields
         const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
         document.getElementById('profile_name').value = fullName;
         document.getElementById('profile_email').value = user.email;
         document.getElementById('profile_phone').value = meta.phone || '';
         document.getElementById('profile_bio').value = meta.bio || '';
+        document.getElementById('profile_username').value = user.username || '';
 
-        // 2. Populate Toggles and Selects
+        // 3. Populate Toggles and Selects
         document.querySelectorAll('[data-key]').forEach(el => {
             if (el.type === 'checkbox') {
                 el.checked = prefs[el.dataset.key] !== undefined ? prefs[el.dataset.key] : el.checked;
@@ -890,7 +889,7 @@
         document.getElementById('pref_timezone').value = prefs.timezone || '(GMT+01:00) West Africa Time';
         document.getElementById('pref_study_duration').value = prefs.study_duration || '25 minutes (Pomodoro)';
 
-        // 3. Populate Appearance
+        // 4. Populate Appearance
         const savedTheme = prefs.theme || 'light';
         document.querySelectorAll('#appearance-section button[data-theme]').forEach(btn => {
             if (btn.dataset.theme === savedTheme) {
@@ -902,7 +901,7 @@
             }
         });
 
-        // 4. Populate Subscription Status
+        // 5. Populate Subscription Status
         const accountSection = document.getElementById('account-section');
         if (accountSection && !document.getElementById('subscription_status_block')) {
             const subStatus = getSubscriptionStatus(user.subscription_expires_at);
@@ -981,35 +980,135 @@
             });
         });
 
+        // Username Check Button
+        document.getElementById('check_username_btn').addEventListener('click', async function() {
+            const usernameInput = document.getElementById('profile_username');
+            const feedback = document.getElementById('username_feedback');
+            const newUsername = usernameInput.value.trim().toLowerCase();
+            
+            // Validation
+            if (!newUsername) {
+                feedback.textContent = 'Username cannot be empty';
+                feedback.className = 'username-feedback error';
+                return;
+            }
+            
+            if (!/^[a-z0-9_]+$/.test(newUsername)) {
+                feedback.textContent = 'Only lowercase letters, numbers, and underscores allowed';
+                feedback.className = 'username-feedback error';
+                return;
+            }
+            
+            if (newUsername.length < 3) {
+                feedback.textContent = 'Username must be at least 3 characters';
+                feedback.className = 'username-feedback error';
+                return;
+            }
+            
+            if (newUsername.length > 30) {
+                feedback.textContent = 'Username cannot exceed 30 characters';
+                feedback.className = 'username-feedback error';
+                return;
+            }
+            
+            // Check if same as current
+            if (newUsername === user.username) {
+                feedback.textContent = 'This is your current username';
+                feedback.className = 'username-feedback checking';
+                return;
+            }
+            
+            // Check availability
+            feedback.textContent = 'Checking availability...';
+            feedback.className = 'username-feedback checking';
+            
+            this.disabled = true;
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            
+            const { data, error } = await supabase
+                .from('users')
+                .select('username')
+                .eq('username', newUsername)
+                .maybeSingle();
+            
+            this.disabled = false;
+            this.innerHTML = 'Check';
+            
+            if (error) {
+                feedback.textContent = 'Error checking username';
+                feedback.className = 'username-feedback error';
+                return;
+            }
+            
+            if (data) {
+                feedback.textContent = 'Username is already taken';
+                feedback.className = 'username-feedback error';
+            } else {
+                feedback.textContent = 'Username is available! Click "Save Profile Changes" to update.';
+                feedback.className = 'username-feedback success';
+                usernameInput.dataset.available = 'true';
+            }
+        });
+
         // Save Profile Button
         document.getElementById('save_profile_btn').addEventListener('click', async function() {
             const name = document.getElementById('profile_name').value;
             const phone = document.getElementById('profile_phone').value;
             const bio = document.getElementById('profile_bio').value;
+            const newUsername = document.getElementById('profile_username').value.trim().toLowerCase();
+            const usernameFeedback = document.getElementById('username_feedback');
             
             this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Saving...';
             this.disabled = true;
 
-            const { error } = await supabase.auth.updateUser({
+            // Update metadata
+            const { error: metaError } = await supabase.auth.updateUser({
                 data: { full_name: name, phone: phone, bio: bio }
             });
 
-            if (error) {
-                alert('Error saving profile: ' + error.message);
-            } else {
-                alert('Profile updated successfully!');
-                if(window.currentSession) {
-                    window.currentSession.user.user_metadata = {
-                        ...window.currentSession.user.user_metadata,
-                        full_name: name, phone: phone, bio: bio
-                    };
-                }
-                // Update UI globally
-                const sidebarName = document.querySelector('.profile-section .profile-details p.font-bold');
-                if (sidebarName) sidebarName.textContent = name;
-                const headerName = document.querySelector('.header-profile .text-right p.text-primary');
-                if (headerName) headerName.textContent = name;
+            if (metaError) {
+                alert('Error saving profile: ' + metaError.message);
+                this.innerHTML = 'Save Profile Changes';
+                this.disabled = false;
+                return;
             }
+
+            // Update username if changed and available
+            if (newUsername && newUsername !== user.username && document.getElementById('profile_username').dataset.available === 'true') {
+                const { error: usernameError } = await supabase
+                    .from('users')
+                    .update({ username: newUsername })
+                    .eq('id', user.id);
+                
+                if (usernameError) {
+                    if (usernameError.code === '23505') {
+                        alert('Username is already taken. Please choose another.');
+                        usernameFeedback.textContent = 'Username is already taken';
+                        usernameFeedback.className = 'username-feedback error';
+                    } else {
+                        alert('Error updating username: ' + usernameError.message);
+                    }
+                } else {
+                    user.username = newUsername;
+                    usernameFeedback.textContent = 'Username updated successfully!';
+                    usernameFeedback.className = 'username-feedback success';
+                    delete document.getElementById('profile_username').dataset.available;
+                }
+            }
+
+            alert('Profile updated successfully!');
+            if(window.currentSession) {
+                window.currentSession.user.user_metadata = {
+                    ...window.currentSession.user.user_metadata,
+                    full_name: name, phone: phone, bio: bio
+                };
+            }
+            
+            // Update UI globally
+            const sidebarName = document.querySelector('.profile-section .profile-details p.font-bold');
+            if (sidebarName) sidebarName.textContent = name;
+            const headerName = document.querySelector('.header-profile .text-right p.text-primary');
+            if (headerName) headerName.textContent = name;
             
             this.innerHTML = 'Save Profile Changes';
             this.disabled = false;
@@ -1040,7 +1139,7 @@
             } else {
                 alert('Password updated successfully! For security, please log in again.');
                 await supabase.auth.signOut();
-                window.location.replace(BASE_PATH + '/login/');
+                window.location.replace('/login/');
             }
 
             this.innerHTML = 'Update Password';
@@ -1076,7 +1175,7 @@
             if (event) event.preventDefault();
             if (confirm('Are you sure you want to logout?')) {
                 supabase.auth.signOut();
-                window.location.replace(BASE_PATH + '/login/');
+                window.location.replace('/login/');
             }
         };
     }
