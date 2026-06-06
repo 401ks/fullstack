@@ -191,7 +191,7 @@
             padding-right: 40px;
         }
         
-        /* OTP Input - UPDATED FOR 8 DIGITS */
+        /* OTP Input */
         .otp-input {
             width: 42px;
             height: 56px;
@@ -726,7 +726,7 @@
     // 1. IMPORTS
     // ==========================================
     import { supabase } from '../supabaseClient.js';
-    import { signInWithEmail, signInWithGoogle } from '../auth.js';
+    import { signInWithEmail } from '../auth.js';
 
     // ==========================================
     // 2. UI & MOBILE MENU LOGIC (UNCHANGED)
@@ -854,6 +854,9 @@
         const lastName = document.getElementById('lastName').value;
         const phone = document.getElementById('phone').value;
         
+        // Get referral code from localStorage
+        const referralCode = localStorage.getItem('referral_code');
+        
         const button = event.target.querySelector('button[type="submit"]');
         const originalText = button.innerHTML;
         button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating account...';
@@ -867,7 +870,8 @@
                     data: {
                         first_name: firstName,
                         last_name: lastName,
-                        phone: phone
+                        phone: phone,
+                        referred_by: referralCode // <--- Pass referral code to backend
                     }
                 }
             });
@@ -899,10 +903,17 @@
         button.disabled = true;
         
         try {
-            // This will redirect the user to Google. 
-            // When they return, they will land on /dashboard/ (configured in auth.js).
-            // The dashboard will check if they need onboarding.
-            await signInWithGoogle();
+            // Catch referral code for Google OAuth
+            const refCode = localStorage.getItem('referral_code');
+            const baseUrl = window.location.origin + '/dashboard/';
+            const redirectTo = refCode ? `${baseUrl}?pending_ref=${refCode}` : baseUrl;
+
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo }
+            });
+            
+            if (error) throw error;
         } catch (error) {
             alert(error.message);
             button.innerHTML = originalText;
@@ -933,7 +944,6 @@
         let otp = '';
         otpInputs.forEach(input => otp += input.value);
         
-        // UPDATED: Now requires exactly 8 digits
         if (otp.length !== 8) {
             alert('Please enter all 8 digits');
             return;
@@ -956,6 +966,7 @@
             if (error) throw error;
             
             localStorage.removeItem('pendingUser');
+            localStorage.removeItem('referral_code'); // ← ADD HERE
             button.innerHTML = originalText;
             button.disabled = false;
             
@@ -1060,8 +1071,15 @@
             return;
         }
 
-        // 2. Handle URL parameters
+        // 2. Handle URL parameters (Including Referrals)
         const urlParams = new URLSearchParams(window.location.search);
+        
+        // Catch Referral Code
+        const refCode = urlParams.get('ref');
+        if (refCode) {
+            localStorage.setItem('referral_code', refCode);
+            console.log('Referral code captured:', refCode);
+        }
          
         if (urlParams.get('create') === 'account') {
             showForm('createAccountForm', 'loginForm');
