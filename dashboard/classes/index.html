@@ -8,6 +8,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Hanken+Grotesk:wght@100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+    
+    <!-- Dynamic GitHub Pages Routing Interceptor -->
+    <script>
+        (function() {
+            const isGitHubPages = window.location.hostname.includes('github.io') && window.location.pathname.split('/').length > 2;
+            if (isGitHubPages) {
+                const repoName = '/' + window.location.pathname.split('/')[1];
+                document.addEventListener('click', (e) => {
+                    const link = e.target.closest('a');
+                    if (link) {
+                        const href = link.getAttribute('href');
+                        if (href && href.startsWith('/') && !href.startsWith(repoName)) {
+                            e.preventDefault();
+                            window.location.href = repoName + href;
+                        }
+                    }
+                });
+            }
+        })();
+    </script>
+
     <script id="tailwind-config">
       tailwind.config = {
         theme: {
@@ -1426,18 +1447,34 @@
 
 <!-- NEW: Supabase Integration Logic -->
 <script type="module">
-    import { initializeAuth, requireAuth, signOut } from '../../auth.js';
+    import { initializeAuth } from '../../auth.js';
     import { getSubscriptionStatus } from '../../utils.js';
+    import { supabase } from '../../supabaseClient.js';
+
+    // Dynamically detect GitHub Pages subdirectory path for JS redirects
+    const isGitHubPages = window.location.hostname.includes('github.io') && window.location.pathname.split('/').length > 2;
+    const BASE_PATH = isGitHubPages ? '/' + window.location.pathname.split('/')[1] : '';
 
     async function initClassesPage() {
         // 1. Initialize Auth & Check Session
         await initializeAuth();
-        if (!requireAuth()) return;
+        
+        // Robust Session Check & Redirect (Uses dynamic BASE_PATH)
+        if (!window.currentSession) {
+            window.location.replace(BASE_PATH + '/login/');
+            return;
+        }
 
         const user = window.currentUser;
         const session = window.currentSession;
 
-        // 2. Dynamic Profile Data Injection
+        // 2. Onboarding Check (Redirect if profile incomplete)
+        if (!user || !user.grade) {
+            window.location.replace(BASE_PATH + '/login/?onboarding');
+            return;
+        }
+
+        // 3. Dynamic Profile Data Injection
         const meta = session.user.user_metadata || {};
         const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
         
@@ -1453,7 +1490,7 @@
         if (headerName) headerName.textContent = fullName;
         if (headerLevel) headerLevel.textContent = user.grade || 'Student';
 
-        // 3. Subscription Status (Tuition Card)
+        // 4. Subscription Status (Tuition Card)
         const subStatus = getSubscriptionStatus(user.subscription_expires_at);
         const tuitionBadge = document.querySelector('#tuitionMonth + span'); 
         const nextDueDateEl = document.getElementById('nextDueDate');
@@ -1474,18 +1511,20 @@
             }
         }
 
-        // 4. Referral Link
+        // 5. Referral Link (Using Username instead of ID)
         const referralInput = document.getElementById('referralInput');
-        if (referralInput) {
-            referralInput.value = `https://naijaassets.com/referral?${user.id}`;
+        if (referralInput && user.username) {
+            // Use the origin to ensure it works on GitHub Pages too
+            referralInput.value = `${window.location.origin}${BASE_PATH}/login/?ref=${user.username}`;
         }
 
-        // 5. Logout Functionality
+        // 6. Logout Functionality
         const logoutBtn = document.getElementById('logoutBtn');
         if (logoutBtn) {
-            logoutBtn.addEventListener('click', (e) => {
+            logoutBtn.addEventListener('click', async (e) => {
                 e.preventDefault();
-                signOut();
+                await supabase.auth.signOut();
+                window.location.replace(BASE_PATH + '/login/');
             });
         }
     }
