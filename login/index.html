@@ -191,12 +191,12 @@
             padding-right: 40px;
         }
         
-        /* OTP Input */
+        /* OTP Input - UPDATED FOR 8 DIGITS */
         .otp-input {
-            width: 50px;
-            height: 60px;
+            width: 42px;
+            height: 56px;
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             border: 2px solid #c6c6cd;
             border-radius: 12px;
@@ -216,9 +216,9 @@
         
         @media (max-width: 768px) {
             .otp-input {
-                width: 45px;
-                height: 55px;
-                font-size: 20px;
+                width: 36px;
+                height: 48px;
+                font-size: 18px;
             }
         }
     </style>
@@ -477,17 +477,19 @@
                             <i class="fa-solid fa-envelope-circle-check text-secondary text-2xl"></i>
                         </div>
                         <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Verify Your Email</h1>
-                        <p class="font-body-md text-body-md text-on-surface-variant">We've sent a 6-digit code to<br/><span id="emailDisplay" class="font-semibold text-primary">your email</span></p>
+                        <p class="font-body-md text-body-md text-on-surface-variant">We've sent an 8-digit code to<br/><span id="emailDisplay" class="font-semibold text-primary">your email</span></p>
                     </div>
                     
                     <form onsubmit="handleOTPVerification(event)">
-                        <div class="flex justify-center gap-2 md:gap-3 mb-6">
+                        <div class="flex justify-center gap-1.5 md:gap-2 mb-6">
                             <input type="text" maxlength="1" class="otp-input" data-otp-index="0" required/>
                             <input type="text" maxlength="1" class="otp-input" data-otp-index="1" required/>
                             <input type="text" maxlength="1" class="otp-input" data-otp-index="2" required/>
                             <input type="text" maxlength="1" class="otp-input" data-otp-index="3" required/>
                             <input type="text" maxlength="1" class="otp-input" data-otp-index="4" required/>
                             <input type="text" maxlength="1" class="otp-input" data-otp-index="5" required/>
+                            <input type="text" maxlength="1" class="otp-input" data-otp-index="6" required/>
+                            <input type="text" maxlength="1" class="otp-input" data-otp-index="7" required/>
                         </div>
                         
                         <button type="submit" class="w-full py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2 mb-4">
@@ -931,8 +933,9 @@
         let otp = '';
         otpInputs.forEach(input => otp += input.value);
         
-        if (otp.length !== 6) {
-            alert('Please enter all 6 digits');
+        // UPDATED: Now requires exactly 8 digits
+        if (otp.length !== 8) {
+            alert('Please enter all 8 digits');
             return;
         }
         
