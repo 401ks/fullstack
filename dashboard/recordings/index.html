@@ -382,9 +382,11 @@
 </script>
 
 <!-- NEW: Supabase & Worker API Integration Logic -->
+<!-- NEW: Supabase & Worker API Integration Logic (FIXED 401 LOOP) -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
     import { supabase } from '../../supabaseClient.js';
+    import { SUPABASE_ANON_KEY } from '../../config.js'; // Import Anon Key for apikey header
 
     const API_BASE_URL = 'https://rexapi.naijaassets.com';
 
@@ -440,7 +442,6 @@
     async function fetchRecordingsFromWorker(accessToken, filters = {}) {
         const url = new URL(`${API_BASE_URL}/api/recordings`);
         
-        // Map filter chips to API parameters
         if (filters.subject && filters.subject !== 'all' && filters.subject !== 'recent' && filters.subject !== 'offline' && filters.subject !== 'tutorials') {
             url.searchParams.append('subject', filters.subject);
         }
@@ -450,18 +451,36 @@
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
+                'apikey': SUPABASE_ANON_KEY, // Added: Workers often expect this standard Supabase header
                 'Content-Type': 'application/json'
             }
         });
 
-        // Handle 401 Unauthorized (Token expired)
+        // Handle 401 Unauthorized SAFELY
         if (response.status === 401) {
-            console.warn('Token expired. Logging out...');
-            await supabase.auth.signOut();
-            window.location.replace('/login/');
+            const errorText = await response.text();
+            console.error('🔴 Worker returned 401. Response body:', errorText);
+            
+            // Check if the Supabase session is actually expired
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                console.warn('Supabase session is null. Logging out...');
+                await supabase.auth.signOut();
+                window.location.replace('/login/');
+            } else {
+                // Session is valid in Supabase, but Worker rejected it.
+                // DO NOT LOG OUT. This prevents infinite redirect loops if the Worker is misconfigured.
+                console.error('⚠️ Worker rejected valid Supabase session. Worker might be misconfigured or blocking your origin.');
+                throw new Error('Server access denied. Please check console for Worker error details.');
+            }
             return null;
         }
-        if (!response.ok) throw new Error(`API Error: ${response.status} ${response.statusText}`);
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error(`Worker API Error ${response.status}:`, errorText);
+            throw new Error(`API Error: ${response.status} ${response.statusText}`);
+        }
 
         return await response.json();
     }
@@ -476,7 +495,7 @@
         // Show loading state
         grid.innerHTML = `<div class="col-span-full text-center py-12"><i class="fa-solid fa-spinner fa-spin text-3xl text-secondary"></i><p class="mt-4 text-on-surface-variant">Loading recordings...</p></div>`;
 
-        // Ensure 'all' section is visible when loading API data to prevent static section confusion
+        // Ensure 'all' section is visible when loading API data
         Object.values(sections).forEach(sec => { if(sec) sec.classList.add('section-hidden'); });
         document.getElementById('all').classList.remove('section-hidden');
 
@@ -487,7 +506,8 @@
             }
         } catch (err) {
             console.error("Failed to load recordings:", err);
-            grid.innerHTML = `<div class="col-span-full text-center py-12 text-error"><i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i><p>Failed to load recordings. Please try again.</p></div>`;
+            // Show error on page instead of redirecting to login
+            grid.innerHTML = `<div class="col-span-full text-center py-12 text-error"><i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i><p>Failed to load recordings.</p><p class="text-sm text-on-surface-variant mt-2">${err.message}</p></div>`;
         }
     }
 
@@ -519,7 +539,6 @@
         grid.innerHTML = data.recordings.map(rec => {
             const isLocked = rec.is_locked;
             const lockReason = rec.lock_reason || 'This is premium Rex content. Upgrade to watch.';
-            // Escape single quotes for onclick alert
             const safeReason = lockReason.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
             
             const thumbnail = rec.thumbnail_url 
