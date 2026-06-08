@@ -189,8 +189,11 @@
             <!-- Recordings Header -->
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                 <div>
-                    <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-2">My Recordings</h1>
-                    <p class="font-body-lg text-body-lg text-on-surface-variant">Access <span class="text-secondary font-bold">42 video lectures</span> from your enrolled classes.</p>
+                    <div class="flex items-center gap-3 mb-2 flex-wrap">
+                        <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary">My Recordings</h1>
+                        <div id="access-badge"></div>
+                    </div>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant">Access <span class="text-secondary font-bold" id="total-count">video lectures</span> from your enrolled classes.</p>
                 </div>
                 <div class="flex gap-2">
                     <a href="#" class="flex items-center px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">
@@ -224,8 +227,29 @@
                 <!-- Continue Watching Section -->
                 <div class="mb-8"><div class="flex justify-between items-center mb-4"><h3 class="font-headline-md text-primary">Continue Watching</h3><a href="#" class="text-secondary text-sm flex items-center gap-1">View All <i class="fa-solid fa-arrow-right"></i></a></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-blue-200/40 to-purple-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">45:00</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 75%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Quantum Mechanics Fundamentals</h4><p class="text-on-surface-variant text-sm mb-2">Dr. Sarah Obi • Physics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 34:12 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-emerald-200/40 to-teal-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">32:18</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 40%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Organic Chemistry Reactions</h4><p class="text-on-surface-variant text-sm mb-2">Prof. Chinedu • Chemistry</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 12:45 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-rose-200/40 to-orange-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">28:45</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 15%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Financial Statement Analysis</h4><p class="text-on-surface-variant text-sm mb-2">Prof. Ibrahim • Economics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 4:20 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a></div></div>
                 
-                <!-- All Recordings Grid -->
-                <div class="mb-8"><div class="flex justify-between items-center mb-4"><h3 class="font-headline-md text-primary">All Recordings</h3><div class="flex items-center gap-2"><span class="text-sm text-on-surface-variant">Sort:</span><select class="bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-1.5 text-sm"><option>Newest First</option><option>Oldest First</option><option>Duration: Short to Long</option><option>Duration: Long to Short</option><option>Most Watched</option></select></div></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-indigo-200/40 to-blue-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">1:12:34</div></div><div class="p-4"><div class="flex justify-between items-start mb-2"><h4 class="font-headline-md text-primary">Statistics II: Hypothesis Testing</h4><span class="px-2 py-1 bg-secondary/10 text-secondary text-xs rounded-full font-bold">New</span></div><p class="text-on-surface-variant text-sm mb-3">Prof. Chinedu • Mathematics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 1.2k views</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-slate-200/40 to-gray-300/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">38:22</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Business Ethics Case Studies</h4><p class="text-on-surface-variant text-sm mb-3">Dr. Ngozi • Ethics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 842 views</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-purple-200/40 to-pink-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">52:18</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Asset Valuation Methods</h4><p class="text-on-surface-variant text-sm mb-3">Prof. Adekunle • Finance</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 2.1k views</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-cyan-200/40 to-blue-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">1:05:45</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Calculus: Integration Techniques</h4><p class="text-on-surface-variant text-sm mb-3">Dr. Adebayo • Mathematics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 3.4k views</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-amber-200/40 to-orange-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">41:12</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Market Structures & Competition</h4><p class="text-on-surface-variant text-sm mb-3">Prof. Ibrahim • Economics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 1.8k views</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-lime-200/40 to-green-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">29:55</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Cell Biology: Mitosis & Meiosis</h4><p class="text-on-surface-variant text-sm mb-3">Dr. Ngozi • Biology</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 956 views</span><span class="text-secondary font-bold">Watch</span></div></div></a></div></div>
+                <!-- All Recordings Grid (Dynamically Populated by API) -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-headline-md text-primary">All Recordings</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-on-surface-variant">Sort:</span>
+                            <select class="bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-1.5 text-sm">
+                                <option>Newest First</option>
+                                <option>Oldest First</option>
+                                <option>Duration: Short to Long</option>
+                                <option>Duration: Long to Short</option>
+                                <option>Most Watched</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-all">
+                        <!-- API Cards will be injected here -->
+                        <div class="col-span-full text-center py-12">
+                            <i class="fa-solid fa-spinner fa-spin text-3xl text-secondary"></i>
+                            <p class="mt-4 text-on-surface-variant">Loading recordings...</p>
+                        </div>
+                    </div>
+                </div>
                 
                 <!-- Upload CTA -->
                 <section class="bg-primary-container text-on-primary-container p-7 rounded-[2.5rem] flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden"><div class="relative z-10 flex flex-col md:flex-row items-center gap-6"><div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white text-3xl"><i class="fa-solid fa-upload"></i></div><div><h4 class="text-3xl font-display-lg text-white mb-2">Share Your Knowledge</h4><p class="text-on-primary-container/80 text-lg max-w-xl">Record and upload your study sessions. Help peers and earn community credits.</p></div></div><div class="relative z-10"><a href="#" class="px-8 py-4 bg-white text-primary rounded-full font-bold text-lg hover:bg-purple-600 hover:text-white transition-all flex items-center gap-2"><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Upload Recording</a></div><div class="absolute -right-20 -bottom-20 w-80 h-80 bg-purple-500/30 rounded-full blur-[100px]"></div></section>
@@ -234,31 +258,31 @@
             <!-- SECTION: RECENT RECORDINGS -->
             <section id="recent" class="section-transition section-hidden space-y-8">
                 <div class="mb-6"><h1 class="font-display-lg text-display-lg text-primary">Recent Recordings</h1><p class="text-on-surface-variant">Your most recently watched and added video lectures.</p></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-blue-200/40 to-purple-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">45:00</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 75%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Quantum Mechanics Fundamentals</h4><p class="text-on-surface-variant text-sm mb-2">Dr. Sarah Obi • Physics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 34:12 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-emerald-200/40 to-teal-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">32:18</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 40%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Organic Chemistry Reactions</h4><p class="text-on-surface-variant text-sm mb-2">Prof. Chinedu • Chemistry</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 12:45 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-rose-200/40 to-orange-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">28:45</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 15%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Financial Statement Analysis</h4><p class="text-on-surface-variant text-sm mb-2">Prof. Ibrahim • Economics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 4:20 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-recent"></div>
             </section>
 
             <!-- SECTION: MATHEMATICS RECORDINGS -->
             <section id="mathematics" class="section-transition section-hidden space-y-8">
                 <div class="mb-6"><h1 class="font-display-lg text-display-lg text-primary">Mathematics Recordings</h1><p class="text-on-surface-variant">Calculus, algebra, statistics, and quantitative methods lectures.</p></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-indigo-200/40 to-blue-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">1:12:34</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Statistics II: Hypothesis Testing</h4><p class="text-on-surface-variant text-sm mb-3">Prof. Chinedu • Mathematics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 1.2k views</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-cyan-200/40 to-blue-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">1:05:45</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Calculus: Integration Techniques</h4><p class="text-on-surface-variant text-sm mb-3">Dr. Adebayo • Mathematics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 3.4k views</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-violet-200/40 to-purple-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">58:22</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Linear Algebra: Matrix Operations</h4><p class="text-on-surface-variant text-sm mb-3">Dr. Adebayo • Mathematics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 2.8k views</span><span class="text-secondary font-bold">Watch</span></div></div></a></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-mathematics"></div>
             </section>
 
             <!-- SECTION: SCIENCES RECORDINGS -->
             <section id="science" class="section-transition section-hidden space-y-8">
                 <div class="mb-6"><h1 class="font-display-lg text-display-lg text-primary">Sciences Recordings</h1><p class="text-on-surface-variant">Physics, chemistry, biology, and environmental science lectures.</p></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-blue-200/40 to-purple-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">45:00</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Quantum Mechanics Fundamentals</h4><p class="text-on-surface-variant text-sm mb-2">Dr. Sarah Obi • Physics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 1.5k views</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-emerald-200/40 to-teal-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">32:18</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Organic Chemistry Reactions</h4><p class="text-on-surface-variant text-sm mb-2">Prof. Chinedu • Chemistry</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 1.1k views</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-lime-200/40 to-green-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">29:55</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Cell Biology: Mitosis & Meiosis</h4><p class="text-on-surface-variant text-sm mb-2">Dr. Ngozi • Biology</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 956 views</span><span class="text-secondary font-bold">Watch</span></div></div></a></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-science"></div>
             </section>
 
             <!-- SECTION: ECONOMICS RECORDINGS -->
             <section id="economics" class="section-transition section-hidden space-y-8">
                 <div class="mb-6"><h1 class="font-display-lg text-display-lg text-primary">Economics Recordings</h1><p class="text-on-surface-variant">Microeconomics, macroeconomics, finance, and business studies.</p></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-rose-200/40 to-orange-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">28:45</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Financial Statement Analysis</h4><p class="text-on-surface-variant text-sm mb-3">Prof. Ibrahim • Economics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 1.8k views</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-amber-200/40 to-orange-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">41:12</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Market Structures & Competition</h4><p class="text-on-surface-variant text-sm mb-3">Prof. Ibrahim • Economics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 1.8k views</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-fuchsia-200/40 to-pink-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">36:48</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Monetary Policy & Inflation</h4><p class="text-on-surface-variant text-sm mb-3">Dr. Adebayo • Economics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-eye mr-1"></i> 2.3k views</span><span class="text-secondary font-bold">Watch</span></div></div></a></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-economics"></div>
             </section>
 
             <!-- SECTION: TUTORIALS -->
             <section id="tutorials" class="section-transition section-hidden space-y-8">
                 <div class="mb-6"><h1 class="font-display-lg text-display-lg text-primary">Tutorial Videos</h1><p class="text-on-surface-variant">Step-by-step guides, problem-solving sessions, and skill-building content.</p></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-sky-200/40 to-blue-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">18:45</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Excel for Financial Analysis</h4><p class="text-on-surface-variant text-sm mb-2">Practical tutorial • 18 min</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-download mr-1"></i> Downloadable</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-teal-200/40 to-cyan-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">24:12</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Solving Quadratic Equations</h4><p class="text-on-surface-variant text-sm mb-2">Math tutorial • 24 min</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-download mr-1"></i> Downloadable</span><span class="text-secondary font-bold">Watch</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-amber-200/40 to-yellow-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">15:30</div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">APA Citation Format Guide</h4><p class="text-on-surface-variant text-sm mb-2">Writing tutorial • 15 min</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-download mr-1"></i> Downloadable</span><span class="text-secondary font-bold">Watch</span></div></div></a></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-tutorials"></div>
             </section>
 
             <!-- SECTION: OFFLINE RECORDINGS -->
@@ -276,7 +300,7 @@
     <i class="fa-solid fa-comments text-xl"></i>
 </button>
 
-<!-- Existing UI Logic (Unchanged) -->
+<!-- Existing UI Logic (Unchanged except Filter Chips now trigger API) -->
 <script>
     // Sidebar Toggle
     function toggleSidebar(){const s=document.getElementById('sidebar'),ic=document.getElementById('sidebarToggleIcon');s.classList.toggle('collapsed');ic.className=s.classList.contains('collapsed')?'fa-solid fa-chevron-right text-xl':'fa-solid fa-chevron-left text-xl';if(s.classList.contains('collapsed'))document.querySelectorAll('.menu-expanded').forEach(el=>el.classList.remove('menu-expanded'));}
@@ -290,7 +314,6 @@
     function closeMobileMenu(){sidebar.classList.remove('active');mobileOverlay.classList.remove('active');document.body.classList.remove('menu-open');}
     if(mobileToggle) mobileToggle.addEventListener('click', openMobileMenu);
     if(mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
-    // Close mobile menu when clicking sidebar links
     document.querySelectorAll('#sidebar a').forEach(link => {
         link.addEventListener('click', () => {
             if (window.innerWidth < 1024) closeMobileMenu();
@@ -326,56 +349,24 @@
         }); 
     }
     
-    function showSection(sectionId){
-        // Hide all sections
-        Object.values(sections).forEach(sec => sec.classList.add('section-hidden'));
-        // Show target section
-        if(sections[sectionId]) sections[sectionId].classList.remove('section-hidden');
-        // Scroll to section if not already in view
-        if(sections[sectionId] && !isElementInViewport(sections[sectionId])){
-            sections[sectionId].scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    }
-    
-    function isElementInViewport(el) {
-        const rect = el.getBoundingClientRect();
-        return (rect.top >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight));
-    }
-    
-    // Handle filter chip clicks
+    // Handle filter chip clicks (Now triggers API fetch)
     filterChips.forEach(chip=>{ 
         chip.addEventListener('click', (e) => {
             e.preventDefault();
             const val = chip.getAttribute('data-filter');
-            showSection(val);
             setActiveFilter(chip);
-            // Update URL hash
             history.pushState(null, null, `#${val}`);
+            
+            // Trigger API fetch via module script
+            if (window.loadRecordings) {
+                const filters = {};
+                if (val !== 'all' && val !== 'recent' && val !== 'offline' && val !== 'tutorials') {
+                    filters.subject = val;
+                }
+                window.loadRecordings(filters);
+            }
         }); 
     });
-    
-    // Handle direct URL hash navigation
-    function handleHashChange() {
-        const hash = window.location.hash.substring(1) || 'all';
-        if(sections[hash]) {
-            showSection(hash);
-            // Update active filter chip
-            const activeChip = document.querySelector(`[data-filter="${hash}"]`);
-            if(activeChip) setActiveFilter(activeChip);
-        }
-    }
-    
-    // Initialize on load
-    window.addEventListener('load', () => {
-        handleHashChange();
-        // Set initial active filter
-        const initialHash = window.location.hash.substring(1) || 'all';
-        const initialChip = document.querySelector(`[data-filter="${initialHash}"]`); 
-        if(initialChip) setActiveFilter(initialChip);
-    });
-    
-    // Listen for hash changes
-    window.addEventListener('hashchange', handleHashChange);
     
     // Handle window resize
     window.addEventListener('resize',()=>{ 
@@ -390,10 +381,12 @@
     });
 </script>
 
-<!-- NEW: Supabase Integration Logic -->
+<!-- NEW: Supabase & Worker API Integration Logic -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
-    import { getRecordings } from '../../api.js';
+    import { supabase } from '../../supabaseClient.js';
+
+    const API_BASE_URL = 'https://rexapi.naijaassets.com';
 
     async function initRecordingsPage() {
         // 1. Initialize Auth & Check Session
@@ -407,31 +400,32 @@
         const meta = session.user.user_metadata || {};
         const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
         
-        // Sidebar Profile
         const sidebarName = document.querySelector('.profile-section .profile-details p.font-bold');
         const sidebarEmail = document.querySelector('.profile-section .profile-details p.text-outline span');
         if (sidebarName) sidebarName.textContent = fullName;
         if (sidebarEmail) sidebarEmail.textContent = user.email;
 
-        // Header Profile
         const headerName = document.querySelector('.header-profile .text-right p.text-primary');
         const headerLevel = document.querySelector('.header-profile .text-right p.text-outline');
         if (headerName) headerName.textContent = fullName;
         if (headerLevel) headerLevel.textContent = user.grade || 'Student';
 
-        // 3. Fetch and Render Recordings from Worker API
-        // The Worker automatically handles REX subscription logic (All vs Last 7 Days)
-        try {
-            const recordings = await getRecordings();
-            if (recordings && Array.isArray(recordings) && recordings.length > 0) {
-                renderRecordingsGrid(recordings);
-            }
-        } catch (error) {
-            console.error("Failed to load recordings:", error);
-            // Fallback to mock data already in HTML if API fails
+        // 3. Initial Load of Recordings
+        await loadRecordings();
+
+        // 4. Setup Search Debounce
+        const searchInput = document.getElementById('recordingsSearch');
+        let searchTimeout;
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    loadRecordings({ search: e.target.value });
+                }, 500); // Debounce 500ms
+            });
         }
 
-        // 4. Logout Functionality
+        // 5. Logout Functionality
         const settingsLinks = document.querySelectorAll('#settings-menu a');
         settingsLinks.forEach(link => {
             if (link.textContent.includes('Logout')) {
@@ -443,37 +437,124 @@
         });
     }
 
-    function renderRecordingsGrid(recordings) {
-        // Target the "All Recordings" grid specifically
-        const allSection = document.getElementById('all');
-        if (!allSection) return;
+    async function fetchRecordingsFromWorker(accessToken, filters = {}) {
+        const url = new URL(`${API_BASE_URL}/api/recordings`);
         
-        // The grid is the second .grid element inside #all (first is Continue Watching)
-        const grids = allSection.querySelectorAll('.grid.grid-cols-1');
-        const targetGrid = grids.length > 1 ? grids[1] : grids[0]; 
-        
-        if (!targetGrid) return;
+        // Map filter chips to API parameters
+        if (filters.subject && filters.subject !== 'all' && filters.subject !== 'recent' && filters.subject !== 'offline' && filters.subject !== 'tutorials') {
+            url.searchParams.append('subject', filters.subject);
+        }
+        if (filters.search) url.searchParams.append('search', filters.search);
 
-        targetGrid.innerHTML = recordings.map(rec => `
-            <a href="${rec.video_url || '#'}" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block">
-                <div class="relative aspect-video bg-gradient-to-br from-indigo-200/40 to-blue-200/40 flex items-center justify-center overflow-hidden">
-                    ${rec.thumbnail_url ? `<img src="${rec.thumbnail_url}" class="w-full h-full object-cover" alt="${rec.title}">` : `<i class="fa-regular fa-circle-play text-4xl text-white/80"></i>`}
-                    <div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">${rec.duration || '00:00'}</div>
-                </div>
-                <div class="p-4">
-                    <div class="flex justify-between items-start mb-2">
-                        <h4 class="font-headline-md text-primary">${rec.title}</h4>
-                        ${rec.is_new ? `<span class="px-2 py-1 bg-secondary/10 text-secondary text-xs rounded-full font-bold">New</span>` : ''}
-                    </div>
-                    <p class="text-on-surface-variant text-sm mb-3">${rec.instructor || 'Unknown'} • ${rec.subject || 'General'}</p>
-                    <div class="flex justify-between items-center text-xs text-outline">
-                        <span><i class="fa-solid fa-eye mr-1"></i> ${rec.views || 0} views</span>
-                        <span class="text-secondary font-bold">Watch</span>
-                    </div>
-                </div>
-            </a>
-        `).join('');
+        const response = await fetch(url.toString(), {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // Handle 401 Unauthorized (Token expired)
+        if (response.status === 401) {
+            console.warn('Token expired. Logging out...');
+            await supabase.auth.signOut();
+            window.location.replace('/login/');
+            return null;
+        }
+        if (!response.ok) throw new Error(`API Error: ${response.status} ${response.statusText}`);
+
+        return await response.json();
     }
+
+    async function loadRecordings(filters = {}) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return;
+
+        const grid = document.getElementById('grid-all');
+        if (!grid) return;
+
+        // Show loading state
+        grid.innerHTML = `<div class="col-span-full text-center py-12"><i class="fa-solid fa-spinner fa-spin text-3xl text-secondary"></i><p class="mt-4 text-on-surface-variant">Loading recordings...</p></div>`;
+
+        // Ensure 'all' section is visible when loading API data to prevent static section confusion
+        Object.values(sections).forEach(sec => { if(sec) sec.classList.add('section-hidden'); });
+        document.getElementById('all').classList.remove('section-hidden');
+
+        try {
+            const data = await fetchRecordingsFromWorker(session.access_token, filters);
+            if (data) {
+                renderRecordings(data);
+            }
+        } catch (err) {
+            console.error("Failed to load recordings:", err);
+            grid.innerHTML = `<div class="col-span-full text-center py-12 text-error"><i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i><p>Failed to load recordings. Please try again.</p></div>`;
+        }
+    }
+
+    function renderRecordings(data) {
+        const grid = document.getElementById('grid-all');
+        if (!grid) return;
+
+        // Update Access Badge
+        const badge = document.getElementById('access-badge');
+        if (badge) {
+            if (data.access === 'rex') {
+                badge.innerHTML = `<span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold flex items-center gap-1 shadow-sm"><i class="fa-solid fa-crown"></i> REX ACCESS</span>`;
+            } else {
+                badge.innerHTML = `<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-user"></i> STANDARD ACCESS</span>`;
+            }
+        }
+
+        // Update total count
+        const totalCount = document.getElementById('total-count');
+        if (totalCount) {
+            totalCount.textContent = `${data.total || 0} video lectures`;
+        }
+
+        if (!data.recordings || data.recordings.length === 0) {
+            grid.innerHTML = `<div class="col-span-full text-center py-12 text-on-surface-variant"><i class="fa-solid fa-video-slash text-4xl mb-4 text-outline"></i><p>No recordings found for your criteria.</p></div>`;
+            return;
+        }
+
+        grid.innerHTML = data.recordings.map(rec => {
+            const isLocked = rec.is_locked;
+            const lockReason = rec.lock_reason || 'This is premium Rex content. Upgrade to watch.';
+            // Escape single quotes for onclick alert
+            const safeReason = lockReason.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            
+            const thumbnail = rec.thumbnail_url 
+                ? `<img src="${rec.thumbnail_url}" class="w-full h-full object-cover ${isLocked ? 'grayscale' : ''}" alt="${rec.title}" loading="lazy">` 
+                : `<i class="fa-regular fa-circle-play text-4xl text-white/80"></i>`;
+            
+            const overlay = isLocked ? `<div class="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-[2px]"><i class="fa-solid fa-lock text-4xl text-white"></i></div>` : '';
+            
+            const actionBtn = isLocked 
+                ? `<button onclick="alert('${safeReason}')" class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-full font-bold hover:bg-secondary/20 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-crown text-[10px]"></i> Upgrade to Rex</button>`
+                : `<a href="${rec.video_url || '#'}" target="_blank" class="bg-secondary text-white px-3 py-1.5 rounded-full font-bold hover:bg-secondary/90 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-play text-[10px]"></i> Watch Now</a>`;
+
+            return `
+                <div class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block ${isLocked ? 'opacity-90' : ''}">
+                    <div class="relative aspect-video bg-gradient-to-br from-indigo-200/40 to-blue-200/40 flex items-center justify-center overflow-hidden">
+                        ${thumbnail}
+                        ${overlay}
+                        <div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">${rec.duration || '00:00'}</div>
+                        ${rec.is_premium ? `<div class="absolute top-2 left-2 px-2 py-1 bg-secondary text-white text-xs rounded-full font-bold flex items-center gap-1"><i class="fa-solid fa-crown text-[10px]"></i> Premium</div>` : ''}
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-headline-md text-primary mb-1 line-clamp-2">${rec.title}</h4>
+                        <p class="text-on-surface-variant text-sm mb-3">${rec.teacher || 'Unknown'} • ${rec.subject || 'General'}</p>
+                        <div class="flex justify-between items-center text-xs text-outline">
+                            <span><i class="fa-solid fa-eye mr-1"></i> ${rec.view_count ? rec.view_count.toLocaleString() : '0'} views</span>
+                            ${actionBtn}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Expose loadRecordings to global scope for filter chips
+    window.loadRecordings = loadRecordings;
 
     // Run initialization
     initRecordingsPage();
