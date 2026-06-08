@@ -383,10 +383,11 @@
 
 <!-- NEW: Supabase & Worker API Integration Logic -->
 <!-- NEW: Supabase & Worker API Integration Logic (FIXED 401 LOOP) -->
+<!-- NEW: Supabase & Worker API Integration Logic (FIXED CORS) -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
     import { supabase } from '../../supabaseClient.js';
-    import { SUPABASE_ANON_KEY } from '../../config.js'; // Import Anon Key for apikey header
+    // Removed SUPABASE_ANON_KEY import since we no longer need the apikey header
 
     const API_BASE_URL = 'https://rexapi.naijaassets.com';
 
@@ -451,8 +452,8 @@
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
-                'apikey': SUPABASE_ANON_KEY, // Added: Workers often expect this standard Supabase header
                 'Content-Type': 'application/json'
+                // REMOVED: 'apikey' header was causing the CORS preflight to fail
             }
         });
 
@@ -469,8 +470,8 @@
                 window.location.replace('/login/');
             } else {
                 // Session is valid in Supabase, but Worker rejected it.
-                // DO NOT LOG OUT. This prevents infinite redirect loops if the Worker is misconfigured.
-                console.error('⚠️ Worker rejected valid Supabase session. Worker might be misconfigured or blocking your origin.');
+                // DO NOT LOG OUT. This prevents infinite redirect loops.
+                console.error('⚠️ Worker rejected valid Supabase session. Check Worker logs for JWT validation errors.');
                 throw new Error('Server access denied. Please check console for Worker error details.');
             }
             return null;
