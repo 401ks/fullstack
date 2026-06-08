@@ -384,22 +384,21 @@
 <!-- NEW: Supabase & Worker API Integration Logic -->
 <!-- NEW: Supabase & Worker API Integration Logic (FIXED 401 LOOP) -->
 <!-- NEW: Supabase & Worker API Integration Logic (FIXED CORS) -->
+<!-- NEW: Supabase & Worker API Integration Logic (WITH JWT DEBUGGER) -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
     import { supabase } from '../../supabaseClient.js';
-    // Removed SUPABASE_ANON_KEY import since we no longer need the apikey header
 
     const API_BASE_URL = 'https://rexapi.naijaassets.com';
 
     async function initRecordingsPage() {
-        // 1. Initialize Auth & Check Session
         await initializeAuth();
         if (!requireAuth()) return;
 
         const user = window.currentUser;
         const session = window.currentSession;
 
-        // 2. Dynamic Profile Data Injection
+        // Profile Data Injection
         const meta = session.user.user_metadata || {};
         const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
         
@@ -413,10 +412,8 @@
         if (headerName) headerName.textContent = fullName;
         if (headerLevel) headerLevel.textContent = user.grade || 'Student';
 
-        // 3. Initial Load of Recordings
         await loadRecordings();
 
-        // 4. Setup Search Debounce
         const searchInput = document.getElementById('recordingsSearch');
         let searchTimeout;
         if (searchInput) {
@@ -424,11 +421,10 @@
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
                     loadRecordings({ search: e.target.value });
-                }, 500); // Debounce 500ms
+                }, 500);
             });
         }
 
-        // 5. Logout Functionality
         const settingsLinks = document.querySelectorAll('#settings-menu a');
         settingsLinks.forEach(link => {
             if (link.textContent.includes('Logout')) {
@@ -441,9 +437,33 @@
     }
 
     async function fetchRecordingsFromWorker(accessToken, filters = {}) {
+        // ==========================================
+        // 🔍 DEBUG: Decode JWT to check expiration
+        // ==========================================
+        try {
+            const payloadBase64 = accessToken.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+            const text = atob(payloadBase64);
+            const bytes = new Uint8Array(text.length);
+            for (let i = 0; i < text.length; i++) bytes[i] = text.charCodeAt(i);
+            const payload = JSON.parse(new TextDecoder().decode(bytes));
+            
+            console.log("🔍 JWT Payload:", payload);
+            console.log("🔍 JWT Expires At:", new Date(payload.exp * 1000).toLocaleString());
+            console.log("🔍 Current Time:", new Date().toLocaleString());
+            
+            if (payload.exp * 1000 < Date.now()) {
+                console.error("🔴 JWT IS EXPIRED! Supabase failed to refresh it.");
+            } else {
+                console.log("✅ JWT is NOT expired. The Worker is rejecting a perfectly valid token.");
+            }
+        } catch (e) {
+            console.warn("Could not decode JWT for debugging:", e);
+        }
+        // ==========================================
+
         const url = new URL(`${API_BASE_URL}/api/recordings`);
         
-        if (filters.subject && filters.subject !== 'all' && filters.subject !== 'recent' && filters.subject !== 'offline' && filters.subject !== 'tutorials') {
+        if (filters.subject && !['all', 'recent', 'offline', 'tutorials'].includes(filters.subject)) {
             url.searchParams.append('subject', filters.subject);
         }
         if (filters.search) url.searchParams.append('search', filters.search);
@@ -453,26 +473,20 @@
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
-                // REMOVED: 'apikey' header was causing the CORS preflight to fail
             }
         });
 
-        // Handle 401 Unauthorized SAFELY
         if (response.status === 401) {
             const errorText = await response.text();
             console.error('🔴 Worker returned 401. Response body:', errorText);
             
-            // Check if the Supabase session is actually expired
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
-                console.warn('Supabase session is null. Logging out...');
                 await supabase.auth.signOut();
                 window.location.replace('/login/');
             } else {
-                // Session is valid in Supabase, but Worker rejected it.
-                // DO NOT LOG OUT. This prevents infinite redirect loops.
-                console.error('⚠️ Worker rejected valid Supabase session. Check Worker logs for JWT validation errors.');
-                throw new Error('Server access denied. Please check console for Worker error details.');
+                console.error('⚠️ Worker rejected valid Supabase session. Check Worker code for JWT verification errors.');
+                throw new Error('Server access denied. Check console for Worker error details.');
             }
             return null;
         }
@@ -487,27 +501,33 @@
     }
 
     async function loadRecordings(filters = {}) {
+        // 1. FORCE TOKEN REFRESH
+        // getUser() automatically refreshes the session if the current token is expired
+        const { error: userError } = await supabase.auth.getUser();
+        if (userError) {
+            console.error("Token is genuinely invalid/expired and failed to refresh:", userError);
+            await supabase.auth.signOut();
+            window.location.replace('/login/');
+            return;
+        }
+
+        // 2. Get the guaranteed fresh session
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) return;
 
         const grid = document.getElementById('grid-all');
         if (!grid) return;
 
-        // Show loading state
         grid.innerHTML = `<div class="col-span-full text-center py-12"><i class="fa-solid fa-spinner fa-spin text-3xl text-secondary"></i><p class="mt-4 text-on-surface-variant">Loading recordings...</p></div>`;
 
-        // Ensure 'all' section is visible when loading API data
         Object.values(sections).forEach(sec => { if(sec) sec.classList.add('section-hidden'); });
         document.getElementById('all').classList.remove('section-hidden');
 
         try {
             const data = await fetchRecordingsFromWorker(session.access_token, filters);
-            if (data) {
-                renderRecordings(data);
-            }
+            if (data) renderRecordings(data);
         } catch (err) {
             console.error("Failed to load recordings:", err);
-            // Show error on page instead of redirecting to login
             grid.innerHTML = `<div class="col-span-full text-center py-12 text-error"><i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i><p>Failed to load recordings.</p><p class="text-sm text-on-surface-variant mt-2">${err.message}</p></div>`;
         }
     }
@@ -516,21 +536,15 @@
         const grid = document.getElementById('grid-all');
         if (!grid) return;
 
-        // Update Access Badge
         const badge = document.getElementById('access-badge');
         if (badge) {
-            if (data.access === 'rex') {
-                badge.innerHTML = `<span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold flex items-center gap-1 shadow-sm"><i class="fa-solid fa-crown"></i> REX ACCESS</span>`;
-            } else {
-                badge.innerHTML = `<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-user"></i> STANDARD ACCESS</span>`;
-            }
+            badge.innerHTML = data.access === 'rex' 
+                ? `<span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold flex items-center gap-1 shadow-sm"><i class="fa-solid fa-crown"></i> REX ACCESS</span>`
+                : `<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-user"></i> STANDARD ACCESS</span>`;
         }
 
-        // Update total count
         const totalCount = document.getElementById('total-count');
-        if (totalCount) {
-            totalCount.textContent = `${data.total || 0} video lectures`;
-        }
+        if (totalCount) totalCount.textContent = `${data.total || 0} video lectures`;
 
         if (!data.recordings || data.recordings.length === 0) {
             grid.innerHTML = `<div class="col-span-full text-center py-12 text-on-surface-variant"><i class="fa-solid fa-video-slash text-4xl mb-4 text-outline"></i><p>No recordings found for your criteria.</p></div>`;
@@ -573,10 +587,7 @@
         }).join('');
     }
 
-    // Expose loadRecordings to global scope for filter chips
     window.loadRecordings = loadRecordings;
-
-    // Run initialization
     initRecordingsPage();
 </script>
 </body>
