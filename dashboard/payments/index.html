@@ -328,55 +328,54 @@
             <!-- Tuition Overview Header -->
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
-                    <h2 class="font-headline-lg text-headline-lg text-primary">Subject Billing & Checkout</h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Manage your 4-week billing cycle. Select the subjects you wish to renew and upload your payment receipt.</p>
+                    <h2 class="font-headline-lg text-headline-lg text-primary">Tuition Overview</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Manage your academic investments, view active subscription models, and track your financial journey at NaijaAssets.</p>
                 </div>
             </div>
 
-            <!-- Bento Layout Top: Cart & Quick Actions -->
+            <!-- Bento Layout Top -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
-                <!-- Dynamic Checkout Cart -->
-                <div class="lg:col-span-2 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant card-shadow">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                        <div>
-                            <h3 class="font-headline-md text-primary">Select Subjects to Renew</h3>
-                            <p class="text-sm text-outline mt-1">Billing cycle: 4 weeks. Active subjects are locked.</p>
-                        </div>
-                        <!-- Currency Toggle -->
-                        <div class="flex items-center gap-2 bg-surface-container-low p-1 rounded-full border border-outline-variant self-start">
-                            <button id="currency-usd" class="px-4 py-1.5 rounded-full text-sm font-bold transition-all text-on-surface-variant hover:text-primary">USD ($)</button>
-                            <button id="currency-ngn" class="px-4 py-1.5 rounded-full text-sm font-bold transition-all bg-secondary text-white">NGN (₦)</button>
+                
+                <!-- NEW: Subject Billing & Checkout Cart -->
+                <div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl border border-outline-variant card-shadow relative overflow-hidden flex flex-col">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-headline-md text-headline-md text-primary flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-secondary"></i> Subject Billing & Checkout</h3>
+                        <div class="flex bg-surface-container rounded-lg p-1">
+                            <button id="currency-usd" class="px-3 py-1.5 rounded-md text-xs font-bold transition-all bg-secondary text-white">USD ($)</button>
+                            <button id="currency-ngn" class="px-3 py-1.5 rounded-md text-xs font-bold transition-all text-on-surface-variant">NGN (₦)</button>
                         </div>
                     </div>
                     
-                    <div id="checkout-cart" class="space-y-3 mb-6">
-                        <div class="text-center py-8 text-on-surface-variant"><i class="fa-solid fa-spinner fa-spin text-2xl"></i><p class="mt-2">Loading billing data...</p></div>
+                    <div id="subjects-cart-container" class="space-y-3 flex-1 overflow-y-auto max-h-[400px] pr-2 custom-scrollbar">
+                        <div class="text-center py-8 text-on-surface-variant">
+                            <i class="fa-solid fa-spinner fa-spin text-2xl"></i>
+                            <p class="mt-2">Loading subjects...</p>
+                        </div>
                     </div>
 
-                    <!-- Cart Summary -->
-                    <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="mt-6 pt-4 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4">
                         <div>
-                            <p class="text-sm text-outline">Total Selected</p>
-                            <p class="font-headline-md text-primary" id="cart-count">0 Subjects</p>
+                            <p class="text-sm text-outline"><span id="selected-count">0</span> Subjects Selected for this cycle</p>
+                            <p class="text-xs text-outline mt-1">Billing cycle: 4 Weeks</p>
                         </div>
                         <div class="text-right">
-                            <p class="text-sm text-outline">Total Amount</p>
-                            <p class="font-headline-md text-secondary" id="cart-total">₦0</p>
+                            <p class="text-xs text-outline">Total Amount</p>
+                            <p class="text-2xl font-bold text-primary" id="total-amount">$0.00</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Quick Actions -->
-                <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant card-shadow flex flex-col justify-between">
+                <div class="bg-surface-container-lowest p-8 rounded-xl border border-outline-variant card-shadow flex flex-col justify-between">
                     <h4 class="font-label-md text-label-md text-primary font-bold mb-4">Quick Actions</h4>
                     <div class="space-y-3">
-                        <a href="/dashboard/settings/?section=academic" class="w-full flex items-center justify-between p-4 bg-surface-bright border border-outline-variant rounded-lg hover:border-secondary transition-colors group">
+                        <button class="w-full flex items-center justify-between p-4 bg-surface-bright border border-outline-variant rounded-lg hover:border-secondary transition-colors group">
                             <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-graduation-cap text-secondary text-lg"></i>
-                                <span class="font-label-md text-label-md">Update Subjects</span>
+                                <i class="fa-solid fa-credit-card text-secondary text-lg"></i>
+                                <span class="font-label-md text-label-md">Update Payment Method</span>
                             </div>
                             <i class="fa-solid fa-chevron-right text-outline group-hover:translate-x-1 transition-transform"></i>
-                        </a>
+                        </button>
                         <button class="w-full flex items-center justify-between p-4 bg-surface-bright border border-outline-variant rounded-lg hover:border-secondary transition-colors group">
                             <div class="flex items-center gap-3">
                                 <i class="fa-solid fa-file-invoice text-secondary text-lg"></i>
@@ -386,7 +385,7 @@
                         </button>
                     </div>
                     <div class="mt-6 pt-6 border-t border-outline-variant">
-                        <p class="font-label-sm text-label-sm text-on-surface-variant">Payments are verified manually. Access is granted within 24 hours of receipt approval.</p>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">Auto-renew is <span class="text-on-tertiary-container font-bold">Disabled</span>. Manual renewal required.</p>
                     </div>
                 </div>
             </div>
@@ -399,16 +398,17 @@
                         <h3 class="font-headline-md text-headline-md text-primary">Upload Payment Confirmation</h3>
                     </div>
                     
+                    <!-- NEW: Dynamic Summary of Selected Subjects -->
                     <div class="ruw-group">
-                        <label class="ruw-label"><i class="fa-solid fa-file-invoice mr-2"></i>Invoice / Reference Number</label>
-                        <input type="text" class="ruw-input" id="invoiceNumber" placeholder="e.g., TRF-2026-0421">
+                        <label class="ruw-label"><i class="fa-solid fa-list-check mr-2"></i>Paying for</label>
+                        <div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant text-sm text-on-surface-variant" id="receipt-subjects-summary">
+                            No subjects selected. Please select subjects above.
+                        </div>
                     </div>
 
                     <div class="ruw-group">
-                        <label class="ruw-label"><i class="fa-solid fa-list-check mr-2"></i>Payment Summary</label>
-                        <div id="receipt-subject-summary" class="p-4 bg-surface-container-low rounded-xl text-sm text-on-surface-variant border border-outline-variant/30 min-h-[60px] flex items-center">
-                            <span class="text-outline italic">No subjects selected. Please select subjects in the cart above.</span>
-                        </div>
+                        <label class="ruw-label"><i class="fa-solid fa-file-invoice mr-2"></i>Invoice / Reference Number</label>
+                        <input type="text" class="ruw-input" id="invoiceNumber" placeholder="e.g., INV-2026-0421 or Bank Teller No.">
                     </div>
 
                     <div class="ruw-dropzone" id="dropzone">
@@ -429,12 +429,12 @@
                     </div>
 
                     <button class="ruw-btn" id="submitReceiptBtn">
-                        <i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT
+                        <i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT FOR VERIFICATION
                     </button>
                 </div>
             </div>
 
-            <!-- Payment History Table (Mockup) -->
+            <!-- Payment History Table -->
             <section class="bg-surface-container-lowest rounded-xl border border-outline-variant card-shadow overflow-hidden">
                 <div class="px-8 py-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low/30">
                     <h3 class="font-headline-md text-headline-md text-primary">Payment History</h3>
@@ -456,8 +456,8 @@
                         <tbody class="divide-y divide-outline-variant">
                             <tr class="hover:bg-surface-bright transition-colors group">
                                 <td class="px-8 py-5 font-body-md text-body-md text-primary">Sept 12, 2025</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Mathematics, English (4 Weeks)</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦34,000</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Tuition Fee - Professional Plan (Sept)</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦25,000</td>
                                 <td class="px-8 py-5">
                                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-sm text-[12px] font-bold">
                                         <span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Paid
@@ -465,22 +465,52 @@
                                 </td>
                                 <td class="px-8 py-5 text-right">
                                     <button class="text-secondary font-label-md flex items-center gap-1 ml-auto group-hover:scale-105 transition-transform">
-                                        <i class="fa-solid fa-download text-sm"></i> Receipt
+                                        <i class="fa-solid fa-download text-sm"></i> Download Invoice
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-surface-bright transition-colors group">
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Aug 12, 2025</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Tuition Fee - Professional Plan (Aug)</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦25,000</td>
+                                <td class="px-8 py-5">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-sm text-[12px] font-bold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Paid
+                                    </span>
+                                </td>
+                                <td class="px-8 py-5 text-right">
+                                    <button class="text-secondary font-label-md flex items-center gap-1 ml-auto group-hover:scale-105 transition-transform">
+                                        <i class="fa-solid fa-download text-sm"></i> Download Invoice
                                     </button>
                                 </td>
                             </tr>
                             <tr class="hover:bg-surface-bright transition-colors group opacity-60">
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Oct 10, 2025</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Physics (4 Weeks)</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦17,000</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Oct 12, 2025</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Tuition Fee - Professional Plan (Oct)</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦25,000</td>
                                 <td class="px-8 py-5">
                                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-[12px] font-bold">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Pending Review
+                                        <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Pending
                                     </span>
                                 </td>
                                 <td class="px-8 py-5 text-right">
                                     <button class="text-outline font-label-md flex items-center gap-1 ml-auto cursor-not-allowed">
-                                        <i class="fa-solid fa-lock text-sm"></i> Pending
+                                        <i class="fa-solid fa-lock text-sm"></i> Coming Soon
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-surface-bright transition-colors group">
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Jul 12, 2025</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Registration Fee - Academic Year 2025/2026</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦15,000</td>
+                                <td class="px-8 py-5">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-sm text-[12px] font-bold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Paid
+                                    </span>
+                                </td>
+                                <td class="px-8 py-5 text-right">
+                                    <button class="text-secondary font-label-md flex items-center gap-1 ml-auto">
+                                        <i class="fa-solid fa-download text-sm"></i> Invoice
                                     </button>
                                 </td>
                             </tr>
@@ -673,19 +703,19 @@
     }
     
     submitBtn.addEventListener('click', () => {
-        if (!invoiceInput.value.trim()) { alert('Please enter an invoice/reference number'); invoiceInput.focus(); return; }
+        if (!invoiceInput.value.trim()) { alert('Please enter an invoice number'); invoiceInput.focus(); return; }
         if (!selectedFile) { alert('Please select a receipt file to upload'); return; }
         submitBtn.disabled = true; 
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Submitting...';
         setTimeout(() => {
-            alert(`Receipt submitted successfully!\nFile: ${selectedFile.name}\nOur team will verify your payment and activate your subjects within 24 hours.`);
+            alert(`Receipt for invoice ${invoiceInput.value.trim()} submitted successfully!\nFile: ${selectedFile.name}\nOur team will verify your payment within 24 hours.`);
             invoiceInput.value = ''; 
             selectedFile = null; 
             previewContainer.style.display = 'none'; 
             previewImg.src = ''; 
             fileInput.value = '';
             submitBtn.disabled = false; 
-            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT';
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT FOR VERIFICATION';
         }, 1500);
     });
     
@@ -701,10 +731,14 @@
     });
 </script>
 
-<!-- NEW: Supabase Integration & Billing Logic -->
+<!-- NEW: Supabase Integration Logic (Dynamic Billing) -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
     import { supabase } from '../../supabaseClient.js';
+
+    let currentCurrency = 'usd';
+    let pricingData = [];
+    let subscriptionsData = [];
 
     async function initPaymentsPage() {
         // 1. Initialize Auth & Check Session
@@ -728,164 +762,24 @@
         if (headerName) headerName.textContent = fullName;
         if (headerLevel) headerLevel.textContent = user.grade || 'Student';
 
-        // 3. Billing Logic Setup
-        let currentCurrency = 'NGN';
-        let pricingData = [];
-        let selectedSubjects = new Set();
+        // 3. Load Billing Data
+        await loadBillingData(user);
 
-        const usdBtn = document.getElementById('currency-usd');
-        const ngnBtn = document.getElementById('currency-ngn');
+        // 4. Currency Toggle Listeners
+        document.getElementById('currency-usd').addEventListener('click', () => {
+            currentCurrency = 'usd';
+            document.getElementById('currency-usd').className = 'px-3 py-1.5 rounded-md text-xs font-bold transition-all bg-secondary text-white';
+            document.getElementById('currency-ngn').className = 'px-3 py-1.5 rounded-md text-xs font-bold transition-all text-on-surface-variant';
+            renderCart(user);
+        });
+        document.getElementById('currency-ngn').addEventListener('click', () => {
+            currentCurrency = 'ngn';
+            document.getElementById('currency-ngn').className = 'px-3 py-1.5 rounded-md text-xs font-bold transition-all bg-secondary text-white';
+            document.getElementById('currency-usd').className = 'px-3 py-1.5 rounded-md text-xs font-bold transition-all text-on-surface-variant';
+            renderCart(user);
+        });
 
-        usdBtn.addEventListener('click', () => { currentCurrency = 'USD'; updateCurrencyUI(); renderCart(); });
-        ngnBtn.addEventListener('click', () => { currentCurrency = 'NGN'; updateCurrencyUI(); renderCart(); });
-
-        function updateCurrencyUI() {
-            if (currentCurrency === 'USD') {
-                usdBtn.className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all bg-secondary text-white';
-                ngnBtn.className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all text-on-surface-variant hover:text-primary';
-            } else {
-                ngnBtn.className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all bg-secondary text-white';
-                usdBtn.className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all text-on-surface-variant hover:text-primary';
-            }
-        }
-
-        async function loadBillingData() {
-            const cartContainer = document.getElementById('checkout-cart');
-            
-            if (!user.grade) {
-                cartContainer.innerHTML = `<div class="p-8 text-center bg-error/5 border border-error/20 rounded-xl">
-                    <i class="fa-solid fa-triangle-exclamation text-error text-3xl mb-3"></i>
-                    <p class="text-error font-bold">No Grade Assigned</p>
-                    <p class="text-sm text-on-surface-variant mt-1">Please request a grade assignment in Settings before you can view billing.</p>
-                    <a href="/dashboard/settings/?section=academic" class="text-secondary font-bold mt-3 inline-block">Go to Settings &rarr;</a>
-                </div>`;
-                updateCartSummary();
-                return;
-            }
-
-            const { data: pricing } = await supabase.from('subject_pricing').select('*').eq('grade', user.grade);
-            pricingData = pricing || [];
-
-            const { data: subs } = await supabase.from('subject_subscriptions').select('subject, is_active, expires_at').eq('user_id', user.id);
-            const subsMap = {};
-            (subs || []).forEach(s => subsMap[s.subject] = s);
-
-            if (!user.subjects || user.subjects.length === 0) {
-                cartContainer.innerHTML = `<div class="p-8 text-center bg-surface-container-low rounded-xl border border-outline-variant/30">
-                    <i class="fa-solid fa-book-open text-3xl text-outline mb-3"></i>
-                    <p class="text-on-surface-variant">No subjects selected in your Academic Profile.</p>
-                    <a href="/dashboard/settings/?section=academic" class="text-secondary font-bold mt-2 inline-block">Select Subjects in Settings &rarr;</a>
-                </div>`;
-                updateCartSummary();
-                return;
-            }
-
-            renderCart(subsMap);
-        }
-
-        function renderCart(subsMap) {
-            const cartContainer = document.getElementById('checkout-cart');
-            let html = '';
-
-            user.subjects.forEach(subject => {
-                const priceInfo = pricingData.find(p => p.subject === subject);
-                const subInfo = subsMap[subject];
-                
-                let statusText = 'Unpaid';
-                let statusClass = 'bg-surface-container-highest text-outline';
-                let isActive = false;
-
-                if (subInfo) {
-                    const expDate = new Date(subInfo.expires_at);
-                    const now = new Date();
-                    if (subInfo.is_active && expDate > now) {
-                        const daysLeft = Math.ceil((expDate - now) / (1000 * 60 * 60 * 24));
-                        statusText = `Active (${daysLeft}d left)`;
-                        statusClass = 'bg-on-tertiary-container/10 text-on-tertiary-container';
-                        isActive = true;
-                    } else {
-                        statusText = 'Expired';
-                        statusClass = 'bg-error-container/50 text-error';
-                    }
-                }
-
-                const price = currentCurrency === 'USD' ? `$${priceInfo?.price_usd || 0}` : `₦${(priceInfo?.price_ngn || 0).toLocaleString()}`;
-                const isChecked = selectedSubjects.has(subject);
-                const disabledAttr = isActive ? 'disabled' : '';
-                const opacityClass = isActive ? 'opacity-60' : '';
-
-                html += `
-                    <div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/30 hover:border-secondary/50 transition-colors ${opacityClass}">
-                        <div class="flex items-center gap-4 flex-1">
-                            <input type="checkbox" class="cart-checkbox accent-secondary w-5 h-5 cursor-pointer" value="${subject}" ${isChecked ? 'checked' : ''} ${disabledAttr}/>
-                            <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary font-bold text-lg">
-                                ${subject.charAt(0)}
-                            </div>
-                            <div>
-                                <p class="font-label-md text-primary font-bold">${subject}</p>
-                                <span class="text-xs font-bold px-2 py-0.5 rounded-full ${statusClass}">${statusText}</span>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-headline-md text-primary">${price}</p>
-                            <p class="text-xs text-outline">per 4 weeks</p>
-                        </div>
-                    </div>
-                `;
-            });
-
-            cartContainer.innerHTML = html;
-
-            document.querySelectorAll('.cart-checkbox').forEach(cb => {
-                cb.addEventListener('change', (e) => {
-                    if (e.target.checked) selectedSubjects.add(e.target.value);
-                    else selectedSubjects.delete(e.target.value);
-                    updateCartSummary();
-                });
-            });
-
-            updateCartSummary();
-        }
-
-        function updateCartSummary() {
-            const countEl = document.getElementById('cart-count');
-            const totalEl = document.getElementById('cart-total');
-            const summaryEl = document.getElementById('receipt-subject-summary');
-
-            let totalUSD = 0;
-            let totalNGN = 0;
-            let selectedNames = [];
-
-            selectedSubjects.forEach(sub => {
-                const priceInfo = pricingData.find(p => p.subject === sub);
-                if (priceInfo) {
-                    totalUSD += parseFloat(priceInfo.price_usd);
-                    totalNGN += parseFloat(priceInfo.price_ngn);
-                    selectedNames.push(sub);
-                }
-            });
-
-            if (countEl) countEl.textContent = `${selectedSubjects.size} Subject${selectedSubjects.size !== 1 ? 's' : ''}`;
-            if (totalEl) totalEl.textContent = currentCurrency === 'USD' ? `$${totalUSD.toFixed(2)}` : `₦${totalNGN.toLocaleString()}`;
-            
-            if (summaryEl) {
-                if (selectedNames.length === 0) {
-                    summaryEl.innerHTML = `<span class="text-outline italic">No subjects selected. Please select subjects in the cart above.</span>`;
-                } else {
-                    summaryEl.innerHTML = `
-                        <div class="flex flex-col gap-1">
-                            <span><span class="font-bold text-primary">Paying for:</span> ${selectedNames.join(', ')}</span>
-                            <span class="text-xs text-outline">Total Amount: ${currentCurrency === 'USD' ? `$${totalUSD.toFixed(2)}` : `₦${totalNGN.toLocaleString()}`}</span>
-                        </div>
-                    `;
-                }
-            }
-        }
-
-        updateCurrencyUI();
-        await loadBillingData();
-
-        // 4. Logout Functionality
+        // 5. Logout Functionality
         const logoutBtn = document.getElementById('logoutBtn');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', (e) => {
@@ -895,6 +789,114 @@
         }
     }
 
+    async function loadBillingData(user) {
+        const container = document.getElementById('subjects-cart-container');
+        
+        if (!user.grade) {
+            container.innerHTML = `<div class="text-center py-8 text-on-surface-variant"><i class="fa-solid fa-triangle-exclamation text-error text-3xl mb-2"></i><p class="text-error font-bold">No Grade Assigned</p><p class="text-sm mt-1">Please request a grade assignment in Settings before purchasing subjects.</p></div>`;
+            updateTotal();
+            return;
+        }
+
+        // Fetch pricing for user's grade
+        const { data: pricing, error: pErr } = await supabase.from('subject_pricing').select('*').eq('grade', user.grade);
+        if (pErr) console.error(pErr);
+        pricingData = pricing || [];
+
+        // Fetch user's current subscriptions
+        const { data: subs, error: sErr } = await supabase.from('subject_subscriptions').select('subject, is_active, expires_at').eq('user_id', user.id);
+        if (sErr) console.error(sErr);
+        subscriptionsData = subs || [];
+
+        renderCart(user);
+    }
+
+    function renderCart(user) {
+        const container = document.getElementById('subjects-cart-container');
+        container.innerHTML = '';
+
+        if (!user.subjects || user.subjects.length === 0) {
+            container.innerHTML = `<div class="text-center py-8 text-on-surface-variant"><i class="fa-solid fa-book-open text-3xl mb-2"></i><p>No subjects selected in your Academic Profile.</p><a href="/dashboard/settings/?section=academic" class="text-secondary text-sm hover:underline">Go to Settings to add subjects</a></div>`;
+            updateTotal();
+            return;
+        }
+
+        user.subjects.forEach(subjectName => {
+            const priceRow = pricingData.find(p => p.subject === subjectName);
+            const subRow = subscriptionsData.find(s => s.subject === subjectName);
+            
+            let statusText = 'Unpaid';
+            let statusClass = 'bg-surface-container text-outline';
+            let isDisabled = false;
+
+            if (subRow) {
+                const isActive = subRow.is_active && new Date(subRow.expires_at) > new Date();
+                if (isActive) {
+                    const daysLeft = Math.ceil((new Date(subRow.expires_at) - new Date()) / (1000*60*60*24));
+                    statusText = `Active (${daysLeft}d)`;
+                    statusClass = 'bg-on-tertiary-container/10 text-on-tertiary-container';
+                    isDisabled = true;
+                } else {
+                    statusText = 'Expired';
+                    statusClass = 'bg-error-container/50 text-error';
+                }
+            }
+
+            const price = priceRow ? (currentCurrency === 'usd' ? priceRow.price_usd : priceRow.price_ngn) : 0;
+            const formattedPrice = currentCurrency === 'usd' ? `$${price.toFixed(2)}` : `₦${price.toLocaleString()}`;
+
+            const row = document.createElement('div');
+            row.className = `flex items-center justify-between p-4 rounded-xl border transition-all ${isDisabled ? 'bg-surface-container-low/50 border-outline-variant/30 opacity-70' : 'bg-surface-container-low border-outline-variant hover:border-secondary'}`;
+            
+            row.innerHTML = `
+                <div class="flex items-center gap-4">
+                    <input type="checkbox" class="subject-cart-checkbox accent-secondary w-5 h-5" value="${subjectName}" data-price="${price}" ${isDisabled ? 'disabled checked' : ''}>
+                    <div>
+                        <p class="font-label-md text-primary font-bold">${subjectName}</p>
+                        <span class="text-xs font-bold px-2 py-0.5 rounded-full ${statusClass}">${statusText}</span>
+                    </div>
+                </div>
+                <p class="font-headline-md text-primary">${formattedPrice}</p>
+            `;
+            
+            container.appendChild(row);
+        });
+
+        // Attach listeners to new checkboxes
+        document.querySelectorAll('.subject-cart-checkbox:not(:disabled)').forEach(cb => {
+            cb.addEventListener('change', updateTotal);
+        });
+
+        updateTotal();
+    }
+
+    function updateTotal() {
+        const checkboxes = document.querySelectorAll('.subject-cart-checkbox:checked:not(:disabled)');
+        let total = 0;
+        let selectedSubjects = [];
+        
+        checkboxes.forEach(cb => {
+            total += parseFloat(cb.dataset.price);
+            selectedSubjects.push(cb.value);
+        });
+
+        const formattedTotal = currentCurrency === 'usd' ? `$${total.toFixed(2)}` : `₦${total.toLocaleString()}`;
+
+        document.getElementById('selected-count').textContent = selectedSubjects.length;
+        document.getElementById('total-amount').textContent = formattedTotal;
+        
+        // Update Receipt Summary
+        const summaryEl = document.getElementById('receipt-subjects-summary');
+        if (selectedSubjects.length > 0) {
+            summaryEl.innerHTML = `<span class="font-bold text-primary">You are paying for:</span> ${selectedSubjects.join(', ')}`;
+            summaryEl.className = 'p-3 bg-secondary/5 rounded-xl border border-secondary/20 text-sm text-on-surface-variant';
+        } else {
+            summaryEl.innerHTML = 'No subjects selected. Please select subjects above.';
+            summaryEl.className = 'p-3 bg-surface-container-low rounded-xl border border-outline-variant text-sm text-on-surface-variant';
+        }
+    }
+
+    // Run initialization
     initPaymentsPage();
 </script>
 </body>
