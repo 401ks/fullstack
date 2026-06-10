@@ -112,7 +112,6 @@
         .settings-logout-link { color: #dc2626 !important; }
         .settings-logout-link:hover { color: #b91c1c !important; background: rgba(220, 38, 38, 0.05) !important; }
         
-        /* Username input feedback styles */
         .username-feedback { font-size: 12px; margin-top: 4px; min-height: 16px; }
         .username-feedback.success { color: #009485; }
         .username-feedback.error { color: #ba1a1a; }
@@ -142,7 +141,7 @@
         
         <div class="px-4 mb-6 profile-section">
             <a href="#" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors">
-                <img alt="Profile" class="w-10 h-10 rounded-full object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUUlOjD2NqHiozDk74aw-A3BNeSSnSOK0DLyDmSxUPw8t4VSZmRCrOTViEmVvpzn5AUNClDA6xEGSji0HYodD1cyh5n9koyszAs6Mzzhb9W_9fvAD8lO7LQjq5oENJXH449vkUJ5BbAckI0JvGCk8X-dMKB1lOoxn_CTP6eRTZSy-jKMAHXx2OC697aMu3wXPhDWV9I_Yq0-yl0XugRusbGJHhLeKubyGTw4Wy7YePrOlNy1XXHHka3WgFKcCXqEixu9-qPSYsWCk"/>
+                <img alt="Profile" class="w-10 h-10 rounded-full object-cover flex-shrink-0 bg-surface-container-high" src="https://naijaassets.com/user.png"/>
                 <div class="profile-details overflow-hidden">
                     <p class="font-label-md text-primary font-bold truncate">Loading...</p>
                     <p class="text-[10px] text-outline truncate mb-1">...</p>
@@ -195,11 +194,14 @@
                     <i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i>
                 </button>
                 <div class="submenu pl-10 space-y-1 mt-1">
-                    <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=account" data-section="account-section" onclick="navigateToSection(event, 'account-section')">
-                        <i class="fa-solid fa-user-gear text-xs"></i><span>Account Settings</span>
+                    <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=academic" data-section="academic-section" onclick="navigateToSection(event, 'academic-section')">
+                        <i class="fa-solid fa-graduation-cap text-xs"></i><span>Academic Profile</span>
                     </a>
                     <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=profile" data-section="profile-section" onclick="navigateToSection(event, 'profile-section')">
                         <i class="fa-solid fa-id-card text-xs"></i><span>Profile Settings</span>
+                    </a>
+                    <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=account" data-section="account-section" onclick="navigateToSection(event, 'account-section')">
+                        <i class="fa-solid fa-user-gear text-xs"></i><span>Account Preferences</span>
                     </a>
                     <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=appearance" data-section="appearance-section" onclick="navigateToSection(event, 'appearance-section')">
                         <i class="fa-solid fa-palette text-xs"></i><span>Visual Settings</span>
@@ -246,7 +248,7 @@
                     <p class="font-label-md text-label-md text-primary leading-none">Loading...</p>
                     <p class="font-label-sm text-[10px] text-outline uppercase tracking-wider mt-1">Student</p>
                 </div>
-                <img alt="Student Profile Avatar" class="w-10 h-10 rounded-full border border-outline-variant object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUUlOjD2NqHiozDk74aw-A3BNeSSnSOK0DLyDmSxUPw8t4VSZmRCrOTViEmVvpzn5AUNClDA6xEGSji0HYodD1cyh5n9koyszAs6Mzzhb9W_9fvAD8lO7LQjq5oENJXH449vkUJ5BbAckI0JvGCk8X-dMKB1lOoxn_CTP6eRTZSy-jKMAHXx2OC697aMu3wXPhDWV9I_Yq0-yl0XugRusbGJHhLeKubyGTw4Wy7YePrOlNy1XXHHka3WgFKcCXqEixu9-qPSYsWCk"/>
+                <img alt="Student Profile Avatar" class="w-10 h-10 rounded-full border border-outline-variant object-cover bg-surface-container-high" src="https://naijaassets.com/user.png"/>
             </a>
         </header>
 
@@ -258,6 +260,10 @@
 
             <div class="flex flex-col lg:flex-row gap-8 min-h-[calc(100vh-240px)]">
                 <div class="settings-nav-desktop lg:w-1/3 flex flex-col gap-2 overflow-y-auto pr-2 custom-scrollbar max-h-[calc(100vh-200px)]">
+                    <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'academic-section')">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-graduation-cap text-secondary"></i><span class="font-label-md text-label-md">Academic Profile</span></div>
+                        <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
+                    </button>
                     <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'profile-section')">
                         <div class="flex items-center gap-3"><i class="fa-solid fa-user text-secondary"></i><span class="font-label-md text-label-md">Profile Settings</span></div>
                         <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
@@ -293,20 +299,67 @@
                 </div>
 
                 <div class="lg:w-2/3 flex flex-col gap-6 overflow-y-auto pr-2 custom-scrollbar max-h-[calc(100vh-200px)]">
+                    
+                    <!-- Academic Profile (NEW) -->
+                    <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="academic-section" data-section-name="academic">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-graduation-cap"></i> Academic Profile</h3>
+                        
+                        <!-- Grade Management -->
+                        <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 mb-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <p class="font-label-sm text-outline mb-1">Current Grade</p>
+                                    <p class="font-headline-md text-primary text-xl" id="current_grade_display">Loading...</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <select id="desired_grade_select" class="p-2.5 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none bg-surface-container-lowest text-sm">
+                                        <option value="" disabled selected>Select New Grade...</option>
+                                        <option value="JSS1">JSS 1</option><option value="JSS2">JSS 2</option><option value="JSS3">JSS 3</option>
+                                        <option value="SS1">SS 1</option><option value="SS2">SS 2</option><option value="SS3">SS 3</option>
+                                    </select>
+                                    <button id="request_grade_change_btn" class="px-5 py-2.5 bg-secondary text-white rounded-xl font-label-md hover:bg-secondary/90 transition-all flex items-center gap-2 whitespace-nowrap">
+                                        <i class="fa-solid fa-envelope"></i> Request Change
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-xs text-outline mt-3 flex items-center gap-1"><i class="fa-solid fa-circle-info"></i> Grade changes must be approved by administration. Your current subscriptions will remain active until their cycle ends.</p>
+                        </div>
+
+                        <!-- Subject Wishlist & Status -->
+                        <div>
+                            <h4 class="font-label-md text-label-md text-primary font-bold mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-book-open text-secondary"></i> Subjects & Billing Status
+                            </h4>
+                            <p class="text-sm text-outline mb-4">Select the subjects you wish to take. Check the billing status next to each subject. <span class="font-bold text-secondary">Checking a subject does not activate it;</span> activation is done by admin upon payment verification.</p>
+                            
+                            <div id="subjects_grid_container" class="space-y-6">
+                                <div class="text-center py-8 text-on-surface-variant">
+                                    <i class="fa-solid fa-spinner fa-spin text-2xl"></i>
+                                    <p class="mt-2">Loading subjects...</p>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end pt-6 mt-6 border-t border-outline-variant">
+                                <button id="save_subjects_btn" class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 transition-all btn-scale flex items-center gap-2">
+                                    <i class="fa-solid fa-save"></i> Save Subject Wishlist
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
                     <!-- Profile Settings -->
                     <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="profile-section" data-section-name="profile">
                         <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-user"></i> Profile Settings</h3>
                         <div class="flex flex-col md:flex-row gap-8 mb-8 items-start">
                             <div class="relative group">
-                                <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-surface-container-low shadow-sm">
-                                    <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe_dZk_PWT-Fqi5SWTPtaUslwc2iDNqO69qgI_deUvZMHmULa2hhPfoL1OTB4wlCWHciuLFf0EVF1DhzXSYgp9qxloUsP8mBTtY2_RpeYU-m7MRtOdRoxOQ2LbtLh6IeMrjlW3FUzou1v9oA77XkKw6spwF_lTfO_Z02utM34xfvmi1a1Ks9cNkVgyIDzvB-AY1tL9MYNE5vM0NguZQymSuKGUB2CXv5VXhSSX_LT9dS-NarwZznb9VYkCcXW5ANt79CsPP2PUOZo"/>
+                                <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-surface-container-low shadow-sm bg-surface-container-high">
+                                    <img class="w-full h-full object-cover" src="https://naijaassets.com/user.png"/>
                                 </div>
                                 <button class="absolute bottom-0 right-0 p-1.5 bg-secondary text-on-secondary rounded-full border-2 border-surface-container-lowest hover:scale-110 transition-transform">
                                     <i class="fa-solid fa-camera text-sm"></i>
                                 </button>
                             </div>
                             <div class="flex-1 space-y-4 w-full">
-                                <!-- Username Field -->
                                 <div>
                                     <label class="font-label-sm text-on-surface-variant block mb-1">Username</label>
                                     <div class="flex gap-2">
@@ -332,7 +385,7 @@
                                 </div>
                                 <div>
                                     <label class="font-label-sm text-on-surface-variant block">Bio</label>
-                                    <textarea class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none resize-none" rows="3" id="profile_bio">Final year Economics student. Passionate about asset management and financial technology.</textarea>
+                                    <textarea class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none resize-none" rows="3" id="profile_bio"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -359,6 +412,7 @@
                                 </select>
                             </div>
                         </div>
+                        <div id="subscription_status_block_container" class="mt-8 pt-6 border-t border-outline-variant"></div>
                     </section>
 
                     <!-- Notifications -->
@@ -371,40 +425,19 @@
                                 <div class="col-span-1 text-center text-xs font-bold text-outline">Push</div>
                             </div>
                             <div class="grid grid-cols-6 items-center py-4 hover:bg-surface-container-low/30 rounded-lg px-2">
-                                <div class="col-span-4">
-                                    <p class="font-label-md text-label-md text-primary">Class Reminders</p>
-                                    <p class="text-xs text-outline">Get notified 15 mins before a live session</p>
-                                </div>
-                                <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_class_email" checked/><span class="toggle-slider"></span></label>
-                                </div>
-                                <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_class_push" checked/><span class="toggle-slider"></span></label>
-                                </div>
+                                <div class="col-span-4"><p class="font-label-md text-label-md text-primary">Class Reminders</p><p class="text-xs text-outline">Get notified 15 mins before a live session</p></div>
+                                <div class="col-span-1 flex justify-center"><label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_class_email" checked/><span class="toggle-slider"></span></label></div>
+                                <div class="col-span-1 flex justify-center"><label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_class_push" checked/><span class="toggle-slider"></span></label></div>
                             </div>
                             <div class="grid grid-cols-6 items-center py-4 hover:bg-surface-container-low/30 rounded-lg px-2">
-                                <div class="col-span-4">
-                                    <p class="font-label-md text-label-md text-primary">New Resources</p>
-                                    <p class="text-xs text-outline">Alerts for new lecture notes or recordings</p>
-                                </div>
-                                <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_resource_email" checked/><span class="toggle-slider"></span></label>
-                                </div>
-                                <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_resource_push"/><span class="toggle-slider"></span></label>
-                                </div>
+                                <div class="col-span-4"><p class="font-label-md text-label-md text-primary">New Resources</p><p class="text-xs text-outline">Alerts for new lecture notes or recordings</p></div>
+                                <div class="col-span-1 flex justify-center"><label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_resource_email" checked/><span class="toggle-slider"></span></label></div>
+                                <div class="col-span-1 flex justify-center"><label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_resource_push"/><span class="toggle-slider"></span></label></div>
                             </div>
                             <div class="grid grid-cols-6 items-center py-4 hover:bg-surface-container-low/30 rounded-lg px-2">
-                                <div class="col-span-4">
-                                    <p class="font-label-md text-label-md text-primary">Payment Confirmations</p>
-                                    <p class="text-xs text-outline">Receipt and invoice updates</p>
-                                </div>
-                                <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_payment_email" checked/><span class="toggle-slider"></span></label>
-                                </div>
-                                <div class="col-span-1 flex justify-center">
-                                    <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_payment_push" checked/><span class="toggle-slider"></span></label>
-                                </div>
+                                <div class="col-span-4"><p class="font-label-md text-label-md text-primary">Payment Confirmations</p><p class="text-xs text-outline">Receipt and invoice updates</p></div>
+                                <div class="col-span-1 flex justify-center"><label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_payment_email" checked/><span class="toggle-slider"></span></label></div>
+                                <div class="col-span-1 flex justify-center"><label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="notif_payment_push" checked/><span class="toggle-slider"></span></label></div>
                             </div>
                         </div>
                     </section>
@@ -426,18 +459,10 @@
                             </div>
                             <div class="pt-6 border-t border-outline-variant flex items-center justify-between">
                                 <div class="flex gap-4 items-start">
-                                    <div class="p-2 bg-secondary/10 text-secondary rounded-lg">
-                                        <i class="fa-solid fa-circle-check"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-label-md text-label-md text-primary">Two-Factor Authentication</p>
-                                        <p class="text-xs text-outline">Protect your account with SMS or Auth App</p>
-                                    </div>
+                                    <div class="p-2 bg-secondary/10 text-secondary rounded-lg"><i class="fa-solid fa-circle-check"></i></div>
+                                    <div><p class="font-label-md text-label-md text-primary">Two-Factor Authentication</p><p class="text-xs text-outline">Protect your account with SMS or Auth App</p></div>
                                 </div>
-                                <label class="toggle-container">
-                                    <input type="checkbox" class="toggle-input" data-key="security_2fa" checked/>
-                                    <span class="toggle-slider"></span>
-                                </label>
+                                <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="security_2fa" checked/><span class="toggle-slider"></span></label>
                             </div>
                         </div>
                     </section>
@@ -449,26 +474,20 @@
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <button data-theme="light" class="flex flex-col gap-3 p-4 border-2 border-secondary rounded-xl bg-surface-container/30 transition-all relative">
                                 <span class="absolute top-2 right-2 bg-secondary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Active</span>
-                                <div class="w-full aspect-video bg-white rounded-lg border border-outline-variant shadow-sm flex items-center justify-center">
-                                    <i class="fa-solid fa-sun text-outline text-2xl"></i>
-                                </div>
+                                <div class="w-full aspect-video bg-white rounded-lg border border-outline-variant shadow-sm flex items-center justify-center"><i class="fa-solid fa-sun text-outline text-2xl"></i></div>
                                 <span class="font-label-md text-label-md text-primary text-center font-semibold">Light</span>
                             </button>
                             <div class="appearance-btn-disabled relative">
                                 <span class="coming-soon-badge">Coming Soon</span>
                                 <div class="flex flex-col gap-3 p-4 border-2 border-outline-variant/50 rounded-xl bg-surface-container-low/50">
-                                    <div class="w-full aspect-video bg-primary-container rounded-lg border border-outline-variant shadow-sm flex items-center justify-center">
-                                        <i class="fa-solid fa-moon text-white/30 text-2xl"></i>
-                                    </div>
+                                    <div class="w-full aspect-video bg-primary-container rounded-lg border border-outline-variant shadow-sm flex items-center justify-center"><i class="fa-solid fa-moon text-white/30 text-2xl"></i></div>
                                     <span class="font-label-md text-label-md text-on-surface-variant text-center">Dark</span>
                                 </div>
                             </div>
                             <div class="appearance-btn-disabled relative">
                                 <span class="coming-soon-badge">Coming Soon</span>
                                 <div class="flex flex-col gap-3 p-4 border-2 border-outline-variant/50 rounded-xl bg-surface-container-low/50">
-                                    <div class="w-full aspect-video bg-gradient-to-br from-white to-primary-container rounded-lg border border-outline-variant shadow-sm flex items-center justify-center">
-                                        <i class="fa-solid fa-display text-outline/50 text-2xl"></i>
-                                    </div>
+                                    <div class="w-full aspect-video bg-gradient-to-br from-white to-primary-container rounded-lg border border-outline-variant shadow-sm flex items-center justify-center"><i class="fa-solid fa-display text-outline/50 text-2xl"></i></div>
                                     <span class="font-label-md text-label-md text-on-surface-variant text-center">System</span>
                                 </div>
                             </div>
@@ -481,39 +500,17 @@
                         <div class="space-y-6">
                             <div class="bg-surface-container-low/50 p-5 rounded-xl border border-outline-variant">
                                 <div class="flex items-start gap-4 mb-4">
-                                    <div class="p-3 bg-secondary/10 rounded-xl">
-                                        <i class="fa-solid fa-key text-secondary text-xl"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-label-md text-label-md text-primary font-bold">Developer API Access</h4>
-                                        <p class="text-sm text-outline mt-1">Integrate NaijaAssets data into your own applications. Get API keys, documentation, and support for building on our platform.</p>
-                                    </div>
+                                    <div class="p-3 bg-secondary/10 rounded-xl"><i class="fa-solid fa-key text-secondary text-xl"></i></div>
+                                    <div><h4 class="font-label-md text-label-md text-primary font-bold">Developer API Access</h4><p class="text-sm text-outline mt-1">Integrate NaijaAssets data into your own applications.</p></div>
                                 </div>
                                 <div class="flex flex-wrap gap-4 mt-4">
-                                    <a href="mailto:api@naijaassets.com?subject=API%20Access%20Request%20-%20Student%20Portal&body=Hello%2C%20I%20am%20interested%20in%20getting%20API%20access%20for%20my%20integration.%0A%0AMy%20name%3A%20Daniel%20Okafor%0AStudent%20ID%3A%20NASS-4002%0AUse%20case%3A%20">
-                                        <button class="px-6 py-3 bg-secondary text-white rounded-xl font-label-md hover:bg-secondary/90 transition-all btn-scale flex items-center gap-2">
-                                            <i class="fa-regular fa-envelope"></i> Request API Access
-                                        </button>
-                                    </a>
-                                    <a href="https://docs.naijaassets.com/api" target="_blank" rel="noopener noreferrer">
-                                        <button class="px-6 py-3 border-2 border-outline-variant text-primary rounded-xl font-label-md hover:bg-surface-container transition-all flex items-center gap-2">
-                                            <i class="fa-solid fa-book"></i> View API Documentation <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i>
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="mt-5 pt-4 border-t border-outline-variant/40">
-                                    <p class="text-xs text-outline"><i class="fa-regular fa-clock mr-1"></i> API requests are rate-limited to 1000 calls per hour. Enterprise plans available for higher volume.</p>
+                                    <a href="mailto:api@naijaassets.com?subject=API%20Access%20Request"><button class="px-6 py-3 bg-secondary text-white rounded-xl font-label-md hover:bg-secondary/90 transition-all btn-scale flex items-center gap-2"><i class="fa-regular fa-envelope"></i> Request API Access</button></a>
+                                    <a href="https://docs.naijaassets.com/api" target="_blank"><button class="px-6 py-3 border-2 border-outline-variant text-primary rounded-xl font-label-md hover:bg-surface-container transition-all flex items-center gap-2"><i class="fa-solid fa-book"></i> View Documentation <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i></button></a>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="p-4 bg-surface-container-low rounded-lg">
-                                    <p class="font-label-sm text-label-sm text-outline">Current API Status</p>
-                                    <p class="text-sm font-bold text-on-tertiary-container mt-1"><i class="fa-solid fa-circle text-green-500 text-xs mr-1"></i> Operational</p>
-                                </div>
-                                <div class="p-4 bg-surface-container-low rounded-lg">
-                                    <p class="font-label-sm text-label-sm text-outline">API Version</p>
-                                    <p class="text-sm font-bold text-primary mt-1">v2.4.0 (Stable)</p>
-                                </div>
+                                <div class="p-4 bg-surface-container-low rounded-lg"><p class="font-label-sm text-label-sm text-outline">Current API Status</p><p class="text-sm font-bold text-on-tertiary-container mt-1"><i class="fa-solid fa-circle text-green-500 text-xs mr-1"></i> Operational</p></div>
+                                <div class="p-4 bg-surface-container-low rounded-lg"><p class="font-label-sm text-label-sm text-outline">API Version</p><p class="text-sm font-bold text-primary mt-1">v2.4.0 (Stable)</p></div>
                             </div>
                         </div>
                     </section>
@@ -523,32 +520,17 @@
                         <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-book-open"></i> Study Preferences</h3>
                         <div class="space-y-4">
                             <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div>
-                                    <p class="font-label-md text-label-md text-primary">Weekly Study Reminders</p>
-                                    <p class="text-xs text-outline">Get a digest of upcoming classes and tasks</p>
-                                </div>
-                                <label class="toggle-container">
-                                    <input type="checkbox" class="toggle-input" data-key="study_reminders" checked/>
-                                    <span class="toggle-slider"></span>
-                                </label>
+                                <div><p class="font-label-md text-label-md text-primary">Weekly Study Reminders</p><p class="text-xs text-outline">Get a digest of upcoming classes and tasks</p></div>
+                                <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="study_reminders" checked/><span class="toggle-slider"></span></label>
                             </div>
                             <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
-                                <div>
-                                    <p class="font-label-md text-label-md text-primary">Focus Mode</p>
-                                    <p class="text-xs text-outline">Minimize distractions during study sessions</p>
-                                </div>
-                                <label class="toggle-container">
-                                    <input type="checkbox" class="toggle-input" data-key="study_focus"/>
-                                    <span class="toggle-slider"></span>
-                                </label>
+                                <div><p class="font-label-md text-label-md text-primary">Focus Mode</p><p class="text-xs text-outline">Minimize distractions during study sessions</p></div>
+                                <label class="toggle-container"><input type="checkbox" class="toggle-input" data-key="study_focus"/><span class="toggle-slider"></span></label>
                             </div>
                             <div>
                                 <label class="font-label-sm text-outline block mb-2">Default Study Duration</label>
                                 <select id="pref_study_duration" class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none">
-                                    <option>25 minutes (Pomodoro)</option>
-                                    <option>45 minutes (Classic)</option>
-                                    <option>60 minutes (Extended)</option>
-                                    <option>90 minutes (Deep Work)</option>
+                                    <option>25 minutes (Pomodoro)</option><option>45 minutes (Classic)</option><option>60 minutes (Extended)</option><option>90 minutes (Deep Work)</option>
                                 </select>
                             </div>
                         </div>
@@ -559,23 +541,12 @@
                         <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-database"></i> Data Management</h3>
                         <div class="space-y-4">
                             <div class="p-4 bg-surface-container-low rounded-lg">
-                                <div class="flex justify-between items-center mb-2">
-                                    <span class="font-label-md text-primary">Storage Used</span>
-                                    <span class="text-sm font-bold">2.8 GB / 10 GB</span>
-                                </div>
-                                <div class="w-full bg-surface-container-highest rounded-full h-2">
-                                    <div class="bg-secondary h-2 rounded-full" style="width: 28%"></div>
-                                </div>
+                                <div class="flex justify-between items-center mb-2"><span class="font-label-md text-primary">Storage Used</span><span class="text-sm font-bold">2.8 GB / 10 GB</span></div>
+                                <div class="w-full bg-surface-container-highest rounded-full h-2"><div class="bg-secondary h-2 rounded-full" style="width: 28%"></div></div>
                             </div>
-                            <button id="clear_cache_btn" class="w-full py-3 bg-primary/5 border border-outline-variant rounded-xl font-label-md hover:bg-primary/10 transition-all flex items-center justify-center gap-2">
-                                <i class="fa-regular fa-trash-can"></i> Clear Download Cache
-                            </button>
-                            <button id="export_data_btn" class="w-full py-3 bg-error/10 border border-error/20 rounded-xl text-error font-label-md hover:bg-error/20 transition-all flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-circle-exclamation"></i> Request Account Data Export
-                            </button>
-                            <div class="pt-4 border-t border-outline-variant/30">
-                                <p class="text-xs text-outline text-center">Data retention: 7 years for academic records. <a href="#" class="text-secondary hover:underline">Learn more</a></p>
-                            </div>
+                            <button id="clear_cache_btn" class="w-full py-3 bg-primary/5 border border-outline-variant rounded-xl font-label-md hover:bg-primary/10 transition-all flex items-center justify-center gap-2"><i class="fa-regular fa-trash-can"></i> Clear Download Cache</button>
+                            <button id="export_data_btn" class="w-full py-3 bg-error/10 border border-error/20 rounded-xl text-error font-label-md hover:bg-error/20 transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-circle-exclamation"></i> Request Account Data Export</button>
+                            <div class="pt-4 border-t border-outline-variant/30"><p class="text-xs text-outline text-center">Data retention: 7 years for academic records. <a href="#" class="text-secondary hover:underline">Learn more</a></p></div>
                         </div>
                     </section>
 
@@ -595,17 +566,10 @@
 <!-- AI Chat Pane -->
 <div id="aiChatPane" class="fixed top-0 right-0 h-full w-96 bg-surface-container-lowest border-l border-outline-variant shadow-xl z-40 transform translate-x-full transition-transform duration-300 flex flex-col">
     <div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest flex-shrink-0">
-        <div class="flex items-center gap-2">
-            <i class="fa-solid fa-robot text-secondary text-lg"></i>
-            <h3 class="font-label-md text-primary font-bold">AI Support</h3>
-        </div>
-        <button id="closeAiChat" class="p-2 hover:bg-surface-container rounded-full transition-colors">
-            <i class="fa-solid fa-times"></i>
-        </button>
+        <div class="flex items-center gap-2"><i class="fa-solid fa-robot text-secondary text-lg"></i><h3 class="font-label-md text-primary font-bold">AI Support</h3></div>
+        <button id="closeAiChat" class="p-2 hover:bg-surface-container rounded-full transition-colors"><i class="fa-solid fa-times"></i></button>
     </div>
-    <div class="flex-1 w-full bg-white">
-        <iframe src="https://supportbot.naijaassets.com" class="w-full h-full border-0" title="NaijaAssets AI Assistant" loading="lazy"></iframe>
-    </div>
+    <div class="flex-1 w-full bg-white"><iframe src="https://supportbot.naijaassets.com" class="w-full h-full border-0" title="NaijaAssets AI Assistant" loading="lazy"></iframe></div>
 </div>
 
 <!-- Floating AI Chat Button -->
@@ -613,7 +577,7 @@
     <i class="fa-solid fa-comments text-xl"></i>
 </button>
 
-<!-- Existing UI Logic (Unchanged) -->
+<!-- Existing UI Logic -->
 <script>
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
@@ -621,257 +585,146 @@
         sidebar.classList.toggle('collapsed');
         if (sidebar.classList.contains('collapsed')) {
             icon.className = 'fa-solid fa-chevron-right text-xl';
-            document.querySelectorAll('.menu-expanded').forEach(el => {
-                if (el.id !== 'settings-menu') el.classList.remove('menu-expanded');
-            });
-        } else { 
-            icon.className = 'fa-solid fa-chevron-left text-xl'; 
-        }
+            document.querySelectorAll('.menu-expanded').forEach(el => { if (el.id !== 'settings-menu') el.classList.remove('menu-expanded'); });
+        } else { icon.className = 'fa-solid fa-chevron-left text-xl'; }
     }
-    
     function toggleMenu(id) {
         const menu = document.getElementById(id);
         const button = menu.querySelector('button');
         const isExpanded = menu.classList.toggle('menu-expanded');
         button.setAttribute('aria-expanded', isExpanded);
     }
-    
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mobileOverlay = document.getElementById('mobileOverlay');
     const sidebar = document.getElementById('sidebar');
-    
-    function openMobileMenu() {
-        sidebar.classList.remove('collapsed');
-        sidebar.classList.add('active');
-        mobileOverlay.classList.add('active');
-        document.body.classList.add('menu-open');
-    }
-    
-    function closeMobileMenu() {
-        sidebar.classList.remove('active');
-        mobileOverlay.classList.remove('active');
-        document.body.classList.remove('menu-open');
-    }
-    
+    function openMobileMenu() { sidebar.classList.remove('collapsed'); sidebar.classList.add('active'); mobileOverlay.classList.add('active'); document.body.classList.add('menu-open'); }
+    function closeMobileMenu() { sidebar.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.classList.remove('menu-open'); }
     if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', openMobileMenu);
     if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
-    
-    document.querySelectorAll('#sidebar a:not([data-section])').forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth < 1024) closeMobileMenu();
-        });
-    });
-    
+    document.querySelectorAll('#sidebar a:not([data-section])').forEach(link => { link.addEventListener('click', () => { if (window.innerWidth < 1024) closeMobileMenu(); }); });
     function openAIChat(event) {
         if (event) event.preventDefault();
         const aiPane = document.getElementById('aiChatPane');
         const aiToggle = document.getElementById('aiChatToggle');
         const mainWrapper = document.getElementById('mainWrapper');
-        
-        aiPane.classList.remove('translate-x-full');
-        aiPane.classList.add('translate-x-0');
-        aiToggle.classList.add('hidden');
-        if (window.innerWidth >= 1024) {
-            mainWrapper.style.marginRight = '24rem';
-        }
+        aiPane.classList.remove('translate-x-full'); aiPane.classList.add('translate-x-0'); aiToggle.classList.add('hidden');
+        if (window.innerWidth >= 1024) mainWrapper.style.marginRight = '24rem';
         if (window.innerWidth < 1024) closeMobileMenu();
     }
-    
     function handleLogout(event) {
         if (event) event.preventDefault();
-        if (confirm('Are you sure you want to logout?')) {
-            window.location.href = '/login/';
-        }
+        if (confirm('Are you sure you want to logout?')) window.location.href = '/login/';
     }
-    
     function navigateToSection(event, sectionId) {
         if (event) event.preventDefault();
-        
         const section = document.getElementById(sectionId);
         if (!section) return;
-        
         const sectionName = section.getAttribute('data-section-name');
-        
         const url = new URL(window.location);
         url.searchParams.set('section', sectionName);
         history.pushState({ section: sectionName }, '', url);
-        
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        
         highlightActiveSection(sectionId);
-        
         if (window.innerWidth < 1024) closeMobileMenu();
     }
-    
     function highlightActiveSection(sectionId) {
-        document.querySelectorAll('.settings-section-active').forEach(el => {
-            el.classList.remove('settings-section-active');
-        });
-        document.querySelectorAll('.settings-subitem-active').forEach(el => {
-            el.classList.remove('settings-subitem-active');
-        });
-        
+        document.querySelectorAll('.settings-section-active').forEach(el => el.classList.remove('settings-section-active'));
+        document.querySelectorAll('.settings-subitem-active').forEach(el => el.classList.remove('settings-subitem-active'));
         const section = document.getElementById(sectionId);
         if (section) {
             section.classList.add('settings-section-active');
-            
             const sectionName = section.getAttribute('data-section-name');
             const sidebarItem = document.querySelector(`.settings-subitem[data-section="${sectionId}"]`);
             if (sidebarItem) {
                 sidebarItem.classList.add('settings-subitem-active');
-                
                 const settingsMenu = document.getElementById('settings-menu');
-                if (settingsMenu && !settingsMenu.classList.contains('menu-expanded')) {
-                    settingsMenu.classList.add('menu-expanded');
-                }
+                if (settingsMenu && !settingsMenu.classList.contains('menu-expanded')) settingsMenu.classList.add('menu-expanded');
             }
         }
     }
-    
     function handleInitialUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         const sectionName = urlParams.get('section');
-        
         if (sectionName) {
-            const sectionMap = {
-                'profile': 'profile-section', 'account': 'account-section', 'notifications': 'notif-section',
-                'security': 'security-section', 'appearance': 'appearance-section', 'api': 'api-section',
-                'study': 'study-section', 'data': 'data-section'
-            };
-            
+            const sectionMap = { 'academic': 'academic-section', 'profile': 'profile-section', 'account': 'account-section', 'notifications': 'notif-section', 'security': 'security-section', 'appearance': 'appearance-section', 'api': 'api-section', 'study': 'study-section', 'data': 'data-section' };
             const sectionId = sectionMap[sectionName];
-            if (sectionId) {
-                setTimeout(() => {
-                    highlightActiveSection(sectionId);
-                    const section = document.getElementById(sectionId);
-                    if (section) {
-                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 300);
-            }
-        } else {
-            highlightActiveSection('profile-section');
-        }
+            if (sectionId) setTimeout(() => { highlightActiveSection(sectionId); document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 300);
+        } else highlightActiveSection('academic-section');
     }
-    
-    window.addEventListener('popstate', (event) => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const sectionName = urlParams.get('section');
-        
-        const sectionMap = {
-            'profile': 'profile-section', 'account': 'account-section', 'notifications': 'notif-section',
-            'security': 'security-section', 'appearance': 'appearance-section', 'api': 'api-section',
-            'study': 'study-section', 'data': 'data-section'
-        };
-        
-        if (sectionName && sectionMap[sectionName]) {
-            highlightActiveSection(sectionMap[sectionName]);
-            const section = document.getElementById(sectionMap[sectionName]);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-    });
-    
+    window.addEventListener('popstate', handleInitialUrl);
     const aiToggle = document.getElementById('aiChatToggle');
     const aiPane = document.getElementById('aiChatPane');
     const closeAi = document.getElementById('closeAiChat');
     const mainWrapper = document.getElementById('mainWrapper');
     let aiOpen = false;
-
     function toggleAiPane() {
         aiOpen = !aiOpen;
-        if (aiOpen) {
-            aiPane.classList.remove('translate-x-full');
-            aiPane.classList.add('translate-x-0');
-            aiToggle.classList.add('hidden');
-            if (window.innerWidth >= 1024) {
-                mainWrapper.style.marginRight = '24rem';
-            }
-        } else {
-            aiPane.classList.add('translate-x-full');
-            aiPane.classList.remove('translate-x-0');
-            aiToggle.classList.remove('hidden');
-            mainWrapper.style.marginRight = '0';
-        }
+        if (aiOpen) { aiPane.classList.remove('translate-x-full'); aiPane.classList.add('translate-x-0'); aiToggle.classList.add('hidden'); if (window.innerWidth >= 1024) mainWrapper.style.marginRight = '24rem'; } 
+        else { aiPane.classList.add('translate-x-full'); aiPane.classList.remove('translate-x-0'); aiToggle.classList.remove('hidden'); mainWrapper.style.marginRight = '0'; }
     }
-
     aiToggle.addEventListener('click', toggleAiPane);
     closeAi.addEventListener('click', toggleAiPane);
-    
     const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const sections = document.querySelectorAll('.settings-cat');
-            sections.forEach(section => {
-                const text = section.innerText.toLowerCase();
-                section.style.display = text.includes(term) ? 'flex' : 'none';
-            });
-        });
-    }
-    
-    window.addEventListener('resize', () => {
-        if (window.innerWidth >= 1024) {
-            sidebar.classList.remove('active');
-            mobileOverlay.classList.remove('active');
-            document.body.classList.remove('menu-open');
-            if (aiOpen) mainWrapper.style.marginRight = '24rem';
-        } else {
-            mainWrapper.style.marginRight = '0';
-        }
+    if (searchInput) searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        document.querySelectorAll('.settings-cat').forEach(section => { section.style.display = section.innerText.toLowerCase().includes(term) ? 'flex' : 'none'; });
     });
-    
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024) { sidebar.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.classList.remove('menu-open'); if (aiOpen) mainWrapper.style.marginRight = '24rem'; } 
+        else mainWrapper.style.marginRight = '0';
+    });
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const sectionId = entry.target.id;
                 const sectionName = entry.target.getAttribute('data-section-name');
-                
                 const url = new URL(window.location);
                 url.searchParams.set('section', sectionName);
                 history.replaceState({ section: sectionName }, '', url);
-                
                 highlightActiveSection(sectionId);
             }
         });
-    }, {
-        rootMargin: '-20% 0px -70% 0px',
-        threshold: 0
-    });
-    
-    document.querySelectorAll('section[data-section-name]').forEach(section => {
-        sectionObserver.observe(section);
-    });
-    
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+    document.querySelectorAll('section[data-section-name]').forEach(section => sectionObserver.observe(section));
     document.addEventListener('DOMContentLoaded', handleInitialUrl);
 </script>
 
-<!-- NEW: Supabase Integration Logic (Fully Functional Settings) -->
+<!-- NEW: Supabase Integration Logic -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
     import { getSubscriptionStatus, getRexStatus } from '../../utils.js';
     import { supabase } from '../../supabaseClient.js';
 
-    async function initSettingsPage() {
-        // 1. Initialize Auth & Check Session
-        await initializeAuth();
-        
-        // Explicit session check with redirect
-        if (!window.currentSession) {
-            window.location.replace('/login/');
-            return;
+    // Curriculum Mapping
+    const CURRICULUM = {
+        'JSS': {
+            'Core Basket': ['Mathematics', 'English Language', 'Basic Science', 'Basic Technology', 'Social Studies', 'Civic Education', 'Computer Studies'],
+            'Pre-Vocational Basket': ['Agricultural Science', 'Home Economics', 'Business Studies'],
+            'Creative Arts Basket': ['Fine Arts', 'Music', 'Drama/Theatre'],
+            'Humanities Basket': ['Religious Studies', 'French/Arabic'],
+            'Physical Education Basket': ['Physical & Health Education']
+        },
+        'SS': {
+            'Compulsory Basket': ['English Language', 'Mathematics', 'Civic Education'],
+            'Science Basket': ['Physics', 'Chemistry', 'Biology', 'Further Mathematics', 'Geography', 'Agricultural Science'],
+            'Commercial Basket': ['Economics', 'Commerce', 'Accounting', 'Government', 'Marketing'],
+            'Arts Basket': ['Literature in English', 'History', 'Religious Studies', 'Fine Arts', 'Music', 'French/Arabic'],
+            'Technology Basket': ['Programming', 'AI & Robotics', 'Cybersecurity', 'Digital Entrepreneurship']
         }
+    };
+
+    async function initSettingsPage() {
+        await initializeAuth();
+        if (!window.currentSession) { window.location.replace('/login/'); return; }
 
         const user = window.currentUser;
         const session = window.currentSession;
         const meta = session.user.user_metadata || {};
         
-        // Load saved preferences (merge from metadata if they exist)
         const prefs = meta.prefs || JSON.parse(localStorage.getItem('user_prefs') || '{}');
         if (meta.prefs) localStorage.setItem('user_prefs', JSON.stringify(meta.prefs));
 
-        // 2. Populate Profile Fields
+        // Populate Profile Fields
         const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
         document.getElementById('profile_name').value = fullName;
         document.getElementById('profile_email').value = user.email;
@@ -879,178 +732,137 @@
         document.getElementById('profile_bio').value = meta.bio || '';
         document.getElementById('profile_username').value = user.username || '';
 
-        // 3. Populate Toggles and Selects
-        document.querySelectorAll('[data-key]').forEach(el => {
-            if (el.type === 'checkbox') {
-                el.checked = prefs[el.dataset.key] !== undefined ? prefs[el.dataset.key] : el.checked;
-            }
-        });
+        // Populate Toggles
+        document.querySelectorAll('[data-key]').forEach(el => { if (el.type === 'checkbox') el.checked = prefs[el.dataset.key] !== undefined ? prefs[el.dataset.key] : el.checked; });
         document.getElementById('pref_language').value = prefs.language || 'English';
         document.getElementById('pref_timezone').value = prefs.timezone || '(GMT+01:00) West Africa Time';
         document.getElementById('pref_study_duration').value = prefs.study_duration || '25 minutes (Pomodoro)';
 
-        // 4. Populate Appearance
+        // Populate Appearance
         const savedTheme = prefs.theme || 'light';
         document.querySelectorAll('#appearance-section button[data-theme]').forEach(btn => {
             if (btn.dataset.theme === savedTheme) {
                 btn.classList.add('border-secondary', 'bg-surface-container/30');
                 btn.classList.remove('border-outline-variant/50', 'bg-surface-container-low/50');
-                if(!btn.querySelector('.absolute')) {
-                    btn.insertAdjacentHTML('afterbegin', `<span class="absolute top-2 right-2 bg-secondary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Active</span>`);
-                }
+                if(!btn.querySelector('.absolute')) btn.insertAdjacentHTML('afterbegin', `<span class="absolute top-2 right-2 bg-secondary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Active</span>`);
             }
         });
 
-        // 5. Populate Subscription Status
-        const accountSection = document.getElementById('account-section');
-        if (accountSection && !document.getElementById('subscription_status_block')) {
+        // Populate Subscription Status (Account Section)
+        const subStatusContainer = document.getElementById('subscription_status_block_container');
+        if (subStatusContainer) {
             const subStatus = getSubscriptionStatus(user.subscription_expires_at);
             const rexStatus = getRexStatus(user);
-
-            const statusHtml = `
-                <div id="subscription_status_block" class="mt-6 pt-6 border-t border-outline-variant">
-                    <h4 class="font-label-md text-label-md text-outline mb-4 flex items-center gap-2"><i class="fa-solid fa-crown"></i> Subscription Status</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant/30">
-                            <p class="font-label-sm text-label-sm text-outline mb-1">Tuition Subscription</p>
-                            <p class="text-sm font-bold ${subStatus.status === 'active' || subStatus.status === 'expires_soon' ? 'text-on-tertiary-container' : 'text-error'} flex items-center gap-1">
-                                <i class="fa-solid fa-circle text-[8px]"></i> ${subStatus.status.charAt(0).toUpperCase() + subStatus.status.slice(1).replace('_', ' ')}
-                            </p>
-                            <p class="text-xs text-outline mt-1">${subStatus.message}</p>
-                        </div>
-                        <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant/30">
-                            <p class="font-label-sm text-label-sm text-outline mb-1">REX Recording Access</p>
-                            <p class="text-sm font-bold ${rexStatus.active ? 'text-on-tertiary-container' : 'text-outline'} flex items-center gap-1">
-                                <i class="fa-solid fa-circle text-[8px]"></i> ${rexStatus.active ? 'Active' : 'Inactive'}
-                            </p>
-                            <p class="text-xs text-outline mt-1">${rexStatus.message}</p>
-                        </div>
+            subStatusContainer.innerHTML = `
+                <h4 class="font-label-md text-label-md text-outline mb-4 flex items-center gap-2"><i class="fa-solid fa-crown"></i> Subscription Status</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant/30">
+                        <p class="font-label-sm text-label-sm text-outline mb-1">General Tuition</p>
+                        <p class="text-sm font-bold ${subStatus.status === 'active' || subStatus.status === 'expires_soon' ? 'text-on-tertiary-container' : 'text-error'} flex items-center gap-1"><i class="fa-solid fa-circle text-[8px]"></i> ${subStatus.status.charAt(0).toUpperCase() + subStatus.status.slice(1).replace('_', ' ')}</p>
+                        <p class="text-xs text-outline mt-1">${subStatus.message}</p>
                     </div>
-                    <p class="text-xs text-outline mt-4 italic flex items-center gap-1"><i class="fa-solid fa-circle-info"></i> Subscription changes are managed by the administration.</p>
+                    <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant/30">
+                        <p class="font-label-sm text-label-sm text-outline mb-1">REX Recording Access</p>
+                        <p class="text-sm font-bold ${rexStatus.active ? 'text-on-tertiary-container' : 'text-outline'} flex items-center gap-1"><i class="fa-solid fa-circle text-[8px]"></i> ${rexStatus.active ? 'Active' : 'Inactive'}</p>
+                        <p class="text-xs text-outline mt-1">${rexStatus.message}</p>
+                    </div>
                 </div>
+                <p class="text-xs text-outline mt-4 italic flex items-center gap-1"><i class="fa-solid fa-circle-info"></i> Subscription changes are managed by the administration.</p>
             `;
-            accountSection.insertAdjacentHTML('beforeend', statusHtml);
         }
 
         // ==========================================
-        // EVENT LISTENERS FOR SAVING
+        // ACADEMIC PROFILE LOGIC
         // ==========================================
+        document.getElementById('current_grade_display').textContent = user.grade || 'Not Assigned';
 
-        // Helper to save all preferences to Supabase & LocalStorage
+        // Fetch Subscriptions
+        const { data: subscriptions } = await supabase.from('subject_subscriptions').select('subject, is_active, expires_at').eq('user_id', user.id);
+        
+        renderAcademicProfile(user.grade, user.subjects || [], subscriptions || []);
+
+        // Request Grade Change
+        document.getElementById('request_grade_change_btn').addEventListener('click', () => {
+            const desiredGrade = document.getElementById('desired_grade_select').value;
+            if (!desiredGrade) { alert('Please select a desired grade from the dropdown.'); return; }
+            
+            const subject = encodeURIComponent(`Grade Change Request: ${user.grade || 'None'} to ${desiredGrade}`);
+            const body = encodeURIComponent(
+                `Hello Admin,\n\nI would like to request a grade change.\n\n` +
+                `Name: ${fullName}\nEmail: ${user.email}\nPhone: ${document.getElementById('profile_phone').value || 'Not provided'}\n\n` +
+                `Current Grade: ${user.grade || 'Not Assigned'}\nRequested Grade: ${desiredGrade}\n\nThank you.`
+            );
+            window.location.href = `mailto:admin@naijaassets.com?subject=${subject}&body=${body}`;
+        });
+
+        // Save Subjects Wishlist
+        document.getElementById('save_subjects_btn').addEventListener('click', async function() {
+            const checkedBoxes = document.querySelectorAll('.subject-checkbox:checked');
+            const selectedSubjects = Array.from(checkedBoxes).map(cb => cb.value);
+            
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Saving...';
+            this.disabled = true;
+
+            const { error } = await supabase.from('users').update({ subjects: selectedSubjects }).eq('id', user.id);
+            
+            this.innerHTML = '<i class="fa-solid fa-save"></i> Save Subject Wishlist';
+            this.disabled = false;
+
+            if (error) alert('Error saving subjects: ' + error.message);
+            else {
+                alert('Subject wishlist updated successfully!');
+                user.subjects = selectedSubjects;
+            }
+        });
+
+        // ==========================================
+        // EVENT LISTENERS FOR SAVING (Original)
+        // ==========================================
         async function savePrefs() {
             const allPrefs = {};
-            document.querySelectorAll('[data-key]').forEach(el => {
-                if (el.type === 'checkbox') allPrefs[el.dataset.key] = el.checked;
-            });
+            document.querySelectorAll('[data-key]').forEach(el => { if (el.type === 'checkbox') allPrefs[el.dataset.key] = el.checked; });
             allPrefs.language = document.getElementById('pref_language').value;
             allPrefs.timezone = document.getElementById('pref_timezone').value;
             allPrefs.study_duration = document.getElementById('pref_study_duration').value;
             allPrefs.theme = localStorage.getItem('theme') || 'light';
-            
             localStorage.setItem('user_prefs', JSON.stringify(allPrefs));
             await supabase.auth.updateUser({ data: { prefs: allPrefs } });
         }
+        document.querySelectorAll('[data-key], #pref_language, #pref_timezone, #pref_study_duration').forEach(el => el.addEventListener('change', savePrefs));
 
-        // Auto-save toggles and selects on change
-        document.querySelectorAll('[data-key], #pref_language, #pref_timezone, #pref_study_duration').forEach(el => {
-            el.addEventListener('change', savePrefs);
-        });
-
-        // Appearance buttons
         document.querySelectorAll('#appearance-section button[data-theme]').forEach(btn => {
             btn.addEventListener('click', function() {
                 if(this.closest('.appearance-btn-disabled')) return; 
-                
                 document.querySelectorAll('#appearance-section button[data-theme]').forEach(b => {
-                    if(!b.closest('.appearance-btn-disabled')) {
-                        b.classList.remove('border-secondary', 'bg-surface-container/30');
-                        b.classList.add('border-outline-variant/50', 'bg-surface-container-low/50');
-                        const badge = b.querySelector('.absolute');
-                        if(badge) badge.remove();
-                    }
+                    if(!b.closest('.appearance-btn-disabled')) { b.classList.remove('border-secondary', 'bg-surface-container/30'); b.classList.add('border-outline-variant/50', 'bg-surface-container-low/50'); const badge = b.querySelector('.absolute'); if(badge) badge.remove(); }
                 });
-                
                 this.classList.remove('border-outline-variant/50', 'bg-surface-container-low/50');
                 this.classList.add('border-secondary', 'bg-surface-container/30');
                 this.insertAdjacentHTML('afterbegin', `<span class="absolute top-2 right-2 bg-secondary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Active</span>`);
-                
-                const theme = this.dataset.theme;
-                localStorage.setItem('theme', theme);
+                localStorage.setItem('theme', this.dataset.theme);
                 savePrefs();
             });
         });
 
-        // Username Check Button
         document.getElementById('check_username_btn').addEventListener('click', async function() {
             const usernameInput = document.getElementById('profile_username');
             const feedback = document.getElementById('username_feedback');
             const newUsername = usernameInput.value.trim().toLowerCase();
-            
-            // Validation
-            if (!newUsername) {
-                feedback.textContent = 'Username cannot be empty';
-                feedback.className = 'username-feedback error';
-                return;
+            if (!newUsername || !/^[a-z0-9_]+$/.test(newUsername) || newUsername.length < 3 || newUsername.length > 30) {
+                feedback.textContent = 'Invalid format. Use 3-30 lowercase letters, numbers, or underscores.';
+                feedback.className = 'username-feedback error'; return;
             }
+            if (newUsername === user.username) { feedback.textContent = 'This is your current username'; feedback.className = 'username-feedback checking'; return; }
             
-            if (!/^[a-z0-9_]+$/.test(newUsername)) {
-                feedback.textContent = 'Only lowercase letters, numbers, and underscores allowed';
-                feedback.className = 'username-feedback error';
-                return;
-            }
-            
-            if (newUsername.length < 3) {
-                feedback.textContent = 'Username must be at least 3 characters';
-                feedback.className = 'username-feedback error';
-                return;
-            }
-            
-            if (newUsername.length > 30) {
-                feedback.textContent = 'Username cannot exceed 30 characters';
-                feedback.className = 'username-feedback error';
-                return;
-            }
-            
-            // Check if same as current
-            if (newUsername === user.username) {
-                feedback.textContent = 'This is your current username';
-                feedback.className = 'username-feedback checking';
-                return;
-            }
-            
-            // Check availability
-            feedback.textContent = 'Checking availability...';
-            feedback.className = 'username-feedback checking';
-            
-            this.disabled = true;
-            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
-            
-            const { data, error } = await supabase
-                .from('users')
-                .select('username')
-                .eq('username', newUsername)
-                .maybeSingle();
-            
-            this.disabled = false;
-            this.innerHTML = 'Check';
-            
-            if (error) {
-                feedback.textContent = 'Error checking username';
-                feedback.className = 'username-feedback error';
-                return;
-            }
-            
-            if (data) {
-                feedback.textContent = 'Username is already taken';
-                feedback.className = 'username-feedback error';
-            } else {
-                feedback.textContent = 'Username is available! Click "Save Profile Changes" to update.';
-                feedback.className = 'username-feedback success';
-                usernameInput.dataset.available = 'true';
-            }
+            feedback.textContent = 'Checking availability...'; feedback.className = 'username-feedback checking';
+            this.disabled = true; this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            const { data, error } = await supabase.from('users').select('username').eq('username', newUsername).maybeSingle();
+            this.disabled = false; this.innerHTML = 'Check';
+            if (error) { feedback.textContent = 'Error checking username'; feedback.className = 'username-feedback error'; return; }
+            if (data) { feedback.textContent = 'Username is already taken'; feedback.className = 'username-feedback error'; } 
+            else { feedback.textContent = 'Username is available! Click "Save Profile Changes" to update.'; feedback.className = 'username-feedback success'; usernameInput.dataset.available = 'true'; }
         });
 
-        // Save Profile Button
         document.getElementById('save_profile_btn').addEventListener('click', async function() {
             const name = document.getElementById('profile_name').value;
             const phone = document.getElementById('profile_phone').value;
@@ -1058,128 +870,114 @@
             const newUsername = document.getElementById('profile_username').value.trim().toLowerCase();
             const usernameFeedback = document.getElementById('username_feedback');
             
-            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Saving...';
-            this.disabled = true;
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Saving...'; this.disabled = true;
+            const { error: metaError } = await supabase.auth.updateUser({ data: { full_name: name, phone: phone, bio: bio } });
+            if (metaError) { alert('Error saving profile: ' + metaError.message); this.innerHTML = 'Save Profile Changes'; this.disabled = false; return; }
 
-            // Update metadata
-            const { error: metaError } = await supabase.auth.updateUser({
-                data: { full_name: name, phone: phone, bio: bio }
-            });
-
-            if (metaError) {
-                alert('Error saving profile: ' + metaError.message);
-                this.innerHTML = 'Save Profile Changes';
-                this.disabled = false;
-                return;
-            }
-
-            // Update username if changed and available
             if (newUsername && newUsername !== user.username && document.getElementById('profile_username').dataset.available === 'true') {
-                const { error: usernameError } = await supabase
-                    .from('users')
-                    .update({ username: newUsername })
-                    .eq('id', user.id);
-                
+                const { error: usernameError } = await supabase.from('users').update({ username: newUsername }).eq('id', user.id);
                 if (usernameError) {
-                    if (usernameError.code === '23505') {
-                        alert('Username is already taken. Please choose another.');
-                        usernameFeedback.textContent = 'Username is already taken';
-                        usernameFeedback.className = 'username-feedback error';
-                    } else {
-                        alert('Error updating username: ' + usernameError.message);
-                    }
+                    if (usernameError.code === '23505') { alert('Username is already taken.'); usernameFeedback.textContent = 'Username is already taken'; usernameFeedback.className = 'username-feedback error'; } 
+                    else alert('Error updating username: ' + usernameError.message);
                 } else {
                     user.username = newUsername;
-                    usernameFeedback.textContent = 'Username updated successfully!';
-                    usernameFeedback.className = 'username-feedback success';
+                    usernameFeedback.textContent = 'Username updated successfully!'; usernameFeedback.className = 'username-feedback success';
                     delete document.getElementById('profile_username').dataset.available;
                 }
             }
-
             alert('Profile updated successfully!');
-            if(window.currentSession) {
-                window.currentSession.user.user_metadata = {
-                    ...window.currentSession.user.user_metadata,
-                    full_name: name, phone: phone, bio: bio
-                };
-            }
-            
-            // Update UI globally
-            const sidebarName = document.querySelector('.profile-section .profile-details p.font-bold');
-            if (sidebarName) sidebarName.textContent = name;
-            const headerName = document.querySelector('.header-profile .text-right p.text-primary');
-            if (headerName) headerName.textContent = name;
-            
-            this.innerHTML = 'Save Profile Changes';
-            this.disabled = false;
+            if(window.currentSession) window.currentSession.user.user_metadata = { ...window.currentSession.user.user_metadata, full_name: name, phone: phone, bio: bio };
+            document.querySelector('.profile-section .profile-details p.font-bold').textContent = name;
+            document.querySelector('.header-profile .text-right p.text-primary').textContent = name;
+            this.innerHTML = 'Save Profile Changes'; this.disabled = false;
         });
 
-        // Update Password Button
         document.getElementById('update_password_btn').addEventListener('click', async function() {
             const inputs = document.querySelectorAll('#security-section input[type="password"]');
-            const newPass = inputs[1].value;
-            const confirmPass = inputs[2].value;
-
-            if (!newPass || newPass.length < 8) {
-                alert('New password must be at least 8 characters.');
-                return;
-            }
-            if (newPass !== confirmPass) {
-                alert('New passwords do not match.');
-                return;
-            }
-
-            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Updating...';
-            this.disabled = true;
-
+            const newPass = inputs[1].value; const confirmPass = inputs[2].value;
+            if (!newPass || newPass.length < 8) { alert('New password must be at least 8 characters.'); return; }
+            if (newPass !== confirmPass) { alert('New passwords do not match.'); return; }
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Updating...'; this.disabled = true;
             const { error } = await supabase.auth.updateUser({ password: newPass });
-
-            if (error) {
-                alert('Error updating password: ' + error.message);
-            } else {
-                alert('Password updated successfully! For security, please log in again.');
-                await supabase.auth.signOut();
-                window.location.replace('/login/');
-            }
-
-            this.innerHTML = 'Update Password';
-            this.disabled = false;
+            if (error) alert('Error updating password: ' + error.message);
+            else { alert('Password updated successfully! For security, please log in again.'); await supabase.auth.signOut(); window.location.replace('/login/'); }
+            this.innerHTML = 'Update Password'; this.disabled = false;
         });
 
-        // Data Management Buttons
         document.getElementById('clear_cache_btn').addEventListener('click', () => {
-            if(confirm('Clear all downloaded cache and local data? You will need to log in again.')) {
-                localStorage.clear();
-                alert('Cache cleared successfully.');
-                window.location.reload();
-            }
+            if(confirm('Clear all downloaded cache and local data? You will need to log in again.')) { localStorage.clear(); alert('Cache cleared successfully.'); window.location.reload(); }
         });
 
         document.getElementById('export_data_btn').addEventListener('click', () => {
-            const dataStr = JSON.stringify({
-                profile: window.currentUser,
-                metadata: window.currentSession.user.user_metadata,
-                preferences: JSON.parse(localStorage.getItem('user_prefs') || '{}')
-            }, null, 2);
+            const dataStr = JSON.stringify({ profile: window.currentUser, metadata: window.currentSession.user.user_metadata, preferences: JSON.parse(localStorage.getItem('user_prefs') || '{}') }, null, 2);
             const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            const exportFileDefaultName = `naijaassets_data_export_${new Date().toISOString().split('T')[0]}.json`;
-            
             const linkElement = document.createElement('a');
             linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.setAttribute('download', `naijaassets_data_export_${new Date().toISOString().split('T')[0]}.json`);
             linkElement.click();
         });
 
-        // Override Logout Functionality
         window.handleLogout = function(event) {
             if (event) event.preventDefault();
-            if (confirm('Are you sure you want to logout?')) {
-                supabase.auth.signOut();
-                window.location.replace('/login/');
-            }
+            if (confirm('Are you sure you want to logout?')) { supabase.auth.signOut(); window.location.replace('/login/'); }
         };
     }
 
+    function renderAcademicProfile(userGrade, userSubjects, subscriptions) {
+        const container = document.getElementById('subjects_grid_container');
+        if (!userGrade) {
+            container.innerHTML = `<div class="p-6 bg-error/5 border border-error/20 rounded-xl text-center"><i class="fa-solid fa-triangle-exclamation text-error text-2xl mb-3"></i><p class="text-error font-bold">No Grade Assigned</p><p class="text-sm text-on-surface-variant mt-1">Please use the "Request Grade Change" button above to contact administration and get your grade assigned before selecting subjects.</p></div>`;
+            return;
+        }
+
+        const gradeLevel = userGrade.startsWith('JSS') ? 'JSS' : 'SS';
+        const baskets = CURRICULUM[gradeLevel];
+        
+        if (!baskets) { container.innerHTML = `<p class="text-error">Invalid grade configuration.</p>`; return; }
+
+        let html = '';
+        const userSubsMap = {};
+        subscriptions.forEach(sub => { userSubsMap[sub.subject] = sub; });
+
+        for (const [basketName, subjects] of Object.entries(baskets)) {
+            html += `<div class="mb-6">
+                        <h5 class="font-label-sm text-outline uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group text-secondary"></i> ${basketName}
+                        </h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">`;
+            
+            for (const subject of subjects) {
+                const isChecked = userSubjects.includes(subject);
+                const subData = userSubsMap[subject];
+                
+                let statusBadge = '';
+                if (subData) {
+                    const isActive = subData.is_active && new Date(subData.expires_at) > new Date();
+                    if (isActive) {
+                        const daysLeft = Math.ceil((new Date(subData.expires_at) - new Date()) / (1000 * 60 * 60 * 24));
+                        statusBadge = `<span class="text-xs font-bold text-on-tertiary-container flex items-center gap-1 whitespace-nowrap"><i class="fa-solid fa-circle text-[6px]"></i> Active (${daysLeft}d)</span>`;
+                    } else {
+                        statusBadge = `<span class="text-xs font-bold text-error flex items-center gap-1 whitespace-nowrap"><i class="fa-solid fa-circle text-[6px]"></i> Expired</span>`;
+                    }
+                } else {
+                    statusBadge = `<span class="text-xs font-bold text-outline flex items-center gap-1 whitespace-nowrap"><i class="fa-solid fa-circle text-[6px]"></i> Unpaid</span>`;
+                }
+
+                html += `
+                    <label class="flex items-center justify-between p-3 border border-outline-variant/30 rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
+                        <div class="flex items-center gap-3 overflow-hidden">
+                            <input type="checkbox" class="subject-checkbox accent-secondary w-4 h-4 flex-shrink-0" value="${subject}" ${isChecked ? 'checked' : ''}/>
+                            <span class="font-label-md text-primary text-sm truncate">${subject}</span>
+                        </div>
+                        ${statusBadge}
+                    </label>
+                `;
+            }
+            html += `</div></div>`;
+        }
+        container.innerHTML = html;
+    }
+  
     initSettingsPage();
 </script>
 </body>
