@@ -12,23 +12,79 @@
         theme: {
           extend: {
             "colors": {
-                    "outline": "#76777d", "on-surface": "#191c1e", "on-secondary": "#ffffff", "primary": "#000000",
-                    "on-primary-container": "#7c839b", "primary-container": "#131b2e", "on-secondary-fixed": "#00174b",
-                    "on-error-container": "#93000a", "surface-container-high": "#e6e8ea", "secondary-fixed-dim": "#b4c5ff",
-                    "surface": "#f7f9fb", "secondary-fixed": "#dbe1ff", "error": "#ba1a1a", "surface-variant": "#e0e3e5",
-                    "inverse-surface": "#2d3133", "tertiary-fixed-dim": "#4fdbc8", "on-tertiary-container": "#009485",
-                    "error-container": "#ffdad6", "on-error": "#ffffff", "on-tertiary-fixed": "#00201c", "on-primary": "#ffffff",
-                    "background": "#f7f9fb", "secondary-container": "#316bf3", "surface-container": "#eceef0", "primary-fixed-dim": "#bec6e0",
-                    "on-tertiary-fixed-variant": "#005048", "outline-variant": "#c6c6cd", "secondary": "#0051d5", "on-tertiary": "#ffffff",
-                    "tertiary": "#000000", "surface-container-lowest": "#ffffff", "surface-bright": "#f7f9fb", "surface-container-highest": "#e0e3e5",
-                    "on-secondary-fixed-variant": "#003ea8", "surface-tint": "#565e74", "surface-dim": "#d8dadc", "inverse-primary": "#bec6e0",
-                    "inverse-on-surface": "#eff1f3", "primary-fixed": "#dae2fd", "tertiary-container": "#00201c", "on-background": "#191c1e",
-                    "surface-container-low": "#f2f4f6", "on-surface-variant": "#45464d", "tertiary-fixed": "#71f8e4",
-                    "on-primary-fixed-variant": "#3f465c", "on-primary-fixed": "#131b2e"
+                    "outline": "#76777d",
+                    "on-surface": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "primary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "primary-container": "#131b2e",
+                    "on-secondary-fixed": "#00174b",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "surface": "#f7f9fb",
+                    "secondary-fixed": "#dbe1ff",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e0e3e5",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-fixed-dim": "#4fdbc8",
+                    "on-tertiary-container": "#009485",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#00201c",
+                    "on-primary": "#ffffff",
+                    "background": "#f7f9fb",
+                    "secondary-container": "#316bf3",
+                    "surface-container": "#eceef0",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary-fixed-variant": "#005048",
+                    "outline-variant": "#c6c6cd",
+                    "secondary": "#0051d5",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#003ea8",
+                    "surface-tint": "#565e74",
+                    "surface-dim": "#d8dadc",
+                    "inverse-primary": "#bec6e0",
+                    "inverse-on-surface": "#eff1f3",
+                    "primary-fixed": "#dae2fd",
+                    "tertiary-container": "#00201c",
+                    "on-background": "#191c1e",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-fixed": "#71f8e4",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-primary-fixed": "#131b2e"
             },
-            "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
-            "spacing": { "stack-md": "16px", "margin-mobile": "16px", "gutter": "24px", "stack-lg": "32px", "stack-sm": "8px", "unit": "8px", "margin-desktop": "32px", "container-max": "1280px" },
-            "fontFamily": { "display-lg-mobile": ["Hanken Grotesk"], "headline-md": ["Hanken Grotesk"], "headline-lg": ["Hanken Grotesk"], "label-md": ["Geist"], "display-lg": ["Hanken Grotesk"], "label-sm": ["Geist"], "body-md": ["Manrope"], "body-lg": ["Manrope"] },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "stack-sm": "8px",
+                    "unit": "8px",
+                    "margin-desktop": "32px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "label-md": ["Geist"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Geist"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"]
+            },
             "fontSize": {
                     "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
                     "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
@@ -44,35 +100,76 @@
       }
     </script>
     <style>
-        body { background-color: #F8FAFC; color: #191c1e; font-family: 'Manrope', sans-serif; }
+        body { 
+            background-color: #F8FAFC; 
+            color: #191c1e;
+            font-family: 'Manrope', sans-serif; 
+        }
         .fa-solid, .fa-regular { font-size: 1.25rem; }
         .card-shadow { box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
         .transition-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .transition-lift:hover { transform: translateY(-4px); box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.1); }
         
-        #sidebar { width: 256px; overflow: hidden; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        /* Sidebar - NO Hover Expand */
+        #sidebar { 
+            width: 256px; 
+            overflow: hidden; 
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
         #sidebar.collapsed { width: 80px; }
-        #sidebar.collapsed .sidebar-text, #sidebar.collapsed .profile-details, #sidebar.collapsed .submenu, #sidebar.collapsed .sidebar-header-text { display: none; }
+        #sidebar.collapsed .sidebar-text,
+        #sidebar.collapsed .profile-details,
+        #sidebar.collapsed .submenu,
+        #sidebar.collapsed .sidebar-header-text { display: none; }
         #sidebar.collapsed .sidebar-item { justify-content: center; padding-left: 0; padding-right: 0; }
         #sidebar.collapsed .sidebar-chevron { display: none; }
         #sidebar.collapsed .sidebar-logo-container { justify-content: center; padding: 0; }
         #sidebar.collapsed .profile-section { padding: 16px 8px; justify-content: center; }
         #sidebar.collapsed .profile-section img { margin-right: 0; }
+        
+        /* Submenu - Click to Expand Only */
         .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .menu-expanded .submenu { max-height: 300px; }
         .menu-expanded .sidebar-chevron { transform: rotate(180deg); }
         
+        /* AI Chat Pane Transitions */
         #mainWrapper { transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .ai-floating-btn { transition: opacity 0.3s ease, transform 0.3s ease; }
-        .ai-floating-btn.hidden { opacity: 0; transform: scale(0.8); pointer-events: none; }
+        .ai-floating-btn {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .ai-floating-btn.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
         
-        .receipt-upload-widget { background: #fff; padding: 28px; border-radius: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.05); width: 100%; border: 1px solid #e2e8f0; transition: box-shadow 0.2s; }
+        /* Receipt Upload Widget Styles */
+        .receipt-upload-widget {
+            background: #fff;
+            padding: 28px;
+            border-radius: 28px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            transition: box-shadow 0.2s;
+        }
         .receipt-upload-widget:hover { box-shadow: 0 12px 28px rgba(0,0,0,0.08); }
         .ruw-group { margin-bottom: 20px; }
         .ruw-label { display: block; font-size: 14px; font-weight: 600; color: #2d3748; margin-bottom: 8px; }
-        .ruw-input { width: 100%; padding: 14px 16px; border: 1px solid #cbd5e0; border-radius: 20px; box-sizing: border-box; font-family: inherit; transition: all 0.2s; background: #fafbfc; }
+        .ruw-input { 
+            width: 100%; padding: 14px 16px; border: 1px solid #cbd5e0; border-radius: 20px; 
+            box-sizing: border-box; font-family: inherit; transition: all 0.2s; background: #fafbfc;
+        }
         .ruw-input:focus { outline: none; border-color: #0051D5; box-shadow: 0 0 0 3px rgba(0,81,213,0.1); background: white; }
-        .ruw-dropzone { border: 2px dashed #cbd5e0; padding: 36px 24px; text-align: center; border-radius: 24px; cursor: pointer; color: #718096; transition: 0.2s; background: #f8fafc; }
+        .ruw-dropzone { 
+            border: 2px dashed #cbd5e0; padding: 36px 24px; text-align: center; 
+            border-radius: 24px; cursor: pointer; color: #718096; transition: 0.2s; background: #f8fafc;
+        }
         .ruw-dropzone:hover { border-color: #0051D5; color: #0051D5; background: #eff6ff; }
         .ruw-dropzone i { font-size: 2.5rem; margin-bottom: 12px; display: block; color: #0051D5; }
         .ruw-preview { margin-top: 16px; display: none; text-align: center; background: #f1f5f9; padding: 12px; border-radius: 20px; }
@@ -80,10 +177,15 @@
         .ruw-progress-wrap { margin-top: 16px; display: none; }
         .ruw-progress-bar { height: 8px; background: #e2e8f0; border-radius: 20px; overflow: hidden; }
         .ruw-fill { height: 100%; background: #0051D5; width: 0%; transition: width 0.3s; border-radius: 20px; }
-        .ruw-btn { width: 100%; background: #0051D5; color: white; border: none; padding: 14px; border-radius: 40px; font-weight: 600; cursor: pointer; margin-top: 20px; font-size: 15px; transition: all 0.2s; }
+        .ruw-btn { 
+            width: 100%; background: #0051D5; color: white; border: none; 
+            padding: 14px; border-radius: 40px; font-weight: 600; cursor: pointer; margin-top: 20px; 
+            font-size: 15px; transition: all 0.2s;
+        }
         .ruw-btn:hover { background: #003ea8; transform: translateY(-1px); }
         .ruw-btn:active { transform: translateY(0); }
         
+        /* Mobile Responsive */
         @media (max-width: 1023px) {
             #sidebar { position: fixed; left: -100%; z-index: 60; width: 280px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
             #sidebar.active { left: 0; }
@@ -101,7 +203,10 @@
             .p-stack-lg { padding: 20px !important; }
             #aiChatPane { width: 100%; }
         }
-        @media (min-width: 1024px) { .mobile-menu-toggle { display: none; } .desktop-menu-toggle { display: block; } }
+        @media (min-width: 1024px) {
+            .mobile-menu-toggle { display: none; }
+            .desktop-menu-toggle { display: block; }
+        }
     </style>
 </head>
 <body class="bg-background text-on-surface">
@@ -189,6 +294,7 @@
             </div>
         </nav>
         
+        <!-- Footer Links -->
         <div class="px-4 py-4 border-t border-outline-variant/30 mt-auto">
             <div class="flex flex-wrap gap-4 text-[11px]">
                 <a href="/privacy" class="text-outline hover:text-primary transition-colors">Privacy</a>
@@ -198,6 +304,7 @@
         </div>
     </aside>
     
+    <!-- Main Content Wrapper -->
     <div id="mainWrapper" class="flex-1 overflow-y-auto">
         <header class="sticky top-0 z-40 w-full flex gap-4 px-margin-desktop py-4 bg-background/50 backdrop-blur-md">
             <div class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-4 flex items-center gap-3 card-shadow">
@@ -222,29 +329,65 @@
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
                     <h2 class="font-headline-lg text-headline-lg text-primary">Subject Billing & Checkout</h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Manage your academic investments. Select the subjects you wish to renew or purchase for the current 4-week cycle.</p>
-                </div>
-                <div class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant rounded-full p-1 shadow-sm">
-                    <button id="toggle-usd" class="px-4 py-1.5 rounded-full text-sm font-bold transition-all bg-secondary text-white">USD ($)</button>
-                    <button id="toggle-ngn" class="px-4 py-1.5 rounded-full text-sm font-bold transition-all text-on-surface-variant">NGN (₦)</button>
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Manage your 4-week billing cycle. Select the subjects you wish to renew and upload your payment receipt.</p>
                 </div>
             </div>
 
-            <!-- Subject Checkout Cart -->
-            <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant card-shadow">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="font-headline-md text-primary flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-secondary"></i> Your Subjects</h3>
-                    <p class="text-sm text-outline flex items-center gap-1"><i class="fa-solid fa-clock"></i> Billing cycle: 4 Weeks</p>
-                </div>
-                <div id="checkout-cart" class="space-y-3">
-                    <div class="text-center py-8 text-on-surface-variant"><i class="fa-solid fa-spinner fa-spin text-2xl"></i><p class="mt-2">Loading subjects...</p></div>
-                </div>
-                <div class="mt-6 pt-6 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div>
-                        <p class="text-sm text-outline">Total for this cycle:</p>
-                        <p class="text-3xl font-bold text-primary" id="total-price">$0.00</p>
+            <!-- Bento Layout Top: Cart & Quick Actions -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+                <!-- Dynamic Checkout Cart -->
+                <div class="lg:col-span-2 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant card-shadow">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <h3 class="font-headline-md text-primary">Select Subjects to Renew</h3>
+                            <p class="text-sm text-outline mt-1">Billing cycle: 4 weeks. Active subjects are locked.</p>
+                        </div>
+                        <!-- Currency Toggle -->
+                        <div class="flex items-center gap-2 bg-surface-container-low p-1 rounded-full border border-outline-variant self-start">
+                            <button id="currency-usd" class="px-4 py-1.5 rounded-full text-sm font-bold transition-all text-on-surface-variant hover:text-primary">USD ($)</button>
+                            <button id="currency-ngn" class="px-4 py-1.5 rounded-full text-sm font-bold transition-all bg-secondary text-white">NGN (₦)</button>
+                        </div>
                     </div>
-                    <p class="text-xs text-outline text-right max-w-xs bg-surface-container-low p-3 rounded-lg border border-outline-variant/30"><i class="fa-solid fa-circle-info mr-1 text-secondary"></i> Select the subjects you wish to pay for, then upload your payment receipt below.</p>
+                    
+                    <div id="checkout-cart" class="space-y-3 mb-6">
+                        <div class="text-center py-8 text-on-surface-variant"><i class="fa-solid fa-spinner fa-spin text-2xl"></i><p class="mt-2">Loading billing data...</p></div>
+                    </div>
+
+                    <!-- Cart Summary -->
+                    <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div>
+                            <p class="text-sm text-outline">Total Selected</p>
+                            <p class="font-headline-md text-primary" id="cart-count">0 Subjects</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm text-outline">Total Amount</p>
+                            <p class="font-headline-md text-secondary" id="cart-total">₦0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant card-shadow flex flex-col justify-between">
+                    <h4 class="font-label-md text-label-md text-primary font-bold mb-4">Quick Actions</h4>
+                    <div class="space-y-3">
+                        <a href="/dashboard/settings/?section=academic" class="w-full flex items-center justify-between p-4 bg-surface-bright border border-outline-variant rounded-lg hover:border-secondary transition-colors group">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-graduation-cap text-secondary text-lg"></i>
+                                <span class="font-label-md text-label-md">Update Subjects</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-outline group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <button class="w-full flex items-center justify-between p-4 bg-surface-bright border border-outline-variant rounded-lg hover:border-secondary transition-colors group">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-file-invoice text-secondary text-lg"></i>
+                                <span class="font-label-md text-label-md">View Billing Policy</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-outline group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-outline-variant">
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">Payments are verified manually. Access is granted within 24 hours of receipt approval.</p>
+                    </div>
                 </div>
             </div>
 
@@ -257,15 +400,15 @@
                     </div>
                     
                     <div class="ruw-group">
-                        <label class="ruw-label"><i class="fa-solid fa-list-check mr-2"></i>Paying For</label>
-                        <div id="receipt-summary" class="p-3 bg-surface-container-low rounded-xl border border-outline-variant text-sm text-on-surface-variant min-h-[40px]">
-                            No subjects selected. Please check the boxes in the cart above.
-                        </div>
+                        <label class="ruw-label"><i class="fa-solid fa-file-invoice mr-2"></i>Invoice / Reference Number</label>
+                        <input type="text" class="ruw-input" id="invoiceNumber" placeholder="e.g., TRF-2026-0421">
                     </div>
 
                     <div class="ruw-group">
-                        <label class="ruw-label"><i class="fa-solid fa-file-invoice mr-2"></i>Transaction Reference / Invoice Number</label>
-                        <input type="text" class="ruw-input" id="invoiceNumber" placeholder="e.g., Bank Teller ID or Transaction Ref">
+                        <label class="ruw-label"><i class="fa-solid fa-list-check mr-2"></i>Payment Summary</label>
+                        <div id="receipt-subject-summary" class="p-4 bg-surface-container-low rounded-xl text-sm text-on-surface-variant border border-outline-variant/30 min-h-[60px] flex items-center">
+                            <span class="text-outline italic">No subjects selected. Please select subjects in the cart above.</span>
+                        </div>
                     </div>
 
                     <div class="ruw-dropzone" id="dropzone">
@@ -286,12 +429,12 @@
                     </div>
 
                     <button class="ruw-btn" id="submitReceiptBtn">
-                        <i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT FOR VERIFICATION
+                        <i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT
                     </button>
                 </div>
             </div>
 
-            <!-- Payment History Table -->
+            <!-- Payment History Table (Mockup) -->
             <section class="bg-surface-container-lowest rounded-xl border border-outline-variant card-shadow overflow-hidden">
                 <div class="px-8 py-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low/30">
                     <h3 class="font-headline-md text-headline-md text-primary">Payment History</h3>
@@ -313,8 +456,8 @@
                         <tbody class="divide-y divide-outline-variant">
                             <tr class="hover:bg-surface-bright transition-colors group">
                                 <td class="px-8 py-5 font-body-md text-body-md text-primary">Sept 12, 2025</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Tuition Fee - Professional Plan (Sept)</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦25,000</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Mathematics, English (4 Weeks)</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦34,000</td>
                                 <td class="px-8 py-5">
                                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-sm text-[12px] font-bold">
                                         <span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Paid
@@ -322,22 +465,22 @@
                                 </td>
                                 <td class="px-8 py-5 text-right">
                                     <button class="text-secondary font-label-md flex items-center gap-1 ml-auto group-hover:scale-105 transition-transform">
-                                        <i class="fa-solid fa-download text-sm"></i> Download Invoice
+                                        <i class="fa-solid fa-download text-sm"></i> Receipt
                                     </button>
                                 </td>
                             </tr>
                             <tr class="hover:bg-surface-bright transition-colors group opacity-60">
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Oct 12, 2025</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Tuition Fee - Professional Plan (Oct)</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦25,000</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Oct 10, 2025</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Physics (4 Weeks)</td>
+                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦17,000</td>
                                 <td class="px-8 py-5">
                                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-[12px] font-bold">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Pending
+                                        <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Pending Review
                                     </span>
                                 </td>
                                 <td class="px-8 py-5 text-right">
                                     <button class="text-outline font-label-md flex items-center gap-1 ml-auto cursor-not-allowed">
-                                        <i class="fa-solid fa-lock text-sm"></i> Coming Soon
+                                        <i class="fa-solid fa-lock text-sm"></i> Pending
                                     </button>
                                 </td>
                             </tr>
@@ -356,7 +499,7 @@
                     </button>
                 </div>
                 <div class="hidden md:block w-1/3 h-full relative overflow-hidden bg-on-primary/10 rounded-r-xl">
-                    <img class="absolute inset-0 w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdqRLuTZNiktYA6nfD18u2qJof7AF7okMdtPyEzW1IXtX3p9uBg96y7iCbaL3FX1nZtVE1l7SGADG8vgbn2dqF0A6dVEhProLj5PS0b28kYK2PiHnVh8OZN8uC0Xq4VIFYu52FWxD6PUMjOBeRP1Yxw140m9RQnkCTEKTle1MtVdLTpqhd2dNjV8ckxXXbQU4UZCPb8XIFogcswP3Se51sN_R4Qc2Le_pCHjp_pXVNbtsuld1gmvzVzLeO-yuTb30A8F_2FN5ebNg" alt="Students collaborating"/>
+                    <img class="absolute inset-0 w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700" src="https://naijaassets.com/user.png" alt="Students collaborating"/>
                 </div>
             </section>
         </main>
@@ -375,7 +518,13 @@
         </button>
     </div>
     <div class="flex-1 w-full bg-white">
-        <iframe src="https://supportbot.naijaassets.com" class="w-full h-full border-0" title="NaijaAssets AI Assistant" loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"></iframe>
+        <iframe 
+            src="https://supportbot.naijaassets.com" 
+            class="w-full h-full border-0" 
+            title="NaijaAssets AI Assistant"
+            loading="lazy"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
+        ></iframe>
     </div>
 </div>
 
@@ -384,7 +533,7 @@
     <i class="fa-solid fa-comments text-xl"></i>
 </button>
 
-<!-- Existing UI Logic -->
+<!-- Existing UI Logic (Unchanged) -->
 <script>
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
@@ -393,15 +542,33 @@
         if (sidebar.classList.contains('collapsed')) {
             icon.className = 'fa-solid fa-chevron-right text-xl';
             document.querySelectorAll('.menu-expanded').forEach(el => el.classList.remove('menu-expanded'));
-        } else { icon.className = 'fa-solid fa-chevron-left text-xl'; }
+        } else { 
+            icon.className = 'fa-solid fa-chevron-left text-xl'; 
+        }
     }
 
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mobileOverlay = document.getElementById('mobileOverlay');
     const sidebar = document.getElementById('sidebar');
-    if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', () => { sidebar.classList.add('active'); mobileOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
-    if (mobileOverlay) mobileOverlay.addEventListener('click', () => { sidebar.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; });
-    document.querySelectorAll('#sidebar a').forEach(link => { link.addEventListener('click', () => { if (window.innerWidth < 1024) { sidebar.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; } }); });
+    if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', () => { 
+        sidebar.classList.add('active'); 
+        mobileOverlay.classList.add('active'); 
+        document.body.style.overflow = 'hidden'; 
+    });
+    if (mobileOverlay) mobileOverlay.addEventListener('click', () => { 
+        sidebar.classList.remove('active'); 
+        mobileOverlay.classList.remove('active'); 
+        document.body.style.overflow = ''; 
+    });
+    document.querySelectorAll('#sidebar a').forEach(link => { 
+        link.addEventListener('click', () => { 
+            if (window.innerWidth < 1024) { 
+                sidebar.classList.remove('active'); 
+                mobileOverlay.classList.remove('active'); 
+                document.body.style.overflow = ''; 
+            } 
+        }); 
+    });
 
     function toggleMenu(id) {
         const menu = document.getElementById(id);
@@ -410,6 +577,7 @@
         button.setAttribute('aria-expanded', isExpanded);
     }
 
+    // AI Chat Pane Toggle
     const aiToggle = document.getElementById('aiChatToggle');
     const aiPane = document.getElementById('aiChatPane');
     const closeAi = document.getElementById('closeAiChat');
@@ -419,25 +587,37 @@
     function toggleAiPane() {
         aiOpen = !aiOpen;
         if (aiOpen) {
-            aiPane.classList.remove('translate-x-full'); aiPane.classList.add('translate-x-0'); aiToggle.classList.add('hidden');
-            if (window.innerWidth >= 1024) mainWrapper.style.marginRight = '24rem';
+            aiPane.classList.remove('translate-x-full');
+            aiPane.classList.add('translate-x-0');
+            aiToggle.classList.add('hidden');
+            if (window.innerWidth >= 1024) {
+                mainWrapper.style.marginRight = '24rem';
+            }
         } else {
-            aiPane.classList.add('translate-x-full'); aiPane.classList.remove('translate-x-0'); aiToggle.classList.remove('hidden');
+            aiPane.classList.add('translate-x-full');
+            aiPane.classList.remove('translate-x-0');
+            aiToggle.classList.remove('hidden');
             mainWrapper.style.marginRight = '0';
         }
     }
+
     aiToggle.addEventListener('click', toggleAiPane);
     closeAi.addEventListener('click', toggleAiPane);
 
+    // Search filter
     const searchInput = document.getElementById('searchInput');
     if(searchInput){
         searchInput.addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
-            document.querySelectorAll('tbody tr').forEach(row => { row.style.display = row.innerText.toLowerCase().includes(term) ? '' : 'none'; });
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(term) ? '' : 'none';
+            });
         });
     }
     
-    // Receipt Upload Widget Logic
+    // Receipt Upload Widget
     const dropzone = document.getElementById('dropzone');
     const fileInput = document.getElementById('receiptFile');
     const previewContainer = document.getElementById('previewContainer');
@@ -452,7 +632,12 @@
     dropzone.addEventListener('click', () => fileInput.click());
     dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.style.borderColor = '#0051D5'; dropzone.style.backgroundColor = '#eff6ff'; });
     dropzone.addEventListener('dragleave', (e) => { e.preventDefault(); dropzone.style.borderColor = '#cbd5e0'; dropzone.style.backgroundColor = '#f8fafc'; });
-    dropzone.addEventListener('drop', (e) => { e.preventDefault(); dropzone.style.borderColor = '#cbd5e0'; dropzone.style.backgroundColor = '#f8fafc'; if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
+    dropzone.addEventListener('drop', (e) => { 
+        e.preventDefault(); 
+        dropzone.style.borderColor = '#cbd5e0'; 
+        dropzone.style.backgroundColor = '#f8fafc'; 
+        if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); 
+    });
     fileInput.addEventListener('change', (e) => { if(e.target.files.length) handleFile(e.target.files[0]); });
     
     function handleFile(file) {
@@ -460,7 +645,12 @@
         selectedFile = file;
         if (file.type.startsWith('image/')) {
             const reader = new FileReader();
-            reader.onload = (e) => { previewImg.src = e.target.result; previewContainer.style.display = 'block'; fileNameDisplay.textContent = file.name; previewImg.style.display = 'block'; };
+            reader.onload = (e) => { 
+                previewImg.src = e.target.result; 
+                previewContainer.style.display = 'block'; 
+                fileNameDisplay.textContent = file.name; 
+                previewImg.style.display = 'block'; 
+            };
             reader.readAsDataURL(file);
         } else {
             previewImg.style.display = 'none';
@@ -469,206 +659,239 @@
         }
         progressWrap.style.display = 'block';
         let width = 0;
-        const interval = setInterval(() => { width += 15; progressFill.style.width = width + '%'; if (width >= 100) { clearInterval(interval); setTimeout(() => { progressWrap.style.display = 'none'; progressFill.style.width = '0%'; }, 500); } }, 120); 
+        const interval = setInterval(() => { 
+            width += 15; 
+            progressFill.style.width = width + '%'; 
+            if (width >= 100) { 
+                clearInterval(interval); 
+                setTimeout(() => { 
+                    progressWrap.style.display = 'none'; 
+                    progressFill.style.width = '0%'; 
+                }, 500); 
+            } 
+        }, 120); 
     }
     
     submitBtn.addEventListener('click', () => {
-        const payingFor = document.getElementById('receipt-summary').innerText;
-        if (payingFor.includes('No subjects selected')) {
-            alert('Please select at least one subject to pay for in the cart above.');
-            return;
-        }
-        if (!invoiceInput.value.trim()) { alert('Please enter a transaction reference or invoice number'); invoiceInput.focus(); return; }
+        if (!invoiceInput.value.trim()) { alert('Please enter an invoice/reference number'); invoiceInput.focus(); return; }
         if (!selectedFile) { alert('Please select a receipt file to upload'); return; }
-        
         submitBtn.disabled = true; 
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Submitting...';
         setTimeout(() => {
-            alert(`Receipt submitted successfully!\n\nPaying for: ${payingFor.replace('Paying for: ', '')}\nReference: ${invoiceInput.value.trim()}\nFile: ${selectedFile.name}\n\nOur team will verify your payment and activate your subjects within 24 hours.`);
+            alert(`Receipt submitted successfully!\nFile: ${selectedFile.name}\nOur team will verify your payment and activate your subjects within 24 hours.`);
             invoiceInput.value = ''; 
             selectedFile = null; 
             previewContainer.style.display = 'none'; 
             previewImg.src = ''; 
             fileInput.value = '';
             submitBtn.disabled = false; 
-            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT FOR VERIFICATION';
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT';
         }, 1500);
     });
     
     window.addEventListener('resize', () => { 
-        if (window.innerWidth >= 1024) { sidebar.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; if (aiOpen) mainWrapper.style.marginRight = '24rem'; } 
-        else mainWrapper.style.marginRight = '0';
+        if (window.innerWidth >= 1024) { 
+            sidebar.classList.remove('active'); 
+            mobileOverlay.classList.remove('active'); 
+            document.body.style.overflow = ''; 
+            if (aiOpen) mainWrapper.style.marginRight = '24rem';
+        } else {
+            mainWrapper.style.marginRight = '0';
+        }
     });
 </script>
 
-<!-- NEW: Supabase Integration Logic -->
+<!-- NEW: Supabase Integration & Billing Logic -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
     import { supabase } from '../../supabaseClient.js';
 
-    let currentCurrency = 'USD';
-    let pricingData = [];
-    let subscriptionData = [];
-    let userSubjects = [];
-
     async function initPaymentsPage() {
+        // 1. Initialize Auth & Check Session
         await initializeAuth();
         if (!requireAuth()) return;
 
         const user = window.currentUser;
         const session = window.currentSession;
 
-        // Profile Injection
+        // 2. Dynamic Profile Data Injection
         const meta = session.user.user_metadata || {};
         const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
+        
         const sidebarName = document.querySelector('.profile-section .profile-details p.font-bold');
         const sidebarEmail = document.querySelector('.profile-section .profile-details p.text-outline');
         if (sidebarName) sidebarName.textContent = fullName;
         if (sidebarEmail) sidebarEmail.textContent = user.email;
+
         const headerName = document.querySelector('.header-profile .text-right p.text-primary');
         const headerLevel = document.querySelector('.header-profile .text-right p.text-outline');
         if (headerName) headerName.textContent = fullName;
         if (headerLevel) headerLevel.textContent = user.grade || 'Student';
 
-        // Load Billing Data
-        await loadBillingData();
+        // 3. Billing Logic Setup
+        let currentCurrency = 'NGN';
+        let pricingData = [];
+        let selectedSubjects = new Set();
 
-        // Currency Toggle Listeners
-        document.getElementById('toggle-usd').addEventListener('click', () => {
-            currentCurrency = 'USD';
-            document.getElementById('toggle-usd').className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all bg-secondary text-white';
-            document.getElementById('toggle-ngn').className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all text-on-surface-variant';
-            renderCart();
-        });
+        const usdBtn = document.getElementById('currency-usd');
+        const ngnBtn = document.getElementById('currency-ngn');
 
-        document.getElementById('toggle-ngn').addEventListener('click', () => {
-            currentCurrency = 'NGN';
-            document.getElementById('toggle-ngn').className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all bg-secondary text-white';
-            document.getElementById('toggle-usd').className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all text-on-surface-variant';
-            renderCart();
-        });
+        usdBtn.addEventListener('click', () => { currentCurrency = 'USD'; updateCurrencyUI(); renderCart(); });
+        ngnBtn.addEventListener('click', () => { currentCurrency = 'NGN'; updateCurrencyUI(); renderCart(); });
 
-        // Logout
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', (e) => { e.preventDefault(); signOut(); });
-        }
-    }
-
-    async function loadBillingData() {
-        const user = window.currentUser;
-        const cart = document.getElementById('checkout-cart');
-
-        if (!user.grade) {
-            cart.innerHTML = `<div class="p-6 bg-error/5 border border-error/20 rounded-xl text-center"><i class="fa-solid fa-triangle-exclamation text-error text-2xl mb-3"></i><p class="text-error font-bold">No Grade Assigned</p><p class="text-sm text-on-surface-variant mt-1">Please request a grade change in Settings before purchasing subjects.</p></div>`;
-            return;
-        }
-
-        userSubjects = user.subjects || [];
-        if (userSubjects.length === 0) {
-            cart.innerHTML = `<div class="p-6 bg-surface-container-low rounded-xl text-center"><i class="fa-solid fa-book-open text-outline text-2xl mb-3"></i><p class="text-primary font-bold">No Subjects Selected</p><p class="text-sm text-on-surface-variant mt-1">Go to Settings -> Academic Profile to select the subjects you want to take.</p></div>`;
-            return;
-        }
-
-        const { data: prices } = await supabase.from('subject_pricing').select('*').eq('grade', user.grade);
-        pricingData = prices || [];
-
-        const { data: subs } = await supabase.from('subject_subscriptions').select('*').eq('user_id', user.id);
-        subscriptionData = subs || [];
-
-        renderCart();
-    }
-
-    function renderCart() {
-        const cart = document.getElementById('checkout-cart');
-        let html = '';
-
-        userSubjects.forEach(subject => {
-            const priceRow = pricingData.find(p => p.subject === subject);
-            const subRow = subscriptionData.find(s => s.subject === subject);
-            
-            let status = 'unpaid';
-            let expiresAt = null;
-            if (subRow) {
-                const expDate = new Date(subRow.expires_at);
-                if (subRow.is_active && expDate > new Date()) {
-                    status = 'active';
-                    expiresAt = expDate;
-                } else {
-                    status = 'expired';
-                }
-            }
-
-            const priceUSD = priceRow ? priceRow.price_usd : 0;
-            const priceNGN = priceRow ? priceRow.price_ngn : 0;
-            const displayPrice = currentCurrency === 'USD' ? `$${priceUSD.toFixed(2)}` : `₦${priceNGN.toLocaleString()}`;
-
-            let statusBadge = '';
-            let checkboxHtml = '';
-
-            if (status === 'active') {
-                const daysLeft = Math.ceil((expiresAt - new Date()) / (1000 * 60 * 60 * 24));
-                statusBadge = `<span class="text-xs font-bold text-on-tertiary-container flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Active (${daysLeft}d)</span>`;
-                checkboxHtml = `<input type="checkbox" class="cart-checkbox accent-secondary w-5 h-5" value="${subject}" disabled checked/>`;
-            } else if (status === 'expired') {
-                statusBadge = `<span class="text-xs font-bold text-error flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Expired</span>`;
-                checkboxHtml = `<input type="checkbox" class="cart-checkbox accent-secondary w-5 h-5" value="${subject}" data-usd="${priceUSD}" data-ngn="${priceNGN}"/>`;
+        function updateCurrencyUI() {
+            if (currentCurrency === 'USD') {
+                usdBtn.className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all bg-secondary text-white';
+                ngnBtn.className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all text-on-surface-variant hover:text-primary';
             } else {
-                statusBadge = `<span class="text-xs font-bold text-outline flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Unpaid</span>`;
-                checkboxHtml = `<input type="checkbox" class="cart-checkbox accent-secondary w-5 h-5" value="${subject}" data-usd="${priceUSD}" data-ngn="${priceNGN}"/>`;
+                ngnBtn.className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all bg-secondary text-white';
+                usdBtn.className = 'px-4 py-1.5 rounded-full text-sm font-bold transition-all text-on-surface-variant hover:text-primary';
+            }
+        }
+
+        async function loadBillingData() {
+            const cartContainer = document.getElementById('checkout-cart');
+            
+            if (!user.grade) {
+                cartContainer.innerHTML = `<div class="p-8 text-center bg-error/5 border border-error/20 rounded-xl">
+                    <i class="fa-solid fa-triangle-exclamation text-error text-3xl mb-3"></i>
+                    <p class="text-error font-bold">No Grade Assigned</p>
+                    <p class="text-sm text-on-surface-variant mt-1">Please request a grade assignment in Settings before you can view billing.</p>
+                    <a href="/dashboard/settings/?section=academic" class="text-secondary font-bold mt-3 inline-block">Go to Settings &rarr;</a>
+                </div>`;
+                updateCartSummary();
+                return;
             }
 
-            html += `
-                <label class="flex items-center justify-between p-4 border border-outline-variant/30 rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors ${status === 'active' ? 'opacity-70 bg-surface-container-low/50' : ''}">
-                    <div class="flex items-center gap-4">
-                        ${checkboxHtml}
-                        <div>
-                            <p class="font-label-md text-primary font-bold">${subject}</p>
-                            ${statusBadge}
+            const { data: pricing } = await supabase.from('subject_pricing').select('*').eq('grade', user.grade);
+            pricingData = pricing || [];
+
+            const { data: subs } = await supabase.from('subject_subscriptions').select('subject, is_active, expires_at').eq('user_id', user.id);
+            const subsMap = {};
+            (subs || []).forEach(s => subsMap[s.subject] = s);
+
+            if (!user.subjects || user.subjects.length === 0) {
+                cartContainer.innerHTML = `<div class="p-8 text-center bg-surface-container-low rounded-xl border border-outline-variant/30">
+                    <i class="fa-solid fa-book-open text-3xl text-outline mb-3"></i>
+                    <p class="text-on-surface-variant">No subjects selected in your Academic Profile.</p>
+                    <a href="/dashboard/settings/?section=academic" class="text-secondary font-bold mt-2 inline-block">Select Subjects in Settings &rarr;</a>
+                </div>`;
+                updateCartSummary();
+                return;
+            }
+
+            renderCart(subsMap);
+        }
+
+        function renderCart(subsMap) {
+            const cartContainer = document.getElementById('checkout-cart');
+            let html = '';
+
+            user.subjects.forEach(subject => {
+                const priceInfo = pricingData.find(p => p.subject === subject);
+                const subInfo = subsMap[subject];
+                
+                let statusText = 'Unpaid';
+                let statusClass = 'bg-surface-container-highest text-outline';
+                let isActive = false;
+
+                if (subInfo) {
+                    const expDate = new Date(subInfo.expires_at);
+                    const now = new Date();
+                    if (subInfo.is_active && expDate > now) {
+                        const daysLeft = Math.ceil((expDate - now) / (1000 * 60 * 60 * 24));
+                        statusText = `Active (${daysLeft}d left)`;
+                        statusClass = 'bg-on-tertiary-container/10 text-on-tertiary-container';
+                        isActive = true;
+                    } else {
+                        statusText = 'Expired';
+                        statusClass = 'bg-error-container/50 text-error';
+                    }
+                }
+
+                const price = currentCurrency === 'USD' ? `$${priceInfo?.price_usd || 0}` : `₦${(priceInfo?.price_ngn || 0).toLocaleString()}`;
+                const isChecked = selectedSubjects.has(subject);
+                const disabledAttr = isActive ? 'disabled' : '';
+                const opacityClass = isActive ? 'opacity-60' : '';
+
+                html += `
+                    <div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/30 hover:border-secondary/50 transition-colors ${opacityClass}">
+                        <div class="flex items-center gap-4 flex-1">
+                            <input type="checkbox" class="cart-checkbox accent-secondary w-5 h-5 cursor-pointer" value="${subject}" ${isChecked ? 'checked' : ''} ${disabledAttr}/>
+                            <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary font-bold text-lg">
+                                ${subject.charAt(0)}
+                            </div>
+                            <div>
+                                <p class="font-label-md text-primary font-bold">${subject}</p>
+                                <span class="text-xs font-bold px-2 py-0.5 rounded-full ${statusClass}">${statusText}</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-headline-md text-primary">${price}</p>
+                            <p class="text-xs text-outline">per 4 weeks</p>
                         </div>
                     </div>
-                    <div class="text-right">
-                        <p class="font-headline-md text-secondary">${displayPrice}</p>
-                        <p class="text-[10px] text-outline">per 4 weeks</p>
-                    </div>
-                </label>
-            `;
-        });
+                `;
+            });
 
-        cart.innerHTML = html;
-        attachCartListeners();
-        updateTotal();
-    }
+            cartContainer.innerHTML = html;
 
-    function attachCartListeners() {
-        document.querySelectorAll('.cart-checkbox:not(:disabled)').forEach(cb => {
-            cb.addEventListener('change', updateTotal);
-        });
-    }
+            document.querySelectorAll('.cart-checkbox').forEach(cb => {
+                cb.addEventListener('change', (e) => {
+                    if (e.target.checked) selectedSubjects.add(e.target.value);
+                    else selectedSubjects.delete(e.target.value);
+                    updateCartSummary();
+                });
+            });
 
-    function updateTotal() {
-        let totalUSD = 0;
-        let totalNGN = 0;
-        const selectedSubjects = [];
-
-        document.querySelectorAll('.cart-checkbox:checked:not(:disabled)').forEach(cb => {
-            totalUSD += parseFloat(cb.dataset.usd);
-            totalNGN += parseFloat(cb.dataset.ngn);
-            selectedSubjects.push(cb.value);
-        });
-
-        const totalEl = document.getElementById('total-price');
-        if (currentCurrency === 'USD') {
-            totalEl.textContent = `$${totalUSD.toFixed(2)}`;
-        } else {
-            totalEl.textContent = `₦${totalNGN.toLocaleString()}`;
+            updateCartSummary();
         }
 
-        const summaryEl = document.getElementById('receipt-summary');
-        if (selectedSubjects.length === 0) {
-            summaryEl.innerHTML = `<span class="text-outline">No subjects selected. Please check the boxes in the cart above.</span>`;
-        } else {
-            summaryEl.innerHTML = `<span class="font-bold text-primary">Paying for:</span> ${selectedSubjects.join(', ')}`;
+        function updateCartSummary() {
+            const countEl = document.getElementById('cart-count');
+            const totalEl = document.getElementById('cart-total');
+            const summaryEl = document.getElementById('receipt-subject-summary');
+
+            let totalUSD = 0;
+            let totalNGN = 0;
+            let selectedNames = [];
+
+            selectedSubjects.forEach(sub => {
+                const priceInfo = pricingData.find(p => p.subject === sub);
+                if (priceInfo) {
+                    totalUSD += parseFloat(priceInfo.price_usd);
+                    totalNGN += parseFloat(priceInfo.price_ngn);
+                    selectedNames.push(sub);
+                }
+            });
+
+            if (countEl) countEl.textContent = `${selectedSubjects.size} Subject${selectedSubjects.size !== 1 ? 's' : ''}`;
+            if (totalEl) totalEl.textContent = currentCurrency === 'USD' ? `$${totalUSD.toFixed(2)}` : `₦${totalNGN.toLocaleString()}`;
+            
+            if (summaryEl) {
+                if (selectedNames.length === 0) {
+                    summaryEl.innerHTML = `<span class="text-outline italic">No subjects selected. Please select subjects in the cart above.</span>`;
+                } else {
+                    summaryEl.innerHTML = `
+                        <div class="flex flex-col gap-1">
+                            <span><span class="font-bold text-primary">Paying for:</span> ${selectedNames.join(', ')}</span>
+                            <span class="text-xs text-outline">Total Amount: ${currentCurrency === 'USD' ? `$${totalUSD.toFixed(2)}` : `₦${totalNGN.toLocaleString()}`}</span>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        updateCurrencyUI();
+        await loadBillingData();
+
+        // 4. Logout Functionality
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                signOut();
+            });
         }
     }
 
