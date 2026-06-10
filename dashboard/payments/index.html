@@ -110,7 +110,7 @@
         .transition-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .transition-lift:hover { transform: translateY(-4px); box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.1); }
         
-        /* Sidebar - NO Hover Expand */
+        /* Sidebar */
         #sidebar { 
             width: 256px; 
             overflow: hidden; 
@@ -132,21 +132,13 @@
         #sidebar.collapsed .profile-section { padding: 16px 8px; justify-content: center; }
         #sidebar.collapsed .profile-section img { margin-right: 0; }
         
-        /* Submenu - Click to Expand Only */
         .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .menu-expanded .submenu { max-height: 300px; }
         .menu-expanded .sidebar-chevron { transform: rotate(180deg); }
         
-        /* AI Chat Pane Transitions */
         #mainWrapper { transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .ai-floating-btn {
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .ai-floating-btn.hidden {
-            opacity: 0;
-            transform: scale(0.8);
-            pointer-events: none;
-        }
+        .ai-floating-btn { transition: opacity 0.3s ease, transform 0.3s ease; }
+        .ai-floating-btn.hidden { opacity: 0; transform: scale(0.8); pointer-events: none; }
         
         /* Receipt Upload Widget Styles */
         .receipt-upload-widget {
@@ -185,7 +177,51 @@
         .ruw-btn:hover { background: #003ea8; transform: translateY(-1px); }
         .ruw-btn:active { transform: translateY(0); }
         
-        /* Mobile Responsive */
+        /* Subject Card Styles */
+        .subject-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .subject-card:hover {
+            border-color: #0051D5;
+            transform: translateY(-2px);
+        }
+        .subject-card.selected {
+            border-color: #0051D5;
+            background: rgba(0, 81, 213, 0.02);
+        }
+        .subject-card.active {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .subject-card.active:hover {
+            border-color: #c6c6cd;
+            transform: none;
+        }
+        
+        /* Currency Toggle */
+        .currency-toggle {
+            position: relative;
+            display: inline-flex;
+            background: #f2f4f6;
+            border-radius: 9999px;
+            padding: 4px;
+        }
+        .currency-toggle button {
+            padding: 8px 20px;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        .currency-toggle button.active {
+            background: #0051D5;
+            color: white;
+        }
+        
         @media (max-width: 1023px) {
             #sidebar { position: fixed; left: -100%; z-index: 60; width: 280px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
             #sidebar.active { left: 0; }
@@ -294,7 +330,6 @@
             </div>
         </nav>
         
-        <!-- Footer Links -->
         <div class="px-4 py-4 border-t border-outline-variant/30 mt-auto">
             <div class="flex flex-wrap gap-4 text-[11px]">
                 <a href="/privacy" class="text-outline hover:text-primary transition-colors">Privacy</a>
@@ -304,12 +339,11 @@
         </div>
     </aside>
     
-    <!-- Main Content Wrapper -->
     <div id="mainWrapper" class="flex-1 overflow-y-auto">
         <header class="sticky top-0 z-40 w-full flex gap-4 px-margin-desktop py-4 bg-background/50 backdrop-blur-md">
             <div class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-4 flex items-center gap-3 card-shadow">
                 <i class="fa-solid fa-magnifying-glass text-outline"></i>
-                <input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface" placeholder="Search invoices, plans..." type="text" id="searchInput"/>
+                <input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface" placeholder="Search subjects, invoices..." type="text" id="searchInput"/>
             </div>
             <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-3 flex items-center gap-2 card-shadow">
                 <a href="#" class="relative p-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full transition-all"><i class="fa-regular fa-bell"></i><span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span></a>
@@ -325,211 +359,199 @@
         </header>
         
         <main class="px-margin-mobile md:px-margin-desktop pb-margin-desktop max-w-container-max mx-auto space-y-stack-lg">
-            <!-- Tuition Overview Header -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <!-- Header with Currency Toggle -->
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                    <h2 class="font-headline-lg text-headline-lg text-primary">Tuition Overview</h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Manage your academic investments, view active subscription models, and track your financial journey at NaijaAssets.</p>
+                    <h2 class="font-headline-lg text-headline-lg text-primary">Tuition & Subscriptions</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Manage your subject subscriptions, view pricing, and upload payment confirmations.</p>
+                </div>
+                <div class="currency-toggle">
+                    <button id="currency-usd" class="active">USD ($)</button>
+                    <button id="currency-ngn">NGN (₦)</button>
                 </div>
             </div>
 
-            <!-- Bento Layout Top -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
-                
-                <!-- NEW: Subject Billing & Checkout Cart -->
-                <div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl border border-outline-variant card-shadow relative overflow-hidden flex flex-col">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="font-headline-md text-headline-md text-primary flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-secondary"></i> Subject Billing & Checkout</h3>
-                        <div class="flex bg-surface-container rounded-lg p-1">
-                            <button id="currency-usd" class="px-3 py-1.5 rounded-md text-xs font-bold transition-all bg-secondary text-white">USD ($)</button>
-                            <button id="currency-ngn" class="px-3 py-1.5 rounded-md text-xs font-bold transition-all text-on-surface-variant">NGN (₦)</button>
-                        </div>
+            <!-- Top Row: Payment Methods + REX Upsell -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+                <!-- Payment Methods Card -->
+                <div class="bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant card-shadow">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i class="fa-solid fa-credit-card text-secondary text-2xl"></i>
+                        <h3 class="font-headline-md text-headline-md text-primary">Payment Methods</h3>
                     </div>
-                    
-                    <div id="subjects-cart-container" class="space-y-3 flex-1 overflow-y-auto max-h-[400px] pr-2 custom-scrollbar">
-                        <div class="text-center py-8 text-on-surface-variant">
-                            <i class="fa-solid fa-spinner fa-spin text-2xl"></i>
-                            <p class="mt-2">Loading subjects...</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 pt-4 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4">
-                        <div>
-                            <p class="text-sm text-outline"><span id="selected-count">0</span> Subjects Selected for this cycle</p>
-                            <p class="text-xs text-outline mt-1">Billing cycle: 4 Weeks</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-xs text-outline">Total Amount</p>
-                            <p class="text-2xl font-bold text-primary" id="total-amount">$0.00</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="bg-surface-container-lowest p-8 rounded-xl border border-outline-variant card-shadow flex flex-col justify-between">
-                    <h4 class="font-label-md text-label-md text-primary font-bold mb-4">Quick Actions</h4>
                     <div class="space-y-3">
-                        <button class="w-full flex items-center justify-between p-4 bg-surface-bright border border-outline-variant rounded-lg hover:border-secondary transition-colors group">
+                        <!-- Credit Card (Disabled) -->
+                        <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 opacity-50 cursor-not-allowed">
                             <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-credit-card text-secondary text-lg"></i>
-                                <span class="font-label-md text-label-md">Update Payment Method</span>
+                                <div class="w-10 h-10 bg-surface-container rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-credit-card text-outline"></i>
+                                </div>
+                                <div>
+                                    <p class="font-label-md text-primary font-bold">Credit/Debit Card</p>
+                                    <p class="text-xs text-outline">Coming soon</p>
+                                </div>
                             </div>
-                            <i class="fa-solid fa-chevron-right text-outline group-hover:translate-x-1 transition-transform"></i>
-                        </button>
-                        <button class="w-full flex items-center justify-between p-4 bg-surface-bright border border-outline-variant rounded-lg hover:border-secondary transition-colors group">
+                            <i class="fa-solid fa-lock text-outline"></i>
+                        </div>
+                        
+                        <!-- Bank Transfer (Disabled) -->
+                        <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 opacity-50 cursor-not-allowed">
                             <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-file-invoice text-secondary text-lg"></i>
-                                <span class="font-label-md text-label-md">View Billing Policy</span>
+                                <div class="w-10 h-10 bg-surface-container rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-building-columns text-outline"></i>
+                                </div>
+                                <div>
+                                    <p class="font-label-md text-primary font-bold">Bank Transfer</p>
+                                    <p class="text-xs text-outline">Coming soon</p>
+                                </div>
                             </div>
-                            <i class="fa-solid fa-chevron-right text-outline group-hover:translate-x-1 transition-transform"></i>
-                        </button>
+                            <i class="fa-solid fa-lock text-outline"></i>
+                        </div>
+                        
+                        <!-- Crypto (Coming Soon) -->
+                        <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 opacity-50 cursor-not-allowed">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-surface-container rounded-lg flex items-center justify-center">
+                                    <i class="fa-brands fa-bitcoin text-outline"></i>
+                                </div>
+                                <div>
+                                    <p class="font-label-md text-primary font-bold">Cryptocurrency</p>
+                                    <p class="text-xs text-outline">In development</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-clock text-outline"></i>
+                        </div>
+                        
+                        <!-- Other (Active - WhatsApp) -->
+                        <a href="https://wa.me/2348000000000?text=Hi%2C%20I%20want%20to%20pay%20for%20my%20subjects" target="_blank" class="flex items-center justify-between p-4 bg-secondary/5 rounded-xl border-2 border-secondary hover:bg-secondary/10 transition-colors group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center">
+                                    <i class="fa-brands fa-whatsapp text-secondary text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-label-md text-primary font-bold">Contact on WhatsApp</p>
+                                    <p class="text-xs text-secondary">Choose your preferred payment method</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-secondary group-hover:translate-x-1 transition-transform"></i>
+                        </a>
                     </div>
-                    <div class="mt-6 pt-6 border-t border-outline-variant">
-                        <p class="font-label-sm text-label-sm text-on-surface-variant">Auto-renew is <span class="text-on-tertiary-container font-bold">Disabled</span>. Manual renewal required.</p>
+                </div>
+
+                <!-- REX Subscription Upsell -->
+                <div class="bg-gradient-to-br from-secondary to-secondary-container text-white p-8 rounded-2xl card-shadow relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 opacity-10 pointer-events-none -mr-16 -mt-16">
+                        <i class="fa-solid fa-crown text-9xl"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fa-solid fa-crown text-2xl"></i>
+                            <h3 class="font-headline-md text-headline-md">Upgrade to REX</h3>
+                        </div>
+                        <p class="text-white/90 mb-6 leading-relaxed">
+                            Unlock unlimited access to <strong>all recordings</strong>, <strong>premium resources</strong>, and <strong>exclusive study materials</strong>. Perfect for serious students preparing for exams.
+                        </p>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div>
+                                <p class="text-3xl font-bold" id="rex-price-usd">$25</p>
+                                <p class="text-xs text-white/70">per month</p>
+                            </div>
+                            <div class="text-sm text-white/80">
+                                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Unlimited recordings</div>
+                                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Premium resources</div>
+                                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Priority support</div>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/2348000000000?text=Hi%2C%20I%20want%20to%20upgrade%20to%20REX" target="_blank" class="inline-flex items-center gap-2 bg-white text-secondary px-6 py-3 rounded-xl font-bold hover:bg-white/90 transition-colors">
+                            <i class="fa-solid fa-rocket"></i>
+                            <span>Upgrade Now</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- RECEIPT UPLOAD WIDGET SECTION -->
-            <div class="grid grid-cols-1 gap-gutter">
-                <div class="receipt-upload-widget" id="receiptWidget">
-                    <div class="flex items-center gap-3 mb-4 border-b border-outline-variant pb-3">
-                        <i class="fa-solid fa-receipt text-secondary text-xl"></i>
-                        <h3 class="font-headline-md text-headline-md text-primary">Upload Payment Confirmation</h3>
-                    </div>
-                    
-                    <!-- NEW: Dynamic Summary of Selected Subjects -->
-                    <div class="ruw-group">
-                        <label class="ruw-label"><i class="fa-solid fa-list-check mr-2"></i>Paying for</label>
-                        <div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant text-sm text-on-surface-variant" id="receipt-subjects-summary">
-                            No subjects selected. Please select subjects above.
+            <!-- Subject Subscriptions Panel -->
+            <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant card-shadow overflow-hidden">
+                <div class="px-8 py-6 border-b border-outline-variant bg-surface-container-low/30">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div>
+                            <h3 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+                                <i class="fa-solid fa-book-open text-secondary"></i>
+                                Your Subject Subscriptions
+                            </h3>
+                            <p class="text-sm text-on-surface-variant mt-1">Select subjects to pay for the next 4-week billing cycle</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm text-on-surface-variant">Selected: <strong id="selected-count">0</strong></span>
+                            <span class="text-sm text-on-surface-variant">Total: <strong id="selected-total" class="text-secondary">$0.00</strong></span>
                         </div>
                     </div>
-
-                    <div class="ruw-group">
-                        <label class="ruw-label"><i class="fa-solid fa-file-invoice mr-2"></i>Invoice / Reference Number</label>
-                        <input type="text" class="ruw-input" id="invoiceNumber" placeholder="e.g., INV-2026-0421 or Bank Teller No.">
+                </div>
+                
+                <div class="p-8">
+                    <div id="subjects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Subjects will be dynamically loaded here -->
+                        <div class="col-span-full text-center py-12">
+                            <i class="fa-solid fa-spinner fa-spin text-3xl text-secondary"></i>
+                            <p class="mt-4 text-on-surface-variant">Loading your subjects...</p>
+                        </div>
                     </div>
-
-                    <div class="ruw-dropzone" id="dropzone">
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
-                        <span style="display: block; margin-top: 8px;">Click or drag to upload receipt</span>
-                        <p class="text-xs mt-2 text-outline">Supported: JPG, PNG, PDF (max 5MB)</p>
-                    </div>
-                    <input type="file" id="receiptFile" class="ruw-input-file" hidden accept="image/*,application/pdf">
-
-                    <div class="ruw-preview" id="previewContainer">
-                        <img id="previewImg" class="ruw-preview-img">
-                        <p class="text-xs text-outline mt-1" id="fileNameDisplay"></p>
-                    </div>
-                    
-                    <div class="ruw-progress-wrap" id="progressWrap">
-                        <div class="ruw-progress-bar"><div class="ruw-fill" id="progressFill"></div></div>
-                        <p class="text-xs text-outline text-center mt-1">Uploading...</p>
-                    </div>
-
-                    <button class="ruw-btn" id="submitReceiptBtn">
-                        <i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT FOR VERIFICATION
-                    </button>
                 </div>
             </div>
 
-            <!-- Payment History Table -->
-            <section class="bg-surface-container-lowest rounded-xl border border-outline-variant card-shadow overflow-hidden">
-                <div class="px-8 py-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low/30">
-                    <h3 class="font-headline-md text-headline-md text-primary">Payment History</h3>
-                    <button class="text-secondary font-label-md hover:underline flex items-center gap-1">
-                        <i class="fa-solid fa-filter text-xs"></i> Filter
-                    </button>
+            <!-- Upload Payment Confirmation -->
+            <div class="receipt-upload-widget" id="receiptWidget">
+                <div class="flex items-center gap-3 mb-4 border-b border-outline-variant pb-3">
+                    <i class="fa-solid fa-receipt text-secondary text-xl"></i>
+                    <h3 class="font-headline-md text-headline-md text-primary">Upload Payment Confirmation</h3>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-surface-container-low text-on-surface-variant border-b border-outline-variant">
-                                <th class="px-8 py-4 font-label-md text-label-md font-bold uppercase tracking-wider">Date</th>
-                                <th class="px-8 py-4 font-label-md text-label-md font-bold uppercase tracking-wider">Description</th>
-                                <th class="px-8 py-4 font-label-md text-label-md font-bold uppercase tracking-wider">Amount</th>
-                                <th class="px-8 py-4 font-label-md text-label-md font-bold uppercase tracking-wider">Status</th>
-                                <th class="px-8 py-4 font-label-md text-label-md font-bold uppercase tracking-wider text-right">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-outline-variant">
-                            <tr class="hover:bg-surface-bright transition-colors group">
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Sept 12, 2025</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Tuition Fee - Professional Plan (Sept)</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦25,000</td>
-                                <td class="px-8 py-5">
-                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-sm text-[12px] font-bold">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Paid
-                                    </span>
-                                </td>
-                                <td class="px-8 py-5 text-right">
-                                    <button class="text-secondary font-label-md flex items-center gap-1 ml-auto group-hover:scale-105 transition-transform">
-                                        <i class="fa-solid fa-download text-sm"></i> Download Invoice
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-surface-bright transition-colors group">
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Aug 12, 2025</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Tuition Fee - Professional Plan (Aug)</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦25,000</td>
-                                <td class="px-8 py-5">
-                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-sm text-[12px] font-bold">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Paid
-                                    </span>
-                                </td>
-                                <td class="px-8 py-5 text-right">
-                                    <button class="text-secondary font-label-md flex items-center gap-1 ml-auto group-hover:scale-105 transition-transform">
-                                        <i class="fa-solid fa-download text-sm"></i> Download Invoice
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-surface-bright transition-colors group opacity-60">
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Oct 12, 2025</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Tuition Fee - Professional Plan (Oct)</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦25,000</td>
-                                <td class="px-8 py-5">
-                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-[12px] font-bold">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Pending
-                                    </span>
-                                </td>
-                                <td class="px-8 py-5 text-right">
-                                    <button class="text-outline font-label-md flex items-center gap-1 ml-auto cursor-not-allowed">
-                                        <i class="fa-solid fa-lock text-sm"></i> Coming Soon
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-surface-bright transition-colors group">
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary">Jul 12, 2025</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-on-surface-variant">Registration Fee - Academic Year 2025/2026</td>
-                                <td class="px-8 py-5 font-body-md text-body-md text-primary font-bold">₦15,000</td>
-                                <td class="px-8 py-5">
-                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container font-label-sm text-[12px] font-bold">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Paid
-                                    </span>
-                                </td>
-                                <td class="px-8 py-5 text-right">
-                                    <button class="text-secondary font-label-md flex items-center gap-1 ml-auto">
-                                        <i class="fa-solid fa-download text-sm"></i> Invoice
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <p class="text-sm text-on-surface-variant mb-4">After contacting us on WhatsApp and making payment, upload your receipt here for verification.</p>
+                
+                <div class="ruw-group">
+                    <label class="ruw-label"><i class="fa-solid fa-list-check mr-2"></i>Subjects Paid For</label>
+                    <div id="paid-subjects-summary" class="text-sm text-on-surface-variant italic">No subjects selected yet</div>
                 </div>
-            </section>
+                
+                <div class="ruw-group">
+                    <label class="ruw-label"><i class="fa-solid fa-file-invoice mr-2"></i>Invoice Number (Optional)</label>
+                    <input type="text" class="ruw-input" id="invoiceNumber" placeholder="e.g., INV-2026-0421">
+                </div>
+
+                <div class="ruw-dropzone" id="dropzone">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span style="display: block; margin-top: 8px;">Click or drag to upload receipt</span>
+                    <p class="text-xs mt-2 text-outline">Supported: JPG, PNG, PDF (max 5MB)</p>
+                </div>
+                <input type="file" id="receiptFile" class="ruw-input-file" hidden accept="image/*,application/pdf">
+
+                <div class="ruw-preview" id="previewContainer">
+                    <img id="previewImg" class="ruw-preview-img">
+                    <p class="text-xs text-outline mt-1" id="fileNameDisplay"></p>
+                </div>
+                
+                <div class="ruw-progress-wrap" id="progressWrap">
+                    <div class="ruw-progress-bar"><div class="ruw-fill" id="progressFill"></div></div>
+                    <p class="text-xs text-outline text-center mt-1">Uploading...</p>
+                </div>
+
+                <button class="ruw-btn" id="submitReceiptBtn">
+                    <i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT
+                </button>
+            </div>
 
             <!-- Financial Support Teaser -->
-            <section class="bg-primary text-on-primary rounded-xl overflow-hidden relative card-shadow min-h-[200px] flex flex-col md:flex-row items-center">
+            <section class="bg-primary text-on-primary rounded-2xl overflow-hidden relative card-shadow min-h-[200px] flex flex-col md:flex-row items-center">
                 <div class="p-10 flex-1 z-10">
                     <h3 class="font-headline-md text-headline-md mb-2">Need Financial Support?</h3>
-                    <p class="font-body-md text-body-md opacity-80 mb-6 max-w-lg">Explore our scholarship opportunities and flexible payment plans designed to make high-quality academic assets accessible for everyone.</p>
-                    <button class="bg-secondary text-on-secondary px-8 py-3 rounded-xl font-label-md inline-flex items-center gap-2 hover:bg-secondary-container transition-colors btn-scale">
-                        <i class="fa-solid fa-graduation-cap"></i> View Scholarships <i class="fa-solid fa-arrow-right ml-1"></i>
-                    </button>
+                    <p class="font-body-md text-body-md opacity-80 mb-6 max-w-lg">Explore our scholarship opportunities and flexible payment plans designed to make high-quality academic resources accessible for everyone.</p>
+                    <a href="/scholarships" class="inline-flex items-center gap-2 bg-secondary text-on-secondary px-8 py-3 rounded-xl font-label-md hover:bg-secondary-container transition-colors btn-scale">
+                        <i class="fa-solid fa-graduation-cap"></i> 
+                        <span>View Scholarships</span>
+                        <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </a>
                 </div>
-                <div class="hidden md:block w-1/3 h-full relative overflow-hidden bg-on-primary/10 rounded-r-xl">
-                    <img class="absolute inset-0 w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700" src="https://naijaassets.com/user.png" alt="Students collaborating"/>
+                <div class="hidden md:block w-1/3 h-full relative overflow-hidden bg-on-primary/10 rounded-r-2xl">
+                    <img class="absolute inset-0 w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdqRLuTZNiktYA6nfD18u2qJof7AF7okMdtPyEzW1IXtX3p9uBg96y7iCbaL3FX1nZtVE1l7SGADG8vgbn2dqF0A6dVEhProLj5PS0b28kYK2PiHnVh8OZN8uC0Xq4VIFYu52FWxD6PUMjOBeRP1Yxw140m9RQnkCTEKTle1MtVdLTpqhd2dNjV8ckxXXbQU4UZCPb8XIFogcswP3Se51sN_R4Qc2Le_pCHjp_pXVNbtsuld1gmvzVzLeO-yuTb30A8F_2FN5ebNg" alt="Students collaborating"/>
                 </div>
             </section>
         </main>
@@ -563,7 +585,6 @@
     <i class="fa-solid fa-comments text-xl"></i>
 </button>
 
-<!-- Existing UI Logic (Unchanged) -->
 <script>
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
@@ -607,7 +628,6 @@
         button.setAttribute('aria-expanded', isExpanded);
     }
 
-    // AI Chat Pane Toggle
     const aiToggle = document.getElementById('aiChatToggle');
     const aiPane = document.getElementById('aiChatPane');
     const closeAi = document.getElementById('closeAiChat');
@@ -634,19 +654,25 @@
     aiToggle.addEventListener('click', toggleAiPane);
     closeAi.addEventListener('click', toggleAiPane);
 
-    // Search filter
-    const searchInput = document.getElementById('searchInput');
-    if(searchInput){
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const rows = document.querySelectorAll('tbody tr');
-            rows.forEach(row => {
-                const text = row.innerText.toLowerCase();
-                row.style.display = text.includes(term) ? '' : 'none';
-            });
-        });
-    }
+    // Currency Toggle
+    let currentCurrency = 'usd';
+    const currencyUSD = document.getElementById('currency-usd');
+    const currencyNGN = document.getElementById('currency-ngn');
     
+    currencyUSD.addEventListener('click', () => {
+        currentCurrency = 'usd';
+        currencyUSD.classList.add('active');
+        currencyNGN.classList.remove('active');
+        if (window.updateCurrencyDisplay) window.updateCurrencyDisplay();
+    });
+    
+    currencyNGN.addEventListener('click', () => {
+        currentCurrency = 'ngn';
+        currencyNGN.classList.add('active');
+        currencyUSD.classList.remove('active');
+        if (window.updateCurrencyDisplay) window.updateCurrencyDisplay();
+    });
+
     // Receipt Upload Widget
     const dropzone = document.getElementById('dropzone');
     const fileInput = document.getElementById('receiptFile');
@@ -703,19 +729,18 @@
     }
     
     submitBtn.addEventListener('click', () => {
-        if (!invoiceInput.value.trim()) { alert('Please enter an invoice number'); invoiceInput.focus(); return; }
         if (!selectedFile) { alert('Please select a receipt file to upload'); return; }
         submitBtn.disabled = true; 
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Submitting...';
         setTimeout(() => {
-            alert(`Receipt for invoice ${invoiceInput.value.trim()} submitted successfully!\nFile: ${selectedFile.name}\nOur team will verify your payment within 24 hours.`);
+            alert(`Receipt submitted successfully!\nFile: ${selectedFile.name}\nOur team will verify your payment within 24 hours.`);
             invoiceInput.value = ''; 
             selectedFile = null; 
             previewContainer.style.display = 'none'; 
             previewImg.src = ''; 
             fileInput.value = '';
             submitBtn.disabled = false; 
-            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT FOR VERIFICATION';
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT';
         }, 1500);
     });
     
@@ -731,55 +756,40 @@
     });
 </script>
 
-<!-- NEW: Supabase Integration Logic (Dynamic Billing) -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
     import { supabase } from '../../supabaseClient.js';
 
-    let currentCurrency = 'usd';
+    let userSubjects = [];
+    let userSubscriptions = [];
     let pricingData = [];
-    let subscriptionsData = [];
+    let selectedSubjects = new Set();
 
     async function initPaymentsPage() {
-        // 1. Initialize Auth & Check Session
         await initializeAuth();
         if (!requireAuth()) return;
 
         const user = window.currentUser;
         const session = window.currentSession;
-
-        // 2. Dynamic Profile Data Injection
         const meta = session.user.user_metadata || {};
         const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
         
+        // Sidebar Profile
         const sidebarName = document.querySelector('.profile-section .profile-details p.font-bold');
         const sidebarEmail = document.querySelector('.profile-section .profile-details p.text-outline');
         if (sidebarName) sidebarName.textContent = fullName;
         if (sidebarEmail) sidebarEmail.textContent = user.email;
 
+        // Header Profile
         const headerName = document.querySelector('.header-profile .text-right p.text-primary');
         const headerLevel = document.querySelector('.header-profile .text-right p.text-outline');
         if (headerName) headerName.textContent = fullName;
         if (headerLevel) headerLevel.textContent = user.grade || 'Student';
 
-        // 3. Load Billing Data
-        await loadBillingData(user);
-
-        // 4. Currency Toggle Listeners
-        document.getElementById('currency-usd').addEventListener('click', () => {
-            currentCurrency = 'usd';
-            document.getElementById('currency-usd').className = 'px-3 py-1.5 rounded-md text-xs font-bold transition-all bg-secondary text-white';
-            document.getElementById('currency-ngn').className = 'px-3 py-1.5 rounded-md text-xs font-bold transition-all text-on-surface-variant';
-            renderCart(user);
-        });
-        document.getElementById('currency-ngn').addEventListener('click', () => {
-            currentCurrency = 'ngn';
-            document.getElementById('currency-ngn').className = 'px-3 py-1.5 rounded-md text-xs font-bold transition-all bg-secondary text-white';
-            document.getElementById('currency-usd').className = 'px-3 py-1.5 rounded-md text-xs font-bold transition-all text-on-surface-variant';
-            renderCart(user);
-        });
-
-        // 5. Logout Functionality
+        // Load data
+        await loadData(user);
+        
+        // Logout
         const logoutBtn = document.getElementById('logoutBtn');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', (e) => {
@@ -789,114 +799,163 @@
         }
     }
 
-    async function loadBillingData(user) {
-        const container = document.getElementById('subjects-cart-container');
+    async function loadData(user) {
+        // Fetch user's subject wishlist
+        userSubjects = user.subjects || [];
         
-        if (!user.grade) {
-            container.innerHTML = `<div class="text-center py-8 text-on-surface-variant"><i class="fa-solid fa-triangle-exclamation text-error text-3xl mb-2"></i><p class="text-error font-bold">No Grade Assigned</p><p class="text-sm mt-1">Please request a grade assignment in Settings before purchasing subjects.</p></div>`;
-            updateTotal();
-            return;
-        }
-
-        // Fetch pricing for user's grade
-        const { data: pricing, error: pErr } = await supabase.from('subject_pricing').select('*').eq('grade', user.grade);
-        if (pErr) console.error(pErr);
+        // Fetch pricing data
+        const { data: pricing } = await supabase
+            .from('subject_pricing')
+            .select('*')
+            .eq('grade', user.grade);
         pricingData = pricing || [];
-
-        // Fetch user's current subscriptions
-        const { data: subs, error: sErr } = await supabase.from('subject_subscriptions').select('subject, is_active, expires_at').eq('user_id', user.id);
-        if (sErr) console.error(sErr);
-        subscriptionsData = subs || [];
-
-        renderCart(user);
+        
+        // Fetch active subscriptions
+        const { data: subs } = await supabase
+            .from('subject_subscriptions')
+            .select('*')
+            .eq('user_id', user.id)
+            .eq('grade', user.grade);
+        userSubscriptions = subs || [];
+        
+        renderSubjects();
     }
 
-    function renderCart(user) {
-        const container = document.getElementById('subjects-cart-container');
-        container.innerHTML = '';
-
-        if (!user.subjects || user.subjects.length === 0) {
-            container.innerHTML = `<div class="text-center py-8 text-on-surface-variant"><i class="fa-solid fa-book-open text-3xl mb-2"></i><p>No subjects selected in your Academic Profile.</p><a href="/dashboard/settings/?section=academic" class="text-secondary text-sm hover:underline">Go to Settings to add subjects</a></div>`;
-            updateTotal();
+    function renderSubjects() {
+        const container = document.getElementById('subjects-container');
+        
+        if (userSubjects.length === 0) {
+            container.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <i class="fa-solid fa-inbox text-4xl text-outline mb-4"></i>
+                    <p class="text-on-surface-variant mb-4">You haven't selected any subjects yet.</p>
+                    <a href="/dashboard/settings/" class="inline-flex items-center gap-2 text-secondary font-bold hover:underline">
+                        <i class="fa-solid fa-plus"></i> Add subjects in Settings
+                    </a>
+                </div>
+            `;
             return;
         }
 
-        user.subjects.forEach(subjectName => {
-            const priceRow = pricingData.find(p => p.subject === subjectName);
-            const subRow = subscriptionsData.find(s => s.subject === subjectName);
+        container.innerHTML = userSubjects.map(subjectName => {
+            const pricing = pricingData.find(p => p.subject === subjectName);
+            const subscription = userSubscriptions.find(s => s.subject === subjectName);
             
-            let statusText = 'Unpaid';
-            let statusClass = 'bg-surface-container text-outline';
-            let isDisabled = false;
-
-            if (subRow) {
-                const isActive = subRow.is_active && new Date(subRow.expires_at) > new Date();
-                if (isActive) {
-                    const daysLeft = Math.ceil((new Date(subRow.expires_at) - new Date()) / (1000*60*60*24));
-                    statusText = `Active (${daysLeft}d)`;
-                    statusClass = 'bg-on-tertiary-container/10 text-on-tertiary-container';
-                    isDisabled = true;
-                } else {
-                    statusText = 'Expired';
-                    statusClass = 'bg-error-container/50 text-error';
-                }
+            if (!pricing) return '';
+            
+            const isActive = subscription && subscription.is_active && new Date(subscription.expires_at) > new Date();
+            const isExpired = subscription && !subscription.is_active;
+            
+            let statusBadge = '';
+            if (isActive) {
+                const daysLeft = Math.ceil((new Date(subscription.expires_at) - new Date()) / (1000 * 60 * 60 * 24));
+                statusBadge = `<span class="text-xs font-bold text-on-tertiary-container flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Active (${daysLeft}d)</span>`;
+            } else if (isExpired) {
+                statusBadge = `<span class="text-xs font-bold text-error flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Expired</span>`;
+            } else {
+                statusBadge = `<span class="text-xs font-bold text-outline flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Unpaid</span>`;
             }
 
-            const price = priceRow ? (currentCurrency === 'usd' ? priceRow.price_usd : priceRow.price_ngn) : 0;
-            const formattedPrice = currentCurrency === 'usd' ? `$${price.toFixed(2)}` : `₦${price.toLocaleString()}`;
-
-            const row = document.createElement('div');
-            row.className = `flex items-center justify-between p-4 rounded-xl border transition-all ${isDisabled ? 'bg-surface-container-low/50 border-outline-variant/30 opacity-70' : 'bg-surface-container-low border-outline-variant hover:border-secondary'}`;
+            const priceUSD = pricing.price_usd;
+            const priceNGN = pricing.price_ngn;
+            const displayPrice = currentCurrency === 'usd' ? `$${priceUSD}` : `₦${priceNGN.toLocaleString()}`;
             
-            row.innerHTML = `
-                <div class="flex items-center gap-4">
-                    <input type="checkbox" class="subject-cart-checkbox accent-secondary w-5 h-5" value="${subjectName}" data-price="${price}" ${isDisabled ? 'disabled checked' : ''}>
-                    <div>
-                        <p class="font-label-md text-primary font-bold">${subjectName}</p>
-                        <span class="text-xs font-bold px-2 py-0.5 rounded-full ${statusClass}">${statusText}</span>
+            return `
+                <div class="subject-card ${isActive ? 'active' : ''} ${selectedSubjects.has(subjectName) ? 'selected' : ''} p-5 bg-surface-container-lowest rounded-xl border-2 border-outline-variant" data-subject="${subjectName}">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex-1">
+                            <h4 class="font-label-md text-primary font-bold mb-1">${subjectName}</h4>
+                            <p class="text-2xl font-bold text-secondary mb-2" data-price-usd="${priceUSD}" data-price-ngn="${priceNGN}">${displayPrice}</p>
+                        </div>
+                        ${statusBadge}
                     </div>
+                    ${!isActive ? `
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="subject-checkbox w-4 h-4 accent-secondary" ${selectedSubjects.has(subjectName) ? 'checked' : ''} ${isActive ? 'disabled' : ''}>
+                            <span class="text-sm text-on-surface-variant">Select for payment</span>
+                        </label>
+                    ` : `
+                        <div class="text-xs text-outline">
+                            <i class="fa-solid fa-lock mr-1"></i> Already paid until ${new Date(subscription.expires_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                        </div>
+                    `}
                 </div>
-                <p class="font-headline-md text-primary">${formattedPrice}</p>
             `;
-            
-            container.appendChild(row);
+        }).join('');
+
+        // Add event listeners to checkboxes
+        document.querySelectorAll('.subject-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                const subjectName = e.target.closest('.subject-card').dataset.subject;
+                if (e.target.checked) {
+                    selectedSubjects.add(subjectName);
+                } else {
+                    selectedSubjects.delete(subjectName);
+                }
+                updateSelectionDisplay();
+            });
         });
 
-        // Attach listeners to new checkboxes
-        document.querySelectorAll('.subject-cart-checkbox:not(:disabled)').forEach(cb => {
-            cb.addEventListener('change', updateTotal);
+        // Add click handlers to cards
+        document.querySelectorAll('.subject-card:not(.active)').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.type !== 'checkbox') {
+                    const checkbox = card.querySelector('.subject-checkbox');
+                    checkbox.checked = !checkbox.checked;
+                    checkbox.dispatchEvent(new Event('change'));
+                }
+            });
         });
 
-        updateTotal();
+        updateSelectionDisplay();
     }
 
-    function updateTotal() {
-        const checkboxes = document.querySelectorAll('.subject-cart-checkbox:checked:not(:disabled)');
-        let total = 0;
-        let selectedSubjects = [];
+    function updateSelectionDisplay() {
+        const count = selectedSubjects.size;
+        document.getElementById('selected-count').textContent = count;
         
-        checkboxes.forEach(cb => {
-            total += parseFloat(cb.dataset.price);
-            selectedSubjects.push(cb.value);
+        let totalUSD = 0;
+        let totalNGN = 0;
+        
+        selectedSubjects.forEach(subjectName => {
+            const pricing = pricingData.find(p => p.subject === subjectName);
+            if (pricing) {
+                totalUSD += parseFloat(pricing.price_usd);
+                totalNGN += parseFloat(pricing.price_ngn);
+            }
         });
-
-        const formattedTotal = currentCurrency === 'usd' ? `$${total.toFixed(2)}` : `₦${total.toLocaleString()}`;
-
-        document.getElementById('selected-count').textContent = selectedSubjects.length;
-        document.getElementById('total-amount').textContent = formattedTotal;
         
-        // Update Receipt Summary
-        const summaryEl = document.getElementById('receipt-subjects-summary');
-        if (selectedSubjects.length > 0) {
-            summaryEl.innerHTML = `<span class="font-bold text-primary">You are paying for:</span> ${selectedSubjects.join(', ')}`;
-            summaryEl.className = 'p-3 bg-secondary/5 rounded-xl border border-secondary/20 text-sm text-on-surface-variant';
+        const displayTotal = currentCurrency === 'usd' ? `$${totalUSD.toFixed(2)}` : `₦${totalNGN.toLocaleString()}`;
+        document.getElementById('selected-total').textContent = displayTotal;
+        
+        // Update summary in upload widget
+        const summary = document.getElementById('paid-subjects-summary');
+        if (count === 0) {
+            summary.innerHTML = '<em>No subjects selected yet</em>';
         } else {
-            summaryEl.innerHTML = 'No subjects selected. Please select subjects above.';
-            summaryEl.className = 'p-3 bg-surface-container-low rounded-xl border border-outline-variant text-sm text-on-surface-variant';
+            summary.innerHTML = Array.from(selectedSubjects).map(s => `<span class="inline-block bg-secondary/10 text-secondary px-2 py-1 rounded-full text-xs font-bold mr-2 mb-2">${s}</span>`).join('');
         }
+        
+        // Update card selection state
+        document.querySelectorAll('.subject-card').forEach(card => {
+            const subjectName = card.dataset.subject;
+            if (selectedSubjects.has(subjectName)) {
+                card.classList.add('selected');
+            } else {
+                card.classList.remove('selected');
+            }
+        });
     }
 
-    // Run initialization
+    window.updateCurrencyDisplay = function() {
+        document.querySelectorAll('[data-price-usd]').forEach(el => {
+            const usd = parseFloat(el.dataset.priceUsd);
+            const ngn = parseFloat(el.dataset.priceNgn);
+            el.textContent = currentCurrency === 'usd' ? `$${usd}` : `₦${ngn.toLocaleString()}`;
+        });
+        updateSelectionDisplay();
+    };
+
     initPaymentsPage();
 </script>
 </body>
