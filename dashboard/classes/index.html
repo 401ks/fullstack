@@ -1515,7 +1515,7 @@
         const referralInput = document.getElementById('referralInput');
         if (referralInput && user.username) {
             // Use the origin to ensure it works on GitHub Pages too
-            referralInput.value = `${window.location.origin}${BASE_PATH}/login/?ref=${user.username}`;
+            referralInput.value = `${window.location.origin}${BASE_PATH}/signup/?ref=${user.username}`;
         }
 
         // 6. Logout Functionality
