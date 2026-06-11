@@ -761,13 +761,12 @@
             
             const uniqueGrades = [...new Set(data.map(item => item.grade))];
             
-            // Clear existing options except the first placeholder
             gradeSelect.innerHTML = '<option value="" disabled selected hidden></option>';
             
             uniqueGrades.forEach(grade => {
                 const option = document.createElement('option');
                 option.value = grade;
-                option.textContent = grade.replace(/(\d+)$/, ' $1'); // "JSS1" -> "JSS 1"
+                option.textContent = grade.replace(/(\d+)$/, ' $1');
                 gradeSelect.appendChild(option);
             });
             
@@ -827,7 +826,45 @@
     }
 
     // ==========================================
-    // 4. SUPABASE AUTH HANDLERS
+    // 4. REFERRAL VERIFICATION
+    // ==========================================
+    async function verifyReferralAfterSignup(userId) {
+        try {
+            const { data: userProfile, error } = await supabase
+                .from('users')
+                .select('referred_by, referral_count')
+                .eq('id', userId)
+                .single();
+            
+            if (error) {
+                console.error('Error checking referral status:', error);
+                return;
+            }
+            
+            if (userProfile.referred_by) {
+                console.log('✅ Referral successfully recorded!');
+                console.log('   Referred by:', userProfile.referred_by);
+                
+                const { data: referrer } = await supabase
+                    .from('users')
+                    .select('username, email')
+                    .eq('id', userProfile.referred_by)
+                    .single();
+                
+                if (referrer) {
+                    console.log('   Referrer username:', referrer.username);
+                }
+            } else {
+                console.log('ℹ️ No referral recorded (user signed up without referral code)');
+            }
+            
+        } catch (err) {
+            console.error('Error verifying referral:', err);
+        }
+    }
+
+    // ==========================================
+    // 5. SUPABASE AUTH HANDLERS
     // ==========================================
     let currentOtpEmail = '';
 
@@ -838,7 +875,6 @@
         const termsCheckbox = document.getElementById('terms');
         const termsWarning = document.getElementById('termsWarning');
         
-        // Check if terms are agreed
         if (!termsCheckbox.checked) {
             termsWarning.classList.add('show');
             termsCheckbox.focus();
@@ -860,8 +896,7 @@
         const lastName = document.getElementById('lastName').value;
         const phone = document.getElementById('phone').value;
         
-        // Get referral code from localStorage
-        const referralCode = localStorage.getItem('referral_code');
+        const referralUsername = localStorage.getItem('referral_code');
         
         const button = event.target.querySelector('button[type="submit"]');
         const originalText = button.innerHTML;
@@ -869,6 +904,25 @@
         button.disabled = true;
         
         try {
+            // Verify referrer exists before signup
+            if (referralUsername) {
+                console.log('📣 Attempting signup with referral:', referralUsername);
+                
+                const { data: referrer, error: refError } = await supabase
+                    .from('users')
+                    .select('id, username')
+                    .eq('username', referralUsername)
+                    .maybeSingle();
+                
+                if (refError) {
+                    console.error('Error checking referrer:', refError);
+                } else if (referrer) {
+                    console.log('✅ Referrer found:', referrer.username, '->', referrer.id);
+                } else {
+                    console.warn('⚠️ Referrer username not found:', referralUsername);
+                }
+            }
+            
             const { data, error } = await supabase.auth.signUp({
                 email: email,
                 password: password,
@@ -877,14 +931,15 @@
                         first_name: firstName,
                         last_name: lastName,
                         phone: phone,
-                        referred_by: referralCode // Pass username, backend will resolve to UUID
+                        referred_by: referralUsername || null
                     }
                 }
             });
             
             if (error) throw error;
             
-            // Store email for OTP verification
+            console.log('✅ Signup successful, waiting for email verification...');
+            
             currentOtpEmail = email;
             localStorage.setItem('signup_email', email);
             
@@ -893,7 +948,8 @@
             startResendTimer();
             
         } catch (error) {
-            alert(error.message);
+            console.error('❌ Signup error:', error);
+            alert('Signup failed: ' + error.message);
             button.innerHTML = originalText;
             button.disabled = false;
         }
@@ -974,15 +1030,22 @@
             
             if (error) throw error;
             
+            console.log('✅ Email verified successfully');
+            
+            // Verify referral was recorded
+            if (data.session) {
+                await verifyReferralAfterSignup(data.session.user.id);
+            }
+            
             localStorage.removeItem('signup_email');
             button.innerHTML = originalText;
             button.disabled = false;
             
-            // Show onboarding form
             showForm('onboardingForm', 'verifyEmailForm');
             await loadGrades();
             
         } catch (error) {
+            console.error('❌ OTP verification error:', error);
             alert('Invalid OTP. ' + error.message);
             button.innerHTML = originalText;
             button.disabled = false;
@@ -1028,7 +1091,6 @@
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) throw new Error("No active session");
             
-            // Update user profile
             const { error: profileError } = await supabase
                 .from('users')
                 .update({ 
@@ -1039,7 +1101,6 @@
                 
             if (profileError) throw profileError;
 
-            // Create subscription records (wishlist)
             const subscriptionRecords = subjects.map(subject => ({
                 user_id: session.user.id,
                 grade: studentClass,
@@ -1063,7 +1124,7 @@
     }
 
     // ==========================================
-    // 5. EXPOSE FUNCTIONS TO GLOBAL SCOPE
+    // 6. EXPOSE FUNCTIONS TO GLOBAL SCOPE
     // ==========================================
     window.showForm = showForm;
     window.togglePassword = togglePassword;
@@ -1076,10 +1137,9 @@
     window.updateSubjectCounter = updateSubjectCounter;
 
     // ==========================================
-    // 6. INITIAL LOAD & ROUTING
+    // 7. INITIAL LOAD & ROUTING
     // ==========================================
     document.addEventListener('DOMContentLoaded', async () => {
-        // 1. Check if already logged in
         const { data: { session } } = await supabase.auth.getSession();
         if (session) {
             const { data: profile } = await supabase.from('users').select('grade').eq('id', session.user.id).single();
@@ -1092,12 +1152,11 @@
             return;
         }
 
-        // 2. Capture referral code from URL
         const urlParams = new URLSearchParams(window.location.search);
         const refCode = urlParams.get('ref');
         if (refCode) {
             localStorage.setItem('referral_code', refCode);
-            console.log('Referral code captured:', refCode);
+            console.log('📣 Referral code captured:', refCode);
         }
     });
 </script>
