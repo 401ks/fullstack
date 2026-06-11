@@ -103,7 +103,6 @@
     <style>
         body { font-family: 'Manrope', sans-serif; background-color: #f7f9fb; overflow-x: hidden; }
         
-        /* Mobile Menu */
         .mobile-menu-overlay { transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; }
         .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
         .mobile-menu-overlay.inactive { opacity: 0; visibility: hidden; }
@@ -111,29 +110,11 @@
         .mobile-menu.active { transform: translateX(0); }
         .mobile-menu.inactive { transform: translateX(-100%); }
         
-        /* Form Container Transitions */
-        .form-container {
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .form-container.hidden {
-            opacity: 0;
-            transform: translateY(10px);
-            pointer-events: none;
-            position: absolute;
-            width: 100%;
-        }
-        .form-container.active {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: all;
-            position: relative;
-        }
+        .form-container { transition: opacity 0.3s ease, transform 0.3s ease; }
+        .form-container.hidden { opacity: 0; transform: translateY(10px); pointer-events: none; position: absolute; width: 100%; }
+        .form-container.active { opacity: 1; transform: translateY(0); pointer-events: all; position: relative; }
         
-        /* Uiverse-style Floating Label Input */
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
+        .input-group { position: relative; margin-bottom: 20px; }
         
         .input-field {
             width: 100%;
@@ -148,13 +129,8 @@
             color: #191c1e;
         }
         
-        .input-field:focus {
-            border-color: #0051d5;
-        }
-        
-        .input-field:invalid:not(:placeholder-shown) {
-            border-color: #ba1a1a;
-        }
+        .input-field:focus { border-color: #0051d5; }
+        .input-field:invalid:not(:placeholder-shown) { border-color: #ba1a1a; }
         
         .input-label {
             position: absolute;
@@ -169,7 +145,6 @@
             padding: 0 6px;
         }
         
-        /* When focused or has value, label floats up and sits on the border */
         .input-field:focus + .input-label,
         .input-field:not(:placeholder-shown) + .input-label {
             top: 0;
@@ -180,12 +155,8 @@
             background: #ffffff;
         }
         
-        /* When not focused but has value, label stays up but loses blue color */
-        .input-field:not(:focus):not(:placeholder-shown) + .input-label {
-            color: #76777d;
-        }
+        .input-field:not(:focus):not(:placeholder-shown) + .input-label { color: #76777d; }
         
-        /* Select dropdown styling */
         select.input-field {
             appearance: none;
             -webkit-appearance: none;
@@ -195,7 +166,6 @@
             padding-right: 40px;
         }
         
-        /* OTP Input */
         .otp-input {
             width: 42px;
             height: 56px;
@@ -208,60 +178,28 @@
             outline: none;
         }
         
-        .otp-input:focus {
-            border-color: #0051d5;
-            box-shadow: 0 0 0 3px rgba(0, 81, 213, 0.1);
-        }
+        .otp-input:focus { border-color: #0051d5; box-shadow: 0 0 0 3px rgba(0, 81, 213, 0.1); }
         
-        /* Custom scrollbar */
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         
-        /* Terms warning */
-        .terms-warning {
-            color: #ba1a1a;
-            font-size: 13px;
-            margin-top: 8px;
-            display: none;
-            align-items: center;
-            gap: 6px;
-        }
+        .terms-warning { color: #ba1a1a; font-size: 13px; margin-top: 8px; display: none; align-items: center; gap: 6px; }
+        .terms-warning.show { display: flex; }
         
-        .terms-warning.show {
-            display: flex;
-        }
-        
-        /* Subject counter */
-        .subject-counter {
-            font-size: 13px;
-            color: #76777d;
-            margin-top: 8px;
-        }
-        
-        .subject-counter.valid {
-            color: #009485;
-        }
-        
-        .subject-counter.invalid {
-            color: #ba1a1a;
-        }
+        .subject-counter { font-size: 13px; color: #76777d; margin-top: 8px; }
+        .subject-counter.valid { color: #009485; }
+        .subject-counter.invalid { color: #ba1a1a; }
         
         @media (max-width: 768px) {
-            .otp-input {
-                width: 36px;
-                height: 48px;
-                font-size: 18px;
-            }
+            .otp-input { width: 36px; height: 48px; font-size: 18px; }
         }
     </style>
 </head>
 <body class="bg-background text-on-surface min-h-screen flex flex-col">
 
-<!-- Mobile Menu Overlay -->
 <div class="mobile-menu-overlay inactive fixed inset-0 bg-[#0d1c2e]/50 backdrop-blur-sm z-[90] md:hidden" id="mobile-menu-overlay"></div>
 
-<!-- Mobile Menu -->
 <div class="mobile-menu inactive fixed top-0 left-0 h-full w-[85%] max-w-[320px] bg-surface-container-lowest shadow-2xl z-[100] md:hidden flex flex-col" id="mobile-menu">
     <div class="flex justify-between items-center p-5 border-b border-outline-variant/30">
         <a href="/" class="flex items-center gap-3">
@@ -296,10 +234,6 @@
             <i class="fa-solid fa-circle-info w-5 text-center"></i>
             <span class="font-label-md text-label-md">About</span>
         </a>
-        <a href="/subjects" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
-            <i class="fa-solid fa-book-open w-5 text-center"></i>
-            <span class="font-label-md text-label-md">Subjects</span>
-        </a>
         <a href="/pricing" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
             <i class="fa-solid fa-tag w-5 text-center"></i>
             <span class="font-label-md text-label-md">Pricing</span>
@@ -323,7 +257,6 @@
     </div>
 </div>
 
-<!-- Top Navigation -->
 <header class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
     <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-16">
         <a href="/" class="flex items-center gap-3">
@@ -337,7 +270,6 @@
         <div class="hidden md:flex items-center gap-6">
             <a href="/" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Home</a>
             <a href="/about" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">About</a>
-            <a href="/subjects" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Subjects</a>
             <a href="/pricing" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Pricing</a>
             <a href="/faq" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">FAQ</a>
             <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
@@ -356,7 +288,6 @@
 
 <main class="flex-grow flex items-center justify-center pt-24 pb-12 px-margin-mobile">
     <div class="max-w-container-max w-full grid lg:grid-cols-2 gap-gutter items-center">
-        <!-- Left Side: Forms Container -->
         <div class="flex flex-col items-center justify-center w-full order-2 lg:order-1">
             <div class="w-full max-w-md relative flex justify-center">
                 
@@ -388,7 +319,7 @@
                         </div>
                         
                         <div class="input-group">
-                            <input type="tel" id="phone" class="input-field" placeholder=" " pattern="[0-9+\-\s()]{10,15}" title="Enter a valid phone number (10-15 digits)"/>
+                            <input type="tel" id="phone" class="input-field" placeholder=" " pattern="[0-9+\-\s()]{10,15}" title="Enter a valid phone number (10-15 digits)" required/>
                             <label for="phone" class="input-label">Phone Number</label>
                         </div>
                         
@@ -500,7 +431,7 @@
                             <i class="fa-solid fa-school text-secondary text-2xl"></i>
                         </div>
                         <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Complete Your Profile</h1>
-                        <p class="font-body-md text-body-md text-on-surface-variant">Tell us about your school and subjects</p>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Tell us about your school and class</p>
                     </div>
                     
                     <form class="space-y-5" onsubmit="handleOnboarding(event)">
@@ -512,7 +443,6 @@
                         <div class="input-group">
                             <select id="studentClass" class="input-field" required onchange="loadSubjectsForGrade(this.value)">
                                 <option value="" disabled selected hidden></option>
-                                <!-- Grades will be populated dynamically -->
                             </select>
                             <label for="studentClass" class="input-label">Class</label>
                         </div>
@@ -536,7 +466,6 @@
             </div>
         </div>
         
-        <!-- Right Side: Visual -->
         <div class="hidden lg:flex flex-col justify-center items-start space-y-stack-md order-1 lg:order-2">
             <div class="relative w-full aspect-square max-w-xl mx-auto">
                 <div class="absolute -top-10 -right-10 w-64 h-64 bg-secondary/5 rounded-full blur-3xl animate-pulse"></div>
@@ -584,7 +513,6 @@
     </div>
 </main>
 
-<!-- Footer -->
 <footer class="bg-surface-dim border-t border-outline-variant/30 py-stack-lg px-margin-desktop">
     <div class="max-w-container-max mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
@@ -620,19 +548,9 @@
                 <nav class="flex flex-col gap-3">
                     <a href="/" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Home</a>
                     <a href="/about" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">About</a>
-                    <a href="/subjects" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Subjects</a>
                     <a href="/pricing" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Pricing</a>
                     <a href="/faq" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">FAQ</a>
                     <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
-                </nav>
-            </div>
-
-            <div class="md:col-span-1">
-                <h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-4 uppercase tracking-wide">Subjects</h4>
-                <nav class="flex flex-col gap-3">
-                    <a href="/subjects/mathematics" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Mathematics</a>
-                    <a href="/subjects/science" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Science</a>
-                    <a href="/subjects/waec" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">WAEC Prep</a>
                 </nav>
             </div>
 
@@ -667,14 +585,8 @@
 </footer>
 
 <script type="module">
-    // ==========================================
-    // 1. IMPORTS
-    // ==========================================
     import { supabase } from '../supabaseClient.js';
 
-    // ==========================================
-    // 2. UI & MOBILE MENU LOGIC
-    // ==========================================
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenuClose = document.getElementById('mobile-menu-close');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -745,9 +657,6 @@
         }, 1000);
     }
 
-    // ==========================================
-    // 3. DYNAMIC GRADES & SUBJECTS
-    // ==========================================
     async function loadGrades() {
         const gradeSelect = document.getElementById('studentClass');
         
@@ -825,50 +734,6 @@
         }
     }
 
-    // ==========================================
-    // 4. REFERRAL VERIFICATION
-    // ==========================================
-    async function verifyReferralAfterSignup(userId) {
-        try {
-            const { data: userProfile, error } = await supabase
-                .from('users')
-                .select('referred_by, referral_count')
-                .eq('id', userId)
-                .single();
-            
-            if (error) {
-                console.error('Error checking referral status:', error);
-                return;
-            }
-            
-            if (userProfile.referred_by) {
-                console.log('✅ Referral successfully recorded!');
-                console.log('   Referred by:', userProfile.referred_by);
-                
-                const { data: referrer } = await supabase
-                    .from('users')
-                    .select('username, email')
-                    .eq('id', userProfile.referred_by)
-                    .single();
-                
-                if (referrer) {
-                    console.log('   Referrer username:', referrer.username);
-                }
-            } else {
-                console.log('ℹ️ No referral recorded (user signed up without referral code)');
-            }
-            
-        } catch (err) {
-            console.error('Error verifying referral:', err);
-        }
-    }
-
-    // ==========================================
-    // 5. SUPABASE AUTH HANDLERS
-    // ==========================================
-    let currentOtpEmail = '';
-
-    // Signup Handler
     async function handleSignup(event) {
         event.preventDefault();
         
@@ -896,7 +761,7 @@
         const lastName = document.getElementById('lastName').value;
         const phone = document.getElementById('phone').value;
         
-        const referralUsername = localStorage.getItem('referral_code');
+        const referralCode = localStorage.getItem('referral_code');
         
         const button = event.target.querySelector('button[type="submit"]');
         const originalText = button.innerHTML;
@@ -904,25 +769,6 @@
         button.disabled = true;
         
         try {
-            // Verify referrer exists before signup
-            if (referralUsername) {
-                console.log('📣 Attempting signup with referral:', referralUsername);
-                
-                const { data: referrer, error: refError } = await supabase
-                    .from('users')
-                    .select('id, username')
-                    .eq('username', referralUsername)
-                    .maybeSingle();
-                
-                if (refError) {
-                    console.error('Error checking referrer:', refError);
-                } else if (referrer) {
-                    console.log('✅ Referrer found:', referrer.username, '->', referrer.id);
-                } else {
-                    console.warn('⚠️ Referrer username not found:', referralUsername);
-                }
-            }
-            
             const { data, error } = await supabase.auth.signUp({
                 email: email,
                 password: password,
@@ -931,14 +777,12 @@
                         first_name: firstName,
                         last_name: lastName,
                         phone: phone,
-                        referred_by: referralUsername || null
+                        referred_by: referralCode
                     }
                 }
             });
             
             if (error) throw error;
-            
-            console.log('✅ Signup successful, waiting for email verification...');
             
             currentOtpEmail = email;
             localStorage.setItem('signup_email', email);
@@ -948,14 +792,12 @@
             startResendTimer();
             
         } catch (error) {
-            console.error('❌ Signup error:', error);
-            alert('Signup failed: ' + error.message);
+            alert(error.message);
             button.innerHTML = originalText;
             button.disabled = false;
         }
     }
 
-    // Google Signup Handler
     async function handleGoogleSignup() {
         const button = event.target.closest('button');
         const originalText = button.innerHTML;
@@ -986,7 +828,6 @@
         }
     }
 
-    // OTP Verification
     const otpInputs = document.querySelectorAll('.otp-input');
     otpInputs.forEach((input, index) => {
         input.addEventListener('input', (e) => {
@@ -1030,13 +871,6 @@
             
             if (error) throw error;
             
-            console.log('✅ Email verified successfully');
-            
-            // Verify referral was recorded
-            if (data.session) {
-                await verifyReferralAfterSignup(data.session.user.id);
-            }
-            
             localStorage.removeItem('signup_email');
             button.innerHTML = originalText;
             button.disabled = false;
@@ -1045,7 +879,6 @@
             await loadGrades();
             
         } catch (error) {
-            console.error('❌ OTP verification error:', error);
             alert('Invalid OTP. ' + error.message);
             button.innerHTML = originalText;
             button.disabled = false;
@@ -1065,7 +898,6 @@
         }
     }
 
-    // Onboarding Handler
     async function handleOnboarding(event) {
         event.preventDefault();
         
@@ -1091,6 +923,7 @@
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) throw new Error("No active session");
             
+            // Save grade and school to users table
             const { error: profileError } = await supabase
                 .from('users')
                 .update({ 
@@ -1101,19 +934,11 @@
                 
             if (profileError) throw profileError;
 
-            const subscriptionRecords = subjects.map(subject => ({
-                user_id: session.user.id,
-                grade: studentClass,
-                subject: subject,
-                is_active: false,
-                expires_at: null
-            }));
-
-            const { error: subError } = await supabase
-                .from('subject_subscriptions')
-                .upsert(subscriptionRecords, { onConflict: 'user_id, grade, subject' });
-                
-            if (subError) throw subError;
+            // Store selected subjects in localStorage (UI only, not saved to DB yet)
+            localStorage.setItem('onboarding_subjects', JSON.stringify(subjects));
+            localStorage.setItem('onboarding_grade', studentClass);
+            
+            console.log('✅ Onboarding complete. Subjects stored in localStorage:', subjects);
             
             window.location.href = '/dashboard/';
         } catch (error) {
@@ -1123,9 +948,6 @@
         }
     }
 
-    // ==========================================
-    // 6. EXPOSE FUNCTIONS TO GLOBAL SCOPE
-    // ==========================================
     window.showForm = showForm;
     window.togglePassword = togglePassword;
     window.handleSignup = handleSignup;
@@ -1136,9 +958,6 @@
     window.loadSubjectsForGrade = loadSubjectsForGrade;
     window.updateSubjectCounter = updateSubjectCounter;
 
-    // ==========================================
-    // 7. INITIAL LOAD & ROUTING
-    // ==========================================
     document.addEventListener('DOMContentLoaded', async () => {
         const { data: { session } } = await supabase.auth.getSession();
         if (session) {
