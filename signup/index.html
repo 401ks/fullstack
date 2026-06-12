@@ -110,11 +110,27 @@
         .mobile-menu.active { transform: translateX(0); }
         .mobile-menu.inactive { transform: translateX(-100%); }
         
-        .form-container { transition: opacity 0.3s ease, transform 0.3s ease; }
-        .form-container.hidden { opacity: 0; transform: translateY(10px); pointer-events: none; position: absolute; width: 100%; }
-        .form-container.active { opacity: 1; transform: translateY(0); pointer-events: all; position: relative; }
+        .form-container {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .form-container.hidden {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+        }
+        .form-container.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+            position: relative;
+        }
         
-        .input-group { position: relative; margin-bottom: 20px; }
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
         
         .input-field {
             width: 100%;
@@ -129,8 +145,13 @@
             color: #191c1e;
         }
         
-        .input-field:focus { border-color: #0051d5; }
-        .input-field:invalid:not(:placeholder-shown) { border-color: #ba1a1a; }
+        .input-field:focus {
+            border-color: #0051d5;
+        }
+        
+        .input-field.error {
+            border-color: #ba1a1a;
+        }
         
         .input-label {
             position: absolute;
@@ -155,7 +176,9 @@
             background: #ffffff;
         }
         
-        .input-field:not(:focus):not(:placeholder-shown) + .input-label { color: #76777d; }
+        .input-field:not(:focus):not(:placeholder-shown) + .input-label {
+            color: #76777d;
+        }
         
         select.input-field {
             appearance: none;
@@ -178,21 +201,45 @@
             outline: none;
         }
         
-        .otp-input:focus { border-color: #0051d5; box-shadow: 0 0 0 3px rgba(0, 81, 213, 0.1); }
+        .otp-input:focus {
+            border-color: #0051d5;
+            box-shadow: 0 0 0 3px rgba(0, 81, 213, 0.1);
+        }
         
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         
-        .terms-warning { color: #ba1a1a; font-size: 13px; margin-top: 8px; display: none; align-items: center; gap: 6px; }
-        .terms-warning.show { display: flex; }
+        .subject-preview-card {
+            transition: all 0.2s ease;
+        }
         
-        .subject-counter { font-size: 13px; color: #76777d; margin-top: 8px; }
-        .subject-counter.valid { color: #009485; }
-        .subject-counter.invalid { color: #ba1a1a; }
+        .subject-preview-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 81, 213, 0.1);
+        }
+        
+        .referral-banner {
+            background: linear-gradient(135deg, #dbe1ff 0%, #f0f4ff 100%);
+            border: 1px solid #b4c5ff;
+        }
+        
+        .terms-warning {
+            animation: shake 0.4s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
         
         @media (max-width: 768px) {
-            .otp-input { width: 36px; height: 48px; font-size: 18px; }
+            .otp-input {
+                width: 36px;
+                height: 48px;
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -215,12 +262,12 @@
     </div>
     
     <div class="px-4 py-4 border-b border-outline-variant/30">
-        <a href="/login" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors">
+        <a href="/signup" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors">
             <img alt="Guest User" class="w-10 h-10 rounded-full object-cover flex-shrink-0 bg-secondary/10" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230051d5'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E"/>
             <div class="profile-details overflow-hidden">
                 <p class="font-label-md text-primary font-bold truncate">Guest User</p>
                 <p class="text-[10px] text-outline truncate mb-1">Not signed in</p>
-                <span class="text-[10px] text-secondary font-bold">Sign in to continue</span>
+                <span class="text-[10px] text-secondary font-bold">Create your account</span>
             </div>
         </a>
     </div>
@@ -233,6 +280,10 @@
         <a href="/about" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
             <i class="fa-solid fa-circle-info w-5 text-center"></i>
             <span class="font-label-md text-label-md">About</span>
+        </a>
+        <a href="/subjects" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
+            <i class="fa-solid fa-book-open w-5 text-center"></i>
+            <span class="font-label-md text-label-md">Subjects</span>
         </a>
         <a href="/pricing" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
             <i class="fa-solid fa-tag w-5 text-center"></i>
@@ -270,6 +321,7 @@
         <div class="hidden md:flex items-center gap-6">
             <a href="/" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Home</a>
             <a href="/about" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">About</a>
+            <a href="/subjects" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Subjects</a>
             <a href="/pricing" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Pricing</a>
             <a href="/faq" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">FAQ</a>
             <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
@@ -301,6 +353,19 @@
                         <p class="font-body-md text-body-md text-on-surface-variant">Join NaijaAssets to start learning.</p>
                     </div>
                     
+                    <!-- Referral Banner (hidden by default) -->
+                    <div id="referralBanner" class="hidden referral-banner rounded-xl p-4 mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-secondary/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-gift text-secondary"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-label-md text-primary font-bold text-sm">You were referred by <span id="referrerName" class="text-secondary">@username</span></p>
+                                <p class="text-xs text-on-surface-variant">Complete your signup to unlock referral benefits!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <form class="space-y-5" onsubmit="handleSignup(event)">
                         <div class="grid grid-cols-2 gap-3">
                             <div class="input-group">
@@ -319,8 +384,9 @@
                         </div>
                         
                         <div class="input-group">
-                            <input type="tel" id="phone" class="input-field" placeholder=" " pattern="[0-9+\-\s()]{10,15}" title="Enter a valid phone number (10-15 digits)" required/>
+                            <input type="tel" id="phone" class="input-field" placeholder=" " required pattern="[0-9+\s\-()]{7,15}" title="Please enter a valid phone number"/>
                             <label for="phone" class="input-label">Phone Number</label>
+                            <p id="phoneError" class="hidden text-xs text-error mt-1">Please enter a valid phone number (7-15 digits)</p>
                         </div>
                         
                         <div class="input-group">
@@ -339,38 +405,50 @@
                             </button>
                         </div>
                         
+                        <!-- Grade Selector (triggers subject preview) -->
+                        <div class="input-group">
+                            <select id="previewGrade" class="input-field" onchange="loadSubjectPreview(this.value)">
+                                <option value="" disabled selected hidden></option>
+                                <option value="JSS1">JSS 1</option>
+                                <option value="JSS2">JSS 2</option>
+                                <option value="JSS3">JSS 3</option>
+                                <option value="SS1">SS 1</option>
+                                <option value="SS2">SS 2</option>
+                                <option value="SS3">SS 3</option>
+                            </select>
+                            <label for="previewGrade" class="input-label">Select Your Grade (Preview Subjects)</label>
+                        </div>
+                        
+                        <!-- Subject Preview (UI only, no save) -->
+                        <div id="subjectPreviewSection" class="hidden">
+                            <label class="block font-label-md text-label-md text-on-surface mb-3">
+                                Available Subjects for <span id="previewGradeLabel" class="text-secondary font-bold"></span>
+                            </label>
+                            <div id="subjectPreviewGrid" class="grid grid-cols-2 gap-2 mb-2">
+                                <!-- Dynamically populated -->
+                            </div>
+                            <p class="text-xs text-outline italic flex items-center gap-1">
+                                <i class="fa-solid fa-circle-info text-[10px]"></i>
+                                This is just a preview. You'll select and pay for subjects after completing your profile.
+                            </p>
+                        </div>
+                        
                         <div class="flex items-start gap-2">
                             <input type="checkbox" id="terms" class="mt-1 accent-secondary"/>
                             <label for="terms" class="text-xs text-on-surface-variant">
                                 I agree to the <a href="/terms" class="text-secondary hover:underline" target="_blank">Terms of Service</a> and <a href="/privacy" class="text-secondary hover:underline" target="_blank">Privacy Policy</a>
                             </label>
                         </div>
-                        <div id="termsWarning" class="terms-warning">
-                            <i class="fa-solid fa-circle-exclamation"></i>
-                            <span>You must agree to the Terms and Privacy Policy to create an account.</span>
-                        </div>
+                        <p id="termsWarning" class="hidden text-xs text-error font-medium flex items-center gap-1 terms-warning">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            You need to agree to the Terms of Service and Privacy Policy to create an account with us.
+                        </p>
                         
                         <button type="submit" class="w-full py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2">
                             Create Account
                             <i class="fa-solid fa-arrow-right text-[18px]"></i>
                         </button>
                     </form>
-                    
-                    <div class="my-6 flex items-center gap-3">
-                        <div class="flex-1 h-px bg-outline-variant/30"></div>
-                        <span class="text-xs text-outline font-medium">OR SIGN UP WITH</span>
-                        <div class="flex-1 h-px bg-outline-variant/30"></div>
-                    </div>
-                    
-                    <button onclick="handleGoogleSignup()" class="w-full py-3 bg-white border-2 border-outline-variant/30 rounded-xl font-label-md text-label-md font-semibold hover:bg-surface-container transition-colors flex items-center justify-center gap-3">
-                        <svg width="20" height="20" viewBox="0 0 24 24">
-                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                        </svg>
-                        Continue with Google
-                    </button>
                     
                     <div class="mt-6 text-center">
                         <p class="font-body-md text-body-md text-on-surface-variant">
@@ -424,45 +502,6 @@
                     </div>
                 </div>
                 
-                <!-- Onboarding Form -->
-                <div id="onboardingForm" class="form-container hidden bg-surface-container-lowest p-8 md:p-10 rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30">
-                    <div class="text-center mb-8">
-                        <div class="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-2xl mb-4">
-                            <i class="fa-solid fa-school text-secondary text-2xl"></i>
-                        </div>
-                        <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Complete Your Profile</h1>
-                        <p class="font-body-md text-body-md text-on-surface-variant">Tell us about your school and class</p>
-                    </div>
-                    
-                    <form class="space-y-5" onsubmit="handleOnboarding(event)">
-                        <div class="input-group">
-                            <input type="text" id="schoolName" class="input-field" placeholder=" " required/>
-                            <label for="schoolName" class="input-label">School Name</label>
-                        </div>
-                        
-                        <div class="input-group">
-                            <select id="studentClass" class="input-field" required onchange="loadSubjectsForGrade(this.value)">
-                                <option value="" disabled selected hidden></option>
-                            </select>
-                            <label for="studentClass" class="input-label">Class</label>
-                        </div>
-                        
-                        <div>
-                            <label class="block font-label-md text-label-md text-on-surface mb-3">Select Subjects (Choose at least 3)</label>
-                            <div id="onboarding-subjects-grid" class="grid grid-cols-2 gap-2">
-                                <p class="col-span-2 text-sm text-outline italic text-center py-4">Please select your class first to see available subjects.</p>
-                            </div>
-                            <div id="subjectCounter" class="subject-counter">0 subjects selected</div>
-                            <p id="subject-error" class="text-error text-xs mt-2 hidden">Please select at least 3 subjects.</p>
-                        </div>
-                        
-                        <button type="submit" class="w-full py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2">
-                            Complete Setup
-                            <i class="fa-solid fa-arrow-right text-[18px]"></i>
-                        </button>
-                    </form>
-                </div>
-                
             </div>
         </div>
         
@@ -492,7 +531,7 @@
                         </div>
                     </div>
                     
-                    <img alt="Student studying" class="w-full h-48 object-cover rounded-xl mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8vq3n6nrWFvqJwKQNEqCGfOBkrHvTDrh3-BcN9tKIBdcBOsBKANsGaaEHEnzVgfQ_G0d48LIT7Crt9L4CoG00NIc2EpGo_BVK2oWg971OlWT5xyJfR01zzh8giiWegWD0Mbx38lJJ3rfQ4LWaTVnQUpAyzxaASdelchdEV_sd7s5-RKSVCKi3c_E3Ep8RGVQ6WrtvGYTF1FpXJZGR2tswur6740bRnk-8bvEr_slD5KWTXGdp2F2RJQtu9hyMlJY07re_u37Lvq8"/>
+                    <img alt="Student studying" class="w-full h-48 object-cover rounded-xl mb-4" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=400&fit=crop"/>
                     
                     <div class="space-y-3">
                         <div class="h-3 w-full bg-surface-container rounded-full"></div>
@@ -504,8 +543,8 @@
                 <div class="absolute -bottom-6 -left-6 bg-secondary text-white p-4 rounded-xl shadow-lg flex items-center gap-3 animate-bounce shadow-secondary/20">
                     <i class="fa-solid fa-star"></i>
                     <div>
-                        <p class="font-label-sm text-label-sm">Class of 2026</p>
-                        <p class="text-[10px] opacity-80">98% Success Rate</p>
+                        <p class="font-label-sm text-label-sm">Join 10,000+ Students</p>
+                        <p class="text-[10px] opacity-80">Start learning today</p>
                     </div>
                 </div>
             </div>
@@ -548,9 +587,19 @@
                 <nav class="flex flex-col gap-3">
                     <a href="/" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Home</a>
                     <a href="/about" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">About</a>
+                    <a href="/subjects" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Subjects</a>
                     <a href="/pricing" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Pricing</a>
                     <a href="/faq" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">FAQ</a>
                     <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
+                </nav>
+            </div>
+
+            <div class="md:col-span-1">
+                <h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-4 uppercase tracking-wide">Subjects</h4>
+                <nav class="flex flex-col gap-3">
+                    <a href="/subjects/mathematics" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Mathematics</a>
+                    <a href="/subjects/science" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Science</a>
+                    <a href="/subjects/waec" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">WAEC Prep</a>
                 </nav>
             </div>
 
@@ -657,39 +706,54 @@
         }, 1000);
     }
 
-    async function loadGrades() {
-        const gradeSelect = document.getElementById('studentClass');
+    // ==========================================
+    // REFERRAL SYSTEM
+    // ==========================================
+    let referralUsername = null;
+
+    async function captureReferral() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const refUsername = urlParams.get('ref');
         
-        try {
-            const { data, error } = await supabase
-                .from('subject_pricing')
-                .select('grade')
-                .order('grade', { ascending: true });
+        if (refUsername) {
+            // Validate username exists
+            const { data: referrer, error } = await supabase
+                .from('users')
+                .select('username')
+                .eq('username', refUsername)
+                .maybeSingle();
+            
+            if (referrer) {
+                referralUsername = refUsername;
+                localStorage.setItem('referral_code', refUsername);
                 
-            if (error) throw error;
-            
-            const uniqueGrades = [...new Set(data.map(item => item.grade))];
-            
-            gradeSelect.innerHTML = '<option value="" disabled selected hidden></option>';
-            
-            uniqueGrades.forEach(grade => {
-                const option = document.createElement('option');
-                option.value = grade;
-                option.textContent = grade.replace(/(\d+)$/, ' $1');
-                gradeSelect.appendChild(option);
-            });
-            
-        } catch (err) {
-            console.error('Failed to load grades:', err);
+                // Show referral banner
+                const banner = document.getElementById('referralBanner');
+                const referrerNameEl = document.getElementById('referrerName');
+                referrerNameEl.textContent = `@${refUsername}`;
+                banner.classList.remove('hidden');
+            } else {
+                console.warn('Invalid referral code:', refUsername);
+            }
         }
     }
 
-    async function loadSubjectsForGrade(grade) {
-        const grid = document.getElementById('onboarding-subjects-grid');
-        const counter = document.getElementById('subjectCounter');
+    // ==========================================
+    // SUBJECT PREVIEW (UI ONLY)
+    // ==========================================
+    async function loadSubjectPreview(grade) {
+        const section = document.getElementById('subjectPreviewSection');
+        const grid = document.getElementById('subjectPreviewGrid');
+        const gradeLabel = document.getElementById('previewGradeLabel');
+        
+        if (!grade) {
+            section.classList.add('hidden');
+            return;
+        }
+        
+        gradeLabel.textContent = grade;
         grid.innerHTML = '<p class="col-span-2 text-sm text-outline italic text-center py-4"><i class="fa-solid fa-spinner fa-spin"></i> Loading subjects...</p>';
-        counter.textContent = '0 subjects selected';
-        counter.className = 'subject-counter invalid';
+        section.classList.remove('hidden');
         
         try {
             const { data, error } = await supabase
@@ -708,44 +772,52 @@
             }
             
             grid.innerHTML = uniqueSubjects.map(subject => `
-                <label class="flex items-center gap-2 p-3 border-2 border-outline-variant/30 rounded-xl cursor-pointer hover:border-secondary/50 transition-colors bg-surface-container-lowest">
-                    <input type="checkbox" name="onboarding_subjects" value="${subject}" class="accent-secondary w-4 h-4" onchange="updateSubjectCounter()"/>
-                    <span class="text-sm text-primary">${subject}</span>
-                </label>
+                <div class="subject-preview-card p-3 border-2 border-outline-variant/30 rounded-xl bg-surface-container-lowest cursor-default">
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" disabled class="accent-secondary/50 w-4 h-4"/>
+                        <span class="text-sm text-primary">${subject}</span>
+                    </div>
+                </div>
             `).join('');
             
         } catch (err) {
             console.error('Failed to load subjects:', err);
-            grid.innerHTML = '<p class="col-span-2 text-sm text-error text-center py-4">Failed to load subjects. Please try again.</p>';
+            grid.innerHTML = '<p class="col-span-2 text-sm text-error text-center py-4">Failed to load subjects.</p>';
         }
     }
 
-    function updateSubjectCounter() {
-        const checkboxes = document.querySelectorAll('input[name="onboarding_subjects"]:checked');
-        const counter = document.getElementById('subjectCounter');
-        const count = checkboxes.length;
-        
-        counter.textContent = `${count} subject${count !== 1 ? 's' : ''} selected`;
-        
-        if (count >= 3) {
-            counter.className = 'subject-counter valid';
-        } else {
-            counter.className = 'subject-counter invalid';
-        }
-    }
+    // ==========================================
+    // SIGNUP HANDLER
+    // ==========================================
+    let currentOtpEmail = '';
 
     async function handleSignup(event) {
         event.preventDefault();
         
-        const termsCheckbox = document.getElementById('terms');
-        const termsWarning = document.getElementById('termsWarning');
+        // Clear previous errors
+        document.getElementById('termsWarning').classList.add('hidden');
+        document.getElementById('phoneError').classList.add('hidden');
+        document.getElementById('phone').classList.remove('error');
         
+        // Validate terms checkbox
+        const termsCheckbox = document.getElementById('terms');
         if (!termsCheckbox.checked) {
-            termsWarning.classList.add('show');
-            termsCheckbox.focus();
+            const warning = document.getElementById('termsWarning');
+            warning.classList.remove('hidden');
+            // Re-trigger animation
+            warning.classList.remove('terms-warning');
+            void warning.offsetWidth; // Force reflow
+            warning.classList.add('terms-warning');
             return;
-        } else {
-            termsWarning.classList.remove('show');
+        }
+        
+        // Validate phone
+        const phone = document.getElementById('phone').value.trim();
+        const phonePattern = /^[0-9+\s\-()]{7,15}$/;
+        if (!phone || !phonePattern.test(phone)) {
+            document.getElementById('phoneError').classList.remove('hidden');
+            document.getElementById('phone').classList.add('error');
+            return;
         }
         
         const password = document.getElementById('signupPassword').value;
@@ -759,9 +831,6 @@
         const email = document.getElementById('signupEmail').value;
         const firstName = document.getElementById('firstName').value;
         const lastName = document.getElementById('lastName').value;
-        const phone = document.getElementById('phone').value;
-        
-        const referralCode = localStorage.getItem('referral_code');
         
         const button = event.target.querySelector('button[type="submit"]');
         const originalText = button.innerHTML;
@@ -769,23 +838,30 @@
         button.disabled = true;
         
         try {
+            // Prepare metadata
+            const metadata = {
+                first_name: firstName,
+                last_name: lastName,
+                phone: phone
+            };
+            
+            // Add referral if valid
+            if (referralUsername) {
+                metadata.referred_by = referralUsername;
+            }
+            
             const { data, error } = await supabase.auth.signUp({
                 email: email,
                 password: password,
                 options: {
-                    data: {
-                        first_name: firstName,
-                        last_name: lastName,
-                        phone: phone,
-                        referred_by: referralCode
-                    }
+                    data: metadata
                 }
             });
             
             if (error) throw error;
             
             currentOtpEmail = email;
-            localStorage.setItem('signup_email', email);
+            localStorage.setItem('pending_signup_email', email);
             
             document.getElementById('emailDisplay').textContent = email;
             showForm('verifyEmailForm', 'signupForm');
@@ -798,36 +874,9 @@
         }
     }
 
-    async function handleGoogleSignup() {
-        const button = event.target.closest('button');
-        const originalText = button.innerHTML;
-        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting to Google...';
-        button.disabled = true;
-        
-        try {
-            const refCode = localStorage.getItem('referral_code');
-            const baseUrl = window.location.origin + '/dashboard/';
-            const redirectTo = refCode ? `${baseUrl}?pending_ref=${refCode}` : baseUrl;
-
-            const { error } = await supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: { 
-                    redirectTo,
-                    queryParams: {
-                        access_type: 'offline',
-                        prompt: 'consent'
-                    }
-                }
-            });
-            
-            if (error) throw error;
-        } catch (error) {
-            alert(error.message);
-            button.innerHTML = originalText;
-            button.disabled = false;
-        }
-    }
-
+    // ==========================================
+    // OTP VERIFICATION
+    // ==========================================
     const otpInputs = document.querySelectorAll('.otp-input');
     otpInputs.forEach((input, index) => {
         input.addEventListener('input', (e) => {
@@ -861,7 +910,7 @@
         button.disabled = true;
         
         try {
-            const email = currentOtpEmail || localStorage.getItem('signup_email');
+            const email = currentOtpEmail || localStorage.getItem('pending_signup_email');
             
             const { data, error } = await supabase.auth.verifyOtp({
                 email: email,
@@ -871,12 +920,14 @@
             
             if (error) throw error;
             
-            localStorage.removeItem('signup_email');
+            localStorage.removeItem('pending_signup_email');
+            localStorage.removeItem('referral_code');
+            
             button.innerHTML = originalText;
             button.disabled = false;
             
-            showForm('onboardingForm', 'verifyEmailForm');
-            await loadGrades();
+            // Redirect to onboarding (on login page)
+            window.location.href = '/login?onboarding';
             
         } catch (error) {
             alert('Invalid OTP. ' + error.message);
@@ -889,7 +940,7 @@
 
     async function resendOTP() {
         try {
-            const email = currentOtpEmail || localStorage.getItem('signup_email');
+            const email = currentOtpEmail || localStorage.getItem('pending_signup_email');
             await supabase.auth.resend({ type: 'signup', email: email });
             alert('Code resent! Check your email.');
             startResendTimer();
@@ -898,85 +949,34 @@
         }
     }
 
-    async function handleOnboarding(event) {
-        event.preventDefault();
-        
-        const schoolName = document.getElementById('schoolName').value;
-        const studentClass = document.getElementById('studentClass').value;
-        const subjectCheckboxes = document.querySelectorAll('input[name="onboarding_subjects"]:checked');
-        const subjects = Array.from(subjectCheckboxes).map(cb => cb.value);
-        const errorMsg = document.getElementById('subject-error');
-        
-        if (subjects.length < 3) {
-            errorMsg.classList.remove('hidden');
-            return;
-        } else {
-            errorMsg.classList.add('hidden');
-        }
-        
-        const button = event.target.querySelector('button[type="submit"]');
-        const originalText = button.innerHTML;
-        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Setting up...';
-        button.disabled = true;
-        
-        try {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) throw new Error("No active session");
-            
-            // Save grade and school to users table
-            const { error: profileError } = await supabase
-                .from('users')
-                .update({ 
-                    grade: studentClass, 
-                    school_name: schoolName
-                })
-                .eq('id', session.user.id);
-                
-            if (profileError) throw profileError;
-
-            // Store selected subjects in localStorage (UI only, not saved to DB yet)
-            localStorage.setItem('onboarding_subjects', JSON.stringify(subjects));
-            localStorage.setItem('onboarding_grade', studentClass);
-            
-            console.log('✅ Onboarding complete. Subjects stored in localStorage:', subjects);
-            
-            window.location.href = '/dashboard/';
-        } catch (error) {
-            alert('Error completing setup: ' + error.message);
-            button.innerHTML = originalText;
-            button.disabled = false;
-        }
-    }
-
+    // ==========================================
+    // EXPOSE TO GLOBAL
+    // ==========================================
     window.showForm = showForm;
     window.togglePassword = togglePassword;
     window.handleSignup = handleSignup;
-    window.handleGoogleSignup = handleGoogleSignup;
     window.handleOTPVerification = handleOTPVerification;
-    window.handleOnboarding = handleOnboarding;
     window.resendOTP = resendOTP;
-    window.loadSubjectsForGrade = loadSubjectsForGrade;
-    window.updateSubjectCounter = updateSubjectCounter;
+    window.loadSubjectPreview = loadSubjectPreview;
 
+    // ==========================================
+    // INITIAL LOAD
+    // ==========================================
     document.addEventListener('DOMContentLoaded', async () => {
+        // Check if already logged in
         const { data: { session } } = await supabase.auth.getSession();
         if (session) {
             const { data: profile } = await supabase.from('users').select('grade').eq('id', session.user.id).single();
             if (!profile || !profile.grade) {
-                showForm('onboardingForm', 'signupForm');
-                await loadGrades();
+                window.location.href = '/login?onboarding';
             } else {
                 window.location.href = '/dashboard/';
             }
             return;
         }
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const refCode = urlParams.get('ref');
-        if (refCode) {
-            localStorage.setItem('referral_code', refCode);
-            console.log('📣 Referral code captured:', refCode);
-        }
+        
+        // Capture referral
+        await captureReferral();
     });
 </script>
 </body>
