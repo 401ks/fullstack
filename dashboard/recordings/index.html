@@ -385,6 +385,8 @@
 <!-- NEW: Supabase & Worker API Integration Logic (FIXED 401 LOOP) -->
 <!-- NEW: Supabase & Worker API Integration Logic (FIXED CORS) -->
 <!-- NEW: Supabase & Worker API Integration Logic (WITH JWT DEBUGGER) -->
+
+    <!-- Replace the entire <script type="module"> section at the bottom with this -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
     import { supabase } from '../../supabaseClient.js';
@@ -437,36 +439,17 @@
     }
 
     async function fetchRecordingsFromWorker(accessToken, filters = {}) {
-        // ==========================================
-        // 🔍 DEBUG: Decode JWT to check expiration
-        // ==========================================
-        try {
-            const payloadBase64 = accessToken.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-            const text = atob(payloadBase64);
-            const bytes = new Uint8Array(text.length);
-            for (let i = 0; i < text.length; i++) bytes[i] = text.charCodeAt(i);
-            const payload = JSON.parse(new TextDecoder().decode(bytes));
-            
-            console.log("🔍 JWT Payload:", payload);
-            console.log("🔍 JWT Expires At:", new Date(payload.exp * 1000).toLocaleString());
-            console.log("🔍 Current Time:", new Date().toLocaleString());
-            
-            if (payload.exp * 1000 < Date.now()) {
-                console.error("🔴 JWT IS EXPIRED! Supabase failed to refresh it.");
-            } else {
-                console.log("✅ JWT is NOT expired. The Worker is rejecting a perfectly valid token.");
-            }
-        } catch (e) {
-            console.warn("Could not decode JWT for debugging:", e);
-        }
-        // ==========================================
-
+        console.log('🔵 Starting API fetch to Worker...');
+        console.log('🔵 Filters:', filters);
+        
         const url = new URL(`${API_BASE_URL}/api/recordings`);
         
         if (filters.subject && !['all', 'recent', 'offline', 'tutorials'].includes(filters.subject)) {
             url.searchParams.append('subject', filters.subject);
         }
         if (filters.search) url.searchParams.append('search', filters.search);
+
+        console.log('🔵 Request URL:', url.toString());
 
         const response = await fetch(url.toString(), {
             method: 'GET',
@@ -476,36 +459,66 @@
             }
         });
 
+        console.log('🔵 Response status:', response.status, response.statusText);
+
+        // Parse response body
+        const responseText = await response.text();
+        let responseData;
+        
+        try {
+            responseData = JSON.parse(responseText);
+        } catch (e) {
+            console.error('❌ Failed to parse response as JSON:', responseText);
+            showDebugPanel({ error: 'Invalid JSON response', raw: responseText });
+            throw new Error('Invalid server response');
+        }
+
+        // Handle 401 Unauthorized
         if (response.status === 401) {
-            const errorText = await response.text();
-            console.error('🔴 Worker returned 401. Response body:', errorText);
+            console.error('🔴 Worker returned 401 Unauthorized');
+            console.error('🔴 Response:', responseData);
+            
+            if (responseData.debug) {
+                console.error('🔴 Debug info:', responseData.debug);
+                showDebugPanel(responseData.debug);
+            }
             
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
                 await supabase.auth.signOut();
                 window.location.replace('/login/');
             } else {
-                console.error('⚠️ Worker rejected valid Supabase session. Check Worker code for JWT verification errors.');
-                throw new Error('Server access denied. Check console for Worker error details.');
+                console.error('⚠️ Worker rejected valid Supabase session');
+                throw new Error('Server access denied. Check debug panel for details.');
             }
             return null;
         }
         
+        // Handle other errors
         if (!response.ok) {
-            const errorText = await response.text();
-            console.error(`Worker API Error ${response.status}:`, errorText);
-            throw new Error(`API Error: ${response.status} ${response.statusText}`);
+            console.error(`❌ Worker API Error ${response.status}:`, responseData);
+            if (responseData.debug) {
+                showDebugPanel(responseData.debug);
+            }
+            throw new Error(`API Error: ${response.status} ${responseData.error || response.statusText}`);
         }
 
-        return await response.json();
+        // Success - show debug info if available
+        if (responseData.debug) {
+            console.log('✅ Worker returned success with debug info:', responseData.debug);
+            showDebugPanel(responseData.debug);
+        }
+
+        return responseData;
     }
 
     async function loadRecordings(filters = {}) {
+        console.log('🔵 Loading recordings with filters:', filters);
+        
         // 1. FORCE TOKEN REFRESH
-        // getUser() automatically refreshes the session if the current token is expired
         const { error: userError } = await supabase.auth.getUser();
         if (userError) {
-            console.error("Token is genuinely invalid/expired and failed to refresh:", userError);
+            console.error("❌ Token refresh failed:", userError);
             await supabase.auth.signOut();
             window.location.replace('/login/');
             return;
@@ -513,7 +526,12 @@
 
         // 2. Get the guaranteed fresh session
         const { data: { session } } = await supabase.auth.getSession();
-        if (!session) return;
+        if (!session) {
+            console.error('❌ No session available');
+            return;
+        }
+
+        console.log('✅ Got fresh session for user:', session.user.email);
 
         const grid = document.getElementById('grid-all');
         if (!grid) return;
@@ -525,10 +543,20 @@
 
         try {
             const data = await fetchRecordingsFromWorker(session.access_token, filters);
-            if (data) renderRecordings(data);
+            if (data) {
+                console.log('✅ Successfully loaded recordings:', data.total, 'items');
+                renderRecordings(data);
+            }
         } catch (err) {
-            console.error("Failed to load recordings:", err);
-            grid.innerHTML = `<div class="col-span-full text-center py-12 text-error"><i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i><p>Failed to load recordings.</p><p class="text-sm text-on-surface-variant mt-2">${err.message}</p></div>`;
+            console.error("❌ Failed to load recordings:", err);
+            grid.innerHTML = `
+                <div class="col-span-full text-center py-12 text-error">
+                    <i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i>
+                    <p class="font-bold">Failed to load recordings</p>
+                    <p class="text-sm text-on-surface-variant mt-2">${err.message}</p>
+                    <p class="text-xs text-outline mt-4">Check the debug panel below or browser console for details</p>
+                </div>
+            `;
         }
     }
 
@@ -547,7 +575,14 @@
         if (totalCount) totalCount.textContent = `${data.total || 0} video lectures`;
 
         if (!data.recordings || data.recordings.length === 0) {
-            grid.innerHTML = `<div class="col-span-full text-center py-12 text-on-surface-variant"><i class="fa-solid fa-video-slash text-4xl mb-4 text-outline"></i><p>No recordings found for your criteria.</p></div>`;
+            grid.innerHTML = `
+                <div class="col-span-full text-center py-12 text-on-surface-variant">
+                    <i class="fa-solid fa-video-slash text-4xl mb-4 text-outline"></i>
+                    <p class="font-bold">No recordings found</p>
+                    <p class="text-sm mt-2">You don't have any active subscriptions or the recordings haven't been added yet.</p>
+                    <p class="text-xs text-outline mt-4">Check the debug panel to see what subscriptions the Worker found</p>
+                </div>
+            `;
             return;
         }
 
@@ -585,6 +620,35 @@
                 </div>
             `;
         }).join('');
+    }
+
+    // NEW: Debug Panel Display Function
+    function showDebugPanel(debugData) {
+        // Remove existing debug panel
+        const existing = document.getElementById('debug-panel');
+        if (existing) existing.remove();
+
+        // Create new debug panel
+        const panel = document.createElement('div');
+        panel.id = 'debug-panel';
+        panel.className = 'fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 max-h-96 overflow-y-auto z-50 shadow-2xl';
+        panel.style.fontFamily = 'monospace';
+        panel.style.fontSize = '12px';
+
+        const header = document.createElement('div');
+        header.className = 'flex justify-between items-center mb-3 pb-2 border-b border-gray-700';
+        header.innerHTML = `
+            <span class="font-bold text-lg">🔍 Worker Debug Info</span>
+            <button onclick="document.getElementById('debug-panel').remove()" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-sm">Close</button>
+        `;
+        panel.appendChild(header);
+
+        const content = document.createElement('pre');
+        content.className = 'whitespace-pre-wrap break-words';
+        content.textContent = JSON.stringify(debugData, null, 2);
+        panel.appendChild(content);
+
+        document.body.appendChild(panel);
     }
 
     window.loadRecordings = loadRecordings;
