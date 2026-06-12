@@ -430,51 +430,55 @@
                 </div>
                 
                 <!-- Onboarding Form -->
-                <div id="onboardingForm" class="form-container hidden bg-surface-container-lowest p-8 md:p-10 rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30">
-                    <div class="text-center mb-8">
-                        <div class="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-2xl mb-4">
-                            <i class="fa-solid fa-school text-secondary text-2xl"></i>
-                        </div>
-                        <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Complete Your Profile</h1>
-                        <p class="font-body-md text-body-md text-on-surface-variant">Tell us about your school and subjects</p>
-                    </div>
-                    
-                    <form class="space-y-5" onsubmit="handleOnboarding(event)">
-                        <div class="input-group">
-                            <input type="text" id="schoolName" class="input-field" placeholder=" " required/>
-                            <label for="schoolName" class="input-label">School Name</label>
-                        </div>
-                        
-                        <div class="input-group">
-                            <select id="studentClass" class="input-field" required onchange="loadSubjectsForGrade(this.value)">
-                                <option value="" disabled selected hidden></option>
-                                <option value="JSS1">JSS 1</option>
-                                <option value="JSS2">JSS 2</option>
-                                <option value="JSS3">JSS 3</option>
-                                <option value="SS1">SS 1</option>
-                                <option value="SS2">SS 2</option>
-                                <option value="SS3">SS 3</option>
-                            </select>
-                            <label for="studentClass" class="input-label">Class</label>
-                        </div>
-                        
-                        <div>
-                            <label class="block font-label-md text-label-md text-on-surface mb-3">Select Subjects (Choose at least 3)</label>
-                            <div id="onboarding-subjects-grid" class="grid grid-cols-2 gap-2">
-                                <p class="col-span-2 text-sm text-outline italic text-center py-4">Please select your class first to see available subjects.</p>
-                            </div>
-                            <p id="subject-error" class="text-error text-xs mt-2 hidden">Please select at least 3 subjects.</p>
-                        </div>
-                        
-                        <button type="submit" class="w-full py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2">
-                            Complete Setup
-                            <i class="fa-solid fa-arrow-right text-[18px]"></i>
-                        </button>
-                    </form>
-                </div>
-                
-            </div>
+                <!-- Onboarding Form -->
+<div id="onboardingForm" class="form-container hidden bg-surface-container-lowest p-8 md:p-10 rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30">
+    <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-2xl mb-4">
+            <i class="fa-solid fa-school text-secondary text-2xl"></i>
         </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Complete Your Profile</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant">Tell us about your school and class</p>
+    </div>
+    
+    <form class="space-y-5" onsubmit="handleOnboarding(event)">
+        <div class="input-group">
+            <input type="text" id="schoolName" class="input-field" placeholder=" " required/>
+            <label for="schoolName" class="input-label">School Name</label>
+        </div>
+        
+        <div class="input-group">
+            <select id="studentClass" class="input-field" required onchange="loadOnboardingSubjects(this.value)">
+                <option value="" disabled selected hidden></option>
+                <option value="JSS1">JSS 1</option>
+                <option value="JSS2">JSS 2</option>
+                <option value="JSS3">JSS 3</option>
+                <option value="SS1">SS 1</option>
+                <option value="SS2">SS 2</option>
+                <option value="SS3">SS 3</option>
+            </select>
+            <label for="studentClass" class="input-label">Class</label>
+        </div>
+        
+        <!-- View-only subjects display (no checkboxes, no save) -->
+        <div id="onboarding-subjects-section" class="hidden">
+            <label class="block font-label-md text-label-md text-on-surface mb-3">
+                Subjects Available for <span id="onboarding-grade-label" class="text-secondary font-bold"></span>
+            </label>
+            <div id="onboarding-subjects-grid" class="flex flex-wrap gap-2">
+                <!-- Dynamically populated with tags -->
+            </div>
+            <p class="text-xs text-outline italic flex items-center gap-1 mt-3">
+                <i class="fa-solid fa-circle-info text-[10px]"></i>
+                You'll select and subscribe to subjects in your dashboard after setup.
+            </p>
+        </div>
+        
+        <button type="submit" class="w-full py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2">
+            Complete Setup
+            <i class="fa-solid fa-arrow-right text-[18px]"></i>
+        </button>
+    </form>
+</div>
         
         <!-- Right Side: Visual -->
         <div class="hidden lg:flex flex-col justify-center items-start space-y-stack-md order-1 lg:order-2">
@@ -852,64 +856,97 @@
     }
 
     // Onboarding Handler
-    async function handleOnboarding(event) {
-        event.preventDefault();
-        
-        const schoolName = document.getElementById('schoolName').value;
-        const studentClass = document.getElementById('studentClass').value;
-        const subjectCheckboxes = document.querySelectorAll('input[name="onboarding_subjects"]:checked');
-        const subjects = Array.from(subjectCheckboxes).map(cb => cb.value);
-        const errorMsg = document.getElementById('subject-error');
-        
-        if (subjects.length < 3) {
-            errorMsg.classList.remove('hidden');
-            return;
-        } else {
-            errorMsg.classList.add('hidden');
-        }
-        
-        const button = event.target.querySelector('button[type="submit"]');
-        const originalText = button.innerHTML;
-        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Setting up...';
-        button.disabled = true;
-        
-        try {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) throw new Error("No active session");
-            
-            // Update user profile
-            const { error: profileError } = await supabase
-                .from('users')
-                .update({ 
-                    grade: studentClass, 
-                    school_name: schoolName
-                })
-                .eq('id', session.user.id);
-                
-            if (profileError) throw profileError;
-
-            // Create subscription records (wishlist)
-            const subscriptionRecords = subjects.map(subject => ({
-                user_id: session.user.id,
-                grade: studentClass,
-                subject: subject,
-                is_active: false,
-                expires_at: null
-            }));
-
-            const { error: subError } = await supabase
-                .from('subject_subscriptions')
-                .upsert(subscriptionRecords, { onConflict: 'user_id, grade, subject' });
-                
-            if (subError) throw subError;
-            
-            window.location.href = '/dashboard/';
-        } catch (error) {
-            alert('Error completing setup: ' + error.message);
-            button.innerHTML = originalText;
-            button.disabled = false;
-        }
+// ==========================================
+// VIEW-ONLY SUBJECTS DISPLAY FOR ONBOARDING
+// ==========================================
+async function loadOnboardingSubjects(grade) {
+    const section = document.getElementById('onboarding-subjects-section');
+    const grid = document.getElementById('onboarding-subjects-grid');
+    const gradeLabel = document.getElementById('onboarding-grade-label');
+    
+    if (!grade) {
+        section.classList.add('hidden');
+        return;
     }
+    
+    gradeLabel.textContent = grade;
+    grid.innerHTML = '<p class="text-sm text-outline italic py-4"><i class="fa-solid fa-spinner fa-spin"></i> Loading subjects...</p>';
+    section.classList.remove('hidden');
+    
+    try {
+        const { data, error } = await supabase
+            .from('subject_pricing')
+            .select('subject')
+            .eq('grade', grade)
+            .order('subject', { ascending: true });
+            
+        if (error) throw error;
+        
+        const uniqueSubjects = [...new Set(data.map(item => item.subject))];
+        
+        if (uniqueSubjects.length === 0) {
+            grid.innerHTML = '<p class="text-sm text-error py-4">No subjects found for this grade.</p>';
+            return;
+        }
+        
+        // Render as tags (view-only, no checkboxes)
+        grid.innerHTML = uniqueSubjects.map(subject => `
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant/30 rounded-full text-sm text-primary">
+                <i class="fa-solid fa-book text-secondary text-xs"></i>
+                ${subject}
+            </span>
+        `).join('');
+        
+    } catch (err) {
+        console.error('Failed to load subjects:', err);
+        grid.innerHTML = '<p class="text-sm text-error py-4">Failed to load subjects.</p>';
+    }
+}
+
+// ==========================================
+// ONBOARDING HANDLER (Only saves grade + school)
+// ==========================================
+async function handleOnboarding(event) {
+    event.preventDefault();
+    
+    const schoolName = document.getElementById('schoolName').value;
+    const studentClass = document.getElementById('studentClass').value;
+    
+    const button = event.target.querySelector('button[type="submit"]');
+    const originalText = button.innerHTML;
+    button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Setting up...';
+    button.disabled = true;
+    
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) throw new Error("No active session");
+        
+        // Only save grade and school_name to users table
+        // Subject selection happens later in Settings → Payments
+        const { error } = await supabase
+            .from('users')
+            .update({ 
+                grade: studentClass, 
+                school_name: schoolName
+            })
+            .eq('id', session.user.id);
+            
+        if (error) throw error;
+        
+        // Redirect to dashboard
+        window.location.href = '/dashboard/';
+        
+    } catch (error) {
+        console.error('Onboarding error:', error);
+        alert('Error completing setup: ' + error.message);
+        button.innerHTML = originalText;
+        button.disabled = false;
+    }
+}
+
+// Expose to global
+window.loadOnboardingSubjects = loadOnboardingSubjects;
+window.handleOnboarding = handleOnboarding;
 
     // ==========================================
     // 5. EXPOSE FUNCTIONS TO GLOBAL SCOPE
