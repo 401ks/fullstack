@@ -12,51 +12,19 @@
         theme: {
           extend: {
             "colors": {
-                    "outline": "#76777d",
-                    "on-surface": "#191c1e",
-                    "on-secondary": "#ffffff",
-                    "primary": "#000000",
-                    "on-primary-container": "#7c839b",
-                    "primary-container": "#131b2e",
-                    "on-secondary-fixed": "#00174b",
-                    "on-error-container": "#93000a",
-                    "surface-container-high": "#e6e8ea",
-                    "secondary-fixed-dim": "#b4c5ff",
-                    "surface": "#f7f9fb",
-                    "secondary-fixed": "#dbe1ff",
-                    "error": "#ba1a1a",
-                    "surface-variant": "#e0e3e5",
-                    "inverse-surface": "#2d3133",
-                    "tertiary-fixed-dim": "#4fdbc8",
-                    "on-tertiary-container": "#009485",
-                    "error-container": "#ffdad6",
-                    "on-error": "#ffffff",
-                    "on-tertiary-fixed": "#00201c",
-                    "on-primary": "#ffffff",
-                    "background": "#f7f9fb",
-                    "secondary-container": "#316bf3",
-                    "surface-container": "#eceef0",
-                    "primary-fixed-dim": "#bec6e0",
-                    "outline-variant": "#c6c6cd",
-                    "secondary": "#0051d5",
-                    "on-tertiary": "#ffffff",
-                    "tertiary": "#000000",
-                    "surface-container-lowest": "#ffffff",
-                    "surface-bright": "#f7f9fb",
-                    "surface-container-highest": "#e0e3e5",
-                    "on-secondary-fixed-variant": "#003ea8",
-                    "surface-tint": "#565e74",
-                    "surface-dim": "#d8dadc",
-                    "inverse-primary": "#bec6e0",
-                    "inverse-on-surface": "#eff1f3",
-                    "primary-fixed": "#dae2fd",
-                    "tertiary-container": "#00201c",
-                    "on-background": "#191c1e",
-                    "surface-container-low": "#f2f4f6",
-                    "on-surface-variant": "#45464d",
-                    "tertiary-fixed": "#71f8e4",
-                    "on-primary-fixed-variant": "#3f465c",
-                    "on-primary-fixed": "#131b2e"
+                    "outline": "#76777d", "on-surface": "#191c1e", "on-secondary": "#ffffff", "primary": "#000000",
+                    "on-primary-container": "#7c839b", "primary-container": "#131b2e", "on-secondary-fixed": "#00174b",
+                    "on-error-container": "#93000a", "surface-container-high": "#e6e8ea", "secondary-fixed-dim": "#b4c5ff",
+                    "surface": "#f7f9fb", "secondary-fixed": "#dbe1ff", "error": "#ba1a1a", "surface-variant": "#e0e3e5",
+                    "inverse-surface": "#2d3133", "tertiary-fixed-dim": "#4fdbc8", "on-tertiary-container": "#009485",
+                    "error-container": "#ffdad6", "on-error": "#ffffff", "on-tertiary-fixed": "#00201c", "on-primary": "#ffffff",
+                    "background": "#f7f9fb", "secondary-container": "#316bf3", "surface-container": "#eceef0", "primary-fixed-dim": "#bec6e0",
+                    "outline-variant": "#c6c6cd", "secondary": "#0051d5", "on-tertiary": "#ffffff", "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff", "surface-bright": "#f7f9fb", "surface-container-highest": "#e0e3e5",
+                    "on-secondary-fixed-variant": "#003ea8", "surface-tint": "#565e74", "surface-dim": "#d8dadc", "inverse-primary": "#bec6e0",
+                    "inverse-on-surface": "#eff1f3", "primary-fixed": "#dae2fd", "tertiary-container": "#00201c", "on-background": "#191c1e",
+                    "surface-container-low": "#f2f4f6", "on-surface-variant": "#45464d", "tertiary-fixed": "#71f8e4",
+                    "on-primary-fixed-variant": "#3f465c", "on-primary-fixed": "#131b2e"
             },
             "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
             "spacing": { "stack-md": "16px", "margin-mobile": "16px", "gutter": "24px", "stack-lg": "32px", "stack-sm": "8px", "unit": "8px", "margin-desktop": "32px", "container-max": "1280px" },
@@ -80,7 +48,7 @@
         .fa-solid, .fa-regular { font-size: 1.25rem; }
         .card-shadow { box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
         .transition-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .transition-lift:hover { transform: translateY(-4px); box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.1); }
+        .transition-lift:hover { transform: translateY(-4px); box-shadow: 0px 12px 30px rgba(15, 23, 42, 0.1); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .hero-mesh { background-color: #131b2e; background-image: radial-gradient(at 0% 0%, hsla(220,100%,10%,1) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(260,100%,20%,1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(220,100%,15%,1) 0, transparent 50%); }
@@ -94,7 +62,6 @@
         .ai-floating-btn { transition: opacity 0.3s ease, transform 0.3s ease; }
         .ai-floating-btn.hidden { opacity: 0; transform: scale(0.8); pointer-events: none; }
         
-        /* Sidebar - FULL MENU (Identical on Mobile & Desktop) */
         #sidebar { width: 256px; overflow: hidden; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s ease-in-out; background: #ffffff; z-index: 50; }
         #sidebar.collapsed { width: 80px; }
         #sidebar.collapsed .sidebar-text, #sidebar.collapsed .profile-details, #sidebar.collapsed .submenu, #sidebar.collapsed .sidebar-header-text { display: none; }
@@ -107,27 +74,25 @@
         .menu-expanded .submenu { max-height: 300px; }
         .menu-expanded .sidebar-chevron { transform: rotate(180deg); }
         
-        /* Mobile Menu Behavior - Full Menu Structure Preserved */
+        /* Modal Styles */
+        .modal-backdrop { transition: opacity 0.3s ease; }
+        .modal-card { transition: transform 0.3s ease, opacity 0.3s ease; }
+        .modal-hidden { opacity: 0; pointer-events: none; }
+        .modal-hidden .modal-card { transform: scale(0.95) translateY(10px); opacity: 0; }
+        
+        /* Layout button active state */
+        .layout-btn.active { background: #0051d5; color: white; }
+        
+        /* Pagination */
+        .page-btn { min-width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 13px; font-weight: 600; transition: all 0.2s; cursor: pointer; border: 1px solid transparent; }
+        .page-btn:hover:not(.active):not(:disabled) { background: #f2f4f6; }
+        .page-btn.active { background: #0051d5; color: white; }
+        .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        
         @media (max-width: 1023px) {
-            #sidebar { 
-                position: fixed; 
-                left: -100%; 
-                top: 0;
-                z-index: 100; 
-                width: 280px; 
-                box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            }
+            #sidebar { position: fixed; left: -100%; top: 0; z-index: 100; width: 280px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
             #sidebar.active { left: 0; }
-            .mobile-menu-overlay { 
-                position: fixed; 
-                inset: 0; 
-                background: rgba(13, 28, 46, 0.5); 
-                z-index: 90; 
-                opacity: 0; 
-                visibility: hidden; 
-                transition: all 0.3s ease-in-out;
-                backdrop-filter: blur(4px);
-            }
+            .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(13, 28, 46, 0.5); z-index: 90; opacity: 0; visibility: hidden; transition: all 0.3s ease-in-out; backdrop-filter: blur(4px); }
             .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
             .mobile-menu-toggle { display: block; }
             .desktop-menu-toggle { display: none; }
@@ -139,12 +104,7 @@
             #aiChatPane { width: 100%; }
             body.menu-open { overflow: hidden; }
         }
-        @media (min-width: 1024px) { 
-            .mobile-menu-toggle { display: none; } 
-            .desktop-menu-toggle { display: block; }
-        }
-        
-        /* Anchor scroll offset for sticky header */
+        @media (min-width: 1024px) { .mobile-menu-toggle { display: none; } .desktop-menu-toggle { display: block; } }
         section[id] { scroll-margin-top: 100px; }
     </style>
 </head>
@@ -163,18 +123,16 @@
             </div>
             <button class="p-1 hover:bg-surface-container rounded-full text-outline hover:text-primary transition-colors desktop-menu-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-chevron-left text-xl" id="sidebarToggleIcon"></i></button>
         </div>
-        <div class="px-4 mb-6 profile-section"><a href="#" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors"><img alt="Profile" class="w-10 h-10 rounded-full object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUUlOjD2NqHiozDk74aw-A3BNeSSnSOK0DLyDmSxUPw8t4VSZmRCrOTViEmVvpzn5AUNClDA6xEGSji0HYodD1cyh5n9koyszAs6Mzzhb9W_9fvAD8lO7LQjq5oENJXH449vkUJ5BbAckI0JvGCk8X-dMKB1lOoxn_CTP6eRTZSy-jKMAHXx2OC697aMu3wXPhDWV9I_Yq0-yl0XugRusbGJHhLeKubyGTw4Wy7YePrOlNy1XXHHka3WgFKcCXqEixu9-qPSYsWCk"/><div class="profile-details overflow-hidden"><p class="font-label-md text-primary font-bold truncate">Loading...</p><p class="text-[10px] text-outline truncate mb-1"><span>...</span></p><span class="text-[10px] text-secondary font-bold">View Profile</span></div></a></div>
+        <div class="px-4 mb-6 profile-section"><a href="#" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors"><img alt="Profile" class="w-10 h-10 rounded-full object-cover flex-shrink-0 bg-surface-container-high" src="https://naijaassets.com/user.png"/><div class="profile-details overflow-hidden"><p class="font-label-md text-primary font-bold truncate">Loading...</p><p class="text-[10px] text-outline truncate mb-1"><span>...</span></p><span class="text-[10px] text-secondary font-bold">View Profile</span></div></a></div>
         <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
             <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors rounded-lg" href="/dashboard/"><i class="fa-solid fa-gauge-high"></i><span class="font-label-md text-label-md sidebar-text">Dashboard</span></a>
             <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors rounded-lg" href="/dashboard/classes/"><i class="fa-solid fa-school"></i><span class="font-label-md text-label-md sidebar-text">Classes</span></a>
             <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-primary font-bold border-r-4 border-secondary bg-surface-container rounded-l-lg" href="/dashboard/recordings/"><i class="fa-solid fa-video"></i><span class="font-label-md text-label-md sidebar-text">Recordings</span></a>
             <div class="group" id="resources-menu"><button class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors rounded-lg" onclick="toggleMenu('resources-menu')" aria-expanded="false"><div class="flex items-center gap-3"><i class="fa-solid fa-folder-open"></i><span class="font-label-md text-label-md sidebar-text">Resources</span></div><i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i></button>
-            <div class="submenu pl-10 space-y-1 mt-1"><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-book text-xs"></i><span>Books</span></a><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-film text-xs"></i><span>Multimedia</span></a><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-file-lines text-xs"></i><span>Past Papers</span></a><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-folder-plus text-xs"></i><span>Other Resources</span></a></div></div>
+            <div class="submenu pl-10 space-y-1 mt-1"><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/resources/"><i class="fa-solid fa-book text-xs"></i><span>Books</span></a><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/resources/"><i class="fa-solid fa-film text-xs"></i><span>Multimedia</span></a><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/resources/"><i class="fa-solid fa-file-lines text-xs"></i><span>Past Papers</span></a><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/resources/"><i class="fa-solid fa-folder-plus text-xs"></i><span>Other Resources</span></a></div></div>
             <a class="sidebar-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors rounded-lg" href="/dashboard/payments/"><i class="fa-solid fa-credit-card"></i><span class="font-label-md text-label-md sidebar-text">Payments</span></a>
-            <div class="group" id="settings-menu"><button class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors rounded-lg" onclick="toggleMenu('settings-menu')" aria-expanded="false"><div class="flex items-center gap-3"><i class="fa-solid fa-gear"></i><span class="font-label-md text-label-md sidebar-text">Settings</span></div><i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i></button><div class="submenu pl-10 space-y-1 mt-1"><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/settings/"><i class="fa-solid fa-user-gear"></i><span>Account Settings</span></a><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-id-card"></i><span>Profile Settings</span></a><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-palette"></i><span>Visual Settings</span></a><div class="pt-2 mt-2 border-t border-outline-variant/30 space-y-1"><a class="block py-2 text-sm text-secondary hover:opacity-80 flex items-center gap-2" href="#"><i class="fa-solid fa-circle-question"></i><span>Get Help</span></a><a class="block py-2 text-sm text-red-600 hover:opacity-80 flex items-center gap-2" href="#"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a></div></div></div>
+            <div class="group" id="settings-menu"><button class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors rounded-lg" onclick="toggleMenu('settings-menu')" aria-expanded="false"><div class="flex items-center gap-3"><i class="fa-solid fa-gear"></i><span class="font-label-md text-label-md sidebar-text">Settings</span></div><i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i></button><div class="submenu pl-10 space-y-1 mt-1"><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/settings/"><i class="fa-solid fa-user-gear"></i><span>Account Settings</span></a><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/settings/"><i class="fa-solid fa-id-card"></i><span>Profile Settings</span></a><a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/settings/"><i class="fa-solid fa-palette"></i><span>Visual Settings</span></a><div class="pt-2 mt-2 border-t border-outline-variant/30 space-y-1"><a class="block py-2 text-sm text-secondary hover:opacity-80 flex items-center gap-2" href="#"><i class="fa-solid fa-circle-question"></i><span>Get Help</span></a><a id="logoutBtn" class="block py-2 text-sm text-red-600 hover:opacity-80 flex items-center gap-2 cursor-pointer"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a></div></div></div>
         </nav>
-        
-        <!-- FOOTER LINKS (Identical on Mobile & Desktop) -->
         <div class="px-4 py-4 border-t border-outline-variant/30 mt-auto"><div class="flex flex-wrap gap-4 text-[11px]"><a href="/privacy" class="text-outline hover:text-primary">Privacy</a><a href="/terms" class="text-outline hover:text-primary">Terms</a><a href="/support" class="text-outline hover:text-primary">Support</a></div></div>
     </aside>
 
@@ -182,7 +140,7 @@
         <header class="sticky top-0 z-40 w-full flex gap-4 px-margin-desktop py-4 bg-background/50 backdrop-blur-md">
             <div class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-4 flex items-center gap-3 card-shadow"><i class="fa-solid fa-magnifying-glass text-outline"></i><input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface" placeholder="Search recordings..." type="text" id="recordingsSearch"/></div>
             <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 px-3 flex items-center gap-2 card-shadow"><a href="#" class="relative p-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full transition-all"><i class="fa-regular fa-bell"></i><span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span></a><a href="#" class="p-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full transition-all"><i class="fa-regular fa-circle-question"></i></a></div>
-            <a href="#" class="header-profile bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 pl-4 pr-2 flex items-center gap-3 card-shadow"><div class="text-right hidden xl:block"><p class="font-label-md text-label-md text-primary leading-none">Loading...</p><p class="font-label-sm text-[10px] text-outline uppercase tracking-wider mt-1">Student</p></div><img alt="Student Profile Avatar" class="w-10 h-10 rounded-full border border-outline-variant object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUUlOjD2NqHiozDk74aw-A3BNeSSnSOK0DLyDmSxUPw8t4VSZmRCrOTViEmVvpzn5AUNClDA6xEGSji0HYodD1cyh5n9koyszAs6Mzzhb9W_9fvAD8lO7LQjq5oENJXH449vkUJ5BbAckI0JvGCk8X-dMKB1lOoxn_CTP6eRTZSy-jKMAHXx2OC697aMu3wXPhDWV9I_Yq0-yl0XugRusbGJHhLeKubyGTw4Wy7YePrOlNy1XXHHka3WgFKcCXqEixu9-qPSYsWCk"/></a>
+            <a href="#" class="header-profile bg-surface-container-lowest border border-outline-variant rounded-2xl p-2 pl-4 pr-2 flex items-center gap-3 card-shadow"><div class="text-right hidden xl:block"><p class="font-label-md text-label-md text-primary leading-none">Loading...</p><p class="font-label-sm text-[10px] text-outline uppercase tracking-wider mt-1">Student</p></div><img alt="Student Profile Avatar" class="w-10 h-10 rounded-full border border-outline-variant object-cover bg-surface-container-high" src="https://naijaassets.com/user.png"/></a>
         </header>
 
         <main class="px-margin-mobile md:px-margin-desktop pb-margin-desktop max-w-container-max mx-auto space-y-stack-lg">
@@ -195,100 +153,133 @@
                     </div>
                     <p class="font-body-lg text-body-lg text-on-surface-variant">Access <span class="text-secondary font-bold" id="total-count">video lectures</span> from your enrolled classes.</p>
                 </div>
-                <div class="flex gap-2">
-                    <a href="#" class="flex items-center px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">
-                        <i class="fa-solid fa-download mr-2"></i>Downloaded
-                    </a>
-                    <a href="#" class="flex items-center px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:opacity-90 transition-transform active:scale-95">
-                        <i class="fa-solid fa-plus mr-2"></i>Request Recording
-                    </a>
-                </div>
             </div>
             
-            <!-- Filter Chips with Anchor Links -->
+            <!-- Filter Chips -->
             <div class="sticky top-[72px] z-30 bg-surface/95 backdrop-blur-sm border-b border-outline-variant py-4 overflow-x-auto no-scrollbar -mx-2 px-2">
                 <div class="flex items-center gap-3 flex-nowrap">
                     <span class="text-label-md font-bold text-on-surface-variant whitespace-nowrap mr-2"><i class="fa-solid fa-filter mr-1 text-xs"></i> Filter:</span>
-                    <a href="#all" data-filter="all" class="filter-chip px-5 py-2 rounded-full bg-primary text-on-primary text-label-md font-bold shadow-md whitespace-nowrap">All</a>
-                    <a href="#recent" data-filter="recent" class="filter-chip px-5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-bold hover:bg-secondary hover:text-on-secondary transition whitespace-nowrap">Recent</a>
-                    <a href="#mathematics" data-filter="mathematics" class="filter-chip px-5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-bold hover:bg-secondary hover:text-on-secondary transition whitespace-nowrap">Mathematics</a>
-                    <a href="#science" data-filter="science" class="filter-chip px-5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-bold hover:bg-secondary hover:text-on-secondary transition whitespace-nowrap">Sciences</a>
-                    <a href="#economics" data-filter="economics" class="filter-chip px-5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-bold hover:bg-secondary hover:text-on-secondary transition whitespace-nowrap">Economics</a>
-                    <a href="#tutorials" data-filter="tutorials" class="filter-chip px-5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-bold hover:bg-secondary hover:text-on-secondary transition whitespace-nowrap">Tutorials</a>
-                    <a href="#offline" data-filter="offline" class="filter-chip px-5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-bold hover:bg-secondary hover:text-on-secondary transition whitespace-nowrap">Offline</a>
+                    <a href="#" data-filter="all" class="filter-chip px-5 py-2 rounded-full bg-primary text-on-primary text-label-md font-bold shadow-md whitespace-nowrap">All</a>
+                    <a href="#" data-filter="recent" class="filter-chip px-5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-bold hover:bg-secondary hover:text-on-secondary transition whitespace-nowrap">Recent</a>
+                    <a href="#" data-filter="mathematics" class="filter-chip px-5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-bold hover:bg-secondary hover:text-on-secondary transition whitespace-nowrap">Mathematics</a>
+                    <a href="#" data-filter="science" class="filter-chip px-5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-bold hover:bg-secondary hover:text-on-secondary transition whitespace-nowrap">Sciences</a>
+                    <a href="#" data-filter="economics" class="filter-chip px-5 py-2 rounded-full bg-surface-container text-on-surface-variant text-label-md font-bold hover:bg-secondary hover:text-on-secondary transition whitespace-nowrap">Economics</a>
                 </div>
             </div>
 
-            <!-- SECTION: ALL RECORDINGS (Default View) -->
-            <section id="all" class="section-transition">
+            <!-- MAIN RECORDINGS SECTION -->
+            <section id="all" class="section-transition space-y-stack-lg">
                 <!-- Featured Recording Hero -->
-                <section class="group relative overflow-hidden rounded-[2rem] hero-mesh p-6 md:p-10 text-white shadow-2xl min-h-[380px] flex flex-col justify-end"><div class="absolute top-0 right-0 w-full h-full opacity-30 mix-blend-overlay overflow-hidden"><img alt="Featured Recording" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACyN-VRhIFp6liQ2wYWE3TvA1JC3mIKZeoaJXH6N3aKxcDwQTDBcj7uv6cpkCjV9CK_BQ_dHzvp9RyosRsQLg4RUU8Fb14gRC6aixD8bGxVv_GNk0hgQQTDVf7EO7gNgUZJ0fEoyAlGDUeT7yWQCs-S3tck2Q_GryrYRSndgkX6--vn_Oa0xNL7gobaMmHcg_Fc3b-z3iIV9ar1wJqwHXa4y04qXohjYVU3i7eNcBtSgUPHGY4Qh9P25U5GNcNjjx62YIcyq-wDpA"/></div><div class="relative z-10 space-y-4 max-w-2xl"><div class="flex gap-2 flex-wrap"><span class="px-3 py-1 rounded-full bg-blue-500/30 backdrop-blur-md border border-white/20 text-xs font-bold uppercase"><i class="fa-solid fa-star mr-1"></i>Featured</span><span class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase"><i class="fa-solid fa-clock mr-1"></i>45 min</span></div><h3 class="text-3xl md:text-4xl font-display-lg leading-tight">Advanced Macroeconomics: Fiscal Policy Deep Dive</h3><p class="text-body-lg text-white/80 leading-relaxed">Dr. Adebayo breaks down Nigeria's monetary policy framework with real-world case studies and interactive charts.</p><div class="flex flex-wrap items-center gap-4"><a href="#" class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-secondary hover:text-white transition-all shadow-xl flex items-center gap-2"><i class="fa-solid fa-play"></i> Continue Watching</a><div class="flex items-center gap-3 text-sm text-white/70"><span><i class="fa-solid fa-user mr-1"></i> Dr. Adebayo</span><span><i class="fa-solid fa-calendar mr-1"></i> Jan 15</span></div></div><div class="mt-4"><div class="flex justify-between text-xs mb-1"><span class="text-white/80">75% Complete</span><span class="text-white/80">34:12 / 45:00</span></div><div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div></div></div></section>
+                <section class="group relative overflow-hidden rounded-[2rem] hero-mesh p-6 md:p-10 text-white shadow-2xl min-h-[380px] flex flex-col justify-end">
+                    <div class="absolute top-0 right-0 w-full h-full opacity-30 mix-blend-overlay overflow-hidden"><img alt="Featured Recording" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACyN-VRhIFp6liQ2wYWE3TvA1JC3mIKZeoaJXH6N3aKxcDwQTDBcj7uv6cpkCjV9CK_BQ_dHzvp9RyosRsQLg4RUU8Fb14gRC6aixD8bGxVv_GNk0hgQQTDVf7EO7gNgUZJ0fEoyAlGDUeT7yWQCs-S3tck2Q_GryrYRSndgkX6--vn_Oa0xNL7gobaMmHcg_Fc3b-z3iIV9ar1wJqwHXa4y04qXohjYVU3i7eNcBtSgUPHGY4Qh9P25U5GNcNjjx62YIcyq-wDpA"/></div>
+                    <div class="relative z-10 space-y-4 max-w-2xl">
+                        <div class="flex gap-2 flex-wrap"><span class="px-3 py-1 rounded-full bg-blue-500/30 backdrop-blur-md border border-white/20 text-xs font-bold uppercase"><i class="fa-solid fa-star mr-1"></i>Featured</span><span class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase"><i class="fa-solid fa-clock mr-1"></i>45 min</span></div>
+                        <h3 class="text-3xl md:text-4xl font-display-lg leading-tight">Advanced Macroeconomics: Fiscal Policy Deep Dive</h3>
+                        <p class="text-body-lg text-white/80 leading-relaxed">Dr. Adebayo breaks down Nigeria's monetary policy framework with real-world case studies and interactive charts.</p>
+                        <div class="flex flex-wrap items-center gap-4"><a href="#" class="bg-white text-primary px-6 py-3 rounded-full font-bold hover:bg-secondary hover:text-white transition-all shadow-xl flex items-center gap-2"><i class="fa-solid fa-play"></i> Continue Watching</a><div class="flex items-center gap-3 text-sm text-white/70"><span><i class="fa-solid fa-user mr-1"></i> Dr. Adebayo</span><span><i class="fa-solid fa-calendar mr-1"></i> Jan 15</span></div></div>
+                        <div class="mt-4"><div class="flex justify-between text-xs mb-1"><span class="text-white/80">75% Complete</span><span class="text-white/80">34:12 / 45:00</span></div><div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div></div>
+                    </div>
+                </section>
                 
                 <!-- Continue Watching Section -->
-                <div class="mb-8"><div class="flex justify-between items-center mb-4"><h3 class="font-headline-md text-primary">Continue Watching</h3><a href="#" class="text-secondary text-sm flex items-center gap-1">View All <i class="fa-solid fa-arrow-right"></i></a></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-blue-200/40 to-purple-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">45:00</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 75%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Quantum Mechanics Fundamentals</h4><p class="text-on-surface-variant text-sm mb-2">Dr. Sarah Obi • Physics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 34:12 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-emerald-200/40 to-teal-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">32:18</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 40%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Organic Chemistry Reactions</h4><p class="text-on-surface-variant text-sm mb-2">Prof. Chinedu • Chemistry</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 12:45 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a><a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-rose-200/40 to-orange-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">28:45</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 15%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Financial Statement Analysis</h4><p class="text-on-surface-variant text-sm mb-2">Prof. Ibrahim • Economics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 4:20 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a></div></div>
+                <div>
+                    <div class="flex justify-between items-center mb-4"><h3 class="font-headline-md text-primary">Continue Watching</h3></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-blue-200/40 to-purple-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">45:00</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 75%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Quantum Mechanics Fundamentals</h4><p class="text-on-surface-variant text-sm mb-2">Dr. Sarah Obi • Physics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 34:12 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a>
+                        <a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-emerald-200/40 to-teal-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">32:18</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 40%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Organic Chemistry Reactions</h4><p class="text-on-surface-variant text-sm mb-2">Prof. Chinedu • Chemistry</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 12:45 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a>
+                        <a href="#" class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block"><div class="relative aspect-video bg-gradient-to-br from-rose-200/40 to-orange-200/40 flex items-center justify-center"><i class="fa-regular fa-circle-play text-4xl text-white/80"></i><div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">28:45</div><div class="absolute bottom-0 left-0 right-0 h-1 bg-black/30"><div class="h-full bg-secondary" style="width: 15%"></div></div></div><div class="p-4"><h4 class="font-headline-md text-primary mb-1">Financial Statement Analysis</h4><p class="text-on-surface-variant text-sm mb-2">Prof. Ibrahim • Economics</p><div class="flex justify-between items-center text-xs text-outline"><span><i class="fa-solid fa-clock mr-1"></i> 4:20 watched</span><span class="text-secondary font-bold">Resume</span></div></div></a>
+                    </div>
+                </div>
                 
-                <!-- All Recordings Grid (Dynamically Populated by API) -->
-                <div class="mb-8">
-                    <div class="flex justify-between items-center mb-4">
+                <!-- All Recordings Grid with Controls -->
+                <div>
+                    <!-- Toolbar: Title + Layout Controls -->
+                    <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
                         <h3 class="font-headline-md text-primary">All Recordings</h3>
                         <div class="flex items-center gap-2">
-                            <span class="text-sm text-on-surface-variant">Sort:</span>
-                            <select class="bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-1.5 text-sm">
-                                <option>Newest First</option>
-                                <option>Oldest First</option>
-                                <option>Duration: Short to Long</option>
-                                <option>Duration: Long to Short</option>
-                                <option>Most Watched</option>
-                            </select>
+                            <span class="text-xs text-on-surface-variant mr-1 hidden sm:inline">Layout:</span>
+                            <div class="flex items-center gap-1 bg-surface-container-lowest border border-outline-variant rounded-lg p-1">
+                                <button onclick="setLayout(2)" class="layout-btn w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" data-cols="2" title="2 columns">
+                                    <i class="fa-solid fa-grip text-xs"></i>
+                                </button>
+                                <button onclick="setLayout(3)" class="layout-btn w-8 h-8 rounded flex items-center justify-center bg-secondary text-white transition-colors active" data-cols="3" title="3 columns">
+                                    <i class="fa-solid fa-grip-vertical text-xs"></i>
+                                </button>
+                                <button onclick="setLayout(4)" class="layout-btn w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" data-cols="4" title="4 columns">
+                                    <i class="fa-solid fa-table-cells text-xs"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
+                    
+                    <!-- Dynamic Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-all">
-                        <!-- API Cards will be injected here -->
                         <div class="col-span-full text-center py-12">
                             <i class="fa-solid fa-spinner fa-spin text-3xl text-secondary"></i>
                             <p class="mt-4 text-on-surface-variant">Loading recordings...</p>
                         </div>
                     </div>
+                    
+                    <!-- Pagination -->
+                    <div id="pagination" class="flex flex-col sm:flex-row items-center justify-between mt-6 pt-4 border-t border-outline-variant gap-4 hidden">
+                        <p id="paginationInfo" class="text-sm text-on-surface-variant"></p>
+                        <div id="paginationControls" class="flex items-center gap-1"></div>
+                    </div>
                 </div>
                 
-                <!-- Upload CTA -->
-                <section class="bg-primary-container text-on-primary-container p-7 rounded-[2.5rem] flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden"><div class="relative z-10 flex flex-col md:flex-row items-center gap-6"><div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white text-3xl"><i class="fa-solid fa-upload"></i></div><div><h4 class="text-3xl font-display-lg text-white mb-2">Share Your Knowledge</h4><p class="text-on-primary-container/80 text-lg max-w-xl">Record and upload your study sessions. Help peers and earn community credits.</p></div></div><div class="relative z-10"><a href="#" class="px-8 py-4 bg-white text-primary rounded-full font-bold text-lg hover:bg-purple-600 hover:text-white transition-all flex items-center gap-2"><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Upload Recording</a></div><div class="absolute -right-20 -bottom-20 w-80 h-80 bg-purple-500/30 rounded-full blur-[100px]"></div></section>
-            </section>
-
-            <!-- SECTION: RECENT RECORDINGS -->
-            <section id="recent" class="section-transition section-hidden space-y-8">
-                <div class="mb-6"><h1 class="font-display-lg text-display-lg text-primary">Recent Recordings</h1><p class="text-on-surface-variant">Your most recently watched and added video lectures.</p></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-recent"></div>
-            </section>
-
-            <!-- SECTION: MATHEMATICS RECORDINGS -->
-            <section id="mathematics" class="section-transition section-hidden space-y-8">
-                <div class="mb-6"><h1 class="font-display-lg text-display-lg text-primary">Mathematics Recordings</h1><p class="text-on-surface-variant">Calculus, algebra, statistics, and quantitative methods lectures.</p></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-mathematics"></div>
-            </section>
-
-            <!-- SECTION: SCIENCES RECORDINGS -->
-            <section id="science" class="section-transition section-hidden space-y-8">
-                <div class="mb-6"><h1 class="font-display-lg text-display-lg text-primary">Sciences Recordings</h1><p class="text-on-surface-variant">Physics, chemistry, biology, and environmental science lectures.</p></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-science"></div>
-            </section>
-
-            <!-- SECTION: ECONOMICS RECORDINGS -->
-            <section id="economics" class="section-transition section-hidden space-y-8">
-                <div class="mb-6"><h1 class="font-display-lg text-display-lg text-primary">Economics Recordings</h1><p class="text-on-surface-variant">Microeconomics, macroeconomics, finance, and business studies.</p></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-economics"></div>
-            </section>
-
-            <!-- SECTION: TUTORIALS -->
-            <section id="tutorials" class="section-transition section-hidden space-y-8">
-                <div class="mb-6"><h1 class="font-display-lg text-display-lg text-primary">Tutorial Videos</h1><p class="text-on-surface-variant">Step-by-step guides, problem-solving sessions, and skill-building content.</p></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-tutorials"></div>
-            </section>
-
-            <!-- SECTION: OFFLINE RECORDINGS -->
-            <section id="offline" class="section-transition section-hidden space-y-8">
-                <div class="mb-6"><h1 class="font-display-lg text-display-lg text-primary">Offline Recordings</h1><p class="text-on-surface-variant">Downloaded videos available for offline viewing.</p></div>
-                <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-6"><div class="flex items-center gap-4 mb-6"><div class="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-cloud-arrow-down text-secondary text-2xl"></i></div><div><h3 class="font-headline-md text-primary">Download Manager</h3><p class="text-on-surface-variant text-sm">Manage your offline content and storage usage.</p></div></div><div class="space-y-4"><a href="#" class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 hover:bg-surface-container transition-colors"><div class="flex items-center gap-4"><div class="w-16 h-10 bg-gradient-to-br from-blue-200/40 to-purple-200/40 rounded-lg flex items-center justify-center"><i class="fa-regular fa-circle-play text-white/80"></i></div><div><h4 class="font-label-md text-primary font-bold">Quantum Mechanics Fundamentals</h4><p class="text-xs text-outline">Dr. Sarah Obi • 45:00</p></div></div><div class="flex items-center gap-3"><span class="px-2 py-1 bg-secondary/10 text-secondary text-xs rounded-full font-bold">Downloaded</span><button class="text-secondary text-sm font-bold"><i class="fa-solid fa-trash mr-1"></i>Remove</button></div></a><a href="#" class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 hover:bg-surface-container transition-colors"><div class="flex items-center gap-4"><div class="w-16 h-10 bg-gradient-to-br from-emerald-200/40 to-teal-200/40 rounded-lg flex items-center justify-center"><i class="fa-regular fa-circle-play text-white/80"></i></div><div><h4 class="font-label-md text-primary font-bold">Organic Chemistry Reactions</h4><p class="text-xs text-outline">Prof. Chinedu • 32:18</p></div></div><div class="flex items-center gap-3"><span class="px-2 py-1 bg-secondary/10 text-secondary text-xs rounded-full font-bold">Downloading 65%</span><button class="text-outline text-sm"><i class="fa-solid fa-pause mr-1"></i>Pause</button></div></a></div><div class="mt-6 pt-6 border-t border-outline-variant/30"><div class="flex justify-between items-center mb-2"><span class="text-sm text-on-surface-variant">Storage Used</span><span class="text-sm font-bold">2.4 GB / 10 GB</span></div><div class="progress-bar"><div class="progress-fill" style="width: 24%"></div></div></div></div>
+                <!-- REX & REX PRO UPSELL -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Rex Card -->
+                    <div class="relative bg-gradient-to-br from-secondary to-blue-700 rounded-2xl p-8 text-white overflow-hidden shadow-xl">
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20"></div>
+                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full -ml-16 -mb-16"></div>
+                        <div class="relative z-10">
+                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-4 tracking-wider">REX</span>
+                            <h4 class="text-2xl font-bold mb-2">Unlock Your Subjects</h4>
+                            <p class="text-white/80 mb-6 text-sm leading-relaxed">Full access to all recordings in your enrolled subjects, plus premium content and early access to new lessons.</p>
+                            <ul class="space-y-2 mb-6 text-sm">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> All enrolled subject recordings</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Premium video content</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> New content within 7 days</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Download for offline viewing</li>
+                            </ul>
+                            <div class="flex items-end gap-1 mb-6">
+                                <span class="text-4xl font-bold">$25</span>
+                                <span class="text-white/70 mb-1 text-sm">/month</span>
+                            </div>
+                            <a href="/dashboard/payments/" class="block w-full py-3 bg-white text-secondary rounded-xl font-bold text-center hover:bg-white/90 transition-colors shadow-lg">
+                                Upgrade Now
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Rex Pro Card -->
+                    <div class="relative bg-gradient-to-br from-purple-600 via-indigo-700 to-purple-900 rounded-2xl p-8 text-white overflow-hidden shadow-xl ring-2 ring-yellow-400/30">
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-yellow-400/10 rounded-full -mr-20 -mt-20"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="bg-yellow-400 text-purple-900 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">⭐ BEST VALUE</span>
+                        </div>
+                        <div class="relative z-10">
+                            <span class="inline-block px-3 py-1 bg-yellow-400/20 backdrop-blur-sm rounded-full text-xs font-bold mb-4 tracking-wider">👑 REX PRO</span>
+                            <h4 class="text-2xl font-bold mb-2">Unlimited Everything</h4>
+                            <p class="text-white/80 mb-6 text-sm leading-relaxed">Access ALL recordings across ALL subjects — even ones you're not enrolled in. The ultimate learning experience.</p>
+                            <ul class="space-y-2 mb-6 text-sm">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Everything in Rex, plus:</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> <strong>ALL</strong> subjects (even non-enrolled)</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> Early access to new content</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> Priority support</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> Exclusive masterclasses</li>
+                            </ul>
+                            <div class="flex items-end gap-1 mb-6">
+                                <span class="text-4xl font-bold">$35</span>
+                                <span class="text-white/70 mb-1 text-sm">/month</span>
+                            </div>
+                            <a href="/dashboard/payments/" class="block w-full py-3 bg-yellow-400 text-purple-900 rounded-xl font-bold text-center hover:bg-yellow-300 transition-colors shadow-lg">
+                                Go Pro
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
     </div>
@@ -300,99 +291,382 @@
     <i class="fa-solid fa-comments text-xl"></i>
 </button>
 
-<!-- Existing UI Logic (Unchanged except Filter Chips now trigger API) -->
+<!-- CUSTOM MODAL -->
+<div id="appModal" class="fixed inset-0 z-[200] hidden items-center justify-center modal-hidden">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm modal-backdrop" onclick="hideModal()"></div>
+    <div class="relative flex items-center justify-center min-h-full p-4 w-full">
+        <div class="relative bg-surface-container-lowest rounded-2xl shadow-2xl max-w-md w-full overflow-hidden modal-card">
+            <button onclick="hideModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors z-10">
+                <i class="fa-solid fa-times text-sm"></i>
+            </button>
+            <div class="p-8 text-center">
+                <div id="modalIcon" class="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-lock text-secondary text-2xl"></i>
+                </div>
+                <h3 id="modalTitle" class="font-headline-md text-headline-md text-primary mb-2">Content Locked</h3>
+                <p id="modalMessage" class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed"></p>
+                <div id="modalActions" class="flex flex-col gap-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- UI Logic -->
 <script>
-    // Sidebar Toggle
     function toggleSidebar(){const s=document.getElementById('sidebar'),ic=document.getElementById('sidebarToggleIcon');s.classList.toggle('collapsed');ic.className=s.classList.contains('collapsed')?'fa-solid fa-chevron-right text-xl':'fa-solid fa-chevron-left text-xl';if(s.classList.contains('collapsed'))document.querySelectorAll('.menu-expanded').forEach(el=>el.classList.remove('menu-expanded'));}
-    
-    // Submenu Toggle
     function toggleMenu(id){const m=document.getElementById(id),btn=m.querySelector('button'),exp=m.classList.toggle('menu-expanded');btn.setAttribute('aria-expanded',exp);}
     
-    // Mobile Menu Toggle - Full Menu Structure Preserved
     const mobileToggle=document.getElementById('mobileMenuToggle'),mobileOverlay=document.getElementById('mobileOverlay'),sidebar=document.getElementById('sidebar');
     function openMobileMenu(){sidebar.classList.add('active');mobileOverlay.classList.add('active');document.body.classList.add('menu-open');}
     function closeMobileMenu(){sidebar.classList.remove('active');mobileOverlay.classList.remove('active');document.body.classList.remove('menu-open');}
     if(mobileToggle) mobileToggle.addEventListener('click', openMobileMenu);
     if(mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
-    document.querySelectorAll('#sidebar a').forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth < 1024) closeMobileMenu();
-        });
-    });
+    document.querySelectorAll('#sidebar a').forEach(link => { link.addEventListener('click', () => { if (window.innerWidth < 1024) closeMobileMenu(); }); });
     
-    // AI Chat Pane Toggle
     const aiToggle=document.getElementById('aiChatToggle'),aiPane=document.getElementById('aiChatPane'),closeAi=document.getElementById('closeAiChat'),mainWrapper=document.getElementById('mainWrapper'); let aiOpen=false;
     function toggleAiPane(){ aiOpen=!aiOpen; if(aiOpen){ aiPane.classList.remove('translate-x-full');aiPane.classList.add('translate-x-0');aiToggle.classList.add('hidden');if(window.innerWidth>=1024) mainWrapper.style.marginRight='24rem'; } else { aiPane.classList.add('translate-x-full');aiPane.classList.remove('translate-x-0');aiToggle.classList.remove('hidden');mainWrapper.style.marginRight='0';} }
     aiToggle.addEventListener('click',toggleAiPane); closeAi.addEventListener('click',toggleAiPane);
     
-    // Section Navigation & Filter Logic
-    const sections = {
-        'all': document.getElementById('all'),
-        'recent': document.getElementById('recent'),
-        'mathematics': document.getElementById('mathematics'),
-        'science': document.getElementById('science'),
-        'economics': document.getElementById('economics'),
-        'tutorials': document.getElementById('tutorials'),
-        'offline': document.getElementById('offline')
-    };
-    const filterChips = document.querySelectorAll('.filter-chip');
-    
-    function setActiveFilter(activeBtn){ 
-        filterChips.forEach(btn=>{ 
-            if(btn===activeBtn){ 
-                btn.classList.add('bg-primary','text-on-primary'); 
-                btn.classList.remove('bg-surface-container','text-on-surface-variant'); 
-            } else { 
-                btn.classList.remove('bg-primary','text-on-primary'); 
-                btn.classList.add('bg-surface-container','text-on-surface-variant'); 
-            } 
-        }); 
-    }
-    
-    // Handle filter chip clicks (Now triggers API fetch)
-    filterChips.forEach(chip=>{ 
-        chip.addEventListener('click', (e) => {
-            e.preventDefault();
-            const val = chip.getAttribute('data-filter');
-            setActiveFilter(chip);
-            history.pushState(null, null, `#${val}`);
-            
-            // Trigger API fetch via module script
-            if (window.loadRecordings) {
-                const filters = {};
-                if (val !== 'all' && val !== 'recent' && val !== 'offline' && val !== 'tutorials') {
-                    filters.subject = val;
-                }
-                window.loadRecordings(filters);
-            }
-        }); 
-    });
-    
-    // Handle window resize
-    window.addEventListener('resize',()=>{ 
-        if(window.innerWidth>=1024){ 
-            sidebar.classList.remove('active'); 
-            mobileOverlay.classList.remove('active'); 
-            document.body.classList.remove('menu-open');
-            if(aiOpen) mainWrapper.style.marginRight='24rem'; 
-        } else {
-            mainWrapper.style.marginRight='0';
-        } 
-    });
+    window.addEventListener('resize',()=>{ if(window.innerWidth>=1024){ sidebar.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.classList.remove('menu-open'); if(aiOpen) mainWrapper.style.marginRight='24rem'; } else { mainWrapper.style.marginRight='0'; } });
 </script>
 
-<!-- NEW: Supabase & Worker API Integration Logic -->
-<!-- NEW: Supabase & Worker API Integration Logic (FIXED 401 LOOP) -->
-<!-- NEW: Supabase & Worker API Integration Logic (FIXED CORS) -->
-<!-- NEW: Supabase & Worker API Integration Logic (WITH JWT DEBUGGER) -->
-
-    <!-- Replace the entire <script type="module"> section at the bottom with this -->
+<!-- Main Application Logic -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
     import { supabase } from '../../supabaseClient.js';
 
     const API_BASE_URL = 'https://rexapi.naijaassets.com';
 
+    // ==========================================
+    // STATE
+    // ==========================================
+    let allRecordings = [];
+    let filteredRecordings = [];
+    let currentPage = 1;
+    let itemsPerPage = 9;
+    let currentLayout = 3;
+    let currentFilter = 'all';
+    let searchQuery = '';
+    let currentAccess = 'standard';
+
+    // ==========================================
+    // MODAL SYSTEM
+    // ==========================================
+    function showModal({ icon = 'fa-lock', iconBg = 'bg-secondary/10', iconColor = 'text-secondary', title, message, buttons = [] }) {
+        const modal = document.getElementById('appModal');
+        const iconEl = document.getElementById('modalIcon');
+        const titleEl = document.getElementById('modalTitle');
+        const msgEl = document.getElementById('modalMessage');
+        const actionsEl = document.getElementById('modalActions');
+
+        iconEl.className = `w-16 h-16 rounded-full ${iconBg} flex items-center justify-center mx-auto mb-4`;
+        iconEl.innerHTML = `<i class="fa-solid ${icon} ${iconColor} text-2xl"></i>`;
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+
+        actionsEl.innerHTML = '';
+        buttons.forEach(btn => {
+            const el = document.createElement(btn.href ? 'a' : 'button');
+            el.className = `w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 ${btn.class || 'bg-secondary text-white hover:bg-secondary/90'}`;
+            el.textContent = btn.text;
+            if (btn.href) {
+                el.href = btn.href;
+            } else {
+                el.onclick = () => { if (btn.action === 'close') hideModal(); else if (btn.action) btn.action(); };
+            }
+            actionsEl.appendChild(el);
+        });
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        requestAnimationFrame(() => modal.classList.remove('modal-hidden'));
+    }
+
+    function hideModal() {
+        const modal = document.getElementById('appModal');
+        modal.classList.add('modal-hidden');
+        setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
+    }
+    window.hideModal = hideModal;
+
+    function showLockModal(rec) {
+        const isPremium = rec.is_premium;
+        showModal({
+            icon: isPremium ? 'fa-crown' : 'fa-lock',
+            iconBg: isPremium ? 'bg-yellow-500/10' : 'bg-secondary/10',
+            iconColor: isPremium ? 'text-yellow-600' : 'text-secondary',
+            title: isPremium ? 'Premium Content' : 'Content Locked',
+            message: rec.lock_reason || 'You need a subscription to access this content.',
+            buttons: [
+                { text: isPremium ? 'Upgrade to Rex Pro' : 'Upgrade to Rex', href: '/dashboard/payments/', class: `w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 ${isPremium ? 'bg-gradient-to-r from-purple-600 to-indigo-700 text-white hover:opacity-90' : 'bg-secondary text-white hover:bg-secondary/90'}` },
+                { text: 'Maybe Later', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' }
+            ]
+        });
+    }
+
+    // ==========================================
+    // API
+    // ==========================================
+    async function fetchRecordingsFromWorker() {
+        const { error: userError } = await supabase.auth.getUser();
+        if (userError) {
+            await supabase.auth.signOut();
+            window.location.replace('/login/');
+            return null;
+        }
+
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return null;
+
+        const url = new URL(`${API_BASE_URL}/api/recordings`);
+
+        const response = await fetch(url.toString(), {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${session.access_token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.status === 401) {
+            await supabase.auth.signOut();
+            window.location.replace('/login/');
+            return null;
+        }
+
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.status}`);
+        }
+
+        return await response.json();
+    }
+
+    // ==========================================
+    // FILTERING & SEARCH
+    // ==========================================
+    function applyFilters() {
+        filteredRecordings = allRecordings.filter(rec => {
+            // Subject filter
+            if (currentFilter !== 'all' && currentFilter !== 'recent') {
+                const filterSubject = currentFilter.toLowerCase();
+                const recSubject = (rec.subject || '').toLowerCase();
+                
+                // Handle plural/grouped filters
+                if (filterSubject === 'science' || filterSubject === 'sciences') {
+                    const scienceSubjects = ['physics', 'chemistry', 'biology', 'basic science', 'further mathematics'];
+                    if (!scienceSubjects.some(s => recSubject.includes(s)) && !recSubject.includes('science')) return false;
+                } else {
+                    if (!recSubject.includes(filterSubject)) return false;
+                }
+            }
+
+            // Search filter
+            if (searchQuery) {
+                const q = searchQuery.toLowerCase();
+                const searchable = `${rec.title} ${rec.description} ${rec.teacher} ${rec.subject} ${rec.tags || ''}`.toLowerCase();
+                if (!searchable.includes(q)) return false;
+            }
+
+            return true;
+        });
+
+        // Special: "Recent" = sort by date, limit 10
+        if (currentFilter === 'recent') {
+            filteredRecordings.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            filteredRecordings = filteredRecordings.slice(0, 10);
+        }
+
+        currentPage = 1;
+        renderPage();
+        renderPagination();
+    }
+
+    function setFilter(filter) {
+        currentFilter = filter;
+        applyFilters();
+    }
+
+    // ==========================================
+    // LAYOUT
+    // ==========================================
+    function setLayout(cols) {
+        currentLayout = cols;
+        const grid = document.getElementById('grid-all');
+
+        grid.classList.remove('grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
+
+        if (cols === 2) {
+            grid.classList.add('grid-cols-1', 'md:grid-cols-2');
+            itemsPerPage = 6;
+        } else if (cols === 3) {
+            grid.classList.add('grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
+            itemsPerPage = 9;
+        } else if (cols === 4) {
+            grid.classList.add('grid-cols-2', 'md:grid-cols-3', 'lg:grid-cols-4');
+            itemsPerPage = 12;
+        }
+
+        document.querySelectorAll('.layout-btn').forEach(btn => {
+            btn.classList.remove('active', 'bg-secondary', 'text-white');
+            btn.classList.add('text-on-surface-variant');
+        });
+        const activeBtn = document.querySelector(`.layout-btn[data-cols="${cols}"]`);
+        if (activeBtn) {
+            activeBtn.classList.add('active', 'bg-secondary', 'text-white');
+            activeBtn.classList.remove('text-on-surface-variant');
+        }
+
+        renderPage();
+        renderPagination();
+    }
+    window.setLayout = setLayout;
+
+    // ==========================================
+    // RENDERING
+    // ==========================================
+    function createRecordingCard(rec) {
+        const isLocked = rec.is_locked;
+        const thumbnail = rec.thumbnail_url
+            ? `<img src="${rec.thumbnail_url}" class="w-full h-full object-cover ${isLocked ? 'grayscale' : ''}" alt="${rec.title}" loading="lazy">`
+            : `<i class="fa-regular fa-circle-play text-4xl text-white/80"></i>`;
+
+        const overlay = isLocked
+            ? `<div class="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-[2px]"><i class="fa-solid fa-lock text-4xl text-white"></i></div>`
+            : '';
+
+        const actionBtn = isLocked
+            ? `<button onclick="window.showLockModal_${rec.id}()" class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-full font-bold hover:bg-secondary/20 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-crown text-[10px]"></i> ${rec.is_premium ? 'Go Pro' : 'Unlock'}</button>`
+            : `<a href="${rec.video_url || '#'}" target="_blank" class="bg-secondary text-white px-3 py-1.5 rounded-full font-bold hover:bg-secondary/90 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-play text-[10px]"></i> Watch</a>`;
+
+        return `
+            <div class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block ${isLocked ? 'opacity-90' : ''}">
+                <div class="relative aspect-video bg-gradient-to-br from-indigo-200/40 to-blue-200/40 flex items-center justify-center overflow-hidden">
+                    ${thumbnail}
+                    ${overlay}
+                    <div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">${rec.duration || '00:00'}</div>
+                    ${rec.is_premium ? `<div class="absolute top-2 left-2 px-2 py-1 bg-yellow-500 text-white text-[10px] rounded-full font-bold flex items-center gap-1"><i class="fa-solid fa-crown text-[8px]"></i> Premium</div>` : ''}
+                </div>
+                <div class="p-4">
+                    <h4 class="font-headline-md text-primary mb-1 line-clamp-2 text-sm">${rec.title}</h4>
+                    <p class="text-on-surface-variant text-xs mb-3">${rec.teacher || 'Unknown'} • ${rec.subject || 'General'}</p>
+                    <div class="flex justify-between items-center text-xs text-outline">
+                        <span><i class="fa-solid fa-eye mr-1"></i> ${rec.view_count ? rec.view_count.toLocaleString() : '0'}</span>
+                        ${actionBtn}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderPage() {
+        const grid = document.getElementById('grid-all');
+        if (!grid) return;
+
+        if (filteredRecordings.length === 0) {
+            grid.innerHTML = `
+                <div class="col-span-full text-center py-12 text-on-surface-variant">
+                    <i class="fa-solid fa-video-slash text-4xl mb-4 text-outline"></i>
+                    <p class="font-bold">No recordings found</p>
+                    <p class="text-sm mt-2">${searchQuery ? 'Try a different search term.' : 'No recordings match the current filter.'}</p>
+                </div>
+            `;
+            return;
+        }
+
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageItems = filteredRecordings.slice(start, end);
+
+        grid.innerHTML = pageItems.map(rec => {
+            // Attach lock modal handler to window
+            if (rec.is_locked) {
+                window[`showLockModal_${rec.id}`] = () => showLockModal(rec);
+            }
+            return createRecordingCard(rec);
+        }).join('');
+    }
+
+    function renderPagination() {
+        const pagination = document.getElementById('pagination');
+        const info = document.getElementById('paginationInfo');
+        const controls = document.getElementById('paginationControls');
+
+        if (filteredRecordings.length <= itemsPerPage) {
+            pagination.classList.add('hidden');
+            return;
+        }
+
+        pagination.classList.remove('hidden');
+
+        const totalPages = Math.ceil(filteredRecordings.length / itemsPerPage);
+        const start = (currentPage - 1) * itemsPerPage + 1;
+        const end = Math.min(currentPage * itemsPerPage, filteredRecordings.length);
+
+        info.textContent = `Showing ${start}–${end} of ${filteredRecordings.length} recordings`;
+
+        let controlsHtml = '';
+
+        // Previous button
+        controlsHtml += `<button class="page-btn border border-outline-variant" ${currentPage === 1 ? 'disabled' : ''} onclick="window.goToPage(${currentPage - 1})"><i class="fa-solid fa-chevron-left text-xs"></i></button>`;
+
+        // Page numbers
+        const maxVisible = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+        if (endPage - startPage < maxVisible - 1) {
+            startPage = Math.max(1, endPage - maxVisible + 1);
+        }
+
+        if (startPage > 1) {
+            controlsHtml += `<button class="page-btn border border-outline-variant" onclick="window.goToPage(1)">1</button>`;
+            if (startPage > 2) controlsHtml += `<span class="px-1 text-outline">...</span>`;
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            controlsHtml += `<button class="page-btn ${i === currentPage ? 'active' : 'border border-outline-variant'}" onclick="window.goToPage(${i})">${i}</button>`;
+        }
+
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) controlsHtml += `<span class="px-1 text-outline">...</span>`;
+            controlsHtml += `<button class="page-btn border border-outline-variant" onclick="window.goToPage(${totalPages})">${totalPages}</button>`;
+        }
+
+        // Next button
+        controlsHtml += `<button class="page-btn border border-outline-variant" ${currentPage === totalPages ? 'disabled' : ''} onclick="window.goToPage(${currentPage + 1})"><i class="fa-solid fa-chevron-right text-xs"></i></button>`;
+
+        controls.innerHTML = controlsHtml;
+    }
+
+    function goToPage(page) {
+        const totalPages = Math.ceil(filteredRecordings.length / itemsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderPage();
+        renderPagination();
+        document.getElementById('grid-all').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    window.goToPage = goToPage;
+    window.showLockModal = showLockModal;
+
+    // ==========================================
+    // ACCESS BADGE
+    // ==========================================
+    function renderAccessBadge(access) {
+        const badge = document.getElementById('access-badge');
+        if (!badge) return;
+
+        if (access === 'rex_pro') {
+            badge.innerHTML = `<span class="px-3 py-1 rounded-full bg-gradient-to-r from-purple-500/20 to-yellow-500/20 text-purple-700 text-xs font-bold flex items-center gap-1 shadow-sm border border-purple-500/30"><i class="fa-solid fa-crown text-yellow-500"></i> REX PRO</span>`;
+        } else if (access === 'rex') {
+            badge.innerHTML = `<span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold flex items-center gap-1 shadow-sm"><i class="fa-solid fa-crown"></i> REX ACCESS</span>`;
+        } else {
+            badge.innerHTML = `<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-user"></i> STANDARD</span>`;
+        }
+    }
+
+    // ==========================================
+    // INIT
+    // ==========================================
     async function initRecordingsPage() {
         await initializeAuth();
         if (!requireAuth()) return;
@@ -400,10 +674,10 @@
         const user = window.currentUser;
         const session = window.currentSession;
 
-        // Profile Data Injection
+        // Profile injection
         const meta = session.user.user_metadata || {};
         const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
-        
+
         const sidebarName = document.querySelector('.profile-section .profile-details p.font-bold');
         const sidebarEmail = document.querySelector('.profile-section .profile-details p.text-outline span');
         if (sidebarName) sidebarName.textContent = fullName;
@@ -414,244 +688,74 @@
         if (headerName) headerName.textContent = fullName;
         if (headerLevel) headerLevel.textContent = user.grade || 'Student';
 
-        await loadRecordings();
+        // Fetch recordings
+        try {
+            const data = await fetchRecordingsFromWorker();
+            if (data) {
+                allRecordings = data.recordings || [];
+                currentAccess = data.access || 'standard';
+                renderAccessBadge(currentAccess);
 
+                const totalCount = document.getElementById('total-count');
+                if (totalCount) totalCount.textContent = `${data.total || allRecordings.length} video lectures`;
+
+                applyFilters();
+            }
+        } catch (err) {
+            console.error('Failed to load recordings:', err);
+            const grid = document.getElementById('grid-all');
+            if (grid) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-error">
+                        <i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i>
+                        <p class="font-bold">Failed to load recordings</p>
+                        <p class="text-sm text-on-surface-variant mt-2">${err.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Search input with debounce
         const searchInput = document.getElementById('recordingsSearch');
         let searchTimeout;
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
-                    loadRecordings({ search: e.target.value });
-                }, 500);
+                    searchQuery = e.target.value.trim();
+                    applyFilters();
+                }, 400);
             });
         }
 
-        const settingsLinks = document.querySelectorAll('#settings-menu a');
-        settingsLinks.forEach(link => {
-            if (link.textContent.includes('Logout')) {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    signOut();
+        // Filter chips
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', (e) => {
+                e.preventDefault();
+                const filter = chip.getAttribute('data-filter');
+
+                // Update active chip styling
+                document.querySelectorAll('.filter-chip').forEach(c => {
+                    c.classList.remove('bg-primary', 'text-on-primary', 'shadow-md');
+                    c.classList.add('bg-surface-container', 'text-on-surface-variant');
                 });
-            }
-        });
-    }
+                chip.classList.add('bg-primary', 'text-on-primary', 'shadow-md');
+                chip.classList.remove('bg-surface-container', 'text-on-surface-variant');
 
-    async function fetchRecordingsFromWorker(accessToken, filters = {}) {
-        console.log('🔵 Starting API fetch to Worker...');
-        console.log('🔵 Filters:', filters);
-        
-        const url = new URL(`${API_BASE_URL}/api/recordings`);
-        
-        if (filters.subject && !['all', 'recent', 'offline', 'tutorials'].includes(filters.subject)) {
-            url.searchParams.append('subject', filters.subject);
-        }
-        if (filters.search) url.searchParams.append('search', filters.search);
-
-        console.log('🔵 Request URL:', url.toString());
-
-        const response = await fetch(url.toString(), {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json'
-            }
+                setFilter(filter);
+            });
         });
 
-        console.log('🔵 Response status:', response.status, response.statusText);
-
-        // Parse response body
-        const responseText = await response.text();
-        let responseData;
-        
-        try {
-            responseData = JSON.parse(responseText);
-        } catch (e) {
-            console.error('❌ Failed to parse response as JSON:', responseText);
-            showDebugPanel({ error: 'Invalid JSON response', raw: responseText });
-            throw new Error('Invalid server response');
-        }
-
-        // Handle 401 Unauthorized
-        if (response.status === 401) {
-            console.error('🔴 Worker returned 401 Unauthorized');
-            console.error('🔴 Response:', responseData);
-            
-            if (responseData.debug) {
-                console.error('🔴 Debug info:', responseData.debug);
-                showDebugPanel(responseData.debug);
-            }
-            
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) {
-                await supabase.auth.signOut();
-                window.location.replace('/login/');
-            } else {
-                console.error('⚠️ Worker rejected valid Supabase session');
-                throw new Error('Server access denied. Check debug panel for details.');
-            }
-            return null;
-        }
-        
-        // Handle other errors
-        if (!response.ok) {
-            console.error(`❌ Worker API Error ${response.status}:`, responseData);
-            if (responseData.debug) {
-                showDebugPanel(responseData.debug);
-            }
-            throw new Error(`API Error: ${response.status} ${responseData.error || response.statusText}`);
-        }
-
-        // Success - show debug info if available
-        if (responseData.debug) {
-            console.log('✅ Worker returned success with debug info:', responseData.debug);
-            showDebugPanel(responseData.debug);
-        }
-
-        return responseData;
-    }
-
-    async function loadRecordings(filters = {}) {
-        console.log('🔵 Loading recordings with filters:', filters);
-        
-        // 1. FORCE TOKEN REFRESH
-        const { error: userError } = await supabase.auth.getUser();
-        if (userError) {
-            console.error("❌ Token refresh failed:", userError);
-            await supabase.auth.signOut();
-            window.location.replace('/login/');
-            return;
-        }
-
-        // 2. Get the guaranteed fresh session
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) {
-            console.error('❌ No session available');
-            return;
-        }
-
-        console.log('✅ Got fresh session for user:', session.user.email);
-
-        const grid = document.getElementById('grid-all');
-        if (!grid) return;
-
-        grid.innerHTML = `<div class="col-span-full text-center py-12"><i class="fa-solid fa-spinner fa-spin text-3xl text-secondary"></i><p class="mt-4 text-on-surface-variant">Loading recordings...</p></div>`;
-
-        Object.values(sections).forEach(sec => { if(sec) sec.classList.add('section-hidden'); });
-        document.getElementById('all').classList.remove('section-hidden');
-
-        try {
-            const data = await fetchRecordingsFromWorker(session.access_token, filters);
-            if (data) {
-                console.log('✅ Successfully loaded recordings:', data.total, 'items');
-                renderRecordings(data);
-            }
-        } catch (err) {
-            console.error("❌ Failed to load recordings:", err);
-            grid.innerHTML = `
-                <div class="col-span-full text-center py-12 text-error">
-                    <i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i>
-                    <p class="font-bold">Failed to load recordings</p>
-                    <p class="text-sm text-on-surface-variant mt-2">${err.message}</p>
-                    <p class="text-xs text-outline mt-4">Check the debug panel below or browser console for details</p>
-                </div>
-            `;
+        // Logout
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                signOut();
+            });
         }
     }
 
-    function renderRecordings(data) {
-        const grid = document.getElementById('grid-all');
-        if (!grid) return;
-
-        const badge = document.getElementById('access-badge');
-        if (badge) {
-            badge.innerHTML = data.access === 'rex' 
-                ? `<span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold flex items-center gap-1 shadow-sm"><i class="fa-solid fa-crown"></i> REX ACCESS</span>`
-                : `<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-user"></i> STANDARD ACCESS</span>`;
-        }
-
-        const totalCount = document.getElementById('total-count');
-        if (totalCount) totalCount.textContent = `${data.total || 0} video lectures`;
-
-        if (!data.recordings || data.recordings.length === 0) {
-            grid.innerHTML = `
-                <div class="col-span-full text-center py-12 text-on-surface-variant">
-                    <i class="fa-solid fa-video-slash text-4xl mb-4 text-outline"></i>
-                    <p class="font-bold">No recordings found</p>
-                    <p class="text-sm mt-2">You don't have any active subscriptions or the recordings haven't been added yet.</p>
-                    <p class="text-xs text-outline mt-4">Check the debug panel to see what subscriptions the Worker found</p>
-                </div>
-            `;
-            return;
-        }
-
-        grid.innerHTML = data.recordings.map(rec => {
-            const isLocked = rec.is_locked;
-            const lockReason = rec.lock_reason || 'This is premium Rex content. Upgrade to watch.';
-            const safeReason = lockReason.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            
-            const thumbnail = rec.thumbnail_url 
-                ? `<img src="${rec.thumbnail_url}" class="w-full h-full object-cover ${isLocked ? 'grayscale' : ''}" alt="${rec.title}" loading="lazy">` 
-                : `<i class="fa-regular fa-circle-play text-4xl text-white/80"></i>`;
-            
-            const overlay = isLocked ? `<div class="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-[2px]"><i class="fa-solid fa-lock text-4xl text-white"></i></div>` : '';
-            
-            const actionBtn = isLocked 
-                ? `<button onclick="alert('${safeReason}')" class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-full font-bold hover:bg-secondary/20 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-crown text-[10px]"></i> Upgrade to Rex</button>`
-                : `<a href="${rec.video_url || '#'}" target="_blank" class="bg-secondary text-white px-3 py-1.5 rounded-full font-bold hover:bg-secondary/90 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-play text-[10px]"></i> Watch Now</a>`;
-
-            return `
-                <div class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block ${isLocked ? 'opacity-90' : ''}">
-                    <div class="relative aspect-video bg-gradient-to-br from-indigo-200/40 to-blue-200/40 flex items-center justify-center overflow-hidden">
-                        ${thumbnail}
-                        ${overlay}
-                        <div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">${rec.duration || '00:00'}</div>
-                        ${rec.is_premium ? `<div class="absolute top-2 left-2 px-2 py-1 bg-secondary text-white text-xs rounded-full font-bold flex items-center gap-1"><i class="fa-solid fa-crown text-[10px]"></i> Premium</div>` : ''}
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-headline-md text-primary mb-1 line-clamp-2">${rec.title}</h4>
-                        <p class="text-on-surface-variant text-sm mb-3">${rec.teacher || 'Unknown'} • ${rec.subject || 'General'}</p>
-                        <div class="flex justify-between items-center text-xs text-outline">
-                            <span><i class="fa-solid fa-eye mr-1"></i> ${rec.view_count ? rec.view_count.toLocaleString() : '0'} views</span>
-                            ${actionBtn}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
-
-    // NEW: Debug Panel Display Function
-    function showDebugPanel(debugData) {
-        // Remove existing debug panel
-        const existing = document.getElementById('debug-panel');
-        if (existing) existing.remove();
-
-        // Create new debug panel
-        const panel = document.createElement('div');
-        panel.id = 'debug-panel';
-        panel.className = 'fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 max-h-96 overflow-y-auto z-50 shadow-2xl';
-        panel.style.fontFamily = 'monospace';
-        panel.style.fontSize = '12px';
-
-        const header = document.createElement('div');
-        header.className = 'flex justify-between items-center mb-3 pb-2 border-b border-gray-700';
-        header.innerHTML = `
-            <span class="font-bold text-lg">🔍 Worker Debug Info</span>
-            <button onclick="document.getElementById('debug-panel').remove()" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-sm">Close</button>
-        `;
-        panel.appendChild(header);
-
-        const content = document.createElement('pre');
-        content.className = 'whitespace-pre-wrap break-words';
-        content.textContent = JSON.stringify(debugData, null, 2);
-        panel.appendChild(content);
-
-        document.body.appendChild(panel);
-    }
-
-    window.loadRecordings = loadRecordings;
     initRecordingsPage();
 </script>
 </body>
