@@ -111,7 +111,7 @@
         .mobile-menu.inactive { transform: translateX(-100%); }
         
         .form-container {
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
         .form-container.hidden {
             opacity: 0;
@@ -140,17 +140,22 @@
             font-size: 15px;
             font-family: 'Manrope', sans-serif;
             background: transparent;
-            transition: border-color 0.2s ease;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
             outline: none;
             color: #191c1e;
         }
         
         .input-field:focus {
             border-color: #0051d5;
+            box-shadow: 0 0 0 3px rgba(0, 81, 213, 0.1);
         }
         
         .input-field.error {
             border-color: #ba1a1a;
+        }
+        
+        .input-field.success {
+            border-color: #009485;
         }
         
         .input-label {
@@ -178,6 +183,32 @@
         
         .input-field:not(:focus):not(:placeholder-shown) + .input-label {
             color: #76777d;
+        }
+        
+        .field-error {
+            display: none;
+            font-size: 12px;
+            color: #ba1a1a;
+            margin-top: 6px;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .field-error.show {
+            display: flex;
+        }
+        
+        .field-success {
+            display: none;
+            font-size: 12px;
+            color: #009485;
+            margin-top: 6px;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .field-success.show {
+            display: flex;
         }
         
         select.input-field {
@@ -210,29 +241,159 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         
-        .subject-tag {
-            display: inline-flex;
+        /* Step transitions */
+        .wizard-step {
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+        
+        .wizard-step.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInReverse {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .wizard-step.reverse {
+            animation: slideInReverse 0.4s ease;
+        }
+        
+        /* Progress bar */
+        .progress-bar {
+            height: 4px;
+            background: #e0e3e5;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0051d5, #316bf3);
+            transition: width 0.4s ease;
+            border-radius: 2px;
+        }
+        
+        /* Password strength meter */
+        .strength-meter {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+        }
+        
+        .strength-bar {
+            flex: 1;
+            height: 4px;
+            background: #e0e3e5;
+            border-radius: 2px;
+            transition: background 0.3s ease;
+        }
+        
+        .strength-text {
+            font-size: 12px;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+        
+        /* Password requirements */
+        .requirement {
+            display: flex;
             align-items: center;
             gap: 6px;
-            padding: 8px 14px;
-            background: #f2f4f6;
-            border: 1px solid #e0e3e5;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #191c1e;
+            font-size: 12px;
+            color: #76777d;
+            margin-top: 4px;
+        }
+        
+        .requirement.met {
+            color: #009485;
+        }
+        
+        .requirement i {
+            font-size: 10px;
+        }
+        
+        /* Subject pricing cards */
+        .subject-card {
+            background: #ffffff;
+            border: 2px solid #e0e3e5;
+            border-radius: 12px;
+            padding: 12px;
             transition: all 0.2s ease;
+            cursor: default;
         }
         
-        .subject-tag:hover {
-            background: #e6e8ea;
-            border-color: #c6c6cd;
+        .subject-card:hover {
+            border-color: #0051d5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 81, 213, 0.1);
         }
         
+        .subject-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0051d5;
+            margin-top: 4px;
+        }
+        
+        .subject-period {
+            font-size: 10px;
+            color: #76777d;
+            font-weight: 400;
+        }
+        
+        /* Currency toggle */
+        .currency-toggle {
+            display: inline-flex;
+            background: #f2f4f6;
+            border-radius: 9999px;
+            padding: 3px;
+            gap: 2px;
+        }
+        
+        .currency-toggle button {
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #76777d;
+        }
+        
+        .currency-toggle button.active {
+            background: #0051d5;
+            color: white;
+        }
+        
+        /* Referral banner */
         .referral-banner {
             background: linear-gradient(135deg, #dbe1ff 0%, #f0f4ff 100%);
             border: 1px solid #b4c5ff;
         }
         
+        /* Terms warning */
         .terms-warning {
             animation: shake 0.4s ease-in-out;
         }
@@ -241,6 +402,14 @@
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-5px); }
             75% { transform: translateX(5px); }
+        }
+        
+        /* Summary box */
+        .summary-box {
+            background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+            border: 2px solid #0051d5;
+            border-radius: 12px;
+            padding: 16px;
         }
         
         @media (max-width: 768px) {
@@ -290,10 +459,6 @@
             <i class="fa-solid fa-circle-info w-5 text-center"></i>
             <span class="font-label-md text-label-md">About</span>
         </a>
-        <a href="/subjects" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
-            <i class="fa-solid fa-book-open w-5 text-center"></i>
-            <span class="font-label-md text-label-md">Subjects</span>
-        </a>
         <a href="/pricing" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
             <i class="fa-solid fa-tag w-5 text-center"></i>
             <span class="font-label-md text-label-md">Pricing</span>
@@ -330,7 +495,6 @@
         <div class="hidden md:flex items-center gap-6">
             <a href="/" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Home</a>
             <a href="/about" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">About</a>
-            <a href="/subjects" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Subjects</a>
             <a href="/pricing" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Pricing</a>
             <a href="/faq" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">FAQ</a>
             <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
@@ -352,14 +516,14 @@
         <div class="flex flex-col items-center justify-center w-full order-2 lg:order-1">
             <div class="w-full max-w-md relative flex justify-center">
                 
-                <!-- Signup Form -->
+                <!-- Signup Wizard Form -->
                 <div id="signupForm" class="form-container active bg-surface-container-lowest p-8 md:p-10 rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30">
-                    <div class="text-center mb-8">
+                    <div class="text-center mb-6">
                         <div class="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-2xl mb-4">
                             <i class="fa-solid fa-user-plus text-secondary text-2xl"></i>
                         </div>
-                        <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Create Account</h1>
-                        <p class="font-body-md text-body-md text-on-surface-variant">Join NaijaAssets to start learning.</p>
+                        <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Create Your Account</h1>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Join thousands of students learning with NaijaAssets</p>
                     </div>
                     
                     <!-- Referral Banner -->
@@ -375,88 +539,162 @@
                         </div>
                     </div>
                     
-                    <form class="space-y-5" onsubmit="handleSignup(event)">
-                        <div class="grid grid-cols-2 gap-3">
+                    <!-- Progress Bar -->
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill" style="width: 33.33%"></div>
+                    </div>
+                    
+                    <!-- Step Indicator -->
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-2">
+                            <div id="step1Indicator" class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center text-sm font-bold">1</div>
+                            <span class="text-sm font-medium text-primary">Personal</span>
+                        </div>
+                        <div class="flex-1 h-px bg-outline-variant mx-2"></div>
+                        <div class="flex items-center gap-2">
+                            <div id="step2Indicator" class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center text-sm font-bold">2</div>
+                            <span class="text-sm font-medium text-on-surface-variant">Security</span>
+                        </div>
+                        <div class="flex-1 h-px bg-outline-variant mx-2"></div>
+                        <div class="flex items-center gap-2">
+                            <div id="step3Indicator" class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center text-sm font-bold">3</div>
+                            <span class="text-sm font-medium text-on-surface-variant">Academic</span>
+                        </div>
+                    </div>
+                    
+                    <form id="signupWizard" onsubmit="handleFinalSubmit(event)">
+                        
+                        <!-- STEP 1: Personal Information -->
+                        <div id="step1" class="wizard-step active">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="input-group">
+                                    <input type="text" id="firstName" class="input-field" placeholder=" " required/>
+                                    <label for="firstName" class="input-label">First Name</label>
+                                    <div id="firstNameError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" id="lastName" class="input-field" placeholder=" " required/>
+                                    <label for="lastName" class="input-label">Last Name</label>
+                                    <div id="lastNameError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
+                                </div>
+                            </div>
+                            
                             <div class="input-group">
-                                <input type="text" id="firstName" class="input-field" placeholder=" " required/>
-                                <label for="firstName" class="input-label">First Name</label>
+                                <input type="email" id="signupEmail" class="input-field" placeholder=" " required/>
+                                <label for="signupEmail" class="input-label">Email Address</label>
+                                <div id="emailError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
+                                <div id="emailSuccess" class="field-success"><i class="fa-solid fa-circle-check"></i> <span>Valid email</span></div>
                             </div>
+                            
                             <div class="input-group">
-                                <input type="text" id="lastName" class="input-field" placeholder=" " required/>
-                                <label for="lastName" class="input-label">Last Name</label>
+                                <input type="tel" id="phone" class="input-field" placeholder=" "/>
+                                <label for="phone" class="input-label">Phone Number</label>
+                                <div id="phoneError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
+                                <div id="phoneSuccess" class="field-success"><i class="fa-solid fa-circle-check"></i> <span>Valid phone number</span></div>
                             </div>
                         </div>
                         
-                        <div class="input-group">
-                            <input type="email" id="signupEmail" class="input-field" placeholder=" " required/>
-                            <label for="signupEmail" class="input-label">Email Address</label>
-                        </div>
-                        
-                        <div class="input-group">
-                            <input type="tel" id="phone" class="input-field" placeholder=" " required/>
-                            <label for="phone" class="input-label">Phone Number</label>
-                            <p id="phoneError" class="hidden text-xs text-error mt-1">Please enter a valid phone number (7-15 digits)</p>
-                        </div>
-                        
-                        <div class="input-group">
-                            <input type="password" id="signupPassword" class="input-field" placeholder=" " required minlength="8"/>
-                            <label for="signupPassword" class="input-label">Password</label>
-                            <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary transition-colors" onclick="togglePassword('signupPassword', this)">
-                                <i class="fa-regular fa-eye"></i>
-                            </button>
-                        </div>
-                        
-                        <div class="input-group">
-                            <input type="password" id="confirmPassword" class="input-field" placeholder=" " required minlength="8"/>
-                            <label for="confirmPassword" class="input-label">Confirm Password</label>
-                            <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary transition-colors" onclick="togglePassword('confirmPassword', this)">
-                                <i class="fa-regular fa-eye"></i>
-                            </button>
-                        </div>
-                        
-                        <!-- Grade Selector (triggers subject preview) -->
-                        <div class="input-group">
-                            <select id="previewGrade" class="input-field" onchange="loadSubjectPreview(this.value)">
-                                <option value="" disabled selected hidden></option>
-                                <option value="JSS1">JSS 1</option>
-                                <option value="JSS2">JSS 2</option>
-                                <option value="JSS3">JSS 3</option>
-                                <option value="SS1">SS 1</option>
-                                <option value="SS2">SS 2</option>
-                                <option value="SS3">SS 3</option>
-                            </select>
-                            <label for="previewGrade" class="input-label">Select Your Grade (Preview Subjects)</label>
-                        </div>
-                        
-                        <!-- Subject Preview (View-only tags, no checkboxes) -->
-                        <div id="subjectPreviewSection" class="hidden">
-                            <label class="block font-label-md text-label-md text-on-surface mb-3">
-                                Available Subjects for <span id="previewGradeLabel" class="text-secondary font-bold"></span>
-                            </label>
-                            <div id="subjectPreviewGrid" class="flex flex-wrap gap-2 mb-2">
-                                <!-- Dynamically populated with tags -->
+                        <!-- STEP 2: Security -->
+                        <div id="step2" class="wizard-step">
+                            <div class="input-group">
+                                <input type="password" id="signupPassword" class="input-field" placeholder=" " required minlength="8"/>
+                                <label for="signupPassword" class="input-label">Password</label>
+                                <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary transition-colors" onclick="togglePassword('signupPassword', this)">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
                             </div>
-                            <p class="text-xs text-outline italic flex items-center gap-1">
-                                <i class="fa-solid fa-circle-info text-[10px]"></i>
-                                You'll select and pay for subjects after completing your profile.
+                            
+                            <!-- Password Strength Meter -->
+                            <div class="mb-4">
+                                <div class="strength-meter">
+                                    <div id="strength1" class="strength-bar"></div>
+                                    <div id="strength2" class="strength-bar"></div>
+                                    <div id="strength3" class="strength-bar"></div>
+                                    <div id="strength4" class="strength-bar"></div>
+                                    <div id="strength5" class="strength-bar"></div>
+                                </div>
+                                <div id="strengthText" class="strength-text text-outline">Enter a password</div>
+                            </div>
+                            
+                            <!-- Password Requirements -->
+                            <div class="mb-6 p-3 bg-surface-container-low rounded-lg">
+                                <p class="text-xs font-bold text-on-surface-variant mb-2">Password Requirements:</p>
+                                <div id="reqLength" class="requirement"><i class="fa-solid fa-circle"></i> At least 8 characters</div>
+                                <div id="reqUpper" class="requirement"><i class="fa-solid fa-circle"></i> Uppercase & lowercase letters</div>
+                                <div id="reqNumber" class="requirement"><i class="fa-solid fa-circle"></i> At least one number</div>
+                                <div id="reqSpecial" class="requirement"><i class="fa-solid fa-circle"></i> Special character (!@#$%)</div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <input type="password" id="confirmPassword" class="input-field" placeholder=" " required minlength="8"/>
+                                <label for="confirmPassword" class="input-label">Confirm Password</label>
+                                <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary transition-colors" onclick="togglePassword('confirmPassword', this)">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                                <div id="confirmError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
+                                <div id="confirmSuccess" class="field-success"><i class="fa-solid fa-circle-check"></i> <span>Passwords match</span></div>
+                            </div>
+                        </div>
+                        
+                        <!-- STEP 3: Academic -->
+                        <div id="step3" class="wizard-step">
+                            <div class="input-group">
+                                <select id="previewGrade" class="input-field" onchange="loadSubjectPreview(this.value)">
+                                    <option value="" disabled selected hidden></option>
+                                    <option value="JSS1">JSS 1</option>
+                                    <option value="JSS2">JSS 2</option>
+                                    <option value="JSS3">JSS 3</option>
+                                    <option value="SS1">SS 1</option>
+                                    <option value="SS2">SS 2</option>
+                                    <option value="SS3">SS 3</option>
+                                </select>
+                                <label for="previewGrade" class="input-label">Select Your Grade</label>
+                            </div>
+                            
+                            <!-- Subject Preview with Pricing -->
+                            <div id="subjectPreviewSection" class="hidden mb-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <label class="block font-label-md text-label-md text-on-surface">
+                                        Available Subjects for <span id="previewGradeLabel" class="text-secondary font-bold"></span>
+                                    </label>
+                                    <div class="currency-toggle">
+                                        <button type="button" id="currencyUSD" class="active" onclick="switchCurrency('usd')">USD</button>
+                                        <button type="button" id="currencyNGN" onclick="switchCurrency('ngn')">NGN</button>
+                                    </div>
+                                </div>
+                                <div id="subjectPreviewGrid" class="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto custom-scrollbar pr-1">
+                                    <!-- Dynamically populated -->
+                                </div>
+                                <p class="text-xs text-outline italic flex items-center gap-1 mt-3">
+                                    <i class="fa-solid fa-circle-info text-[10px]"></i>
+                                    You'll select and pay for subjects after completing your profile.
+                                </p>
+                            </div>
+                            
+                            <div class="flex items-start gap-2 mt-4">
+                                <input type="checkbox" id="terms" class="mt-1 accent-secondary"/>
+                                <label for="terms" class="text-xs text-on-surface-variant">
+                                    I agree to the <a href="/terms" class="text-secondary hover:underline" target="_blank">Terms of Service</a> and <a href="/privacy" class="text-secondary hover:underline" target="_blank">Privacy Policy</a>
+                                </label>
+                            </div>
+                            <p id="termsWarning" class="hidden text-xs text-error font-medium flex items-center gap-1 terms-warning mt-2">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                You need to agree to the Terms and Privacy Policy to create an account.
                             </p>
                         </div>
                         
-                        <div class="flex items-start gap-2">
-                            <input type="checkbox" id="terms" class="mt-1 accent-secondary"/>
-                            <label for="terms" class="text-xs text-on-surface-variant">
-                                I agree to the <a href="/terms" class="text-secondary hover:underline" target="_blank">Terms of Service</a> and <a href="/privacy" class="text-secondary hover:underline" target="_blank">Privacy Policy</a>
-                            </label>
+                        <!-- Navigation Buttons -->
+                        <div class="flex gap-3 mt-6">
+                            <button type="button" id="prevBtn" onclick="prevStep()" class="flex-1 py-3.5 bg-surface-container text-primary rounded-xl font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-all hidden">
+                                <i class="fa-solid fa-arrow-left mr-2"></i>Back
+                            </button>
+                            <button type="button" id="nextBtn" onclick="nextStep()" class="flex-1 py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2">
+                                Next<i class="fa-solid fa-arrow-right text-[18px]"></i>
+                            </button>
+                            <button type="submit" id="submitBtn" class="flex-1 py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg hidden flex items-center justify-center gap-2">
+                                Create Account<i class="fa-solid fa-check text-[18px]"></i>
+                            </button>
                         </div>
-                        <p id="termsWarning" class="hidden text-xs text-error font-medium flex items-center gap-1 terms-warning">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                            You need to agree to the Terms of Service and Privacy Policy to create an account with us.
-                        </p>
-                        
-                        <button type="submit" class="w-full py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2">
-                            Create Account
-                            <i class="fa-solid fa-arrow-right text-[18px]"></i>
-                        </button>
                     </form>
                     
                     <div class="mt-6 text-center">
@@ -596,19 +834,9 @@
                 <nav class="flex flex-col gap-3">
                     <a href="/" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Home</a>
                     <a href="/about" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">About</a>
-                    <a href="/subjects" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Subjects</a>
                     <a href="/pricing" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Pricing</a>
                     <a href="/faq" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">FAQ</a>
                     <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
-                </nav>
-            </div>
-
-            <div class="md:col-span-1">
-                <h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-4 uppercase tracking-wide">Subjects</h4>
-                <nav class="flex flex-col gap-3">
-                    <a href="/subjects/mathematics" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Mathematics</a>
-                    <a href="/subjects/science" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Science</a>
-                    <a href="/subjects/waec" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">WAEC Prep</a>
                 </nav>
             </div>
 
@@ -624,20 +852,6 @@
 
         <div class="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-outline-variant/30 gap-4">
             <p class="font-label-sm text-label-sm text-on-surface-variant">© 2026 NaijaAssets. All rights reserved.</p>
-            <div class="flex gap-5">
-                <a href="/fb" aria-label="Facebook" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
-                    <i class="fa-brands fa-facebook-f"></i> Facebook
-                </a>
-                <a href="/tk" aria-label="TikTok" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
-                    <i class="fa-brands fa-tiktok"></i> TikTok
-                </a>
-                <a href="/ig" aria-label="Instagram" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
-                    <i class="fa-brands fa-instagram"></i> Instagram
-                </a>
-                <a href="/x" aria-label="X/Twitter" class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors flex items-center gap-1.5">
-                    <i class="fa-brands fa-x-twitter"></i> X
-                </a>
-            </div>
         </div>
     </div>
 </footer>
@@ -645,6 +859,9 @@
 <script type="module">
     import { supabase } from '../supabaseClient.js';
 
+    // ==========================================
+    // UI & MOBILE MENU
+    // ==========================================
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenuClose = document.getElementById('mobile-menu-close');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -675,10 +892,8 @@
     function showForm(formToShow, formToHide) {
         const toShow = document.getElementById(formToShow);
         const toHide = document.getElementById(formToHide);
-        
         toHide.classList.remove('active');
         toHide.classList.add('hidden');
-        
         setTimeout(() => {
             toShow.classList.remove('hidden');
             toShow.classList.add('active');
@@ -688,7 +903,6 @@
     function togglePassword(inputId, button) {
         const input = document.getElementById(inputId);
         const icon = button.querySelector('i');
-        
         if (input.type === 'password') {
             input.type = 'text';
             icon.className = 'fa-regular fa-eye-slash';
@@ -702,17 +916,401 @@
         const timerEl = document.getElementById('resendTimer');
         const countEl = document.getElementById('timerCount');
         timerEl.classList.remove('hidden');
-        
         let count = 60;
         const interval = setInterval(() => {
             count--;
             countEl.textContent = count;
-            
             if (count <= 0) {
                 clearInterval(interval);
                 timerEl.classList.add('hidden');
             }
         }, 1000);
+    }
+
+    // ==========================================
+    // MULTI-STEP WIZARD
+    // ==========================================
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    function updateProgress() {
+        const progressFill = document.getElementById('progressFill');
+        const percentage = (currentStep / totalSteps) * 100;
+        progressFill.style.width = percentage + '%';
+
+        // Update step indicators
+        for (let i = 1; i <= totalSteps; i++) {
+            const indicator = document.getElementById(`step${i}Indicator`);
+            if (i < currentStep) {
+                indicator.innerHTML = '<i class="fa-solid fa-check text-xs"></i>';
+                indicator.className = 'w-8 h-8 rounded-full bg-on-tertiary-container text-white flex items-center justify-center text-sm font-bold';
+            } else if (i === currentStep) {
+                indicator.textContent = i;
+                indicator.className = 'w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center text-sm font-bold';
+            } else {
+                indicator.textContent = i;
+                indicator.className = 'w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center text-sm font-bold';
+            }
+        }
+
+        // Update buttons
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (currentStep === 1) {
+            prevBtn.classList.add('hidden');
+        } else {
+            prevBtn.classList.remove('hidden');
+        }
+
+        if (currentStep === totalSteps) {
+            nextBtn.classList.add('hidden');
+            submitBtn.classList.remove('hidden');
+        } else {
+            nextBtn.classList.remove('hidden');
+            submitBtn.classList.add('hidden');
+        }
+    }
+
+    function nextStep() {
+        if (!validateStep(currentStep)) return;
+
+        const currentStepEl = document.getElementById(`step${currentStep}`);
+        currentStepEl.classList.remove('active');
+        currentStep++;
+        const nextStepEl = document.getElementById(`step${currentStep}`);
+        nextStepEl.classList.remove('reverse');
+        nextStepEl.classList.add('active');
+        updateProgress();
+    }
+
+    function prevStep() {
+        const currentStepEl = document.getElementById(`step${currentStep}`);
+        currentStepEl.classList.remove('active');
+        currentStep--;
+        const prevStepEl = document.getElementById(`step${currentStep}`);
+        prevStepEl.classList.add('reverse');
+        prevStepEl.classList.add('active');
+        updateProgress();
+    }
+
+    function validateStep(step) {
+        if (step === 1) {
+            return validateStep1();
+        } else if (step === 2) {
+            return validateStep2();
+        } else if (step === 3) {
+            return validateStep3();
+        }
+        return true;
+    }
+
+    function validateStep1() {
+        let valid = true;
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+
+        if (!firstName) {
+            showFieldError('firstNameError', 'First name is required');
+            valid = false;
+        } else {
+            hideFieldError('firstNameError');
+        }
+
+        if (!lastName) {
+            showFieldError('lastNameError', 'Last name is required');
+            valid = false;
+        } else {
+            hideFieldError('lastNameError');
+        }
+
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showFieldError('emailError', 'Please enter a valid email address');
+            valid = false;
+        } else {
+            hideFieldError('emailError');
+        }
+
+        if (phone && !/^[0-9+\s\-()]{7,15}$/.test(phone)) {
+            showFieldError('phoneError', 'Please enter a valid phone number (7-15 digits)');
+            valid = false;
+        } else {
+            hideFieldError('phoneError');
+        }
+
+        return valid;
+    }
+
+    function validateStep2() {
+        let valid = true;
+        const password = document.getElementById('signupPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password.length < 8) {
+            alert('Password must be at least 8 characters');
+            valid = false;
+        }
+
+        if (password !== confirmPassword) {
+            showFieldError('confirmError', 'Passwords do not match');
+            valid = false;
+        } else {
+            hideFieldError('confirmError');
+        }
+
+        return valid;
+    }
+
+    function validateStep3() {
+        const grade = document.getElementById('previewGrade').value;
+        const terms = document.getElementById('terms').checked;
+
+        if (!grade) {
+            alert('Please select your grade');
+            return false;
+        }
+
+        if (!terms) {
+            const warning = document.getElementById('termsWarning');
+            warning.classList.remove('hidden');
+            warning.classList.remove('terms-warning');
+            void warning.offsetWidth;
+            warning.classList.add('terms-warning');
+            return false;
+        }
+
+        return true;
+    }
+
+    function showFieldError(id, message) {
+        const errorEl = document.getElementById(id);
+        errorEl.querySelector('span').textContent = message;
+        errorEl.classList.add('show');
+    }
+
+    function hideFieldError(id) {
+        document.getElementById(id).classList.remove('show');
+    }
+
+    // ==========================================
+    // REAL-TIME VALIDATION
+    // ==========================================
+    document.getElementById('signupEmail').addEventListener('input', (e) => {
+        const email = e.target.value.trim();
+        const errorEl = document.getElementById('emailError');
+        const successEl = document.getElementById('emailSuccess');
+        
+        if (!email) {
+            errorEl.classList.remove('show');
+            successEl.classList.remove('show');
+            e.target.classList.remove('error', 'success');
+            return;
+        }
+
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errorEl.classList.remove('show');
+            successEl.classList.add('show');
+            e.target.classList.remove('error');
+            e.target.classList.add('success');
+        } else {
+            errorEl.classList.remove('show');
+            successEl.classList.remove('show');
+            e.target.classList.remove('success');
+        }
+    });
+
+    document.getElementById('phone').addEventListener('input', (e) => {
+        const phone = e.target.value.trim();
+        const errorEl = document.getElementById('phoneError');
+        const successEl = document.getElementById('phoneSuccess');
+        
+        if (!phone) {
+            errorEl.classList.remove('show');
+            successEl.classList.remove('show');
+            e.target.classList.remove('error', 'success');
+            return;
+        }
+
+        if (/^[0-9+\s\-()]{7,15}$/.test(phone)) {
+            errorEl.classList.remove('show');
+            successEl.classList.add('show');
+            e.target.classList.remove('error');
+            e.target.classList.add('success');
+        } else {
+            errorEl.classList.remove('show');
+            successEl.classList.remove('show');
+            e.target.classList.remove('success');
+        }
+    });
+
+    document.getElementById('confirmPassword').addEventListener('input', (e) => {
+        const password = document.getElementById('signupPassword').value;
+        const confirm = e.target.value;
+        const errorEl = document.getElementById('confirmError');
+        const successEl = document.getElementById('confirmSuccess');
+        
+        if (!confirm) {
+            errorEl.classList.remove('show');
+            successEl.classList.remove('show');
+            e.target.classList.remove('error', 'success');
+            return;
+        }
+
+        if (password === confirm) {
+            errorEl.classList.remove('show');
+            successEl.classList.add('show');
+            e.target.classList.remove('error');
+            e.target.classList.add('success');
+        } else {
+            errorEl.classList.remove('show');
+            successEl.classList.remove('show');
+            e.target.classList.remove('success');
+        }
+    });
+
+    // ==========================================
+    // PASSWORD STRENGTH METER
+    // ==========================================
+    document.getElementById('signupPassword').addEventListener('input', (e) => {
+        const password = e.target.value;
+        updatePasswordStrength(password);
+    });
+
+    function updatePasswordStrength(password) {
+        let score = 0;
+        const bars = [
+            document.getElementById('strength1'),
+            document.getElementById('strength2'),
+            document.getElementById('strength3'),
+            document.getElementById('strength4'),
+            document.getElementById('strength5')
+        ];
+        const text = document.getElementById('strengthText');
+
+        // Reset
+        bars.forEach(bar => bar.style.background = '#e0e3e5');
+
+        if (!password) {
+            text.textContent = 'Enter a password';
+            text.className = 'strength-text text-outline';
+            updateRequirements(password);
+            return;
+        }
+
+        if (password.length >= 8) score++;
+        if (password.length >= 12) score++;
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
+        if (/\d/.test(password)) score++;
+        if (/[^A-Za-z0-9]/.test(password)) score++;
+
+        const colors = ['#ba1a1a', '#ff6b35', '#ffc107', '#7cb342', '#009485'];
+        const labels = ['Very Weak', 'Weak', 'Fair', 'Strong', 'Very Strong'];
+
+        for (let i = 0; i < score; i++) {
+            bars[i].style.background = colors[score - 1];
+        }
+
+        text.textContent = labels[score - 1] || 'Very Weak';
+        text.style.color = colors[score - 1] || '#ba1a1a';
+
+        updateRequirements(password);
+    }
+
+    function updateRequirements(password) {
+        const reqs = {
+            reqLength: password.length >= 8,
+            reqUpper: /[a-z]/.test(password) && /[A-Z]/.test(password),
+            reqNumber: /\d/.test(password),
+            reqSpecial: /[^A-Za-z0-9]/.test(password)
+        };
+
+        for (const [id, met] of Object.entries(reqs)) {
+            const el = document.getElementById(id);
+            if (met) {
+                el.classList.add('met');
+                el.querySelector('i').className = 'fa-solid fa-circle-check';
+            } else {
+                el.classList.remove('met');
+                el.querySelector('i').className = 'fa-solid fa-circle';
+            }
+        }
+    }
+
+    // ==========================================
+    // SUBJECT PREVIEW WITH PRICING
+    // ==========================================
+    let currentCurrency = 'usd';
+    let subjectsData = [];
+
+    async function loadSubjectPreview(grade) {
+        const section = document.getElementById('subjectPreviewSection');
+        const grid = document.getElementById('subjectPreviewGrid');
+        const gradeLabel = document.getElementById('previewGradeLabel');
+        
+        if (!grade) {
+            section.classList.add('hidden');
+            return;
+        }
+        
+        gradeLabel.textContent = grade;
+        grid.innerHTML = '<p class="col-span-2 text-sm text-outline italic text-center py-4"><i class="fa-solid fa-spinner fa-spin"></i> Loading subjects...</p>';
+        section.classList.remove('hidden');
+        
+        try {
+            const { data, error } = await supabase
+                .from('subject_pricing')
+                .select('subject, price_usd, price_ngn')
+                .eq('grade', grade)
+                .order('subject', { ascending: true });
+                
+            if (error) throw error;
+            
+            subjectsData = data || [];
+            
+            if (subjectsData.length === 0) {
+                grid.innerHTML = '<p class="col-span-2 text-sm text-error text-center py-4">No subjects found for this grade.</p>';
+                return;
+            }
+            
+            renderSubjectCards();
+            
+        } catch (err) {
+            console.error('Failed to load subjects:', err);
+            grid.innerHTML = '<p class="col-span-2 text-sm text-error text-center py-4">Failed to load subjects.</p>';
+        }
+    }
+
+    function renderSubjectCards() {
+        const grid = document.getElementById('subjectPreviewGrid');
+        
+        grid.innerHTML = subjectsData.map(subject => {
+            const price = currentCurrency === 'usd' 
+                ? `$${parseFloat(subject.price_usd).toFixed(2)}`
+                : `₦${parseFloat(subject.price_ngn).toLocaleString()}`;
+            
+            return `
+                <div class="subject-card">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-book text-secondary text-sm"></i>
+                        <span class="text-sm font-semibold text-primary">${subject.subject}</span>
+                    </div>
+                    <div class="subject-price">
+                        ${price}
+                        <span class="subject-period">/month</span>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function switchCurrency(currency) {
+        currentCurrency = currency;
+        document.getElementById('currencyUSD').classList.toggle('active', currency === 'usd');
+        document.getElementById('currencyNGN').classList.toggle('active', currency === 'ngn');
+        renderSubjectCards();
     }
 
     // ==========================================
@@ -734,107 +1332,30 @@
             if (referrer) {
                 referralUsername = refUsername;
                 localStorage.setItem('referral_code', refUsername);
-                
                 const banner = document.getElementById('referralBanner');
-                const referrerNameEl = document.getElementById('referrerName');
-                referrerNameEl.textContent = `@${refUsername}`;
+                document.getElementById('referrerName').textContent = `@${refUsername}`;
                 banner.classList.remove('hidden');
-            } else {
-                console.warn('Invalid referral code:', refUsername);
             }
         }
     }
 
     // ==========================================
-    // SUBJECT PREVIEW (View-only tags, no checkboxes)
-    // ==========================================
-    async function loadSubjectPreview(grade) {
-        const section = document.getElementById('subjectPreviewSection');
-        const grid = document.getElementById('subjectPreviewGrid');
-        const gradeLabel = document.getElementById('previewGradeLabel');
-        
-        if (!grade) {
-            section.classList.add('hidden');
-            return;
-        }
-        
-        gradeLabel.textContent = grade;
-        grid.innerHTML = '<p class="text-sm text-outline italic py-4"><i class="fa-solid fa-spinner fa-spin"></i> Loading subjects...</p>';
-        section.classList.remove('hidden');
-        
-        try {
-            const { data, error } = await supabase
-                .from('subject_pricing')
-                .select('subject')
-                .eq('grade', grade)
-                .order('subject', { ascending: true });
-                
-            if (error) throw error;
-            
-            const uniqueSubjects = [...new Set(data.map(item => item.subject))];
-            
-            if (uniqueSubjects.length === 0) {
-                grid.innerHTML = '<p class="text-sm text-error py-4">No subjects found for this grade.</p>';
-                return;
-            }
-            
-            // Render as tags (no checkboxes)
-            grid.innerHTML = uniqueSubjects.map(subject => `
-                <span class="subject-tag">
-                    <i class="fa-solid fa-book text-secondary text-xs"></i>
-                    ${subject}
-                </span>
-            `).join('');
-            
-        } catch (err) {
-            console.error('Failed to load subjects:', err);
-            grid.innerHTML = '<p class="text-sm text-error py-4">Failed to load subjects.</p>';
-        }
-    }
-
-    // ==========================================
-    // SIGNUP HANDLER
+    // FINAL SUBMIT
     // ==========================================
     let currentOtpEmail = '';
 
-    async function handleSignup(event) {
+    async function handleFinalSubmit(event) {
         event.preventDefault();
         
-        document.getElementById('termsWarning').classList.add('hidden');
-        document.getElementById('phoneError').classList.add('hidden');
-        document.getElementById('phone').classList.remove('error');
+        if (!validateStep3()) return;
         
-        const termsCheckbox = document.getElementById('terms');
-        if (!termsCheckbox.checked) {
-            const warning = document.getElementById('termsWarning');
-            warning.classList.remove('hidden');
-            warning.classList.remove('terms-warning');
-            void warning.offsetWidth;
-            warning.classList.add('terms-warning');
-            return;
-        }
-        
+        const email = document.getElementById('signupEmail').value.trim();
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const phonePattern = /^[0-9+\s\-()]{7,15}$/;
-        if (!phone || !phonePattern.test(phone)) {
-            document.getElementById('phoneError').classList.remove('hidden');
-            document.getElementById('phone').classList.add('error');
-            return;
-        }
-        
         const password = document.getElementById('signupPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
         
-        if (password !== confirmPassword) {
-            alert('Passwords do not match!');
-            return;
-        }
-        
-        const email = document.getElementById('signupEmail').value;
-        const firstName = document.getElementById('firstName').value;
-        const lastName = document.getElementById('lastName').value;
-        
-        const button = event.target.querySelector('button[type="submit"]');
+        const button = document.getElementById('submitBtn');
         const originalText = button.innerHTML;
         button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating account...';
         button.disabled = true;
@@ -853,9 +1374,7 @@
             const { data, error } = await supabase.auth.signUp({
                 email: email,
                 password: password,
-                options: {
-                    data: metadata
-                }
+                options: { data: metadata }
             });
             
             if (error) throw error;
@@ -875,12 +1394,11 @@
     }
 
     // ==========================================
-    // OTP VERIFICATION (with paste support)
+    // OTP VERIFICATION
     // ==========================================
     const otpInputs = document.querySelectorAll('.otp-input');
     
     otpInputs.forEach((input, index) => {
-        // Auto-advance on input
         input.addEventListener('input', (e) => {
             const value = e.target.value;
             if (value && index < otpInputs.length - 1) {
@@ -888,28 +1406,20 @@
             }
         });
         
-        // Backspace handling
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Backspace' && !input.value && index > 0) {
                 otpInputs[index - 1].focus();
             }
         });
         
-        // PASTE SUPPORT: One-click paste full code
         input.addEventListener('paste', (e) => {
             e.preventDefault();
             const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim();
-            
-            // Only handle if it's a string of digits
             if (/^\d+$/.test(pasteData)) {
                 const digits = pasteData.split('');
-                
-                // Distribute digits across inputs
                 otpInputs.forEach((inp, i) => {
                     inp.value = digits[i] || '';
                 });
-                
-                // Focus the next empty input or the last one
                 const nextIndex = Math.min(digits.length, otpInputs.length - 1);
                 otpInputs[nextIndex].focus();
             }
@@ -949,7 +1459,6 @@
             button.innerHTML = originalText;
             button.disabled = false;
             
-            // Redirect to onboarding (on login page)
             window.location.href = '/login?onboarding';
             
         } catch (error) {
@@ -977,10 +1486,13 @@
     // ==========================================
     window.showForm = showForm;
     window.togglePassword = togglePassword;
-    window.handleSignup = handleSignup;
+    window.nextStep = nextStep;
+    window.prevStep = prevStep;
+    window.handleFinalSubmit = handleFinalSubmit;
     window.handleOTPVerification = handleOTPVerification;
     window.resendOTP = resendOTP;
     window.loadSubjectPreview = loadSubjectPreview;
+    window.switchCurrency = switchCurrency;
 
     // ==========================================
     // INITIAL LOAD
@@ -998,6 +1510,7 @@
         }
         
         await captureReferral();
+        updateProgress();
     });
 </script>
 </body>
