@@ -491,10 +491,10 @@
                             <div>
                                 <h4 class="font-label-md text-label-md text-outline mb-3">Change Password</h4>
                                 <div class="space-y-3">
-                                    <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" placeholder="Current Password" type="password"/>
+                                    <input class="w-full p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" placeholder="Current Password" type="password" id="current_password"/>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                        <input class="p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" placeholder="New Password" type="password"/>
-                                        <input class="p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" placeholder="Confirm New Password" type="password"/>
+                                        <input class="p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" placeholder="New Password" type="password" id="new_password"/>
+                                        <input class="p-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-secondary outline-none" placeholder="Confirm New Password" type="password" id="confirm_password"/>
                                     </div>
                                 </div>
                                 <button id="update_password_btn" class="px-4 py-2 mt-3 bg-surface-container-high text-primary rounded-lg font-label-md hover:bg-outline-variant transition-all">Update Password</button>
@@ -634,7 +634,13 @@
     }
     function handleLogout(event) {
         if (event) event.preventDefault();
-        if (confirm('Are you sure you want to logout?')) window.location.href = '/login/';
+        if (confirm('Are you sure you want to logout?')) {
+            if (typeof supabase !== 'undefined' && supabase.auth) {
+                supabase.auth.signOut().then(() => window.location.replace('/login/'));
+            } else {
+                window.location.href = '/login/';
+            }
+        }
     }
     function navigateToSection(event, sectionId) {
         if (event) event.preventDefault();
@@ -769,11 +775,27 @@
         const session = window.currentSession;
         const meta = session.user.user_metadata || {};
         
+        // ==========================================
+        // PROFILE INJECTION (FIXED - matching Payments page pattern)
+        // ==========================================
+        const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
+        
+        // Sidebar Profile
+        const sidebarName = document.querySelector('.profile-section .profile-details p.font-bold');
+        const sidebarEmail = document.querySelector('.profile-section .profile-details p.text-outline');
+        if (sidebarName) sidebarName.textContent = fullName;
+        if (sidebarEmail) sidebarEmail.textContent = user.email;
+
+        // Header Profile
+        const headerName = document.querySelector('.header-profile .text-right p.text-primary');
+        const headerLevel = document.querySelector('.header-profile .text-right p.text-outline');
+        if (headerName) headerName.textContent = fullName;
+        if (headerLevel) headerLevel.textContent = user.grade || 'Student';
+        
         const prefs = meta.prefs || JSON.parse(localStorage.getItem('user_prefs') || '{}');
         if (meta.prefs) localStorage.setItem('user_prefs', JSON.stringify(meta.prefs));
 
         // Populate Profile Fields
-        const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
         document.getElementById('profile_name').value = fullName;
         document.getElementById('profile_email').value = user.email;
         document.getElementById('profile_phone').value = meta.phone || '';
@@ -804,6 +826,7 @@
         
         const tierDescriptions = {
             'vault': {
+                label: 'VAULT PASS',
                 desc: 'You have unlimited access to everything on NaijaAssets',
                 features: [
                     'All recordings (all grades, all subjects)',
@@ -813,6 +836,7 @@
                 ]
             },
             'rex-pro': {
+                label: 'REX PRO',
                 desc: 'Access to all recordings in your grade',
                 features: [
                     'All subjects in your grade',
@@ -822,6 +846,7 @@
                 ]
             },
             'rex': {
+                label: 'REX',
                 desc: 'Access to recordings in your subscribed subjects',
                 features: [
                     'Your subscribed subject recordings',
@@ -830,6 +855,7 @@
                 ]
             },
             'free': {
+                label: 'FREE',
                 desc: 'Basic access to recent recordings',
                 features: [
                     'Recordings from last 7 days only',
@@ -844,11 +870,25 @@
             ? `<span class="days-remaining ${currentTier.days <= 7 ? 'warning' : 'active'}">${currentTier.days} days remaining</span>`
             : '';
 
+        const tierGradients = {
+            'vault': 'from-amber-50 to-yellow-50 border-amber-200',
+            'rex-pro': 'from-purple-50 to-indigo-50 border-purple-200',
+            'rex': 'from-blue-50 to-indigo-50 border-blue-200',
+            'free': 'from-gray-50 to-slate-50 border-gray-200'
+        };
+
+        const tierIconBg = {
+            'vault': 'bg-gradient-to-br from-amber-400 to-yellow-500',
+            'rex-pro': 'bg-gradient-to-br from-purple-500 to-indigo-600',
+            'rex': 'bg-blue-500',
+            'free': 'bg-gray-400'
+        };
+
         tierDisplay.innerHTML = `
-            <div class="p-6 bg-gradient-to-br ${currentTier.tier === 'vault' ? 'from-amber-50 to-yellow-50' : currentTier.tier === 'rex-pro' ? 'from-purple-50 to-indigo-50' : currentTier.tier === 'rex' ? 'from-blue-50 to-indigo-50' : 'from-gray-50 to-slate-50'} rounded-2xl border-2 ${currentTier.tier === 'vault' ? 'border-amber-200' : currentTier.tier === 'rex-pro' ? 'border-purple-200' : currentTier.tier === 'rex' ? 'border-blue-200' : 'border-gray-200'}">
+            <div class="p-6 bg-gradient-to-br ${tierGradients[currentTier.tier]} rounded-2xl border-2">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-full ${currentTier.tier === 'vault' ? 'bg-gradient-to-br from-amber-400 to-yellow-500' : currentTier.tier === 'rex-pro' ? 'bg-gradient-to-br from-purple-500 to-indigo-600' : currentTier.tier === 'rex' ? 'bg-blue-500' : 'bg-gray-400'} flex items-center justify-center">
+                        <div class="w-12 h-12 rounded-full ${tierIconBg[currentTier.tier]} flex items-center justify-center">
                             <i class="fa-solid ${currentTier.icon} text-white text-xl"></i>
                         </div>
                         <div>
@@ -1047,10 +1087,13 @@
         });
 
         document.getElementById('update_password_btn').addEventListener('click', async function() {
-            const inputs = document.querySelectorAll('#security-section input[type="password"]');
-            const newPass = inputs[1].value; const confirmPass = inputs[2].value;
+            const currentPass = document.getElementById('current_password').value;
+            const newPass = document.getElementById('new_password').value;
+            const confirmPass = document.getElementById('confirm_password').value;
+            
             if (!newPass || newPass.length < 8) { alert('New password must be at least 8 characters.'); return; }
             if (newPass !== confirmPass) { alert('New passwords do not match.'); return; }
+            
             this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Updating...'; this.disabled = true;
             const { error } = await supabase.auth.updateUser({ password: newPass });
             if (error) alert('Error updating password: ' + error.message);
