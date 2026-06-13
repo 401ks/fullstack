@@ -149,7 +149,7 @@
                 <div>
                     <div class="flex items-center gap-3 mb-2 flex-wrap">
                         <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary">My Recordings</h1>
-                        <div id="access-badge"></div>
+                        <div id="tier-badge"></div>
                     </div>
                     <p class="font-body-lg text-body-lg text-on-surface-variant">Access <span class="text-secondary font-bold" id="total-count">video lectures</span> from your enrolled classes.</p>
                 </div>
@@ -227,56 +227,92 @@
                     </div>
                 </div>
                 
-                <!-- REX & REX PRO UPSELL -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Rex Card -->
-                    <div class="relative bg-gradient-to-br from-secondary to-blue-700 rounded-2xl p-8 text-white overflow-hidden shadow-xl">
-                        <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20"></div>
-                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full -ml-16 -mb-16"></div>
-                        <div class="relative z-10">
-                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-4 tracking-wider">REX</span>
-                            <h4 class="text-2xl font-bold mb-2">Unlock Your Subjects</h4>
-                            <p class="text-white/80 mb-6 text-sm leading-relaxed">Full access to all recordings in your enrolled subjects, plus premium content and early access to new lessons.</p>
-                            <ul class="space-y-2 mb-6 text-sm">
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> All enrolled subject recordings</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Premium video content</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> New content within 7 days</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Download for offline viewing</li>
-                            </ul>
-                            <div class="flex items-end gap-1 mb-6">
-                                <span class="text-4xl font-bold">$25</span>
-                                <span class="text-white/70 mb-1 text-sm">/month</span>
+                <!-- TIER UPSELL CARDS -->
+                <div id="upsell-section" class="space-y-6">
+                    <!-- Vault Pass Card (Premium Tier) -->
+                    <div class="relative bg-gradient-to-br from-amber-500 via-yellow-500 to-amber-600 rounded-2xl p-8 text-white overflow-hidden shadow-2xl ring-2 ring-yellow-300/50">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+                        <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"></div>
+                        <div class="absolute top-4 right-4">
+                            <span class="bg-white text-amber-600 text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg"><i class="fa-solid fa-trophy text-amber-500 text-xs"></i> ULTIMATE ACCESS</span>
+                        </div>
+                        <div class="relative z-10 max-w-2xl">
+                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-4 tracking-wider"><i class="fa-solid fa-trophy text-yellow-300"></i> VAULT PASS</span>
+                            <h4 class="text-3xl font-bold mb-3">Unlimited Everything, Forever</h4>
+                            <p class="text-white/90 mb-6 text-base leading-relaxed">The ultimate learning experience. Access ALL recordings across ALL grades, ALL subjects, premium content, and exclusive masterclasses. No restrictions, no limits.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-300 text-xs"></i> ALL recordings (all grades)</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-300 text-xs"></i> ALL subjects (enrolled or not)</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-300 text-xs"></i> Premium video content</li>
+                                </ul>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-300 text-xs"></i> Early access to new content</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-300 text-xs"></i> Exclusive masterclasses</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-300 text-xs"></i> Priority support</li>
+                                </ul>
                             </div>
-                            <a href="/dashboard/payments/" class="block w-full py-3 bg-white text-secondary rounded-xl font-bold text-center hover:bg-white/90 transition-colors shadow-lg">
-                                Upgrade Now
+                            <div class="flex items-end gap-2 mb-6">
+                                <span class="text-5xl font-bold">$75</span>
+                                <span class="text-white/70 mb-1 text-base">one-time</span>
+                            </div>
+                            <a href="/dashboard/payments/" class="inline-block w-full md:w-auto px-8 py-4 bg-white text-amber-600 rounded-xl font-bold text-center hover:bg-white/90 transition-colors shadow-lg">
+                                Get Vault Pass
                             </a>
                         </div>
                     </div>
                     
-                    <!-- Rex Pro Card -->
-                    <div class="relative bg-gradient-to-br from-purple-600 via-indigo-700 to-purple-900 rounded-2xl p-8 text-white overflow-hidden shadow-xl ring-2 ring-yellow-400/30">
-                        <div class="absolute top-0 right-0 w-40 h-40 bg-yellow-400/10 rounded-full -mr-20 -mt-20"></div>
-                        <div class="absolute top-4 right-4">
-                            <span class="bg-yellow-400 text-purple-900 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm"><i class="fa-solid fa-star text-purple-400 text-xs"></i> BEST VALUE</span>
-                        </div>
-                        <div class="relative z-10">
-                            <span class="inline-block px-3 py-1 bg-yellow-400/20 backdrop-blur-sm rounded-full text-xs font-bold mb-4 tracking-wider">  <i class="fa-solid fa-crown text-1x3"></i> REX PRO</span>
-                            <h4 class="text-2xl font-bold mb-2">Unlimited Everything</h4>
-                            <p class="text-white/80 mb-6 text-sm leading-relaxed">Access ALL recordings across ALL subjects — even ones you're not enrolled in. The ultimate learning experience.</p>
-                            <ul class="space-y-2 mb-6 text-sm">
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Everything in Rex, plus:</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> <strong>ALL</strong> subjects (even non-enrolled)</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> Early access to new content</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> Priority support</li>
-                                <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> Exclusive masterclasses</li>
-                            </ul>
-                            <div class="flex items-end gap-1 mb-6">
-                                <span class="text-4xl font-bold">$35</span>
-                                <span class="text-white/70 mb-1 text-sm">/month</span>
+                    <!-- Rex & Rex Pro Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Rex Card -->
+                        <div class="relative bg-gradient-to-br from-secondary to-blue-700 rounded-2xl p-8 text-white overflow-hidden shadow-xl">
+                            <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20"></div>
+                            <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full -ml-16 -mb-16"></div>
+                            <div class="relative z-10">
+                                <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-4 tracking-wider"><i class="fa-solid fa-fox text-white"></i> REX</span>
+                                <h4 class="text-2xl font-bold mb-2">Unlock Your Subjects</h4>
+                                <p class="text-white/80 mb-6 text-sm leading-relaxed">Full access to all recordings in your enrolled subjects, plus premium content and early access to new lessons.</p>
+                                <ul class="space-y-2 mb-6 text-sm">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> All enrolled subject recordings</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Premium video content</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> New content within 7 days</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Download for offline viewing</li>
+                                </ul>
+                                <div class="flex items-end gap-1 mb-6">
+                                    <span class="text-4xl font-bold">$25</span>
+                                    <span class="text-white/70 mb-1 text-sm">/month</span>
+                                </div>
+                                <a href="/dashboard/payments/" class="block w-full py-3 bg-white text-secondary rounded-xl font-bold text-center hover:bg-white/90 transition-colors shadow-lg">
+                                    Upgrade Now
+                                </a>
                             </div>
-                            <a href="/dashboard/payments/" class="block w-full py-3 bg-yellow-400 text-purple-900 rounded-xl font-bold text-center hover:bg-yellow-300 transition-colors shadow-lg">
-                                Go Pro
-                            </a>
+                        </div>
+                        
+                        <!-- Rex Pro Card -->
+                        <div class="relative bg-gradient-to-br from-purple-600 via-indigo-700 to-purple-900 rounded-2xl p-8 text-white overflow-hidden shadow-xl ring-2 ring-yellow-400/30">
+                            <div class="absolute top-0 right-0 w-40 h-40 bg-yellow-400/10 rounded-full -mr-20 -mt-20"></div>
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-yellow-400 text-purple-900 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm"><i class="fa-solid fa-star text-purple-400 text-xs"></i> BEST VALUE</span>
+                            </div>
+                            <div class="relative z-10">
+                                <span class="inline-block px-3 py-1 bg-yellow-400/20 backdrop-blur-sm rounded-full text-xs font-bold mb-4 tracking-wider"><i class="fa-solid fa-crown text-yellow-400"></i> REX PRO</span>
+                                <h4 class="text-2xl font-bold mb-2">Unlimited in Your Grade</h4>
+                                <p class="text-white/80 mb-6 text-sm leading-relaxed">Access ALL recordings in your grade — all subjects, premium content, any age. The ultimate learning experience for your class level.</p>
+                                <ul class="space-y-2 mb-6 text-sm">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Everything in Rex, plus:</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> <strong>ALL</strong> subjects in your grade</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> Early access to new content</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> Priority support</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400 text-xs"></i> Exclusive masterclasses</li>
+                                </ul>
+                                <div class="flex items-end gap-1 mb-6">
+                                    <span class="text-4xl font-bold">$35</span>
+                                    <span class="text-white/70 mb-1 text-sm">/month</span>
+                                </div>
+                                <a href="/dashboard/payments/" class="block w-full py-3 bg-yellow-400 text-purple-900 rounded-xl font-bold text-center hover:bg-yellow-300 transition-colors shadow-lg">
+                                    Go Pro
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -347,7 +383,7 @@
     let currentLayout = 3;
     let currentFilter = 'all';
     let searchQuery = '';
-    let currentAccess = 'standard';
+    let currentTier = 'free';
 
     // ==========================================
     // MODAL SYSTEM
@@ -389,18 +425,51 @@
     }
     window.hideModal = hideModal;
 
-    function showLockModal(rec) {
+    function showLockedContentModal(rec) {
         const isPremium = rec.is_premium;
+        
+        // Different prompts based on tier
+        let buttons = [];
+        
+        if (currentTier === 'public') {
+            // Public tier: Show login prompt
+            buttons = [
+                { text: 'Login to Watch', href: '/login/', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-secondary text-white hover:bg-secondary/90' },
+                { text: 'Sign Up Free', href: '/signup/', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' },
+                { text: 'Maybe Later', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 text-on-surface-variant hover:text-primary' }
+            ];
+        } else if (currentTier === 'no_access') {
+            // No access tier: Show subscribe prompt
+            buttons = [
+                { text: 'Subscribe to a Subject', href: '/dashboard/payments/', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-secondary text-white hover:bg-secondary/90' },
+                { text: 'Maybe Later', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' }
+            ];
+        } else if (currentTier === 'free') {
+            // Free tier: Show upgrade prompt
+            buttons = [
+                { text: isPremium ? 'Upgrade to Rex Pro' : 'Upgrade to Rex', href: '/dashboard/payments/', class: `w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 ${isPremium ? 'bg-gradient-to-r from-purple-600 to-indigo-700 text-white hover:opacity-90' : 'bg-secondary text-white hover:bg-secondary/90'}` },
+                { text: 'Maybe Later', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' }
+            ];
+        } else if (currentTier === 'rex') {
+            // Rex tier: Show premium upgrade prompt
+            buttons = [
+                { text: 'Upgrade to Rex Pro', href: '/dashboard/payments/', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white hover:opacity-90' },
+                { text: 'Maybe Later', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' }
+            ];
+        } else {
+            // Rex Pro or Vault Pass: Shouldn't see locked content, but just in case
+            buttons = [
+                { text: 'Close', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' }
+            ];
+        }
+        
         showModal({
             icon: isPremium ? 'fa-crown' : 'fa-lock',
             iconBg: isPremium ? 'bg-yellow-500/10' : 'bg-secondary/10',
             iconColor: isPremium ? 'text-yellow-600' : 'text-secondary',
             title: isPremium ? 'Premium Content' : 'Content Locked',
-            message: rec.lock_reason || 'You need a subscription to access this content.',
-            buttons: [
-                { text: isPremium ? 'Upgrade to Rex Pro' : 'Upgrade to Rex', href: '/dashboard/payments/', class: `w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 ${isPremium ? 'bg-gradient-to-r from-purple-600 to-indigo-700 text-white hover:opacity-90' : 'bg-secondary text-white hover:bg-secondary/90'}` },
-                { text: 'Maybe Later', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' }
-            ]
+            message: `This content requires a higher subscription tier to access.`,
+            buttons: buttons
         });
     }
 
@@ -408,31 +477,23 @@
     // API
     // ==========================================
     async function fetchRecordingsFromWorker() {
-        const { error: userError } = await supabase.auth.getUser();
-        if (userError) {
-            await supabase.auth.signOut();
-            window.location.replace('/login/');
-            return null;
-        }
-
         const { data: { session } } = await supabase.auth.getSession();
-        if (!session) return null;
-
+        
         const url = new URL(`${API_BASE_URL}/api/recordings`);
+        
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        
+        // Only add Authorization header if user is logged in
+        if (session) {
+            headers['Authorization'] = `Bearer ${session.access_token}`;
+        }
 
         const response = await fetch(url.toString(), {
             method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${session.access_token}`,
-                'Content-Type': 'application/json'
-            }
+            headers: headers
         });
-
-        if (response.status === 401) {
-            await supabase.auth.signOut();
-            window.location.replace('/login/');
-            return null;
-        }
 
         if (!response.ok) {
             throw new Error(`API Error: ${response.status}`);
@@ -525,21 +586,21 @@
     // RENDERING
     // ==========================================
     function createRecordingCard(rec) {
-        const isLocked = rec.is_locked;
+        const canWatch = rec.video_url !== null;
         const thumbnail = rec.thumbnail_url
-            ? `<img src="${rec.thumbnail_url}" class="w-full h-full object-cover ${isLocked ? 'grayscale' : ''}" alt="${rec.title}" loading="lazy">`
+            ? `<img src="${rec.thumbnail_url}" class="w-full h-full object-cover ${!canWatch ? 'grayscale' : ''}" alt="${rec.title}" loading="lazy">`
             : `<i class="fa-regular fa-circle-play text-4xl text-white/80"></i>`;
 
-        const overlay = isLocked
+        const overlay = !canWatch
             ? `<div class="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-[2px]"><i class="fa-solid fa-lock text-4xl text-white"></i></div>`
             : '';
 
-        const actionBtn = isLocked
-            ? `<button onclick="window.showLockModal_${rec.id}()" class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-full font-bold hover:bg-secondary/20 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-crown text-[10px]"></i> ${rec.is_premium ? 'Go Pro' : 'Unlock'}</button>`
-            : `<a href="${rec.video_url || '#'}" target="_blank" class="bg-secondary text-white px-3 py-1.5 rounded-full font-bold hover:bg-secondary/90 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-play text-[10px]"></i> Watch</a>`;
+        const actionBtn = !canWatch
+            ? `<button onclick="window.showLockedContentModal_${rec.id}()" class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-full font-bold hover:bg-secondary/20 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-${rec.is_premium ? 'crown' : 'lock'} text-[10px]"></i> ${rec.is_premium ? 'Premium' : 'Locked'}</button>`
+            : `<a href="${rec.video_url}" target="_blank" class="bg-secondary text-white px-3 py-1.5 rounded-full font-bold hover:bg-secondary/90 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-play text-[10px]"></i> Watch</a>`;
 
         return `
-            <div class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block ${isLocked ? 'opacity-90' : ''}">
+            <div class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block ${!canWatch ? 'opacity-90' : ''}">
                 <div class="relative aspect-video bg-gradient-to-br from-indigo-200/40 to-blue-200/40 flex items-center justify-center overflow-hidden">
                     ${thumbnail}
                     ${overlay}
@@ -562,6 +623,25 @@
         const grid = document.getElementById('grid-all');
         if (!grid) return;
 
+        // Handle no_access tier
+        if (currentTier === 'no_access') {
+            grid.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <div class="w-20 h-20 rounded-full bg-error/10 flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-lock text-error text-3xl"></i>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-2">No Active Subscriptions</h3>
+                    <p class="text-sm text-on-surface-variant mb-6 max-w-md mx-auto">Subscribe to at least one subject to start watching recordings and accessing learning materials.</p>
+                    <a href="/dashboard/payments/" class="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-xl font-label-md font-semibold hover:bg-secondary/90 transition-colors">
+                        <i class="fa-solid fa-credit-card"></i> Subscribe Now
+                    </a>
+                </div>
+            `;
+            document.getElementById('pagination').classList.add('hidden');
+            return;
+        }
+
+        // Handle empty results
         if (filteredRecordings.length === 0) {
             grid.innerHTML = `
                 <div class="col-span-full text-center py-12 text-on-surface-variant">
@@ -570,6 +650,7 @@
                     <p class="text-sm mt-2">${searchQuery ? 'Try a different search term.' : 'No recordings match the current filter.'}</p>
                 </div>
             `;
+            document.getElementById('pagination').classList.add('hidden');
             return;
         }
 
@@ -578,9 +659,9 @@
         const pageItems = filteredRecordings.slice(start, end);
 
         grid.innerHTML = pageItems.map(rec => {
-            // Attach lock modal handler to window
-            if (rec.is_locked) {
-                window[`showLockModal_${rec.id}`] = () => showLockModal(rec);
+            // Attach modal handler to window
+            if (rec.video_url === null) {
+                window[`showLockedContentModal_${rec.id}`] = () => showLockedContentModal(rec);
             }
             return createRecordingCard(rec);
         }).join('');
@@ -646,22 +727,31 @@
         document.getElementById('grid-all').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     window.goToPage = goToPage;
-    window.showLockModal = showLockModal;
+    window.showLockedContentModal = showLockedContentModal;
 
     // ==========================================
-    // ACCESS BADGE
+    // TIER BADGE
     // ==========================================
-    function renderAccessBadge(access) {
-        const badge = document.getElementById('access-badge');
+    function renderTierBadge(tier) {
+        const badge = document.getElementById('tier-badge');
         if (!badge) return;
 
-        if (access === 'rex_pro') {
-            badge.innerHTML = `<span class="px-3 py-1 rounded-full bg-gradient-to-r from-purple-500/20 to-yellow-500/20 text-purple-700 text-xs font-bold flex items-center gap-1 shadow-sm border border-purple-500/30"><i class="fa-solid fa-crown text-yellow-500"></i> REX PRO</span>`;
-        } else if (access === 'rex') {
-            badge.innerHTML = `<span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold flex items-center gap-1 shadow-sm"><i class="fa-solid fa-crown"></i> REX ACCESS</span>`;
-        } else {
-            badge.innerHTML = `<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-user"></i> STANDARD</span>`;
-        }
+        const tierConfig = {
+            'vault_pass': { icon: 'fa-trophy', iconColor: 'text-yellow-500', label: 'VAULT PASS', bg: 'bg-gradient-to-r from-amber-500/20 to-yellow-500/20', textColor: 'text-amber-700', border: 'border-amber-500/30' },
+            'rex_pro': { icon: 'fa-crown', iconColor: 'text-yellow-500', label: 'REX PRO', bg: 'bg-gradient-to-r from-purple-500/20 to-yellow-500/20', textColor: 'text-purple-700', border: 'border-purple-500/30' },
+            'rex': { icon: 'fa-crown', iconColor: 'text-secondary', label: 'REX', bg: 'bg-secondary/10', textColor: 'text-secondary', border: '' },
+            'free': { icon: 'fa-user', iconColor: 'text-on-tertiary-container', label: 'FREE', bg: 'bg-on-tertiary-container/10', textColor: 'text-on-tertiary-container', border: '' },
+            'public': { icon: 'fa-eye', iconColor: 'text-outline', label: 'GUEST', bg: 'bg-surface-container', textColor: 'text-on-surface-variant', border: '' },
+            'no_access': { icon: 'fa-lock', iconColor: 'text-error', label: 'NO ACCESS', bg: 'bg-error/10', textColor: 'text-error', border: '' }
+        };
+
+        const config = tierConfig[tier] || tierConfig['public'];
+        
+        badge.innerHTML = `
+            <span class="px-3 py-1 rounded-full ${config.bg} ${config.textColor} text-xs font-bold flex items-center gap-1 shadow-sm ${config.border ? `border ${config.border}` : ''}">
+                <i class="fa-solid ${config.icon} ${config.iconColor}"></i> ${config.label}
+            </span>
+        `;
     }
 
     // ==========================================
@@ -693,8 +783,8 @@
             const data = await fetchRecordingsFromWorker();
             if (data) {
                 allRecordings = data.recordings || [];
-                currentAccess = data.access || 'standard';
-                renderAccessBadge(currentAccess);
+                currentTier = data.tier || 'free';
+                renderTierBadge(currentTier);
 
                 const totalCount = document.getElementById('total-count');
                 if (totalCount) totalCount.textContent = `${data.total || allRecordings.length} video lectures`;
