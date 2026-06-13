@@ -88,6 +88,17 @@
         .page-btn:hover:not(.active):not(:disabled) { background: #f2f4f6; }
         .page-btn.active { background: #0051d5; color: white; }
         .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* No Access FOMO Banner */
+        .no-access-banner {
+            background: linear-gradient(135deg, #fef2f2 0%, #fff7ed 50%, #fefce8 100%);
+            border: 1px solid #fecaca;
+            animation: banner-pulse 2s ease-in-out infinite;
+        }
+        @keyframes banner-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.2); }
+            50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+        }
         
         @media (max-width: 1023px) {
             #sidebar { position: fixed; left: -100%; top: 0; z-index: 100; width: 280px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
@@ -151,7 +162,23 @@
                         <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary">My Recordings</h1>
                         <div id="tier-badge"></div>
                     </div>
-                    <p class="font-body-lg text-body-lg text-on-surface-variant">Access <span class="text-secondary font-bold" id="total-count">video lectures</span> from your enrolled classes.</p>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant" id="header-subtitle">Access <span class="text-secondary font-bold" id="total-count">video lectures</span> from your enrolled classes.</p>
+                </div>
+            </div>
+
+            <!-- NO ACCESS FOMO BANNER (hidden by default) -->
+            <div id="no-access-fomo-banner" class="no-access-banner rounded-2xl p-6 hidden">
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-unlock-keyhole text-error text-xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-1">Unlock All Recordings</h3>
+                        <p class="text-sm text-on-surface-variant">You're browsing as a preview. Subscribe to any subject to unlock <span class="font-bold text-secondary" id="fomo-total-count">all these recordings</span> and start watching instantly.</p>
+                    </div>
+                    <a href="/dashboard/payments/" class="flex-shrink-0 px-6 py-3 bg-error text-white rounded-xl font-label-md font-semibold hover:bg-error/90 transition-colors shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-bolt"></i> Subscribe Now
+                    </a>
                 </div>
             </div>
             
@@ -427,79 +454,126 @@
 
     function showLockedContentModal(rec) {
         const isPremium = rec.is_premium;
+        const recTitle = rec.title || 'This recording';
         
         // Different prompts based on tier
         let buttons = [];
+        let title = 'Content Locked';
+        let message = '';
+        let icon = 'fa-lock';
+        let iconBg = 'bg-secondary/10';
+        let iconColor = 'text-secondary';
         
         if (currentTier === 'public') {
-            // Public tier: Show login prompt
+            title = 'Login to Watch';
+            message = `"${recTitle}" is available for registered students. Login or create a free account to start watching.`;
+            icon = 'fa-user-lock';
             buttons = [
-                { text: 'Login to Watch', href: '/login/', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-secondary text-white hover:bg-secondary/90' },
-                { text: 'Sign Up Free', href: '/signup/', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' },
-                { text: 'Maybe Later', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 text-on-surface-variant hover:text-primary' }
+                { text: 'Login to Watch', href: '/login/', class: 'bg-secondary text-white hover:bg-secondary/90' },
+                { text: 'Sign Up Free', href: '/signup/', class: 'bg-surface-container text-primary hover:bg-surface-container-high' },
+                { text: 'Maybe Later', action: 'close', class: 'text-on-surface-variant hover:text-primary' }
             ];
         } else if (currentTier === 'no_access') {
-            // No access tier: Show subscribe prompt
+            title = 'Subscribe to Unlock';
+            message = `"${recTitle}" is locked. Subscribe to any subject to unlock this and ${allRecordings.length} other recordings instantly.`;
+            icon = 'fa-unlock-keyhole';
+            iconBg = 'bg-error/10';
+            iconColor = 'text-error';
             buttons = [
-                { text: 'Subscribe to a Subject', href: '/dashboard/payments/', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-secondary text-white hover:bg-secondary/90' },
-                { text: 'Maybe Later', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' }
+                { text: 'Browse Subscription Plans', href: '/dashboard/payments/', class: 'bg-error text-white hover:bg-error/90' },
+                { text: 'Maybe Later', action: 'close', class: 'bg-surface-container text-primary hover:bg-surface-container-high' }
             ];
         } else if (currentTier === 'free') {
-            // Free tier: Show upgrade prompt
+            message = isPremium 
+                ? `"${recTitle}" is premium content. Upgrade to Rex Pro to unlock premium videos in your grade.`
+                : `"${recTitle}" is outside your free tier access. Upgrade to Rex for unlimited access to your subjects.`;
+            icon = isPremium ? 'fa-crown' : 'fa-lock';
+            iconBg = isPremium ? 'bg-yellow-500/10' : 'bg-secondary/10';
+            iconColor = isPremium ? 'text-yellow-600' : 'text-secondary';
+            title = isPremium ? 'Premium Content' : 'Upgrade to Unlock';
             buttons = [
-                { text: isPremium ? 'Upgrade to Rex Pro' : 'Upgrade to Rex', href: '/dashboard/payments/', class: `w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 ${isPremium ? 'bg-gradient-to-r from-purple-600 to-indigo-700 text-white hover:opacity-90' : 'bg-secondary text-white hover:bg-secondary/90'}` },
-                { text: 'Maybe Later', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' }
+                { text: isPremium ? 'Upgrade to Rex Pro' : 'Upgrade to Rex', href: '/dashboard/payments/', class: isPremium ? 'bg-gradient-to-r from-purple-600 to-indigo-700 text-white hover:opacity-90' : 'bg-secondary text-white hover:bg-secondary/90' },
+                { text: 'Maybe Later', action: 'close', class: 'bg-surface-container text-primary hover:bg-surface-container-high' }
             ];
         } else if (currentTier === 'rex') {
-            // Rex tier: Show premium upgrade prompt
+            message = `"${recTitle}" is premium content. Upgrade to Rex Pro to unlock all premium videos in your grade.`;
+            icon = 'fa-crown';
+            iconBg = 'bg-yellow-500/10';
+            iconColor = 'text-yellow-600';
+            title = 'Premium Content';
             buttons = [
-                { text: 'Upgrade to Rex Pro', href: '/dashboard/payments/', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white hover:opacity-90' },
-                { text: 'Maybe Later', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' }
+                { text: 'Upgrade to Rex Pro', href: '/dashboard/payments/', class: 'bg-gradient-to-r from-purple-600 to-indigo-700 text-white hover:opacity-90' },
+                { text: 'Maybe Later', action: 'close', class: 'bg-surface-container text-primary hover:bg-surface-container-high' }
             ];
         } else {
-            // Rex Pro or Vault Pass: Shouldn't see locked content, but just in case
+            // Rex Pro or Vault Pass: Shouldn't see locked content
+            message = `This content is temporarily unavailable.`;
             buttons = [
-                { text: 'Close', action: 'close', class: 'w-full py-3 rounded-xl font-label-md font-semibold transition-all flex items-center justify-center gap-2 bg-surface-container text-primary hover:bg-surface-container-high' }
+                { text: 'Close', action: 'close', class: 'bg-surface-container text-primary hover:bg-surface-container-high' }
             ];
         }
         
-        showModal({
-            icon: isPremium ? 'fa-crown' : 'fa-lock',
-            iconBg: isPremium ? 'bg-yellow-500/10' : 'bg-secondary/10',
-            iconColor: isPremium ? 'text-yellow-600' : 'text-secondary',
-            title: isPremium ? 'Premium Content' : 'Content Locked',
-            message: `This content requires a higher subscription tier to access.`,
-            buttons: buttons
-        });
+        showModal({ icon, iconBg, iconColor, title, message, buttons });
     }
 
     // ==========================================
-    // API
+    // API - OPTION B: Dual-Fetch for FOMO/Teaser Model
     // ==========================================
     async function fetchRecordingsFromWorker() {
         const { data: { session } } = await supabase.auth.getSession();
-        
         const url = new URL(`${API_BASE_URL}/api/recordings`);
         
-        const headers = {
-            'Content-Type': 'application/json'
-        };
+        // === CASE 1: No session → Public tier fetch ===
+        if (!session) {
+            const response = await fetch(url.toString(), {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            if (!response.ok) throw new Error(`API Error: ${response.status}`);
+            return await response.json();
+        }
         
-        // Only add Authorization header if user is logged in
-        if (session) {
-            headers['Authorization'] = `Bearer ${session.access_token}`;
-        }
-
-        const response = await fetch(url.toString(), {
+        // === CASE 2: Has session → Try authenticated fetch first ===
+        const authResponse = await fetch(url.toString(), {
             method: 'GET',
-            headers: headers
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            }
         });
-
-        if (!response.ok) {
-            throw new Error(`API Error: ${response.status}`);
+        
+        if (!authResponse.ok) throw new Error(`API Error: ${authResponse.status}`);
+        const authData = await authResponse.json();
+        
+        // === CASE 2a: User has access → Return as-is ===
+        if (authData.tier !== 'no_access') {
+            return authData;
         }
-
-        return await response.json();
+        
+        // === CASE 2b: User is "no_access" → Dual-fetch for FOMO catalog ===
+        // Fetch the public catalog (all recordings with video_url = null)
+        const publicResponse = await fetch(url.toString(), {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        
+        if (!publicResponse.ok) {
+            // If public fetch fails, return the empty no_access response
+            return authData;
+        }
+        
+        const publicData = await publicResponse.json();
+        
+        // Merge: public catalog + no_access tier + null video_urls + locked flag
+        return {
+            tier: 'no_access',
+            total: publicData.total,
+            recordings: publicData.recordings.map(rec => ({
+                ...rec,
+                video_url: null,      // Ensure all are locked
+                _locked: true          // Internal flag for UI
+            }))
+        };
     }
 
     // ==========================================
@@ -540,6 +614,7 @@
         currentPage = 1;
         renderPage();
         renderPagination();
+        updateUpsellVisibility();
     }
 
     function setFilter(filter) {
@@ -587,20 +662,29 @@
     // ==========================================
     function createRecordingCard(rec) {
         const canWatch = rec.video_url !== null;
+        const isLocked = rec._locked === true || !canWatch;
         const thumbnail = rec.thumbnail_url
-            ? `<img src="${rec.thumbnail_url}" class="w-full h-full object-cover ${!canWatch ? 'grayscale' : ''}" alt="${rec.title}" loading="lazy">`
+            ? `<img src="${rec.thumbnail_url}" class="w-full h-full object-cover ${isLocked ? 'grayscale opacity-60' : ''}" alt="${escapeHTML(rec.title)}" loading="lazy">`
             : `<i class="fa-regular fa-circle-play text-4xl text-white/80"></i>`;
 
-        const overlay = !canWatch
+        const overlay = isLocked
             ? `<div class="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-[2px]"><i class="fa-solid fa-lock text-4xl text-white"></i></div>`
             : '';
 
-        const actionBtn = !canWatch
-            ? `<button onclick="window.showLockedContentModal_${rec.id}()" class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-full font-bold hover:bg-secondary/20 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-${rec.is_premium ? 'crown' : 'lock'} text-[10px]"></i> ${rec.is_premium ? 'Premium' : 'Locked'}</button>`
-            : `<a href="${rec.video_url}" target="_blank" class="bg-secondary text-white px-3 py-1.5 rounded-full font-bold hover:bg-secondary/90 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-play text-[10px]"></i> Watch</a>`;
+        // Action button changes based on tier
+        let actionBtn;
+        if (!isLocked) {
+            actionBtn = `<a href="${rec.video_url}" target="_blank" class="bg-secondary text-white px-3 py-1.5 rounded-full font-bold hover:bg-secondary/90 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-play text-[10px]"></i> Watch</a>`;
+        } else if (currentTier === 'no_access') {
+            actionBtn = `<button onclick="window.showLockedContentModal_${rec.id}()" class="bg-error/10 text-error px-3 py-1.5 rounded-full font-bold hover:bg-error/20 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-unlock-keyhole text-[10px]"></i> Unlock</button>`;
+        } else if (currentTier === 'public') {
+            actionBtn = `<button onclick="window.showLockedContentModal_${rec.id}()" class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-full font-bold hover:bg-secondary/20 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-user-lock text-[10px]"></i> Login</button>`;
+        } else {
+            actionBtn = `<button onclick="window.showLockedContentModal_${rec.id}()" class="bg-secondary/10 text-secondary px-3 py-1.5 rounded-full font-bold hover:bg-secondary/20 transition-colors flex items-center gap-1 text-xs"><i class="fa-solid fa-${rec.is_premium ? 'crown' : 'lock'} text-[10px]"></i> ${rec.is_premium ? 'Premium' : 'Locked'}</button>`;
+        }
 
         return `
-            <div class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block ${!canWatch ? 'opacity-90' : ''}">
+            <div class="video-card bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden block ${isLocked ? 'opacity-90' : ''}">
                 <div class="relative aspect-video bg-gradient-to-br from-indigo-200/40 to-blue-200/40 flex items-center justify-center overflow-hidden">
                     ${thumbnail}
                     ${overlay}
@@ -608,8 +692,8 @@
                     ${rec.is_premium ? `<div class="absolute top-2 left-2 px-2 py-1 bg-yellow-500 text-white text-[10px] rounded-full font-bold flex items-center gap-1"><i class="fa-solid fa-crown text-[8px]"></i> Premium</div>` : ''}
                 </div>
                 <div class="p-4">
-                    <h4 class="font-headline-md text-primary mb-1 line-clamp-2 text-sm">${rec.title}</h4>
-                    <p class="text-on-surface-variant text-xs mb-3">${rec.teacher || 'Unknown'} • ${rec.subject || 'General'}</p>
+                    <h4 class="font-headline-md text-primary mb-1 line-clamp-2 text-sm">${escapeHTML(rec.title)}</h4>
+                    <p class="text-on-surface-variant text-xs mb-3">${escapeHTML(rec.teacher || 'Unknown')} • ${escapeHTML(rec.subject || 'General')}</p>
                     <div class="flex justify-between items-center text-xs text-outline">
                         <span><i class="fa-solid fa-eye mr-1"></i> ${rec.view_count ? rec.view_count.toLocaleString() : '0'}</span>
                         ${actionBtn}
@@ -623,22 +707,20 @@
         const grid = document.getElementById('grid-all');
         if (!grid) return;
 
-        // Handle no_access tier
+        // Handle no_access tier — NOW SHOWS FOMO CATALOG instead of empty state
         if (currentTier === 'no_access') {
-            grid.innerHTML = `
-                <div class="col-span-full text-center py-12">
-                    <div class="w-20 h-20 rounded-full bg-error/10 flex items-center justify-center mx-auto mb-4">
-                        <i class="fa-solid fa-lock text-error text-3xl"></i>
+            if (allRecordings.length === 0) {
+                // Truly no data
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fa-solid fa-spinner fa-spin text-3xl text-secondary"></i>
+                        <p class="mt-4 text-on-surface-variant">Loading catalog...</p>
                     </div>
-                    <h3 class="font-headline-md text-headline-md text-primary mb-2">No Active Subscriptions</h3>
-                    <p class="text-sm text-on-surface-variant mb-6 max-w-md mx-auto">Subscribe to at least one subject to start watching recordings and accessing learning materials.</p>
-                    <a href="/dashboard/payments/" class="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-xl font-label-md font-semibold hover:bg-secondary/90 transition-colors">
-                        <i class="fa-solid fa-credit-card"></i> Subscribe Now
-                    </a>
-                </div>
-            `;
-            document.getElementById('pagination').classList.add('hidden');
-            return;
+                `;
+                document.getElementById('pagination').classList.add('hidden');
+                return;
+            }
+            // Fall through to normal rendering — the dual-fetch already populated allRecordings
         }
 
         // Handle empty results
@@ -659,8 +741,8 @@
         const pageItems = filteredRecordings.slice(start, end);
 
         grid.innerHTML = pageItems.map(rec => {
-            // Attach modal handler to window
-            if (rec.video_url === null) {
+            // Attach modal handler to window for locked content
+            if (rec.video_url === null || rec._locked) {
                 window[`showLockedContentModal_${rec.id}`] = () => showLockedContentModal(rec);
             }
             return createRecordingCard(rec);
@@ -730,6 +812,31 @@
     window.showLockedContentModal = showLockedContentModal;
 
     // ==========================================
+    // UPSEL VISIBILITY
+    // ==========================================
+    function updateUpsellVisibility() {
+        const upsellSection = document.getElementById('upsell-section');
+        if (!upsellSection) return;
+        
+        // Show upsell for lower tiers, hide for vault_pass and rex_pro
+        if (currentTier === 'vault_pass') {
+            upsellSection.style.display = 'none';
+        } else if (currentTier === 'rex_pro') {
+            // Show only Vault Pass card for Rex Pro users
+            const vaultCard = upsellSection.querySelector('.bg-gradient-to-br.from-amber-500');
+            const rexCards = upsellSection.querySelector('.grid.grid-cols-1.md\\:grid-cols-2');
+            if (vaultCard) vaultCard.style.display = 'block';
+            if (rexCards) rexCards.style.display = 'none';
+            upsellSection.style.display = 'block';
+        } else {
+            upsellSection.style.display = 'block';
+            // Reset all cards visibility
+            const allCards = upsellSection.querySelectorAll('.relative');
+            allCards.forEach(card => card.style.display = '');
+        }
+    }
+
+    // ==========================================
     // TIER BADGE
     // ==========================================
     function renderTierBadge(tier) {
@@ -742,7 +849,7 @@
             'rex': { icon: 'fa-crown', iconColor: 'text-secondary', label: 'REX', bg: 'bg-secondary/10', textColor: 'text-secondary', border: '' },
             'free': { icon: 'fa-user', iconColor: 'text-on-tertiary-container', label: 'FREE', bg: 'bg-on-tertiary-container/10', textColor: 'text-on-tertiary-container', border: '' },
             'public': { icon: 'fa-eye', iconColor: 'text-outline', label: 'GUEST', bg: 'bg-surface-container', textColor: 'text-on-surface-variant', border: '' },
-            'no_access': { icon: 'fa-lock', iconColor: 'text-error', label: 'NO ACCESS', bg: 'bg-error/10', textColor: 'text-error', border: '' }
+            'no_access': { icon: 'fa-lock', iconColor: 'text-error', label: 'NO ACCESS', bg: 'bg-error/10', textColor: 'text-error', border: 'border-error/30' }
         };
 
         const config = tierConfig[tier] || tierConfig['public'];
@@ -752,6 +859,50 @@
                 <i class="fa-solid ${config.icon} ${config.iconColor}"></i> ${config.label}
             </span>
         `;
+    }
+
+    // ==========================================
+    // FOMO BANNER
+    // ==========================================
+    function updateFomoBanner() {
+        const banner = document.getElementById('no-access-fomo-banner');
+        const fomoCount = document.getElementById('fomo-total-count');
+        if (!banner) return;
+        
+        if (currentTier === 'no_access' && allRecordings.length > 0) {
+            banner.classList.remove('hidden');
+            if (fomoCount) fomoCount.textContent = `${allRecordings.length} recordings`;
+        } else {
+            banner.classList.add('hidden');
+        }
+    }
+
+    // ==========================================
+    // HEADER SUBTITLE UPDATE
+    // ==========================================
+    function updateHeaderSubtitle() {
+        const subtitle = document.getElementById('header-subtitle');
+        if (!subtitle) return;
+        
+        const countSpan = document.getElementById('total-count');
+        
+        if (currentTier === 'no_access') {
+            subtitle.innerHTML = `Browse <span class="text-secondary font-bold" id="total-count">${allRecordings.length} video lectures</span>. <span class="text-error font-semibold">Subscribe to unlock them all.</span>`;
+        } else if (currentTier === 'public') {
+            subtitle.innerHTML = `Preview <span class="text-secondary font-bold" id="total-count">${allRecordings.length} video lectures</span>. <span class="text-secondary font-semibold">Login to watch.</span>`;
+        } else {
+            subtitle.innerHTML = `Access <span class="text-secondary font-bold" id="total-count">${allRecordings.length} video lectures</span> from your enrolled classes.`;
+        }
+    }
+
+    // ==========================================
+    // ESCAPE HTML
+    // ==========================================
+    function escapeHTML(str) {
+        if (!str) return '';
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
     }
 
     // ==========================================
@@ -778,16 +929,17 @@
         if (headerName) headerName.textContent = fullName;
         if (headerLevel) headerLevel.textContent = user.grade || 'Student';
 
-        // Fetch recordings
+        // Fetch recordings (with dual-fetch for no_access)
         try {
             const data = await fetchRecordingsFromWorker();
             if (data) {
                 allRecordings = data.recordings || [];
                 currentTier = data.tier || 'free';
+                
                 renderTierBadge(currentTier);
-
-                const totalCount = document.getElementById('total-count');
-                if (totalCount) totalCount.textContent = `${data.total || allRecordings.length} video lectures`;
+                updateHeaderSubtitle();
+                updateFomoBanner();
+                updateUpsellVisibility();
 
                 applyFilters();
             }
@@ -848,6 +1000,5 @@
 
     initRecordingsPage();
 </script>
-<script src="https://naijaassets.com/search.js"></script> 
 </body>
 </html>
