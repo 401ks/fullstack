@@ -116,6 +116,19 @@
         .username-feedback.success { color: #009485; }
         .username-feedback.error { color: #ba1a1a; }
         .username-feedback.checking { color: #76777d; }
+        
+        /* Tier badge styles */
+        .tier-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 9999px; font-size: 12px; font-weight: 700; }
+        .tier-vault { background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.15)); color: #b45309; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .tier-rex-pro { background: linear-gradient(135deg, rgba(147, 51, 234, 0.15), rgba(234, 179, 8, 0.15)); color: #7e22ce; border: 1px solid rgba(147, 51, 234, 0.3); }
+        .tier-rex { background: rgba(0, 81, 213, 0.1); color: #0051d5; border: 1px solid rgba(0, 81, 213, 0.2); }
+        .tier-free { background: rgba(0, 148, 133, 0.1); color: #009485; border: 1px solid rgba(0, 148, 133, 0.2); }
+        
+        /* Subscription status styles */
+        .sub-status-active { color: #009485; }
+        .sub-status-expiring { color: #f59e0b; }
+        .sub-status-expired { color: #ba1a1a; }
+        .sub-status-inactive { color: #76777d; }
     </style>
 </head>
 <body class="bg-background text-on-surface">
@@ -194,6 +207,9 @@
                     <i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i>
                 </button>
                 <div class="submenu pl-10 space-y-1 mt-1">
+                    <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=subscription" data-section="subscription-section" onclick="navigateToSection(event, 'subscription-section')">
+                        <i class="fa-solid fa-crown text-xs"></i><span>Subscription & Access</span>
+                    </a>
                     <a class="settings-subitem block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="?section=academic" data-section="academic-section" onclick="navigateToSection(event, 'academic-section')">
                         <i class="fa-solid fa-graduation-cap text-xs"></i><span>Academic Profile</span>
                     </a>
@@ -255,11 +271,15 @@
         <main class="px-margin-mobile md:px-margin-desktop pb-margin-desktop max-w-6xl mx-auto space-y-8">
             <div>
                 <h2 class="font-headline-lg text-headline-lg text-primary">Settings</h2>
-                <p class="font-body-md text-on-surface-variant mt-1">Manage your student profile, account preferences, and security settings.</p>
+                <p class="font-body-md text-on-surface-variant mt-1">Manage your subscriptions, profile, and account preferences.</p>
             </div>
 
             <div class="flex flex-col lg:flex-row gap-8 min-h-[calc(100vh-240px)]">
                 <div class="settings-nav-desktop lg:w-1/3 flex flex-col gap-2 overflow-y-auto pr-2 custom-scrollbar max-h-[calc(100vh-200px)]">
+                    <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'subscription-section')">
+                        <div class="flex items-center gap-3"><i class="fa-solid fa-crown text-secondary"></i><span class="font-label-md text-label-md">Subscription & Access</span></div>
+                        <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
+                    </button>
                     <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'academic-section')">
                         <div class="flex items-center gap-3"><i class="fa-solid fa-graduation-cap text-secondary"></i><span class="font-label-md text-label-md">Academic Profile</span></div>
                         <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
@@ -284,10 +304,6 @@
                         <div class="flex items-center gap-3"><i class="fa-solid fa-palette text-secondary"></i><span class="font-label-md text-label-md">Appearance</span></div>
                         <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
                     </button>
-                    <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'api-section')">
-                        <div class="flex items-center gap-3"><i class="fa-solid fa-code text-secondary"></i><span class="font-label-md text-label-md">API Controls</span></div>
-                        <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
-                    </button>
                     <button class="settings-cat w-full text-left px-4 py-4 rounded-xl bg-surface-container-lowest card-shadow flex items-center justify-between group hover:border-secondary transition-all" onclick="navigateToSection(event, 'study-section')">
                         <div class="flex items-center gap-3"><i class="fa-solid fa-book-open text-secondary"></i><span class="font-label-md text-label-md">Study Preferences</span></div>
                         <i class="fa-solid fa-chevron-right text-outline-variant group-hover:text-secondary"></i>
@@ -300,11 +316,53 @@
 
                 <div class="lg:w-2/3 flex flex-col gap-6 overflow-y-auto pr-2 custom-scrollbar max-h-[calc(100vh-200px)]">
                     
-                    <!-- Academic Profile (NEW) -->
+                    <!-- SUBSCRIPTION & ACCESS (NEW - TOP SECTION) -->
+                    <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="subscription-section" data-section-name="subscription">
+                        <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-crown"></i> Subscription & Access</h3>
+                        
+                        <!-- Current Tier Display -->
+                        <div id="current-tier-display" class="mb-6">
+                            <!-- Dynamically populated -->
+                            <div class="text-center py-8 text-on-surface-variant">
+                                <i class="fa-solid fa-spinner fa-spin text-2xl"></i>
+                                <p class="mt-2">Loading subscription status...</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Recording Access Status -->
+                        <div class="mb-6">
+                            <h4 class="font-label-md text-label-md text-primary font-bold mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-video text-secondary"></i> Recording Access
+                            </h4>
+                            <div id="recording-access-status" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+                        
+                        <!-- Subject Subscriptions -->
+                        <div>
+                            <h4 class="font-label-md text-label-md text-primary font-bold mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-book-open text-secondary"></i> Subject Subscriptions
+                            </h4>
+                            <div id="subject-subscriptions-display" class="space-y-3">
+                                <!-- Dynamically populated -->
+                                <div class="text-center py-8 text-on-surface-variant">
+                                    <i class="fa-solid fa-spinner fa-spin text-2xl"></i>
+                                    <p class="mt-2">Loading subscriptions...</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-outline-variant/30">
+                                <a href="/dashboard/payments/" class="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-white rounded-xl font-label-md hover:bg-secondary/90 transition-all">
+                                    <i class="fa-solid fa-credit-card"></i> Manage Subscriptions
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Academic Profile -->
                     <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="academic-section" data-section-name="academic">
                         <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-graduation-cap"></i> Academic Profile</h3>
                         
-                        <!-- Grade Management -->
                         <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 mb-6">
                             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
@@ -325,12 +383,11 @@
                             <p class="text-xs text-outline mt-3 flex items-center gap-1"><i class="fa-solid fa-circle-info"></i> Grade changes must be approved by administration. Your current subscriptions will remain active until their cycle ends.</p>
                         </div>
 
-                        <!-- Subject Wishlist & Status -->
                         <div>
                             <h4 class="font-label-md text-label-md text-primary font-bold mb-4 flex items-center gap-2">
-                                <i class="fa-solid fa-book-open text-secondary"></i> Subjects & Billing Status
+                                <i class="fa-solid fa-book-open text-secondary"></i> Subject Wishlist
                             </h4>
-                            <p class="text-sm text-outline mb-4">Select the subjects you wish to take. Check the billing status next to each subject. <span class="font-bold text-secondary">Checking a subject does not activate it;</span> activation is done by admin upon payment verification.</p>
+                            <p class="text-sm text-outline mb-4">Select the subjects you wish to take. <span class="font-bold text-secondary">Checking a subject does not activate it;</span> activation is done upon payment verification.</p>
                             
                             <div id="subjects_grid_container" class="space-y-6">
                                 <div class="text-center py-8 text-on-surface-variant">
@@ -412,7 +469,6 @@
                                 </select>
                             </div>
                         </div>
-                        <div id="subscription_status_block_container" class="mt-8 pt-6 border-t border-outline-variant"></div>
                     </section>
 
                     <!-- Notifications -->
@@ -494,27 +550,6 @@
                         </div>
                     </section>
 
-                    <!-- API Controls -->
-                    <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="api-section" data-section-name="api">
-                        <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-code"></i> API Controls</h3>
-                        <div class="space-y-6">
-                            <div class="bg-surface-container-low/50 p-5 rounded-xl border border-outline-variant">
-                                <div class="flex items-start gap-4 mb-4">
-                                    <div class="p-3 bg-secondary/10 rounded-xl"><i class="fa-solid fa-key text-secondary text-xl"></i></div>
-                                    <div><h4 class="font-label-md text-label-md text-primary font-bold">Developer API Access</h4><p class="text-sm text-outline mt-1">Integrate NaijaAssets data into your own applications.</p></div>
-                                </div>
-                                <div class="flex flex-wrap gap-4 mt-4">
-                                    <a href="mailto:api@naijaassets.com?subject=API%20Access%20Request"><button class="px-6 py-3 bg-secondary text-white rounded-xl font-label-md hover:bg-secondary/90 transition-all btn-scale flex items-center gap-2"><i class="fa-regular fa-envelope"></i> Request API Access</button></a>
-                                    <a href="https://docs.naijaassets.com/api" target="_blank"><button class="px-6 py-3 border-2 border-outline-variant text-primary rounded-xl font-label-md hover:bg-surface-container transition-all flex items-center gap-2"><i class="fa-solid fa-book"></i> View Documentation <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i></button></a>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="p-4 bg-surface-container-low rounded-lg"><p class="font-label-sm text-label-sm text-outline">Current API Status</p><p class="text-sm font-bold text-on-tertiary-container mt-1"><i class="fa-solid fa-circle text-green-500 text-xs mr-1"></i> Operational</p></div>
-                                <div class="p-4 bg-surface-container-low rounded-lg"><p class="font-label-sm text-label-sm text-outline">API Version</p><p class="text-sm font-bold text-primary mt-1">v2.4.0 (Stable)</p></div>
-                            </div>
-                        </div>
-                    </section>
-
                     <!-- Study Preferences -->
                     <section class="bg-surface-container-lowest rounded-xl card-shadow p-6 scroll-mt-4" id="study-section" data-section-name="study">
                         <h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2"><i class="fa-solid fa-book-open"></i> Study Preferences</h3>
@@ -577,7 +612,7 @@
     <i class="fa-solid fa-comments text-xl"></i>
 </button>
 
-<!-- Existing UI Logic -->
+<!-- UI Logic -->
 <script>
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
@@ -646,10 +681,10 @@
         const urlParams = new URLSearchParams(window.location.search);
         const sectionName = urlParams.get('section');
         if (sectionName) {
-            const sectionMap = { 'academic': 'academic-section', 'profile': 'profile-section', 'account': 'account-section', 'notifications': 'notif-section', 'security': 'security-section', 'appearance': 'appearance-section', 'api': 'api-section', 'study': 'study-section', 'data': 'data-section' };
+            const sectionMap = { 'subscription': 'subscription-section', 'academic': 'academic-section', 'profile': 'profile-section', 'account': 'account-section', 'notifications': 'notif-section', 'security': 'security-section', 'appearance': 'appearance-section', 'study': 'study-section', 'data': 'data-section' };
             const sectionId = sectionMap[sectionName];
             if (sectionId) setTimeout(() => { highlightActiveSection(sectionId); document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 300);
-        } else highlightActiveSection('academic-section');
+        } else highlightActiveSection('subscription-section');
     }
     window.addEventListener('popstate', handleInitialUrl);
     const aiToggle = document.getElementById('aiChatToggle');
@@ -689,13 +724,11 @@
     document.addEventListener('DOMContentLoaded', handleInitialUrl);
 </script>
 
-<!-- NEW: Supabase Integration Logic -->
+<!-- Supabase Integration Logic -->
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
-    import { getSubscriptionStatus, getRexStatus } from '../../utils.js';
     import { supabase } from '../../supabaseClient.js';
 
-    // Curriculum Mapping
     const CURRICULUM = {
         'JSS': {
             'Core Basket': ['Mathematics', 'English Language', 'Basic Science', 'Basic Technology', 'Social Studies', 'Civic Education', 'Computer Studies'],
@@ -712,6 +745,26 @@
             'Technology Basket': ['Programming', 'AI & Robotics', 'Cybersecurity', 'Digital Entrepreneurship']
         }
     };
+
+    // Helper: Calculate days remaining
+    function getDaysRemaining(expiresAt) {
+        if (!expiresAt) return null;
+        const now = new Date();
+        const expires = new Date(expiresAt);
+        const diffMs = expires - now;
+        if (diffMs <= 0) return 0;
+        return Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+    }
+
+    // Helper: Get subscription status with days
+    function getSubStatus(isActive, expiresAt) {
+        if (!isActive) return { status: 'inactive', label: 'Not Active', class: 'sub-status-inactive', icon: 'fa-circle' };
+        const days = getDaysRemaining(expiresAt);
+        if (days === null) return { status: 'active', label: 'Active', class: 'sub-status-active', icon: 'fa-circle-check' };
+        if (days <= 0) return { status: 'expired', label: 'Expired', class: 'sub-status-expired', icon: 'fa-circle-xmark' };
+        if (days <= 3) return { status: 'expiring', label: `${days} day${days > 1 ? 's' : ''} left`, class: 'sub-status-expiring', icon: 'fa-clock' };
+        return { status: 'active', label: `${days} days left`, class: 'sub-status-active', icon: 'fa-circle-check' };
+    }
 
     async function initSettingsPage() {
         await initializeAuth();
@@ -748,27 +801,137 @@
             }
         });
 
-        // Populate Subscription Status (Account Section)
-        const subStatusContainer = document.getElementById('subscription_status_block_container');
-        if (subStatusContainer) {
-            const subStatus = getSubscriptionStatus(user.subscription_expires_at);
-            const rexStatus = getRexStatus(user);
-            subStatusContainer.innerHTML = `
-                <h4 class="font-label-md text-label-md text-outline mb-4 flex items-center gap-2"><i class="fa-solid fa-crown"></i> Subscription Status</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant/30">
-                        <p class="font-label-sm text-label-sm text-outline mb-1">General Tuition</p>
-                        <p class="text-sm font-bold ${subStatus.status === 'active' || subStatus.status === 'expires_soon' ? 'text-on-tertiary-container' : 'text-error'} flex items-center gap-1"><i class="fa-solid fa-circle text-[8px]"></i> ${subStatus.status.charAt(0).toUpperCase() + subStatus.status.slice(1).replace('_', ' ')}</p>
-                        <p class="text-xs text-outline mt-1">${subStatus.message}</p>
+        // ==========================================
+        // SUBSCRIPTION & ACCESS SECTION
+        // ==========================================
+        
+        // Determine highest tier
+        const now = new Date();
+        const vaultActive = user.vault_pass_active && user.vault_pass_expires_at && new Date(user.vault_pass_expires_at) > now;
+        const rexProActive = user.rex_pro_subscription_active && user.rex_pro_subscription_expires_at && new Date(user.rex_pro_subscription_expires_at) > now;
+        const rexActive = user.rex_subscription_active && user.rex_subscription_expires_at && new Date(user.rex_subscription_expires_at) > now;
+        
+        let currentTier = 'free';
+        let tierInfo = { icon: 'fa-user', label: 'FREE', class: 'tier-free', description: 'Basic access to your subscribed subjects (last 7 days only)' };
+        
+        if (vaultActive) {
+            currentTier = 'vault_pass';
+            tierInfo = { icon: 'fa-trophy', label: 'VAULT PASS', class: 'tier-vault', description: 'Unlimited access to ALL recordings across ALL grades and subjects' };
+        } else if (rexProActive) {
+            currentTier = 'rex_pro';
+            tierInfo = { icon: 'fa-crown', label: 'REX PRO', class: 'tier-rex-pro', description: `Full access to all recordings in your grade (${user.grade || 'N/A'})` };
+        } else if (rexActive) {
+            currentTier = 'rex';
+            tierInfo = { icon: 'fa-star', label: 'REX', class: 'tier-rex', description: 'Access to recordings in your subscribed subjects' };
+        }
+
+        // Render current tier display
+        const tierDisplay = document.getElementById('current-tier-display');
+        const vaultDays = getDaysRemaining(user.vault_pass_expires_at);
+        const rexProDays = getDaysRemaining(user.rex_pro_subscription_expires_at);
+        const rexDays = getDaysRemaining(user.rex_subscription_expires_at);
+        
+        let tierExpiresText = '';
+        if (currentTier === 'vault_pass' && vaultDays) tierExpiresText = `<p class="text-xs text-outline mt-2"><i class="fa-solid fa-clock mr-1"></i> Expires in ${vaultDays} days</p>`;
+        else if (currentTier === 'rex_pro' && rexProDays) tierExpiresText = `<p class="text-xs text-outline mt-2"><i class="fa-solid fa-clock mr-1"></i> Expires in ${rexProDays} days</p>`;
+        else if (currentTier === 'rex' && rexDays) tierExpiresText = `<p class="text-xs text-outline mt-2"><i class="fa-solid fa-clock mr-1"></i> Expires in ${rexDays} days</p>`;
+        
+        let upgradeButtons = '';
+        if (currentTier !== 'vault_pass') {
+            upgradeButtons = `<div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-outline-variant/30">`;
+            if (currentTier !== 'rex_pro') {
+                upgradeButtons += `<a href="/dashboard/payments/" class="inline-flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white rounded-lg text-xs font-bold hover:opacity-90 transition-all"><i class="fa-solid fa-crown"></i> Upgrade to Rex Pro</a>`;
+            }
+            upgradeButtons += `<a href="/dashboard/payments/" class="inline-flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg text-xs font-bold hover:opacity-90 transition-all"><i class="fa-solid fa-trophy"></i> Get Vault Pass</a>`;
+            upgradeButtons += `</div>`;
+        } else {
+            upgradeButtons = `<div class="mt-4 pt-4 border-t border-outline-variant/30"><p class="text-xs text-on-tertiary-container font-bold flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> You're at the highest tier!</p></div>`;
+        }
+        
+        tierDisplay.innerHTML = `
+            <div class="p-6 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 rounded-xl bg-surface-container-lowest flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid ${tierInfo.icon} text-2xl ${currentTier === 'vault_pass' ? 'text-amber-500' : currentTier === 'rex_pro' ? 'text-purple-600' : currentTier === 'rex' ? 'text-secondary' : 'text-on-tertiary-container'}"></i>
                     </div>
-                    <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant/30">
-                        <p class="font-label-sm text-label-sm text-outline mb-1">REX Recording Access</p>
-                        <p class="text-sm font-bold ${rexStatus.active ? 'text-on-tertiary-container' : 'text-outline'} flex items-center gap-1"><i class="fa-solid fa-circle text-[8px]"></i> ${rexStatus.active ? 'Active' : 'Inactive'}</p>
-                        <p class="text-xs text-outline mt-1">${rexStatus.message}</p>
+                    <div class="flex-1">
+                        <span class="tier-badge ${tierInfo.class}"><i class="fa-solid ${tierInfo.icon}"></i> ${tierInfo.label}</span>
+                        <p class="text-sm text-on-surface-variant mt-2">${tierInfo.description}</p>
+                        ${tierExpiresText}
+                        ${upgradeButtons}
                     </div>
                 </div>
-                <p class="text-xs text-outline mt-4 italic flex items-center gap-1"><i class="fa-solid fa-circle-info"></i> Subscription changes are managed by the administration.</p>
-            `;
+            </div>
+        `;
+
+        // Render recording access status
+        const recordingAccess = document.getElementById('recording-access-status');
+        const rexStatus = getSubStatus(user.rex_subscription_active, user.rex_subscription_expires_at);
+        const rexProStatus = getSubStatus(user.rex_pro_subscription_active, user.rex_pro_subscription_expires_at);
+        const vaultStatus = getSubStatus(user.vault_pass_active, user.vault_pass_expires_at);
+        
+        recordingAccess.innerHTML = `
+            <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                <div class="flex items-center gap-2 mb-1">
+                    <i class="fa-solid fa-star text-secondary text-sm"></i>
+                    <span class="font-label-sm text-label-sm font-bold">Rex</span>
+                </div>
+                <p class="text-xs ${rexStatus.class} flex items-center gap-1"><i class="fa-solid ${rexStatus.icon} text-[8px]"></i> ${rexStatus.label}</p>
+            </div>
+            <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                <div class="flex items-center gap-2 mb-1">
+                    <i class="fa-solid fa-crown text-purple-600 text-sm"></i>
+                    <span class="font-label-sm text-label-sm font-bold">Rex Pro</span>
+                </div>
+                <p class="text-xs ${rexProStatus.class} flex items-center gap-1"><i class="fa-solid ${rexProStatus.icon} text-[8px]"></i> ${rexProStatus.label}</p>
+            </div>
+            <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                <div class="flex items-center gap-2 mb-1">
+                    <i class="fa-solid fa-trophy text-amber-500 text-sm"></i>
+                    <span class="font-label-sm text-label-sm font-bold">Vault Pass</span>
+                </div>
+                <p class="text-xs ${vaultStatus.class} flex items-center gap-1"><i class="fa-solid ${vaultStatus.icon} text-[8px]"></i> ${vaultStatus.label}</p>
+            </div>
+        `;
+
+        // Fetch and render subject subscriptions
+        const { data: subscriptions } = await supabase.from('subject_subscriptions').select('subject, is_active, expires_at').eq('user_id', user.id);
+        const subsMap = {};
+        (subscriptions || []).forEach(sub => { subsMap[sub.subject] = sub; });
+        
+        const subjectDisplay = document.getElementById('subject-subscriptions-display');
+        
+        if (!user.grade) {
+            subjectDisplay.innerHTML = `<div class="p-4 bg-error/5 border border-error/20 rounded-xl text-center"><p class="text-error font-bold text-sm">No Grade Assigned</p><p class="text-xs text-on-surface-variant mt-1">Please set your grade in Academic Profile first.</p></div>`;
+        } else {
+            const gradeLevel = user.grade.startsWith('JSS') ? 'JSS' : 'SS';
+            const baskets = CURRICULUM[gradeLevel];
+            let allSubjects = [];
+            for (const subjects of Object.values(baskets)) {
+                allSubjects = allSubjects.concat(subjects);
+            }
+            
+            let subjectHtml = '';
+            allSubjects.forEach(subject => {
+                const sub = subsMap[subject];
+                let statusHtml = '';
+                
+                if (sub) {
+                    const status = getSubStatus(sub.is_active, sub.expires_at);
+                    statusHtml = `<span class="text-xs ${status.class} flex items-center gap-1 whitespace-nowrap"><i class="fa-solid ${status.icon} text-[8px]"></i> ${status.label}</span>`;
+                } else {
+                    statusHtml = `<span class="text-xs sub-status-inactive flex items-center gap-1 whitespace-nowrap"><i class="fa-solid fa-circle text-[8px]"></i> Not subscribed</span>`;
+                }
+                
+                subjectHtml += `
+                    <div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                        <span class="font-label-md text-primary text-sm">${subject}</span>
+                        ${statusHtml}
+                    </div>
+                `;
+            });
+            
+            subjectDisplay.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-2">${subjectHtml}</div>`;
         }
 
         // ==========================================
@@ -776,12 +939,8 @@
         // ==========================================
         document.getElementById('current_grade_display').textContent = user.grade || 'Not Assigned';
 
-        // Fetch Subscriptions
-        const { data: subscriptions } = await supabase.from('subject_subscriptions').select('subject, is_active, expires_at').eq('user_id', user.id);
-        
         renderAcademicProfile(user.grade, user.subjects || [], subscriptions || []);
 
-        // Request Grade Change
         document.getElementById('request_grade_change_btn').addEventListener('click', () => {
             const desiredGrade = document.getElementById('desired_grade_select').value;
             if (!desiredGrade) { alert('Please select a desired grade from the dropdown.'); return; }
@@ -795,7 +954,6 @@
             window.location.href = `mailto:admin@naijaassets.com?subject=${subject}&body=${body}`;
         });
 
-        // Save Subjects Wishlist
         document.getElementById('save_subjects_btn').addEventListener('click', async function() {
             const checkedBoxes = document.querySelectorAll('.subject-checkbox:checked');
             const selectedSubjects = Array.from(checkedBoxes).map(cb => cb.value);
@@ -816,7 +974,7 @@
         });
 
         // ==========================================
-        // EVENT LISTENERS FOR SAVING (Original)
+        // EVENT LISTENERS FOR SAVING
         // ==========================================
         async function savePrefs() {
             const allPrefs = {};
@@ -948,28 +1106,10 @@
             
             for (const subject of subjects) {
                 const isChecked = userSubjects.includes(subject);
-                const subData = userSubsMap[subject];
-                
-                let statusBadge = '';
-                if (subData) {
-                    const isActive = subData.is_active && new Date(subData.expires_at) > new Date();
-                    if (isActive) {
-                        const daysLeft = Math.ceil((new Date(subData.expires_at) - new Date()) / (1000 * 60 * 60 * 24));
-                        statusBadge = `<span class="text-xs font-bold text-on-tertiary-container flex items-center gap-1 whitespace-nowrap"><i class="fa-solid fa-circle text-[6px]"></i> Active (${daysLeft}d)</span>`;
-                    } else {
-                        statusBadge = `<span class="text-xs font-bold text-error flex items-center gap-1 whitespace-nowrap"><i class="fa-solid fa-circle text-[6px]"></i> Expired</span>`;
-                    }
-                } else {
-                    statusBadge = `<span class="text-xs font-bold text-outline flex items-center gap-1 whitespace-nowrap"><i class="fa-solid fa-circle text-[6px]"></i> Unpaid</span>`;
-                }
-
                 html += `
-                    <label class="flex items-center justify-between p-3 border border-outline-variant/30 rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
-                        <div class="flex items-center gap-3 overflow-hidden">
-                            <input type="checkbox" class="subject-checkbox accent-secondary w-4 h-4 flex-shrink-0" value="${subject}" ${isChecked ? 'checked' : ''}/>
-                            <span class="font-label-md text-primary text-sm truncate">${subject}</span>
-                        </div>
-                        ${statusBadge}
+                    <label class="flex items-center gap-3 p-3 border border-outline-variant/30 rounded-xl cursor-pointer hover:bg-surface-container-low transition-colors">
+                        <input type="checkbox" class="subject-checkbox accent-secondary w-4 h-4 flex-shrink-0" value="${subject}" ${isChecked ? 'checked' : ''}/>
+                        <span class="font-label-md text-primary text-sm truncate">${subject}</span>
                     </label>
                 `;
             }
