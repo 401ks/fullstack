@@ -133,7 +133,7 @@
         #sidebar.collapsed .profile-section img { margin-right: 0; }
         
         .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .menu-expanded .submenu { max-height: 300px; }
+        .menu-expanded .submenu { max-height: 500px; }
         .menu-expanded .sidebar-chevron { transform: rotate(180deg); }
         
         #mainWrapper { transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -319,9 +319,21 @@
                     <i class="fa-solid fa-chevron-down text-sm sidebar-chevron transition-transform"></i>
                 </button>
                 <div class="submenu pl-10 space-y-1 mt-1">
-                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/settings/"><i class="fa-solid fa-user-gear text-xs"></i><span>Account Settings</span></a>
-                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-id-card text-xs"></i><span>Profile Settings</span></a>
-                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-palette text-xs"></i><span>Visual Settings</span></a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/settings/?section=subscription">
+                        <i class="fa-solid fa-crown text-xs"></i><span>Subscription & Access</span>
+                    </a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/settings/?section=academic">
+                        <i class="fa-solid fa-graduation-cap text-xs"></i><span>Academic Profile</span>
+                    </a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/settings/?section=account">
+                        <i class="fa-solid fa-user-gear text-xs"></i><span>Account Settings</span>
+                    </a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/settings/?section=profile">
+                        <i class="fa-solid fa-id-card text-xs"></i><span>Profile Settings</span>
+                    </a>
+                    <a class="block py-2 text-sm text-outline hover:text-primary transition-colors flex items-center gap-2" href="/dashboard/settings/?section=appearance">
+                        <i class="fa-solid fa-palette text-xs"></i><span>Visual Settings</span>
+                    </a>
                     <div class="pt-2 mt-2 border-t border-outline-variant/30 space-y-1">
                         <a class="block py-2 text-sm text-secondary hover:opacity-80 transition-colors flex items-center gap-2" href="#"><i class="fa-solid fa-circle-question text-xs"></i><span>Get Help</span></a>
                         <a id="logoutBtn" class="block py-2 text-sm text-red-600 hover:opacity-80 transition-colors flex items-center gap-2 cursor-pointer"><i class="fa-solid fa-right-from-bracket text-xs"></i><span>Logout</span></a>
@@ -829,7 +841,7 @@
                 <div class="col-span-full text-center py-12">
                     <i class="fa-solid fa-inbox text-4xl text-outline mb-4"></i>
                     <p class="text-on-surface-variant mb-4">You haven't selected any subjects yet.</p>
-                    <a href="/dashboard/settings/" class="inline-flex items-center gap-2 text-secondary font-bold hover:underline">
+                    <a href="/dashboard/settings/?section=academic" class="inline-flex items-center gap-2 text-secondary font-bold hover:underline">
                         <i class="fa-solid fa-plus"></i> Add subjects in Settings
                     </a>
                 </div>
