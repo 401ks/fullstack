@@ -991,23 +991,57 @@
 
         // Save Subjects Wishlist
         document.getElementById('save_subjects_btn').addEventListener('click', async function() {
-            const checkedBoxes = document.querySelectorAll('.subject-checkbox:checked');
-            const selectedSubjects = Array.from(checkedBoxes).map(cb => cb.value);
-            
-            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Saving...';
-            this.disabled = true;
+    const checkedBoxes = document.querySelectorAll('.subject-checkbox:checked');
+    const selectedSubjects = Array.from(checkedBoxes).map(cb => cb.value);
+    const allSubjects = Array.from(document.querySelectorAll('.subject-checkbox')).map(cb => cb.value);
+    
+    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Saving...';
+    this.disabled = true;
 
-            const { error } = await supabase.from('users').update({ subjects: selectedSubjects }).eq('id', user.id);
-            
-            this.innerHTML = '<i class="fa-solid fa-save"></i> Save Subject Wishlist';
-            this.disabled = false;
+    try {
+        // 1. For each selected subject, insert into subject_subscriptions as inactive (wishlist)
+        //    Only if it doesn't already exist
+        for (const subject of selectedSubjects) {
+            const { data: existing } = await supabase
+                .from('subject_subscriptions')
+                .select('id, is_active')
+                .eq('user_id', user.id)
+                .eq('subject', subject)
+                .eq('grade', user.grade)
+                .maybeSingle();
 
-            if (error) alert('Error saving subjects: ' + error.message);
-            else {
-                alert('Subject wishlist updated successfully!');
-                user.subjects = selectedSubjects;
+            if (!existing) {
+                // Insert new wishlist entry
+                await supabase.from('subject_subscriptions').insert({
+                    user_id: user.id,
+                    grade: user.grade,
+                    subject: subject,
+                    is_active: false,
+                    expires_at: null
+                });
             }
-        });
+            // If it exists and is already inactive, leave it alone
+        }
+
+        // 2. For subjects that were unchecked, delete their wishlist entries if inactive
+        const uncheckedSubjects = allSubjects.filter(s => !selectedSubjects.includes(s));
+        if (uncheckedSubjects.length > 0) {
+            await supabase
+                .from('subject_subscriptions')
+                .delete()
+                .eq('user_id', user.id)
+                .eq('is_active', false)
+                .in('subject', uncheckedSubjects);
+        }
+
+        alert('Subject wishlist updated successfully!');
+    } catch (error) {
+        alert('Error saving subjects: ' + error.message);
+    }
+
+    this.innerHTML = '<i class="fa-solid fa-save"></i> Save Subject Wishlist';
+    this.disabled = false;
+});
 
         // ==========================================
         // EVENT LISTENERS FOR SAVING
