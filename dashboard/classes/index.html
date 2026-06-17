@@ -112,7 +112,6 @@
             .desktop-menu-toggle { display: block; }
         }
         
-        /* Calendar Component Styles */
         .tutoring-calendar-component {
             --accent-blue: #316bf3;
             --accent-coral: #ff6b6b;
@@ -176,9 +175,6 @@
         .tutoring-calendar-component .date-cell-btn.selected-target { color: var(--text-light) !important; background-color: var(--text-dark) !important; font-weight: 700; border-color: var(--text-dark); }
         .tutoring-calendar-component .date-cell-btn .event-dot { position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; background: var(--accent-blue); }
         .tutoring-calendar-component .date-cell-btn .event-dot.multiple { background: var(--accent-coral); }
-        .tutoring-calendar-component .lookahead-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
-        .tutoring-calendar-component .lookahead-badge.month { background: rgba(49, 107, 243, 0.1); color: #316bf3; }
-        .tutoring-calendar-component .lookahead-badge.week { background: rgba(255, 193, 7, 0.1); color: #f59e0b; }
         
         @media (max-width: 640px) {
             .tutoring-calendar-component .calendar-widget { flex-direction: column; }
@@ -187,13 +183,11 @@
             .tutoring-calendar-component .calendar-main { width: 100%; padding: 25px; }
         }
         
-        /* Lookahead badges for main content */
         .lookahead-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 9999px; font-size: 12px; font-weight: 700; }
         .lookahead-pill.month { background: rgba(49, 107, 243, 0.1); color: #316bf3; border: 1px solid rgba(49, 107, 243, 0.2); }
         .lookahead-pill.week { background: rgba(245, 158, 11, 0.1); color: #d97706; border: 1px solid rgba(245, 158, 11, 0.2); }
         .lookahead-pill.none { background: rgba(239, 68, 68, 0.1); color: #dc2626; border: 1px solid rgba(239, 68, 68, 0.2); }
         
-        /* Referral Card */
         .naija-referral-card { width: 100%; max-width: 380px; padding: 28px; border-radius: 24px; background: #ffffff; border: 1px solid #e0e3e5; color: #191c1e; font-family: 'Manrope', sans-serif; box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); }
         .referral-icon { width: 58px; height: 58px; display: flex; align-items: center; justify-content: center; border-radius: 18px; font-size: 24px; margin-bottom: 18px; background: #0051d5; color: #ffffff; }
         .referral-tag { display: inline-block; padding: 6px 12px; border-radius: 8px; background: #dbe1ff; color: #0051d5; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; letter-spacing: 0.5px; }
@@ -206,6 +200,10 @@
         .referral-link-box button:hover { background: #003ea8; }
         .naija-referral-card small { color: #76777d; font-size: 11px; font-family: 'Manrope', sans-serif; }
         @media (max-width: 480px) { .referral-link-box { flex-direction: column; } .referral-link-box button { width: 100%; justify-content: center; } }
+        
+        .subscription-item { padding: 12px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; }
+        .subscription-item.active { border-left: 4px solid #10b981; }
+        .subscription-item.expired { border-left: 4px solid #ef4444; opacity: 0.7; }
     </style>
 </head>
 <body class="bg-background text-on-surface">
@@ -324,7 +322,6 @@
         </header>
         
         <main class="px-margin-desktop pb-margin-desktop max-w-container-max mx-auto space-y-stack-lg">
-            <!-- Classes Header -->
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                 <div>
                     <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-2">My Classes</h1>
@@ -343,29 +340,34 @@
             <div class="grid grid-cols-12 gap-gutter">
                 <div class="col-span-12 lg:col-span-8 space-y-stack-lg">
                     
-                    <!-- Your Active Classes -->
+                    <!-- Today's Classes -->
                     <section class="bg-surface-container-lowest border border-outline-variant rounded-3xl p-stack-lg card-shadow">
                         <div class="flex justify-between items-center mb-6">
-                            <h3 class="font-headline-md text-headline-md text-primary">Your Upcoming Classes</h3>
+                            <h3 class="font-headline-md text-headline-md text-primary">Today's Classes</h3>
+                            <span class="text-xs text-outline" id="todayDate"></span>
                         </div>
-                        <div class="space-y-4" id="classesListContainer">
+                        <div class="space-y-4" id="todayClassesContainer">
                             <div class="text-center py-12">
                                 <i class="fa-solid fa-spinner fa-spin text-3xl text-secondary"></i>
-                                <p class="mt-4 text-on-surface-variant">Loading your classes...</p>
+                                <p class="mt-4 text-on-surface-variant">Loading today's classes...</p>
                             </div>
                         </div>
                     </section>
                     
-                    <!-- Tomorrow's Classes -->
-                    <section class="bg-surface-container-lowest border border-outline-variant rounded-3xl p-6 card-shadow" id="tomorrowSection" style="display:none;">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="font-headline-lg text-headline-lg text-primary">Tomorrow's Classes</h2>
-                            <button onclick="downloadAllTomorrowICS()" class="flex items-center text-secondary font-label-md hover:underline">
-                                <i class="fa-solid fa-calendar-plus mr-1"></i>Add All to Calendar
-                            </button>
+                    <!-- Upcoming Classes (Hidden by default) -->
+                    <section class="bg-surface-container-lowest border border-outline-variant rounded-3xl p-stack-lg card-shadow" id="upcomingSection" style="display:none;">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-headline-md text-headline-md text-primary">Upcoming Classes</h3>
                         </div>
-                        <div class="space-y-3" id="tomorrowClassesContainer"></div>
+                        <div class="space-y-4" id="upcomingClassesContainer"></div>
                     </section>
+                    
+                    <!-- View More Button -->
+                    <div id="viewMoreContainer" class="text-center" style="display:none;">
+                        <button onclick="toggleUpcoming()" id="viewMoreBtn" class="px-6 py-3 bg-secondary text-white rounded-xl font-label-md hover:bg-secondary/90 transition-all">
+                            <i class="fa-solid fa-chevron-down mr-2"></i>View More Upcoming Classes
+                        </button>
+                    </div>
                     
                     <!-- Full Calendar Component -->
                     <section class="bg-surface-container-lowest border border-outline-variant rounded-3xl card-shadow overflow-hidden">
@@ -420,7 +422,6 @@
                     </section>
                 </div>
                 
-                <!-- Right Column -->
                 <aside class="col-span-12 lg:col-span-4 space-y-gutter">
                     <section class="bg-surface-container-lowest border border-outline-variant rounded-3xl p-6 card-shadow">
                         <div class="flex justify-between items-center mb-6">
@@ -447,11 +448,19 @@
                         </div>
                     </section>
                     
+                    <!-- Tuition Status - Now shows all subjects -->
                     <div class="bg-surface-container-lowest border border-outline-variant p-stack-lg rounded-3xl card-shadow">
-                        <div class="flex justify-between items-start mb-6"><h3 class="font-label-md text-label-md text-outline uppercase tracking-widest">Tuition Status</h3><i class="fa-solid fa-wallet text-on-tertiary-container bg-tertiary-fixed/30 p-2 rounded-lg"></i></div>
-                        <div class="mb-6"><div class="flex items-center gap-2 mb-1"><h4 class="font-headline-md text-headline-md text-primary text-xl" id="tuitionMonth">Loading...</h4><span id="tuitionBadge" class="flex items-center gap-1 px-2 py-0.5 bg-surface-container text-outline rounded font-label-sm text-[10px] uppercase">...</span></div><p class="font-body-md text-outline text-sm">Next due: <span id="nextDueDate">...</span></p></div>
-                        <div class="w-full bg-surface-container rounded-full h-1.5 mb-6"><div class="bg-on-tertiary-container h-full rounded-full" id="tuitionProgress" style="width: 0%"></div></div>
-                        <a href="/dashboard/payments/" class="w-full border border-outline-variant text-on-surface-variant hover:text-primary py-3 rounded-xl font-label-md text-label-md transition-all block text-center">View Invoices</a>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="font-label-md text-label-md text-outline uppercase tracking-widest">Subject Subscriptions</h3>
+                            <i class="fa-solid fa-book-bookmark text-on-tertiary-container bg-tertiary-fixed/30 p-2 rounded-lg"></i>
+                        </div>
+                        <div id="subscriptionsList" class="space-y-3 max-h-80 overflow-y-auto">
+                            <div class="text-center py-6 text-on-surface-variant text-sm">
+                                <i class="fa-solid fa-spinner fa-spin"></i>
+                                <p class="mt-2">Loading subscriptions...</p>
+                            </div>
+                        </div>
+                        <a href="/dashboard/payments/" class="w-full border border-outline-variant text-on-surface-variant hover:text-primary py-3 rounded-xl font-label-md text-label-md transition-all block text-center mt-4">Manage Subscriptions</a>
                     </div>
                     
                     <div class="bg-surface-container-lowest border border-outline-variant rounded-3xl p-stack-lg card-shadow">
@@ -462,16 +471,15 @@
                         </div>
                     </div>
                     
+                    <!-- Next Class / Progress Card -->
                     <div class="bg-primary text-on-primary rounded-3xl p-8 shadow-xl relative overflow-hidden">
                         <div class="relative z-10">
-                            <h4 class="font-label-md text-label-md mb-2 opacity-80">Monthly Progress</h4>
-                            <div class="text-4xl font-display-lg mb-4" id="progressPercent">--</div>
-                            <div class="w-full bg-on-primary/20 rounded-full h-2 mb-2">
-                                <div class="bg-tertiary-fixed-dim h-full rounded-full" id="progressBar" style="width: 0%"></div>
-                            </div>
-                            <p class="text-[10px] font-label-sm opacity-60 uppercase tracking-widest">Keep learning!</p>
+                            <h4 class="font-label-md text-label-md mb-2 opacity-80">Next Class</h4>
+                            <div class="text-2xl font-display-lg mb-2" id="nextClassTitle">--</div>
+                            <div class="text-sm opacity-90 mb-4" id="nextClassTime">--</div>
+                            <div class="text-xs opacity-60" id="nextClassTeacher">--</div>
                         </div>
-                        <div class="absolute -right-4 -bottom-4 opacity-10"><i class="fa-solid fa-chart-line text-9xl"></i></div>
+                        <div class="absolute -right-4 -bottom-4 opacity-10"><i class="fa-solid fa-clock text-9xl"></i></div>
                     </div>
                     
                     <div class="naija-referral-card">
@@ -504,7 +512,6 @@
     <i class="fa-solid fa-comments text-xl"></i>
 </button>
 
-<!-- UI Logic -->
 <script>
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
@@ -573,6 +580,21 @@
         setTimeout(() => { button.innerHTML = originalHTML; button.style.backgroundColor = "#0051d5"; }, 1500);
     }
 
+    let upcomingVisible = false;
+    window.toggleUpcoming = function() {
+        upcomingVisible = !upcomingVisible;
+        const section = document.getElementById('upcomingSection');
+        const btn = document.getElementById('viewMoreBtn');
+        if (upcomingVisible) {
+            section.style.display = 'block';
+            btn.innerHTML = '<i class="fa-solid fa-chevron-up mr-2"></i>Show Less';
+        } else {
+            section.style.display = 'none';
+            btn.innerHTML = '<i class="fa-solid fa-chevron-down mr-2"></i>View More Upcoming Classes';
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    };
+
     window.addEventListener('resize', () => {
         if (window.innerWidth >= 1024) {
             sidebar.classList.remove('active'); mobileOverlay.classList.remove('active');
@@ -582,25 +604,80 @@
     });
 </script>
 
-<!-- Main Application Logic -->
 <script type="module">
     import { initializeAuth } from '../../auth.js';
-    import { getSubscriptionStatus } from '../../utils.js';
     import { supabase } from '../../supabaseClient.js';
 
     const API_BASE = 'https://rexapi.naijaassets.com';
     const isGitHubPages = window.location.hostname.includes('github.io') && window.location.pathname.split('/').length > 2;
     const BASE_PATH = isGitHubPages ? '/' + window.location.pathname.split('/')[1] : '';
 
-    // Store calendar data for the widget
-    let calendarEventsByDate = {};
     let allMeetings = [];
     let currentCalendarYear = new Date().getFullYear();
     let currentCalendarMonth = new Date().getMonth();
 
-    // ==========================================
-    // API FUNCTIONS
-    // ==========================================
+    // Get current time in WAT (West Africa Time)
+    function getWATNow() {
+        const now = new Date();
+        const watString = now.toLocaleString('en-US', { timeZone: 'Africa/Lagos' });
+        return new Date(watString);
+    }
+
+    function getWATDateKey(isoString) {
+        const date = new Date(isoString);
+        const wat = new Date(date.toLocaleString('en-US', { timeZone: 'Africa/Lagos' }));
+        return `${wat.getFullYear()}-${String(wat.getMonth() + 1).padStart(2, '0')}-${String(wat.getDate()).padStart(2, '0')}`;
+    }
+
+    function formatWATTime(isoString) {
+        const date = new Date(isoString);
+        return date.toLocaleString('en-NG', {
+            timeZone: 'Africa/Lagos',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        });
+    }
+
+    function formatWATDateTime(isoString) {
+        const date = new Date(isoString);
+        return date.toLocaleString('en-NG', {
+            timeZone: 'Africa/Lagos',
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        });
+    }
+
+    function isToday(isoString) {
+        const now = getWATNow();
+        const meetingDate = new Date(isoString);
+        const meetWAT = new Date(meetingDate.toLocaleString('en-US', { timeZone: 'Africa/Lagos' }));
+        return now.getFullYear() === meetWAT.getFullYear() && now.getMonth() === meetWAT.getMonth() && now.getDate() === meetWAT.getDate();
+    }
+
+    function isWithinOneHour(isoString) {
+        const now = getWATNow();
+        const meetingDate = new Date(isoString);
+        const meetWAT = new Date(meetingDate.toLocaleString('en-US', { timeZone: 'Africa/Lagos' }));
+        const diffMs = meetWAT - now;
+        const diffMins = diffMs / 60000;
+        return diffMins > 0 && diffMins <= 60;
+    }
+
+    function getSubjectIcon(subject) {
+        const icons = {
+            'mathematics': 'calculator', 'basic science': 'flask', 'english language': 'book',
+            'physics': 'bolt', 'chemistry': 'flask', 'biology': 'dna',
+            'economics': 'chart-line', 'literature': 'book-open', 'government': 'landmark',
+            'agricultural science': 'seedling', 'computer studies': 'laptop', 'further mathematics': 'calculator'
+        };
+        return icons[subject.toLowerCase()] || 'book';
+    }
+
     async function fetchMeetings() {
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) return null;
@@ -641,96 +718,6 @@
         return await response.json();
     }
 
-    // ==========================================
-    // TIMEZONE HELPERS (WAT = Africa/Lagos)
-    // ==========================================
-    function formatWATTime(isoString, options = {}) {
-        const date = new Date(isoString);
-        return date.toLocaleString('en-NG', {
-            timeZone: 'Africa/Lagos',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true,
-            ...options
-        });
-    }
-
-    function formatWATDate(isoString) {
-        const date = new Date(isoString);
-        return date.toLocaleDateString('en-NG', {
-            timeZone: 'Africa/Lagos',
-            weekday: 'short',
-            month: 'short',
-            day: 'numeric'
-        });
-    }
-
-    function formatWATFullDate(isoString) {
-        const date = new Date(isoString);
-        return date.toLocaleDateString('en-NG', {
-            timeZone: 'Africa/Lagos',
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    }
-
-    function getWATDateKey(isoString) {
-        const date = new Date(isoString);
-        const wat = new Date(date.toLocaleString('en-US', { timeZone: 'Africa/Lagos' }));
-        return `${wat.getFullYear()}-${String(wat.getMonth() + 1).padStart(2, '0')}-${String(wat.getDate()).padStart(2, '0')}`;
-    }
-
-    function getRelativeLabel(isoString) {
-        const now = new Date();
-        const meetingDate = new Date(isoString);
-        
-        const nowWAT = new Date(now.toLocaleString('en-US', { timeZone: 'Africa/Lagos' }));
-        const meetWAT = new Date(meetingDate.toLocaleString('en-US', { timeZone: 'Africa/Lagos' }));
-        
-        const todayKey = `${nowWAT.getFullYear()}-${String(nowWAT.getMonth() + 1).padStart(2, '0')}-${String(nowWAT.getDate()).padStart(2, '0')}`;
-        const meetKey = `${meetWAT.getFullYear()}-${String(meetWAT.getMonth() + 1).padStart(2, '0')}-${String(meetWAT.getDate()).padStart(2, '0')}`;
-        
-        if (todayKey === meetKey) {
-            const diffMs = meetingDate - now;
-            const diffMins = Math.floor(diffMs / 60000);
-            if (diffMins > 0 && diffMins < 60) return { label: 'Live Soon', sublabel: `In ${diffMins} mins`, isLive: true };
-            if (diffMins >= 60) return { label: 'Today', sublabel: formatWATTime(isoString), isLive: false };
-            return { label: 'Today', sublabel: formatWATTime(isoString), isLive: false };
-        }
-        
-        const tomorrow = new Date(nowWAT);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const tomorrowKey = `${tomorrow.getFullYear()}-${String(tomorrow.getMonth() + 1).padStart(2, '0')}-${String(tomorrow.getDate()).padStart(2, '0')}`;
-        
-        if (tomorrowKey === meetKey) return { label: 'Tomorrow', sublabel: formatWATTime(isoString), isLive: false };
-        
-        const dayName = meetWAT.toLocaleDateString('en-NG', { timeZone: 'Africa/Lagos', weekday: 'short' });
-        return { label: dayName, sublabel: formatWATTime(isoString), isLive: false };
-    }
-
-    function isToday(isoString) {
-        const now = new Date();
-        const meetingDate = new Date(isoString);
-        const nowWAT = new Date(now.toLocaleString('en-US', { timeZone: 'Africa/Lagos' }));
-        const meetWAT = new Date(meetingDate.toLocaleString('en-US', { timeZone: 'Africa/Lagos' }));
-        return nowWAT.getFullYear() === meetWAT.getFullYear() && nowWAT.getMonth() === meetWAT.getMonth() && nowWAT.getDate() === meetWAT.getDate();
-    }
-
-    function isTomorrow(isoString) {
-        const now = new Date();
-        const tomorrow = new Date(now);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const meetingDate = new Date(isoString);
-        const tomWAT = new Date(tomorrow.toLocaleString('en-US', { timeZone: 'Africa/Lagos' }));
-        const meetWAT = new Date(meetingDate.toLocaleString('en-US', { timeZone: 'Africa/Lagos' }));
-        return tomWAT.getFullYear() === meetWAT.getFullYear() && tomWAT.getMonth() === meetWAT.getMonth() && tomWAT.getDate() === meetWAT.getDate();
-    }
-
-    // ==========================================
-    // ICS GENERATION (NO meeting_url)
-    // ==========================================
     function generateICS(event) {
         const startDate = new Date(event.start_datetime);
         const endDate = new Date(event.end_datetime);
@@ -770,109 +757,211 @@
         URL.revokeObjectURL(url);
     }
 
-    window.downloadAllTomorrowICS = function() {
-        const tomorrowMeetings = allMeetings.filter(m => isTomorrow(m.start_datetime));
-        if (tomorrowMeetings.length === 0) return;
-        tomorrowMeetings.forEach(m => generateICS(m));
-    };
+    window.downloadICS = generateICS;
 
-    // ==========================================
-    // RENDER FUNCTIONS
-    // ==========================================
-    function renderClassCards(meetings) {
-        const container = document.getElementById('classesListContainer');
+    function renderClassCard(meeting, showJoinButton = false) {
+        const startTime = formatWATTime(meeting.start_datetime);
+        const endTime = formatWATTime(meeting.end_datetime);
         
-        if (!meetings || meetings.length === 0) {
+        let actionButtons = '';
+        if (showJoinButton) {
+            actionButtons = `
+                <div class="flex gap-2">
+                    <button onclick='window.downloadICS(${JSON.stringify(meeting).replace(/'/g, "&#39;")})' class="border border-outline-variant text-on-surface-variant px-3 py-2 rounded-xl font-label-md hover:bg-surface-container transition-all text-xs whitespace-nowrap" title="Add to calendar">
+                        <i class="fa-regular fa-bell"></i>
+                    </button>
+                    <a href="${meeting.meeting_url}" target="_blank" class="bg-primary text-on-secondary px-4 py-2 rounded-xl font-label-md hover:bg-secondary transition-all active:scale-95 text-xs whitespace-nowrap">
+                        Join Now
+                    </a>
+                </div>
+            `;
+        } else {
+            actionButtons = `
+                <button onclick='window.downloadICS(${JSON.stringify(meeting).replace(/'/g, "&#39;")})' class="border border-outline-variant text-on-surface-variant px-4 py-2 rounded-xl font-label-md hover:bg-surface-container transition-all text-xs whitespace-nowrap">
+                    <i class="fa-regular fa-bell mr-1"></i>Remind Me
+                </button>
+            `;
+        }
+        
+        return `
+            <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-2xl border border-outline-variant/30">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-secondary-fixed rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-${getSubjectIcon(meeting.subject)} text-secondary"></i>
+                    </div>
+                    <div>
+                        <p class="font-label-md text-primary font-bold">${meeting.title}</p>
+                        <p class="font-label-sm text-outline text-xs">by ${meeting.teacher}</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-[10px] font-label-sm ${showJoinButton ? 'text-error' : 'text-outline'} uppercase tracking-widest leading-none mb-1">${showJoinButton ? 'Live Now' : 'Upcoming'}</p>
+                        <p class="font-label-md text-primary font-bold">${startTime} - ${endTime}</p>
+                    </div>
+                    ${actionButtons}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderClasses(meetings) {
+        const todayContainer = document.getElementById('todayClassesContainer');
+        const upcomingContainer = document.getElementById('upcomingClassesContainer');
+        const upcomingSection = document.getElementById('upcomingSection');
+        const viewMoreContainer = document.getElementById('viewMoreContainer');
+        
+        const todayMeetings = meetings.filter(m => isToday(m.start_datetime));
+        const upcomingMeetings = meetings.filter(m => !isToday(m.start_datetime));
+        
+        // Update today's date display
+        const todayDate = document.getElementById('todayDate');
+        const now = getWATNow();
+        todayDate.textContent = now.toLocaleDateString('en-NG', { 
+            timeZone: 'Africa/Lagos',
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        
+        // Render today's classes
+        if (todayMeetings.length === 0) {
+            todayContainer.innerHTML = `
+                <div class="text-center py-8">
+                    <i class="fa-solid fa-calendar-check text-4xl text-outline mb-4"></i>
+                    <p class="text-on-surface-variant">No classes scheduled for today</p>
+                </div>
+            `;
+        } else {
+            todayContainer.innerHTML = todayMeetings.map(m => {
+                const canJoin = isWithinOneHour(m.start_datetime);
+                return renderClassCard(m, canJoin);
+            }).join('');
+        }
+        
+        // Render upcoming classes
+        if (upcomingMeetings.length > 0) {
+            upcomingContainer.innerHTML = upcomingMeetings.map(m => {
+                const canJoin = isWithinOneHour(m.start_datetime);
+                return `
+                    <div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-2xl border border-outline-variant">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-primary-fixed rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-${getSubjectIcon(m.subject)} text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="font-label-md text-primary font-bold">${m.title}</p>
+                                <p class="font-label-sm text-outline text-xs">by ${m.teacher}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="text-right hidden sm:block">
+                                <p class="text-[10px] font-label-sm ${canJoin ? 'text-error' : 'text-outline'} uppercase tracking-widest leading-none mb-1">${canJoin ? 'Live Soon' : formatWATDateTime(m.start_datetime).split(',')[0]}</p>
+                                <p class="font-label-md text-primary font-bold">${formatWATTime(m.start_datetime)}</p>
+                            </div>
+                            ${canJoin ? `
+                                <a href="${m.meeting_url}" target="_blank" class="bg-primary text-on-secondary px-4 py-2 rounded-xl font-label-md hover:bg-secondary transition-all active:scale-95 text-xs whitespace-nowrap">
+                                    Join Now
+                                </a>
+                            ` : `
+                                <button onclick='window.downloadICS(${JSON.stringify(m).replace(/'/g, "&#39;")})' class="border border-outline-variant text-on-surface-variant px-4 py-2 rounded-xl font-label-md hover:bg-surface-container transition-all text-xs whitespace-nowrap">
+                                    <i class="fa-regular fa-bell mr-1"></i>Remind
+                                </button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Show view more button if there are upcoming classes
+            viewMoreContainer.style.display = 'block';
+        } else {
+            upcomingSection.style.display = 'none';
+            viewMoreContainer.style.display = 'none';
+        }
+        
+        // Update next class card
+        const nextClassTitle = document.getElementById('nextClassTitle');
+        const nextClassTime = document.getElementById('nextClassTime');
+        const nextClassTeacher = document.getElementById('nextClassTeacher');
+        
+        if (meetings.length > 0) {
+            const nextMeeting = meetings[0];
+            nextClassTitle.textContent = nextMeeting.title;
+            nextClassTime.textContent = formatWATDateTime(nextMeeting.start_datetime);
+            nextClassTeacher.textContent = `with ${nextMeeting.teacher}`;
+        } else {
+            nextClassTitle.textContent = 'No upcoming classes';
+            nextClassTime.textContent = '--';
+            nextClassTeacher.textContent = '--';
+        }
+    }
+
+    async function renderSubscriptions() {
+        const container = document.getElementById('subscriptionsList');
+        
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return;
+        
+        const { data: subscriptions, error } = await supabase
+            .from('subject_subscriptions')
+            .select('*')
+            .eq('user_id', session.user.id)
+            .order('expires_at', { ascending: false });
+        
+        if (error || !subscriptions || subscriptions.length === 0) {
             container.innerHTML = `
-                <div class="text-center py-12">
-                    <i class="fa-solid fa-calendar-xmark text-4xl text-outline mb-4"></i>
-                    <p class="text-on-surface-variant font-bold">No upcoming classes</p>
-                    <p class="text-sm text-outline mt-2">Subscribe to subjects in Settings to see your class schedule.</p>
+                <div class="text-center py-6">
+                    <i class="fa-solid fa-inbox text-3xl text-outline mb-3"></i>
+                    <p class="text-on-surface-variant text-sm">No active subscriptions</p>
+                    <a href="/dashboard/payments/" class="text-secondary text-sm font-bold hover:underline mt-2 inline-block">Subscribe now</a>
                 </div>
             `;
             return;
         }
-
-        container.innerHTML = meetings.map(meeting => {
-            const rel = getRelativeLabel(meeting.start_datetime);
-            const endTime = formatWATTime(meeting.end_datetime);
-            const startTime = formatWATTime(meeting.start_datetime);
+        
+        const now = new Date();
+        
+        container.innerHTML = subscriptions.map(sub => {
+            const expiresAt = new Date(sub.expires_at);
+            const isActive = sub.is_active && expiresAt > now;
+            const daysLeft = Math.ceil((expiresAt - now) / (1000 * 60 * 60 * 24));
+            
+            let statusBadge = '';
+            let statusClass = '';
+            
+            if (isActive) {
+                statusClass = 'active';
+                if (daysLeft <= 7) {
+                    statusBadge = `<span class="text-xs font-bold text-amber-600">${daysLeft} days left</span>`;
+                } else {
+                    statusBadge = `<span class="text-xs font-bold text-on-tertiary-container">${daysLeft} days left</span>`;
+                }
+            } else {
+                statusClass = 'expired';
+                statusBadge = `<span class="text-xs font-bold text-error">Expired</span>`;
+            }
             
             return `
-                <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-2xl border border-outline-variant/30">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-secondary-fixed rounded-xl flex items-center justify-center">
-                            <i class="fa-solid fa-${getSubjectIcon(meeting.subject)} text-secondary"></i>
+                <div class="subscription-item ${statusClass}">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-${getSubjectIcon(sub.subject)} text-secondary"></i>
+                            <span class="font-label-md text-primary font-bold">${sub.subject}</span>
                         </div>
-                        <div>
-                            <p class="font-label-md text-primary font-bold">${meeting.title}</p>
-                            <p class="font-label-sm text-outline text-xs">by ${meeting.teacher}</p>
-                        </div>
+                        ${statusBadge}
                     </div>
-                    <div class="flex items-center gap-3">
-                        <div class="text-right hidden sm:block">
-                            <p class="text-[10px] font-label-sm ${rel.isLive ? 'text-error' : 'text-outline'} uppercase tracking-widest leading-none mb-1">${rel.label}</p>
-                            <p class="font-label-md text-primary font-bold">${startTime} - ${endTime}</p>
-                        </div>
-                        <div class="flex gap-2">
-                            <button onclick='window.downloadICS(${JSON.stringify(meeting).replace(/'/g, "&#39;")})' class="border border-outline-variant text-on-surface-variant px-3 py-2 rounded-xl font-label-md hover:bg-surface-container transition-all text-xs whitespace-nowrap" title="Add to calendar">
-                                <i class="fa-regular fa-bell"></i>
-                            </button>
-                            <a href="${meeting.meeting_url}" target="_blank" class="bg-primary text-on-secondary px-4 py-2 rounded-xl font-label-md hover:bg-secondary transition-all active:scale-95 text-xs whitespace-nowrap">
-                                Join
-                            </a>
-                        </div>
+                    <div class="text-xs text-outline">
+                        ${isActive ? `Active until ${expiresAt.toLocaleDateString('en-NG', { month: 'short', day: 'numeric', year: 'numeric' })}` : `Expired on ${expiresAt.toLocaleDateString('en-NG', { month: 'short', day: 'numeric', year: 'numeric' })}`}
                     </div>
                 </div>
             `;
         }).join('');
     }
 
-    function renderTomorrowSection(meetings) {
-        const section = document.getElementById('tomorrowSection');
-        const container = document.getElementById('tomorrowClassesContainer');
-        const tomorrowMeetings = meetings.filter(m => isTomorrow(m.start_datetime));
-        
-        if (tomorrowMeetings.length === 0) {
-            section.style.display = 'none';
-            return;
-        }
-        
-        section.style.display = 'block';
-        container.innerHTML = tomorrowMeetings.map(meeting => {
-            const startTime = formatWATTime(meeting.start_datetime);
-            return `
-                <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-secondary-fixed rounded-xl flex items-center justify-center">
-                            <i class="fa-solid fa-${getSubjectIcon(meeting.subject)} text-secondary"></i>
-                        </div>
-                        <div>
-                            <p class="font-label-md text-primary font-bold">${meeting.title}</p>
-                            <p class="text-xs text-outline">${startTime} • Virtual • ${meeting.teacher}</p>
-                        </div>
-                    </div>
-                    <button onclick='window.downloadICS(${JSON.stringify(meeting).replace(/'/g, "&#39;")})' class="px-4 py-2 bg-surface-container-high text-primary rounded-lg font-label-md hover:bg-surface-container-highest transition-colors border border-outline-variant">
-                        <i class="fa-regular fa-bell mr-1"></i>Remind
-                    </button>
-                </div>
-            `;
-        }).join('');
-    }
+    let calendarEventsByDate = {};
 
-    function getSubjectIcon(subject) {
-        const icons = {
-            'mathematics': 'calculator', 'basic science': 'flask', 'english language': 'book',
-            'physics': 'bolt', 'chemistry': 'flask', 'biology': 'dna',
-            'economics': 'chart-line', 'literature': 'book-open', 'government': 'landmark',
-            'agricultural science': 'seedling', 'computer studies': 'laptop', 'further mathematics': 'calculator'
-        };
-        return icons[subject.toLowerCase()] || 'book';
-    }
-
-    // ==========================================
-    // CALENDAR WIDGET
-    // ==========================================
     async function renderCalendarWidget(year, month) {
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         
@@ -881,16 +970,14 @@
         
         if (monthYearTitle) monthYearTitle.textContent = `${monthNames[month]} ${year}`;
         
-        // Fetch calendar data for this month
         let calendarData;
         try {
             calendarData = await fetchCalendar(year, month);
         } catch (err) {
             console.error('Calendar fetch error:', err);
-            calendarData = { meetings: [], lookahead: '1_week' };
+            calendarData = { meetings: [] };
         }
         
-        // Group events by date
         calendarEventsByDate = {};
         if (calendarData && calendarData.meetings) {
             calendarData.meetings.forEach(event => {
@@ -900,17 +987,8 @@
             });
         }
         
-        // Update lookahead badge
-        if (calendarData && calendarData.lookahead) {
-            const badgeClass = calendarData.lookahead === '1_month' ? 'month' : 'week';
-            const badgeText = calendarData.lookahead === '1_month' ? '📅 1 Month View' : '📅 1 Week View';
-            // Could add badge to UI if needed
-        }
-        
-        // Render grid
         if (!calendarMatrix) return;
         
-        // Remove old date cells
         calendarMatrix.querySelectorAll('.date-cell-btn').forEach(node => node.remove());
         
         const today = new Date();
@@ -918,11 +996,9 @@
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         const daysInPrevMonth = new Date(year, month, 0).getDate();
         
-        // Monday-first: [5, 0, 1, 2, 3, 4, 6]
         const translationMap = [5, 0, 1, 2, 3, 4, 6];
         const prePadding = translationMap[firstDay];
         
-        // Previous month padding
         for (let i = prePadding - 1; i >= 0; i--) {
             const cell = document.createElement('a');
             cell.href = '#';
@@ -931,7 +1007,6 @@
             calendarMatrix.appendChild(cell);
         }
         
-        // Current month days
         for (let day = 1; day <= daysInMonth; day++) {
             const cell = document.createElement('a');
             cell.href = '#';
@@ -941,7 +1016,6 @@
             const isToday = (day === today.getDate() && month === today.getMonth() && year === today.getFullYear());
             if (isToday) cell.classList.add('real-time-today');
             
-            // Check for events on this day
             const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
             const dayEvents = calendarEventsByDate[dateKey] || [];
             
@@ -961,7 +1035,6 @@
             calendarMatrix.appendChild(cell);
         }
         
-        // Next month padding
         const totalCells = prePadding + daysInMonth;
         const remaining = totalCells <= 35 ? 35 - totalCells : 42 - totalCells;
         for (let i = 1; i <= remaining; i++) {
@@ -980,7 +1053,6 @@
         if (!activeDateHeader || !timetableStream) return;
         
         const [year, month, day] = dateKey.split('-').map(Number);
-        const date = new Date(year, month - 1, day);
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         
         activeDateHeader.textContent = `${monthNames[month - 1].substring(0, 3)} ${day}, ${year}`;
@@ -999,13 +1071,12 @@
         
         timetableStream.innerHTML = dayEvents.map(event => {
             const startTime = formatWATTime(event.start_datetime);
-            const isRecurring = event.is_recurring_occurrence;
             return `
                 <a href="#" class="timetable-card-link" onclick="event.preventDefault(); window.downloadICS(${JSON.stringify(event).replace(/'/g, '&#39;')})">
-                    <div class="timetable-card ${isRecurring ? '' : ''}">
+                    <div class="timetable-card">
                         <div class="card-meta-row">
                             <span class="class-time">${startTime}</span>
-                            <span class="class-room">${isRecurring ? '🔁 Recurring' : 'One-time'}</span>
+                            <span class="class-room">${event.is_recurring_occurrence ? '🔁 Recurring' : 'One-time'}</span>
                         </div>
                         <h5 class="class-title">${event.title}</h5>
                         <div class="instructor-tag">
@@ -1019,9 +1090,6 @@
         }).join('');
     }
 
-    // ==========================================
-    // MAIN INIT
-    // ==========================================
     async function initClassesPage() {
         await initializeAuth();
         
@@ -1038,7 +1106,6 @@
             return;
         }
 
-        // Profile injection
         const meta = session.user.user_metadata || {};
         const fullName = meta.full_name || `${meta.first_name || ''} ${meta.last_name || ''}`.trim() || user.email.split('@')[0];
         
@@ -1052,46 +1119,16 @@
         if (headerName) headerName.textContent = fullName;
         if (headerLevel) headerLevel.textContent = user.grade || 'Student';
 
-        // Referral link
         const referralInput = document.getElementById('referralInput');
         if (referralInput && user.username) {
             referralInput.value = `${window.location.origin}${BASE_PATH}/signup/?ref=${user.username}`;
         }
 
-        // Subscription status
-        const subStatus = getSubscriptionStatus(user.subscription_expires_at);
-        const tuitionBadge = document.getElementById('tuitionBadge');
-        const nextDueDateEl = document.getElementById('nextDueDate');
-        const tuitionProgress = document.getElementById('tuitionProgress');
-        const tuitionMonth = document.getElementById('tuitionMonth');
-        
-        const now = new Date();
-        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        if (tuitionMonth) tuitionMonth.textContent = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
-        
-        if (tuitionBadge) {
-            if (subStatus.status === 'active' || subStatus.status === 'expires_soon') {
-                tuitionBadge.textContent = 'Active';
-                tuitionBadge.className = 'flex items-center gap-1 px-2 py-0.5 bg-on-tertiary-container/10 text-on-tertiary-container rounded font-label-sm text-[10px] uppercase';
-                if (nextDueDateEl && user.subscription_expires_at) {
-                    nextDueDateEl.textContent = new Date(user.subscription_expires_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                }
-                if (tuitionProgress) tuitionProgress.style.width = '100%';
-            } else {
-                tuitionBadge.textContent = 'Expired';
-                tuitionBadge.className = 'flex items-center gap-1 px-2 py-0.5 bg-error-container/50 text-error rounded font-label-sm text-[10px] uppercase';
-                if (nextDueDateEl) nextDueDateEl.textContent = 'Please renew';
-                if (tuitionProgress) tuitionProgress.style.width = '0%';
-            }
-        }
-
-        // Fetch meetings
         try {
             const meetingsData = await fetchMeetings();
             if (meetingsData) {
                 allMeetings = meetingsData.meetings || [];
                 
-                // Update lookahead badge
                 const lookaheadBadge = document.getElementById('lookaheadBadge');
                 if (lookaheadBadge && meetingsData.lookahead) {
                     if (meetingsData.lookahead === '1_month') {
@@ -1101,19 +1138,14 @@
                     }
                 }
                 
-                // Update count
                 const countEl = document.getElementById('meetingCount');
                 if (countEl) countEl.textContent = allMeetings.length;
                 
-                // Render class cards
-                renderClassCards(allMeetings);
-                
-                // Render tomorrow section
-                renderTomorrowSection(allMeetings);
+                renderClasses(allMeetings);
             }
         } catch (err) {
             console.error('Meetings fetch error:', err);
-            document.getElementById('classesListContainer').innerHTML = `
+            document.getElementById('todayClassesContainer').innerHTML = `
                 <div class="text-center py-12 text-error">
                     <i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i>
                     <p class="font-bold">Failed to load classes</p>
@@ -1122,7 +1154,8 @@
             `;
         }
 
-        // Calendar widget
+        await renderSubscriptions();
+
         const decreaseBtn = document.querySelector('.class-decrease-month');
         const increaseBtn = document.querySelector('.class-increase-month');
         
@@ -1141,10 +1174,8 @@
             });
         }
         
-        // Initial calendar render
         renderCalendarWidget(currentCalendarYear, currentCalendarMonth);
 
-        // Logout
         const logoutBtn = document.getElementById('logoutBtn');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', async (e) => {
@@ -1154,9 +1185,6 @@
             });
         }
     }
-
-    // Expose ICS download to window
-    window.downloadICS = generateICS;
 
     initClassesPage();
 </script>
