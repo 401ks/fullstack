@@ -124,7 +124,6 @@
         .input-field:focus { border-color: #0051d5; box-shadow: 0 0 0 3px rgba(0, 81, 213, 0.1); }
         .input-field.error { border-color: #ba1a1a; box-shadow: 0 0 0 3px rgba(186, 26, 26, 0.1); }
         .input-field.success { border-color: #009485; box-shadow: 0 0 0 3px rgba(0, 148, 133, 0.1); }
-        .input-field.checking { border-color: #f59e0b; box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1); }
         
         .input-label {
             position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
@@ -143,8 +142,6 @@
         .field-error.show { display: flex; }
         .field-success { display: none; font-size: 12px; color: #009485; margin-top: 6px; align-items: center; gap: 4px; font-weight: 500; }
         .field-success.show { display: flex; }
-        .field-checking { display: none; font-size: 12px; color: #f59e0b; margin-top: 6px; align-items: center; gap: 4px; font-weight: 500; }
-        .field-checking.show { display: flex; }
         
         select.input-field {
             appearance: none; -webkit-appearance: none;
@@ -191,14 +188,6 @@
         .referral-banner { background: linear-gradient(135deg, #dbe1ff 0%, #f0f4ff 100%); border: 1px solid #b4c5ff; }
         .terms-warning { animation: shake 0.4s ease-in-out; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-        
-        .summary-box { background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%); border: 2px solid #0051d5; border-radius: 12px; padding: 16px; }
-        
-        /* Email status indicator */
-        .email-status-icon {
-            position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-            font-size: 16px; pointer-events: none;
-        }
         
         @media (max-width: 768px) {
             .otp-input { width: 36px; height: 48px; font-size: 18px; }
@@ -339,15 +328,13 @@
                             <div class="input-group">
                                 <input type="email" id="signupEmail" name="email" class="input-field" placeholder=" " required autocomplete="email"/>
                                 <label for="signupEmail" class="input-label">Email Address</label>
-                                <span id="emailStatusIcon" class="email-status-icon hidden"></span>
                                 <div id="emailError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
-                                <div id="emailSuccess" class="field-success"><i class="fa-solid fa-circle-check"></i> <span>Email is available</span></div>
-                                <div id="emailChecking" class="field-checking"><i class="fa-solid fa-spinner fa-spin"></i> <span>Checking availability...</span></div>
+                                <div id="emailSuccess" class="field-success"><i class="fa-solid fa-circle-check"></i> <span>Looks good!</span></div>
                             </div>
                             
                             <div class="input-group">
-                                <input type="tel" id="phone" name="phone" class="input-field" placeholder=" " autocomplete="tel"/>
-                                <label for="phone" class="input-label">Phone Number (optional)</label>
+                                <input type="tel" id="phone" name="phone" class="input-field" placeholder=" " required autocomplete="tel"/>
+                                <label for="phone" class="input-label">Phone Number</label>
                                 <div id="phoneError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
                                 <div id="phoneSuccess" class="field-success"><i class="fa-solid fa-circle-check"></i> <span>Valid phone number</span></div>
                             </div>
@@ -568,7 +555,6 @@
     // ==========================================
     let currentStep = 1;
     const totalSteps = 3;
-    let emailIsAvailable = false; // Track if email has been verified as available
 
     function updateProgress() {
         const progressFill = document.getElementById('progressFill');
@@ -587,9 +573,8 @@
         else { nextBtn.classList.remove('hidden'); submitBtn.classList.add('hidden'); }
     }
 
-    async function nextStep() {
-        const valid = await validateStep(currentStep);
-        if (!valid) return;
+    function nextStep() {
+        if (!validateStep(currentStep)) return;
         const currentStepEl = document.getElementById(`step${currentStep}`);
         currentStepEl.classList.remove('active');
         currentStep++;
@@ -609,80 +594,76 @@
         updateProgress();
     }
 
-    async function validateStep(step) {
-        if (step === 1) return await validateStep1();
+    function validateStep(step) {
+        if (step === 1) return validateStep1();
         if (step === 2) return validateStep2();
         if (step === 3) return validateStep3();
         return true;
     }
 
-    async function validateStep1() {
+    function validateStep1() {
         let valid = true;
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
         const email = document.getElementById('signupEmail').value.trim();
         const phone = document.getElementById('phone').value.trim();
 
-        if (!firstName) { showFieldError('firstNameError', 'First name is required'); document.getElementById('firstName').classList.add('error'); valid = false; }
-        else { hideFieldError('firstNameError'); document.getElementById('firstName').classList.remove('error'); }
+        // First name
+        if (!firstName) {
+            showFieldError('firstNameError', 'First name is required');
+            document.getElementById('firstName').classList.add('error');
+            valid = false;
+        } else {
+            hideFieldError('firstNameError');
+            document.getElementById('firstName').classList.remove('error');
+        }
 
-        if (!lastName) { showFieldError('lastNameError', 'Last name is required'); document.getElementById('lastName').classList.add('error'); valid = false; }
-        else { hideFieldError('lastNameError'); document.getElementById('lastName').classList.remove('error'); }
+        // Last name
+        if (!lastName) {
+            showFieldError('lastNameError', 'Last name is required');
+            document.getElementById('lastName').classList.add('error');
+            valid = false;
+        } else {
+            hideFieldError('lastNameError');
+            document.getElementById('lastName').classList.remove('error');
+        }
 
-        // Strict email validation
+        // Email - format only (no availability check to avoid rate limiting)
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         const emailInput = document.getElementById('signupEmail');
         
         if (!email) {
             showFieldError('emailError', 'Email address is required');
             emailInput.classList.add('error');
-            emailInput.classList.remove('success', 'checking');
-            hideEmailStatus();
+            emailInput.classList.remove('success');
             valid = false;
         } else if (!emailRegex.test(email)) {
-            showFieldError('emailError', 'Please enter a valid email (e.g., name@gmail.com)');
+            showFieldError('emailError', 'Please enter a valid email address (e.g., name@gmail.com)');
             emailInput.classList.add('error');
-            emailInput.classList.remove('success', 'checking');
-            hideEmailStatus();
+            emailInput.classList.remove('success');
             valid = false;
         } else {
-            // Check if email is available
             hideFieldError('emailError');
             emailInput.classList.remove('error');
-            
-            if (!emailIsAvailable) {
-                // Need to check availability
-                emailInput.classList.add('checking');
-                showEmailChecking();
-                
-                const isAvailable = await checkEmailAvailability(email);
-                
-                emailInput.classList.remove('checking');
-                hideEmailStatus();
-                
-                if (isAvailable) {
-                    emailIsAvailable = true;
-                    emailInput.classList.add('success');
-                    showEmailSuccess();
-                } else {
-                    showFieldError('emailError', 'This email is already registered. Use a different email or login instead.');
-                    emailInput.classList.add('error');
-                    valid = false;
-                }
-            } else {
-                emailInput.classList.add('success');
-                showEmailSuccess();
-            }
+            emailInput.classList.add('success');
         }
 
-        if (phone && !/^[0-9+\s\-()]{7,15}$/.test(phone)) {
-            showFieldError('phoneError', 'Please enter a valid phone number (7-15 digits)');
-            document.getElementById('phone').classList.add('error');
+        // Phone - soft validation (required but lenient)
+        const phoneInput = document.getElementById('phone');
+        if (!phone) {
+            showFieldError('phoneError', 'Phone number is required');
+            phoneInput.classList.add('error');
+            phoneInput.classList.remove('success');
+            valid = false;
+        } else if (phone.replace(/\D/g, '').length < 7) {
+            showFieldError('phoneError', 'Please enter a valid phone number');
+            phoneInput.classList.add('error');
+            phoneInput.classList.remove('success');
             valid = false;
         } else {
             hideFieldError('phoneError');
-            document.getElementById('phone').classList.remove('error');
-            if (phone) { document.getElementById('phone').classList.add('success'); showFieldSuccess('phoneSuccess'); }
+            phoneInput.classList.remove('error');
+            phoneInput.classList.add('success');
         }
 
         return valid;
@@ -725,167 +706,59 @@
         const errorEl = document.getElementById(id);
         errorEl.querySelector('span').textContent = message;
         errorEl.classList.add('show');
-        // Hide success/checking messages
         const parent = errorEl.parentElement;
         const successEl = parent.querySelector('.field-success');
-        const checkingEl = parent.querySelector('.field-checking');
         if (successEl) successEl.classList.remove('show');
-        if (checkingEl) checkingEl.classList.remove('show');
     }
 
     function hideFieldError(id) { document.getElementById(id).classList.remove('show'); }
-    
-    function showFieldSuccess(id) {
-        const el = document.getElementById(id);
-        if (el) el.classList.add('show');
-    }
-
-    // Email status helpers
-    function showEmailChecking() {
-        document.getElementById('emailChecking').classList.add('show');
-        document.getElementById('emailSuccess').classList.remove('show');
-        document.getElementById('emailError').classList.remove('show');
-        const icon = document.getElementById('emailStatusIcon');
-        icon.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-amber-500"></i>';
-        icon.classList.remove('hidden');
-    }
-
-    function showEmailSuccess() {
-        document.getElementById('emailSuccess').classList.add('show');
-        document.getElementById('emailError').classList.remove('show');
-        document.getElementById('emailChecking').classList.remove('show');
-        const icon = document.getElementById('emailStatusIcon');
-        icon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600"></i>';
-        icon.classList.remove('hidden');
-    }
-
-    function showEmailError(message) {
-        showFieldError('emailError', message);
-        document.getElementById('emailSuccess').classList.remove('show');
-        document.getElementById('emailChecking').classList.remove('show');
-        const icon = document.getElementById('emailStatusIcon');
-        icon.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-600"></i>';
-        icon.classList.remove('hidden');
-    }
-
-    function hideEmailStatus() {
-        document.getElementById('emailStatusIcon').classList.add('hidden');
-    }
-
-    // Check email availability via Supabase
-    async function checkEmailAvailability(email) {
-        try {
-            // Try to sign up with a temporary password to check if email exists
-            // We use a dummy password and catch the specific error
-            const { data, error } = await supabase.auth.signUp({
-                email: email,
-                password: 'TempCheck_' + Math.random().toString(36).slice(-12) + '!X9',
-                options: { data: { temp_check: true } }
-            });
-            
-            if (error) {
-                // If error message contains "already registered" or "registered", email exists
-                const errorMsg = error.message.toLowerCase();
-                if (errorMsg.includes('already') || errorMsg.includes('registered') || errorMsg.includes('exists')) {
-                    return false; // Email is taken
-                }
-                // Other errors (like network issues) - assume available to not block user
-                console.warn('Email check error:', error.message);
-                return true;
-            }
-            
-            // If signup succeeded, the email was available
-            // But we created an account! We need to handle this.
-            // Since this is a temp check, we'll let the actual signup handle it.
-            // The user will need to verify this email anyway.
-            return true;
-            
-        } catch (err) {
-            console.error('Email availability check failed:', err);
-            return true; // Assume available on error to not block user
-        }
-    }
 
     // ==========================================
-    // REAL-TIME VALIDATION
+    // REAL-TIME VALIDATION (Soft)
     // ==========================================
-    let emailCheckTimeout = null;
-    let lastCheckedEmail = '';
-
     document.getElementById('signupEmail').addEventListener('input', (e) => {
         const email = e.target.value.trim();
-        const emailInput = e.target;
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         
-        // Reset state
-        emailIsAvailable = false;
         hideFieldError('emailError');
         document.getElementById('emailSuccess').classList.remove('show');
-        document.getElementById('emailChecking').classList.remove('show');
-        emailInput.classList.remove('error', 'success', 'checking');
-        hideEmailStatus();
+        e.target.classList.remove('error', 'success');
         
         if (!email) return;
 
-        if (!emailRegex.test(email)) {
-            // Invalid format - show error immediately
-            emailInput.classList.add('error');
-            const icon = document.getElementById('emailStatusIcon');
-            icon.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-400"></i>';
-            icon.classList.remove('hidden');
-            return;
+        if (emailRegex.test(email)) {
+            e.target.classList.add('success');
+            document.getElementById('emailSuccess').classList.add('show');
         }
-
-        // Valid format - show checking state
-        emailInput.classList.add('checking');
-        const icon = document.getElementById('emailStatusIcon');
-        icon.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-amber-500"></i>';
-        icon.classList.remove('hidden');
-
-        // Debounce the availability check (wait 800ms after user stops typing)
-        clearTimeout(emailCheckTimeout);
-        emailCheckTimeout = setTimeout(async () => {
-            if (email === lastCheckedEmail) return; // Already checked this email
-            lastCheckedEmail = email;
-            
-            const isAvailable = await checkEmailAvailability(email);
-            
-            emailInput.classList.remove('checking');
-            
-            if (isAvailable) {
-                emailIsAvailable = true;
-                emailInput.classList.add('success');
-                icon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600"></i>';
-                document.getElementById('emailSuccess').classList.add('show');
-            } else {
-                emailIsAvailable = false;
-                emailInput.classList.add('error');
-                icon.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-600"></i>';
-                showFieldError('emailError', 'This email is already registered. Use a different email or login instead.');
-            }
-        }, 800);
     });
 
     document.getElementById('phone').addEventListener('input', (e) => {
         const phone = e.target.value.trim();
-        const errorEl = document.getElementById('phoneError');
-        const successEl = document.getElementById('phoneSuccess');
-        errorEl.classList.remove('show'); successEl.classList.remove('show');
+        hideFieldError('phoneError');
+        document.getElementById('phoneSuccess').classList.remove('show');
         e.target.classList.remove('error', 'success');
+        
         if (!phone) return;
-        if (/^[0-9+\s\-()]{7,15}$/.test(phone)) { successEl.classList.add('show'); e.target.classList.add('success'); }
+
+        if (phone.replace(/\D/g, '').length >= 7) {
+            e.target.classList.add('success');
+            document.getElementById('phoneSuccess').classList.add('show');
+        }
     });
 
     document.getElementById('confirmPassword').addEventListener('input', (e) => {
         const password = document.getElementById('signupPassword').value;
         const confirm = e.target.value;
-        const errorEl = document.getElementById('confirmError');
-        const successEl = document.getElementById('confirmSuccess');
-        errorEl.classList.remove('show'); successEl.classList.remove('show');
+        hideFieldError('confirmError');
+        document.getElementById('confirmSuccess').classList.remove('show');
         e.target.classList.remove('error', 'success');
+        
         if (!confirm) return;
-        if (password === confirm) { successEl.classList.add('show'); e.target.classList.add('success'); }
-        else { errorEl.querySelector('span').textContent = 'Passwords do not match'; errorEl.classList.add('show'); e.target.classList.add('error'); }
+
+        if (password === confirm) {
+            e.target.classList.add('success');
+            document.getElementById('confirmSuccess').classList.add('show');
+        }
     });
 
     // ==========================================
@@ -1006,7 +879,35 @@
             if (referralUsername) metadata.referred_by = referralUsername;
             
             const { data, error } = await supabase.auth.signUp({ email, password, options: { data: metadata } });
-            if (error) throw error;
+            
+            if (error) {
+                const errorMsg = error.message.toLowerCase();
+                
+                // Handle specific errors with inline messages
+                if (errorMsg.includes('already') || errorMsg.includes('registered') || errorMsg.includes('exists')) {
+                    const emailInput = document.getElementById('signupEmail');
+                    emailInput.classList.add('error');
+                    emailInput.classList.remove('success');
+                    showFieldError('emailError', 'This email is already registered. Please use a different email or login instead.');
+                    emailInput.focus();
+                } else if (errorMsg.includes('security') || errorMsg.includes('30 seconds') || errorMsg.includes('rate limit')) {
+                    // Rate limit error - show friendly message
+                    const emailInput = document.getElementById('signupEmail');
+                    emailInput.classList.add('error');
+                    showFieldError('emailError', 'Too many attempts. Please wait 30 seconds and try again.');
+                    emailInput.focus();
+                } else {
+                    // Generic error - show on email field
+                    const emailInput = document.getElementById('signupEmail');
+                    emailInput.classList.add('error');
+                    showFieldError('emailError', error.message);
+                    emailInput.focus();
+                }
+                
+                button.innerHTML = originalText;
+                button.disabled = false;
+                return;
+            }
             
             currentOtpEmail = email;
             localStorage.setItem('pending_signup_email', email);
@@ -1014,25 +915,10 @@
             showForm('verifyEmailForm', 'signupForm');
             startResendTimer();
         } catch (error) {
-            const errorMsg = error.message.toLowerCase();
-            
-            if (errorMsg.includes('already') || errorMsg.includes('registered') || errorMsg.includes('exists')) {
-                // Email already exists - go back to step 1 and show error
-                currentStep = 1;
-                document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
-                document.getElementById('step1').classList.add('active');
-                updateProgress();
-                
-                const emailInput = document.getElementById('signupEmail');
-                emailInput.classList.add('error');
-                emailInput.classList.remove('success');
-                showEmailError('This email is already registered. Please use a different email or login instead.');
-                
-                // Focus the email field
-                emailInput.focus();
-            } else {
-                alert('Error: ' + error.message);
-            }
+            const emailInput = document.getElementById('signupEmail');
+            emailInput.classList.add('error');
+            showFieldError('emailError', 'An unexpected error occurred. Please try again.');
+            emailInput.focus();
             
             button.innerHTML = originalText;
             button.disabled = false;
@@ -1043,29 +929,18 @@
     // CHANGE EMAIL FROM OTP SCREEN
     // ==========================================
     window.goBackToChangeEmail = function() {
-        // Clear OTP inputs
         document.querySelectorAll('.otp-input').forEach(input => input.value = '');
-        
-        // Go back to step 1
         currentStep = 1;
         document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
         document.getElementById('step1').classList.add('active');
         updateProgress();
-        
-        // Show the signup form
         showForm('signupForm', 'verifyEmailForm');
         
-        // Reset email validation state so user can change it
-        emailIsAvailable = false;
-        lastCheckedEmail = '';
         const emailInput = document.getElementById('signupEmail');
-        emailInput.classList.remove('success', 'error', 'checking');
+        emailInput.classList.remove('success', 'error');
         hideFieldError('emailError');
         document.getElementById('emailSuccess').classList.remove('show');
-        document.getElementById('emailChecking').classList.remove('show');
-        hideEmailStatus();
         
-        // Focus the email field for easy editing
         setTimeout(() => emailInput.focus(), 300);
     };
 
@@ -1124,7 +999,9 @@
             await supabase.auth.resend({ type: 'signup', email: email });
             alert('Code resent! Check your email.');
             startResendTimer();
-        } catch (error) { alert('Failed to resend code: ' + error.message); }
+        } catch (error) {
+            alert('Failed to resend code: ' + error.message);
+        }
     }
 
     // ==========================================
