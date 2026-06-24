@@ -803,6 +803,49 @@
         const headerLevel = document.querySelector('.header-profile .text-right p.text-outline');
         if (headerName) headerName.textContent = fullName;
         if (headerLevel) headerLevel.textContent = user.grade || 'Student';
+        // Add this inside initDashboard(), after the profile injection section:
+
+        // Handle pending referral from Google OAuth
+        const urlParams = new URLSearchParams(window.location.search);
+        const pendingRef = urlParams.get('pending_ref');
+
+if (pendingRef) {
+    try {
+        // Look up the referrer by username
+        const { data: referrer } = await supabase
+            .from('users')
+            .select('id')
+            .eq('username', pendingRef)
+            .maybeSingle();
+        
+        if (referrer && referrer.id !== user.id) {
+            // Check if user already has a referrer
+            const { data: currentUser } = await supabase
+                .from('users')
+                .select('referred_by')
+                .eq('id', user.id)
+                .single();
+            
+            if (!currentUser.referred_by) {
+                // Set the referral
+                await supabase
+                    .from('users')
+                    .update({ referred_by: referrer.id })
+                    .eq('id', user.id);
+                
+                // Increment referrer's count
+                await supabase.rpc('increment_referral_count', { user_id: referrer.id });
+                
+                console.log(`Referral credited: ${pendingRef} referred ${user.email}`);
+            }
+        }
+        
+        // Clean up URL
+        window.history.replaceState({}, '', '/dashboard/');
+    } catch (err) {
+        console.error('Referral handling error:', err);
+    }
+}
 
         // Welcome message
         document.getElementById('welcomeTitle').textContent = `Welcome back, ${firstName}`;
