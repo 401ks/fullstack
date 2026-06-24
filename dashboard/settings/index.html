@@ -921,7 +921,7 @@
         return { tier: 'free', label: 'FREE', icon: 'fa-user', days: null };
     }
 
-    // MFA State
+        // MFA State
     let mfaFactorId = null;
     let mfaEnrollmentData = null;
 
@@ -940,6 +940,12 @@
             
             const totpFactors = data.totp || [];
             const verifiedFactor = totpFactors.find(f => f.status === 'verified');
+            const unverifiedFactor = totpFactors.find(f => f.status === 'unverified');
+            
+            // Clean up any unverified factors
+            if (unverifiedFactor && !verifiedFactor) {
+                await supabase.auth.mfa.unenroll({ factorId: unverifiedFactor.id });
+            }
             
             if (verifiedFactor) {
                 // MFA is enabled
@@ -973,6 +979,16 @@
         const modal = document.getElementById('mfa-setup-modal');
         
         try {
+            // First, check for and clean up any existing unverified factors
+            const { data: existingFactors } = await supabase.auth.mfa.listFactors();
+            const unverified = existingFactors?.totp?.find(f => f.status === 'unverified');
+            
+            if (unverified) {
+                // Delete the unverified factor first
+                await supabase.auth.mfa.unenroll({ factorId: unverified.id });
+            }
+            
+            // Now enroll a new factor
             const { data, error } = await supabase.auth.mfa.enroll({
                 factorType: 'totp',
                 friendlyName: 'Authenticator App'
@@ -980,13 +996,20 @@
             
             if (error) throw error;
             
+            // Store the enrollment data globally
             mfaEnrollmentData = data;
+            mfaFactorId = data.id;
             
-            // Display QR code
-            qrContainer.innerHTML = `<img src="${data.totp.qr_code}" alt="QR Code" style="width: 200px; height: 200px;"/>`;
+            // Display QR code - use the data URL directly
+            const qrCodeUrl = data.totp.qr_code;
+            qrContainer.innerHTML = `<img src="${qrCodeUrl}" alt="QR Code" style="width: 200px; height: 200px; display: block;"/>`;
             
             // Display secret code
             secretCode.textContent = data.totp.secret;
+            
+            // Clear any previous verification code
+            document.getElementById('mfa-verify-code').value = '';
+            document.getElementById('mfa-verify-error').classList.add('hidden');
             
             // Show modal
             modal.classList.add('active');
@@ -1009,8 +1032,17 @@
             return;
         }
         
+        // Make sure we have the factor ID
+        if (!mfaEnrollmentData || !mfaEnrollmentData.id) {
+            errorEl.textContent = 'Setup session expired. Please try again.';
+            errorEl.classList.remove('hidden');
+            closeMFAModal();
+            return;
+        }
+        
         verifyBtn.disabled = true;
         verifyBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Verifying...';
+        errorEl.classList.add('hidden');
         
         try {
             const { error } = await supabase.auth.mfa.verify({
@@ -1022,13 +1054,23 @@
             
             // Success!
             closeMFAModal();
+            mfaEnrollmentData = null;
             await checkMFAStatus();
             alert('Two-factor authentication enabled successfully!');
         } catch (error) {
             console.error('Error verifying MFA:', error);
-            errorEl.textContent = 'Invalid code. Please try again.';
+            
+            // Provide more helpful error messages
+            if (error.message.includes('Invalid code')) {
+                errorEl.textContent = 'Invalid code. Please check your authenticator app and try again.';
+            } else if (error.message.includes('not found')) {
+                errorEl.textContent = 'Setup session expired. Please close and try again.';
+            } else {
+                errorEl.textContent = 'Verification failed: ' + error.message;
+            }
             errorEl.classList.remove('hidden');
             codeInput.value = '';
+            codeInput.focus();
         } finally {
             verifyBtn.disabled = false;
             verifyBtn.innerHTML = 'Verify & Enable';
@@ -1055,6 +1097,7 @@
             if (error) throw error;
             
             // Success!
+            mfaFactorId = null;
             closeMFADisableModal();
             await checkMFAStatus();
             alert('Two-factor authentication disabled.');
@@ -1073,6 +1116,7 @@
         modal.classList.remove('active');
         document.getElementById('mfa-verify-code').value = '';
         document.getElementById('mfa-verify-error').classList.add('hidden');
+        mfaEnrollmentData = null;
     };
 
     window.closeMFADisableModal = function() {
@@ -1083,7 +1127,12 @@
     window.copyMFASecret = function() {
         const secret = document.getElementById('mfa-secret-code').textContent;
         navigator.clipboard.writeText(secret).then(() => {
-            alert('Secret code copied to clipboard!');
+            const btn = event.target.closest('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i>Copied!';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
         });
     };
 
