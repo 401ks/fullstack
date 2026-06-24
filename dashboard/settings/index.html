@@ -1397,17 +1397,18 @@
         };
 
         // MFA Toggle Handler
+                // MFA Toggle Handler
         const mfaToggle = document.getElementById('mfa-toggle');
         const setupBtn = document.getElementById('mfa-setup-btn');
         
         mfaToggle.addEventListener('change', async (e) => {
             if (e.target.checked) {
-                // User wants to enable MFA
-                e.target.checked = false; // Reset toggle
+                // User wants to enable MFA - reset the toggle and show setup
+                e.target.checked = false;
                 await setupMFA();
             } else {
-                // User wants to disable MFA
-                e.target.checked = true; // Reset toggle
+                // User wants to disable MFA - reset the toggle and show confirmation
+                e.target.checked = true;
                 document.getElementById('mfa-disable-modal').classList.add('active');
             }
         });
