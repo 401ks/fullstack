@@ -922,8 +922,9 @@
     }
 
         // MFA State
+        // MFA State
     let mfaFactorId = null;
-    let mfaEnrollmentData = null;
+    let mfaChallengeId = null;
 
     // Check MFA status
     async function checkMFAStatus() {
@@ -996,11 +997,10 @@
             
             if (error) throw error;
             
-            // Store the enrollment data globally
-            mfaEnrollmentData = data;
+            // Store the factor ID
             mfaFactorId = data.id;
             
-            // Display QR code - use the data URL directly
+            // Display QR code
             const qrCodeUrl = data.totp.qr_code;
             qrContainer.innerHTML = `<img src="${qrCodeUrl}" alt="QR Code" style="width: 200px; height: 200px; display: block;"/>`;
             
@@ -1033,7 +1033,7 @@
         }
         
         // Make sure we have the factor ID
-        if (!mfaEnrollmentData || !mfaEnrollmentData.id) {
+        if (!mfaFactorId) {
             errorEl.textContent = 'Setup session expired. Please try again.';
             errorEl.classList.remove('hidden');
             closeMFAModal();
@@ -1045,8 +1045,20 @@
         errorEl.classList.add('hidden');
         
         try {
+            // CRITICAL: Create a challenge first!
+            const { data: challengeData, error: challengeError } = await supabase.auth.mfa.challenge({
+                factorId: mfaFactorId
+            });
+            
+            if (challengeError) throw challengeError;
+            
+            // Store the challenge ID
+            mfaChallengeId = challengeData.id;
+            
+            // Now verify with the challenge
             const { error } = await supabase.auth.mfa.verify({
-                factorId: mfaEnrollmentData.id,
+                factorId: mfaFactorId,
+                challengeId: mfaChallengeId,
                 code: code
             });
             
@@ -1054,7 +1066,8 @@
             
             // Success!
             closeMFAModal();
-            mfaEnrollmentData = null;
+            mfaFactorId = null;
+            mfaChallengeId = null;
             await checkMFAStatus();
             alert('Two-factor authentication enabled successfully!');
         } catch (error) {
@@ -1063,7 +1076,7 @@
             // Provide more helpful error messages
             if (error.message.includes('Invalid code')) {
                 errorEl.textContent = 'Invalid code. Please check your authenticator app and try again.';
-            } else if (error.message.includes('not found')) {
+            } else if (error.message.includes('not found') || error.message.includes('expired')) {
                 errorEl.textContent = 'Setup session expired. Please close and try again.';
             } else {
                 errorEl.textContent = 'Verification failed: ' + error.message;
@@ -1116,7 +1129,8 @@
         modal.classList.remove('active');
         document.getElementById('mfa-verify-code').value = '';
         document.getElementById('mfa-verify-error').classList.add('hidden');
-        mfaEnrollmentData = null;
+        mfaFactorId = null;
+        mfaChallengeId = null;
     };
 
     window.closeMFADisableModal = function() {
