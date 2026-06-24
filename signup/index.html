@@ -13,79 +13,23 @@
         theme: {
           extend: {
             "colors": {
-                "outline": "#76777d",
-                "on-surface": "#191c1e",
-                "on-secondary": "#ffffff",
-                "primary": "#000000",
-                "on-primary-container": "#7c839b",
-                "primary-container": "#131b2e",
-                "on-secondary-fixed": "#00174b",
-                "on-error-container": "#93000a",
-                "surface-container-high": "#e6e8ea",
-                "secondary-fixed-dim": "#b4c5ff",
-                "surface": "#f7f9fb",
-                "secondary-fixed": "#dbe1ff",
-                "error": "#ba1a1a",
-                "surface-variant": "#e0e3e5",
-                "inverse-surface": "#2d3133",
-                "tertiary-fixed-dim": "#4fdbc8",
-                "on-tertiary-container": "#009485",
-                "error-container": "#ffdad6",
-                "on-error": "#ffffff",
-                "on-tertiary-fixed": "#00201c",
-                "on-primary": "#ffffff",
-                "background": "#f7f9fb",
-                "secondary-container": "#316bf3",
-                "surface-container": "#eceef0",
-                "primary-fixed-dim": "#bec6e0",
-                "on-tertiary-fixed-variant": "#005048",
-                "outline-variant": "#c6c6cd",
-                "secondary": "#0051d5",
-                "on-tertiary": "#ffffff",
-                "tertiary": "#000000",
-                "surface-container-lowest": "#ffffff",
-                "surface-bright": "#f7f9fb",
-                "surface-container-highest": "#e0e3e5",
-                "on-secondary-fixed-variant": "#003ea8",
-                "surface-tint": "#565e74",
-                "surface-dim": "#d8dadc",
-                "inverse-primary": "#bec6e0",
-                "inverse-on-surface": "#eff1f3",
-                "primary-fixed": "#dae2fd",
-                "tertiary-container": "#00201c",
-                "on-background": "#191c1e",
-                "surface-container-low": "#f2f4f6",
-                "on-surface-variant": "#45464d",
-                "tertiary-fixed": "#71f8e4",
-                "on-primary-fixed-variant": "#3f465c",
-                "on-primary-fixed": "#131b2e"
+                "outline": "#76777d", "on-surface": "#191c1e", "on-secondary": "#ffffff", "primary": "#000000",
+                "on-primary-container": "#7c839b", "primary-container": "#131b2e", "on-secondary-fixed": "#00174b",
+                "on-error-container": "#93000a", "surface-container-high": "#e6e8ea", "secondary-fixed-dim": "#b4c5ff",
+                "surface": "#f7f9fb", "secondary-fixed": "#dbe1ff", "error": "#ba1a1a", "surface-variant": "#e0e3e5",
+                "inverse-surface": "#2d3133", "tertiary-fixed-dim": "#4fdbc8", "on-tertiary-container": "#009485",
+                "error-container": "#ffdad6", "on-error": "#ffffff", "on-tertiary-fixed": "#00201c", "on-primary": "#ffffff",
+                "background": "#f7f9fb", "secondary-container": "#316bf3", "surface-container": "#eceef0", "primary-fixed-dim": "#bec6e0",
+                "on-tertiary-fixed-variant": "#005048", "outline-variant": "#c6c6cd", "secondary": "#0051d5", "on-tertiary": "#ffffff",
+                "tertiary": "#000000", "surface-container-lowest": "#ffffff", "surface-bright": "#f7f9fb", "surface-container-highest": "#e0e3e5",
+                "on-secondary-fixed-variant": "#003ea8", "surface-tint": "#565e74", "surface-dim": "#d8dadc", "inverse-primary": "#bec6e0",
+                "inverse-on-surface": "#eff1f3", "primary-fixed": "#dae2fd", "tertiary-container": "#00201c", "on-background": "#191c1e",
+                "surface-container-low": "#f2f4f6", "on-surface-variant": "#45464d", "tertiary-fixed": "#71f8e4",
+                "on-primary-fixed-variant": "#3f465c", "on-primary-fixed": "#131b2e"
             },
-            "borderRadius": {
-                "DEFAULT": "0.25rem",
-                "lg": "0.5rem",
-                "xl": "0.75rem",
-                "full": "9999px"
-            },
-            "spacing": {
-                "unit": "8px",
-                "margin-mobile": "16px",
-                "stack-lg": "48px",
-                "gutter": "24px",
-                "stack-md": "24px",
-                "margin-desktop": "40px",
-                "stack-sm": "12px",
-                "container-max": "1280px"
-            },
-            "fontFamily": {
-                "label-md": ["Geist"],
-                "display-lg": ["Hanken Grotesk"],
-                "display-lg-mobile": ["Hanken Grotesk"],
-                "label-sm": ["Geist"],
-                "body-lg": ["Manrope"],
-                "headline-lg": ["Hanken Grotesk"],
-                "body-md": ["Manrope"],
-                "headline-md": ["Hanken Grotesk"]
-            },
+            "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+            "spacing": { "unit": "8px", "margin-mobile": "16px", "stack-lg": "48px", "gutter": "24px", "stack-md": "24px", "margin-desktop": "40px", "stack-sm": "12px", "container-max": "1280px" },
+            "fontFamily": { "label-md": ["Geist"], "display-lg": ["Hanken Grotesk"], "display-lg-mobile": ["Hanken Grotesk"], "label-sm": ["Geist"], "body-lg": ["Manrope"], "headline-lg": ["Hanken Grotesk"], "body-md": ["Manrope"], "headline-md": ["Hanken Grotesk"] },
             "fontSize": {
                 "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
                 "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
@@ -102,323 +46,67 @@
     </script>
     <style>
         body { font-family: 'Manrope', sans-serif; background-color: #f7f9fb; overflow-x: hidden; }
-        
         .mobile-menu-overlay { transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; }
         .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
         .mobile-menu-overlay.inactive { opacity: 0; visibility: hidden; }
         .mobile-menu { transition: transform 0.3s ease-in-out; }
         .mobile-menu.active { transform: translateX(0); }
         .mobile-menu.inactive { transform: translateX(-100%); }
-        
-        .form-container {
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-        .form-container.hidden {
-            opacity: 0;
-            transform: translateY(10px);
-            pointer-events: none;
-            position: absolute;
-            width: 100%;
-        }
-        .form-container.active {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: all;
-            position: relative;
-        }
-        
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        
-        .input-field {
-            width: 100%;
-            padding: 18px 16px 8px 16px;
-            border: 2px solid #c6c6cd;
-            border-radius: 12px;
-            font-size: 15px;
-            font-family: 'Manrope', sans-serif;
-            background: transparent;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-            outline: none;
-            color: #191c1e;
-        }
-        
-        .input-field:focus {
-            border-color: #0051d5;
-            box-shadow: 0 0 0 3px rgba(0, 81, 213, 0.1);
-        }
-        
-        .input-field.error {
-            border-color: #ba1a1a;
-        }
-        
-        .input-field.success {
-            border-color: #009485;
-        }
-        
-        .input-label {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 15px;
-            color: #76777d;
-            pointer-events: none;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            background: transparent;
-            padding: 0 6px;
-        }
-        
-        .input-field:focus + .input-label,
-        .input-field:not(:placeholder-shown) + .input-label {
-            top: 0;
-            transform: translateY(-50%);
-            font-size: 12px;
-            font-weight: 600;
-            color: #0051d5;
-            background: #ffffff;
-        }
-        
-        .input-field:not(:focus):not(:placeholder-shown) + .input-label {
-            color: #76777d;
-        }
-        
-        .field-error {
-            display: none;
-            font-size: 12px;
-            color: #ba1a1a;
-            margin-top: 6px;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .field-error.show {
-            display: flex;
-        }
-        
-        .field-success {
-            display: none;
-            font-size: 12px;
-            color: #009485;
-            margin-top: 6px;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .field-success.show {
-            display: flex;
-        }
-        
-        select.input-field {
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2376777d' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            padding-right: 40px;
-        }
-        
-        .otp-input {
-            width: 42px;
-            height: 56px;
-            text-align: center;
-            font-size: 22px;
-            font-weight: 700;
-            border: 2px solid #c6c6cd;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-            outline: none;
-        }
-        
-        .otp-input:focus {
-            border-color: #0051d5;
-            box-shadow: 0 0 0 3px rgba(0, 81, 213, 0.1);
-        }
-        
+        .form-container { transition: opacity 0.4s ease, transform 0.4s ease; }
+        .form-container.hidden { opacity: 0; transform: translateY(10px); pointer-events: none; position: absolute; width: 100%; }
+        .form-container.active { opacity: 1; transform: translateY(0); pointer-events: all; position: relative; }
+        .input-group { position: relative; margin-bottom: 20px; }
+        .input-field { width: 100%; padding: 18px 16px 8px 16px; border: 2px solid #c6c6cd; border-radius: 12px; font-size: 15px; font-family: 'Manrope', sans-serif; background: transparent; transition: border-color 0.2s ease, box-shadow 0.2s ease; outline: none; color: #191c1e; }
+        .input-field:focus { border-color: #0051d5; box-shadow: 0 0 0 3px rgba(0, 81, 213, 0.1); }
+        .input-field.error { border-color: #ba1a1a !important; box-shadow: 0 0 0 3px rgba(186, 26, 26, 0.1) !important; }
+        .input-field.success { border-color: #009485 !important; box-shadow: 0 0 0 3px rgba(0, 148, 133, 0.1) !important; }
+        .input-field.checking { border-color: #f59e0b !important; }
+        .input-label { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 15px; color: #76777d; pointer-events: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); background: transparent; padding: 0 6px; }
+        .input-field:focus + .input-label, .input-field:not(:placeholder-shown) + .input-label { top: 0; transform: translateY(-50%); font-size: 12px; font-weight: 600; color: #0051d5; background: #ffffff; }
+        .input-field:not(:focus):not(:placeholder-shown) + .input-label { color: #76777d; }
+        .input-field.error + .input-label { color: #ba1a1a !important; }
+        .input-field.success + .input-label { color: #009485 !important; }
+        .field-error { display: none; font-size: 12px; color: #ba1a1a; margin-top: 6px; align-items: center; gap: 4px; }
+        .field-error.show { display: flex; }
+        .field-success { display: none; font-size: 12px; color: #009485; margin-top: 6px; align-items: center; gap: 4px; }
+        .field-success.show { display: flex; }
+        .field-checking { display: none; font-size: 12px; color: #f59e0b; margin-top: 6px; align-items: center; gap: 4px; }
+        .field-checking.show { display: flex; }
+        select.input-field { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2376777d' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+        .otp-input { width: 42px; height: 56px; text-align: center; font-size: 22px; font-weight: 700; border: 2px solid #c6c6cd; border-radius: 12px; transition: all 0.2s ease; outline: none; }
+        .otp-input:focus { border-color: #0051d5; box-shadow: 0 0 0 3px rgba(0, 81, 213, 0.1); }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .wizard-step { display: none; animation: slideIn 0.4s ease; }
+        .wizard-step.active { display: block; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInReverse { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .wizard-step.reverse { animation: slideInReverse 0.4s ease; }
+        .progress-bar { height: 4px; background: #e0e3e5; border-radius: 2px; overflow: hidden; margin-bottom: 24px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #0051d5, #316bf3); transition: width 0.4s ease; border-radius: 2px; }
+        .strength-meter { display: flex; gap: 4px; margin-top: 8px; }
+        .strength-bar { flex: 1; height: 4px; background: #e0e3e5; border-radius: 2px; transition: background 0.3s ease; }
+        .strength-text { font-size: 12px; margin-top: 6px; font-weight: 600; }
+        .requirement { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #76777d; margin-top: 4px; }
+        .requirement.met { color: #009485; }
+        .requirement i { font-size: 10px; }
+        .subject-card { background: #ffffff; border: 2px solid #e0e3e5; border-radius: 12px; padding: 12px; transition: all 0.2s ease; cursor: default; }
+        .subject-card:hover { border-color: #0051d5; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 81, 213, 0.1); }
+        .subject-price { font-size: 14px; font-weight: 700; color: #0051d5; margin-top: 4px; }
+        .subject-period { font-size: 10px; color: #76777d; font-weight: 400; }
+        .currency-toggle { display: inline-flex; background: #f2f4f6; border-radius: 9999px; padding: 3px; gap: 2px; }
+        .currency-toggle button { padding: 6px 16px; border-radius: 9999px; font-size: 12px; font-weight: 600; transition: all 0.2s; border: none; background: transparent; cursor: pointer; color: #76777d; }
+        .currency-toggle button.active { background: #0051d5; color: white; }
+        .referral-banner { background: linear-gradient(135deg, #dbe1ff 0%, #f0f4ff 100%); border: 1px solid #b4c5ff; }
+        .terms-warning { animation: shake 0.4s ease-in-out; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        .summary-box { background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%); border: 2px solid #0051d5; border-radius: 12px; padding: 16px; }
         
-        /* Step transitions */
-        .wizard-step {
-            display: none;
-            animation: slideIn 0.4s ease;
-        }
+        /* Email status indicator */
+        .email-status-icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; pointer-events: none; }
         
-        .wizard-step.active {
-            display: block;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideInReverse {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .wizard-step.reverse {
-            animation: slideInReverse 0.4s ease;
-        }
-        
-        /* Progress bar */
-        .progress-bar {
-            height: 4px;
-            background: #e0e3e5;
-            border-radius: 2px;
-            overflow: hidden;
-            margin-bottom: 24px;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #0051d5, #316bf3);
-            transition: width 0.4s ease;
-            border-radius: 2px;
-        }
-        
-        /* Password strength meter */
-        .strength-meter {
-            display: flex;
-            gap: 4px;
-            margin-top: 8px;
-        }
-        
-        .strength-bar {
-            flex: 1;
-            height: 4px;
-            background: #e0e3e5;
-            border-radius: 2px;
-            transition: background 0.3s ease;
-        }
-        
-        .strength-text {
-            font-size: 12px;
-            margin-top: 6px;
-            font-weight: 600;
-        }
-        
-        /* Password requirements */
-        .requirement {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            color: #76777d;
-            margin-top: 4px;
-        }
-        
-        .requirement.met {
-            color: #009485;
-        }
-        
-        .requirement i {
-            font-size: 10px;
-        }
-        
-        /* Subject pricing cards */
-        .subject-card {
-            background: #ffffff;
-            border: 2px solid #e0e3e5;
-            border-radius: 12px;
-            padding: 12px;
-            transition: all 0.2s ease;
-            cursor: default;
-        }
-        
-        .subject-card:hover {
-            border-color: #0051d5;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 81, 213, 0.1);
-        }
-        
-        .subject-price {
-            font-size: 14px;
-            font-weight: 700;
-            color: #0051d5;
-            margin-top: 4px;
-        }
-        
-        .subject-period {
-            font-size: 10px;
-            color: #76777d;
-            font-weight: 400;
-        }
-        
-        /* Currency toggle */
-        .currency-toggle {
-            display: inline-flex;
-            background: #f2f4f6;
-            border-radius: 9999px;
-            padding: 3px;
-            gap: 2px;
-        }
-        
-        .currency-toggle button {
-            padding: 6px 16px;
-            border-radius: 9999px;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.2s;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            color: #76777d;
-        }
-        
-        .currency-toggle button.active {
-            background: #0051d5;
-            color: white;
-        }
-        
-        /* Referral banner */
-        .referral-banner {
-            background: linear-gradient(135deg, #dbe1ff 0%, #f0f4ff 100%);
-            border: 1px solid #b4c5ff;
-        }
-        
-        /* Terms warning */
-        .terms-warning {
-            animation: shake 0.4s ease-in-out;
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        
-        /* Summary box */
-        .summary-box {
-            background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
-            border: 2px solid #0051d5;
-            border-radius: 12px;
-            padding: 16px;
-        }
-        
-        @media (max-width: 768px) {
-            .otp-input {
-                width: 36px;
-                height: 48px;
-                font-size: 18px;
-            }
-        }
+        @media (max-width: 768px) { .otp-input { width: 36px; height: 48px; font-size: 18px; } }
     </style>
 </head>
 <body class="bg-background text-on-surface min-h-screen flex flex-col">
@@ -434,11 +122,8 @@
                 <span class="font-label-sm text-outline text-[10px] uppercase tracking-wider">Student Portal</span>
             </div>
         </a>
-        <button class="text-on-surface-variant text-2xl p-2 hover:text-secondary transition-colors" id="mobile-menu-close" aria-label="Close menu">
-            <i class="fa-solid fa-times"></i>
-        </button>
+        <button class="text-on-surface-variant text-2xl p-2 hover:text-secondary transition-colors" id="mobile-menu-close" aria-label="Close menu"><i class="fa-solid fa-times"></i></button>
     </div>
-    
     <div class="px-4 py-4 border-b border-outline-variant/30">
         <a href="/signup" class="flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl border border-outline-variant/30 hover:bg-surface-container transition-colors">
             <img alt="Guest User" class="w-10 h-10 rounded-full object-cover flex-shrink-0 bg-secondary/10" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230051d5'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E"/>
@@ -449,30 +134,13 @@
             </div>
         </a>
     </div>
-    
     <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto custom-scrollbar">
-        <a href="/" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
-            <i class="fa-solid fa-house w-5 text-center"></i>
-            <span class="font-label-md text-label-md">Home</span>
-        </a>
-        <a href="/about" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
-            <i class="fa-solid fa-circle-info w-5 text-center"></i>
-            <span class="font-label-md text-label-md">About</span>
-        </a>
-        <a href="/pricing" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
-            <i class="fa-solid fa-tag w-5 text-center"></i>
-            <span class="font-label-md text-label-md">Pricing</span>
-        </a>
-        <a href="/faq" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
-            <i class="fa-solid fa-circle-question w-5 text-center"></i>
-            <span class="font-label-md text-label-md">FAQ</span>
-        </a>
-        <a href="/contact" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg">
-            <i class="fa-solid fa-envelope w-5 text-center"></i>
-            <span class="font-label-md text-label-md">Contact</span>
-        </a>
+        <a href="/" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg"><i class="fa-solid fa-house w-5 text-center"></i><span class="font-label-md text-label-md">Home</span></a>
+        <a href="/about" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg"><i class="fa-solid fa-circle-info w-5 text-center"></i><span class="font-label-md text-label-md">About</span></a>
+        <a href="/pricing" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg"><i class="fa-solid fa-tag w-5 text-center"></i><span class="font-label-md text-label-md">Pricing</span></a>
+        <a href="/faq" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg"><i class="fa-solid fa-circle-question w-5 text-center"></i><span class="font-label-md text-label-md">FAQ</span></a>
+        <a href="/contact" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg"><i class="fa-solid fa-envelope w-5 text-center"></i><span class="font-label-md text-label-md">Contact</span></a>
     </nav>
-    
     <div class="px-4 py-4 border-t border-outline-variant/30">
         <div class="flex flex-wrap gap-4 text-[11px]">
             <a href="/privacy" class="text-outline hover:text-primary transition-colors">Privacy</a>
@@ -491,7 +159,6 @@
                 <span class="font-label-sm text-outline text-[10px] uppercase tracking-wider hidden sm:block">Student Portal</span>
             </div>
         </a>
-        
         <div class="hidden md:flex items-center gap-6">
             <a href="/" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Home</a>
             <a href="/about" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">About</a>
@@ -499,15 +166,11 @@
             <a href="/faq" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">FAQ</a>
             <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
         </div>
-        
         <div class="hidden md:flex items-center gap-3">
             <a href="/login" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors px-4 py-2">Login</a>
             <a href="/signup" class="font-body-md text-body-md bg-secondary text-white hover:bg-secondary/90 transition-colors px-5 py-2 rounded-xl shadow-sm active:scale-95 transition-transform">Get Started</a>
         </div>
-
-        <button class="md:hidden text-on-surface text-2xl p-2 focus:outline-none" id="mobile-menu-btn" aria-label="Toggle menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+        <button class="md:hidden text-on-surface text-2xl p-2 focus:outline-none" id="mobile-menu-btn" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
     </div>
 </header>
 
@@ -519,9 +182,7 @@
                 <!-- Signup Wizard Form -->
                 <div id="signupForm" class="form-container active bg-surface-container-lowest p-8 md:p-10 rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30">
                     <div class="text-center mb-6">
-                        <div class="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-2xl mb-4">
-                            <i class="fa-solid fa-user-plus text-secondary text-2xl"></i>
-                        </div>
+                        <div class="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-2xl mb-4"><i class="fa-solid fa-user-plus text-secondary text-2xl"></i></div>
                         <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Create Your Account</h1>
                         <p class="font-body-md text-body-md text-on-surface-variant">Join thousands of students learning with NaijaAssets</p>
                     </div>
@@ -529,9 +190,7 @@
                     <!-- Referral Banner -->
                     <div id="referralBanner" class="hidden referral-banner rounded-xl p-4 mb-6">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-secondary/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fa-solid fa-gift text-secondary"></i>
-                            </div>
+                            <div class="w-10 h-10 bg-secondary/20 rounded-full flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-gift text-secondary"></i></div>
                             <div class="flex-1">
                                 <p class="font-label-md text-primary font-bold text-sm">You were referred by <span id="referrerName" class="text-secondary">@username</span></p>
                                 <p class="text-xs text-on-surface-variant">Complete your signup to unlock referral benefits!</p>
@@ -540,9 +199,7 @@
                     </div>
                     
                     <!-- Progress Bar -->
-                    <div class="progress-bar">
-                        <div id="progressFill" class="progress-fill" style="width: 33.33%"></div>
-                    </div>
+                    <div class="progress-bar"><div id="progressFill" class="progress-fill" style="width: 33.33%"></div></div>
                     
                     <!-- Step Indicator -->
                     <div class="flex items-center justify-between mb-6">
@@ -568,26 +225,28 @@
                         <div id="step1" class="wizard-step active">
                             <div class="grid grid-cols-2 gap-3">
                                 <div class="input-group">
-                                    <input type="text" id="firstName" class="input-field" placeholder=" " required/>
+                                    <input type="text" id="firstName" name="firstName" class="input-field" placeholder=" " required autocomplete="given-name"/>
                                     <label for="firstName" class="input-label">First Name</label>
                                     <div id="firstNameError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" id="lastName" class="input-field" placeholder=" " required/>
+                                    <input type="text" id="lastName" name="lastName" class="input-field" placeholder=" " required autocomplete="family-name"/>
                                     <label for="lastName" class="input-label">Last Name</label>
                                     <div id="lastNameError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
                                 </div>
                             </div>
                             
                             <div class="input-group">
-                                <input type="email" id="signupEmail" class="input-field" placeholder=" " required/>
+                                <input type="email" id="signupEmail" name="email" class="input-field" placeholder=" " required autocomplete="email"/>
                                 <label for="signupEmail" class="input-label">Email Address</label>
+                                <span id="emailStatusIcon" class="email-status-icon hidden"></span>
                                 <div id="emailError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
-                                <div id="emailSuccess" class="field-success"><i class="fa-solid fa-circle-check"></i> <span>Valid email</span></div>
+                                <div id="emailSuccess" class="field-success"><i class="fa-solid fa-circle-check"></i> <span>Email available</span></div>
+                                <div id="emailChecking" class="field-checking"><i class="fa-solid fa-spinner fa-spin"></i> <span>Checking availability...</span></div>
                             </div>
                             
                             <div class="input-group">
-                                <input type="tel" id="phone" class="input-field" placeholder=" "/>
+                                <input type="tel" id="phone" name="phone" class="input-field" placeholder=" " autocomplete="tel"/>
                                 <label for="phone" class="input-label">Phone Number</label>
                                 <div id="phoneError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
                                 <div id="phoneSuccess" class="field-success"><i class="fa-solid fa-circle-check"></i> <span>Valid phone number</span></div>
@@ -597,14 +256,10 @@
                         <!-- STEP 2: Security -->
                         <div id="step2" class="wizard-step">
                             <div class="input-group">
-                                <input type="password" id="signupPassword" class="input-field" placeholder=" " required minlength="8"/>
+                                <input type="password" id="signupPassword" name="password" class="input-field" placeholder=" " required minlength="8" autocomplete="new-password"/>
                                 <label for="signupPassword" class="input-label">Password</label>
-                                <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary transition-colors" onclick="togglePassword('signupPassword', this)">
-                                    <i class="fa-regular fa-eye"></i>
-                                </button>
+                                <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary transition-colors" onclick="togglePassword('signupPassword', this)"><i class="fa-regular fa-eye"></i></button>
                             </div>
-                            
-                            <!-- Password Strength Meter -->
                             <div class="mb-4">
                                 <div class="strength-meter">
                                     <div id="strength1" class="strength-bar"></div>
@@ -615,8 +270,6 @@
                                 </div>
                                 <div id="strengthText" class="strength-text text-outline">Enter a password</div>
                             </div>
-                            
-                            <!-- Password Requirements -->
                             <div class="mb-6 p-3 bg-surface-container-low rounded-lg">
                                 <p class="text-xs font-bold text-on-surface-variant mb-2">Password Requirements:</p>
                                 <div id="reqLength" class="requirement"><i class="fa-solid fa-circle"></i> At least 8 characters</div>
@@ -624,13 +277,10 @@
                                 <div id="reqNumber" class="requirement"><i class="fa-solid fa-circle"></i> At least one number</div>
                                 <div id="reqSpecial" class="requirement"><i class="fa-solid fa-circle"></i> Special character (!@#$%)</div>
                             </div>
-                            
                             <div class="input-group">
-                                <input type="password" id="confirmPassword" class="input-field" placeholder=" " required minlength="8"/>
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="input-field" placeholder=" " required minlength="8" autocomplete="new-password"/>
                                 <label for="confirmPassword" class="input-label">Confirm Password</label>
-                                <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary transition-colors" onclick="togglePassword('confirmPassword', this)">
-                                    <i class="fa-regular fa-eye"></i>
-                                </button>
+                                <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary transition-colors" onclick="togglePassword('confirmPassword', this)"><i class="fa-regular fa-eye"></i></button>
                                 <div id="confirmError" class="field-error"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
                                 <div id="confirmSuccess" class="field-success"><i class="fa-solid fa-circle-check"></i> <span>Passwords match</span></div>
                             </div>
@@ -639,7 +289,7 @@
                         <!-- STEP 3: Academic -->
                         <div id="step3" class="wizard-step">
                             <div class="input-group">
-                                <select id="previewGrade" class="input-field" onchange="loadSubjectPreview(this.value)">
+                                <select id="previewGrade" name="grade" class="input-field" onchange="loadSubjectPreview(this.value)">
                                     <option value="" disabled selected hidden></option>
                                     <option value="JSS1">JSS 1</option>
                                     <option value="JSS2">JSS 2</option>
@@ -650,102 +300,72 @@
                                 </select>
                                 <label for="previewGrade" class="input-label">Select Your Grade</label>
                             </div>
-                            
-                            <!-- Subject Preview with Pricing -->
                             <div id="subjectPreviewSection" class="hidden mb-4">
                                 <div class="flex items-center justify-between mb-3">
-                                    <label class="block font-label-md text-label-md text-on-surface">
-                                        Available Subjects for <span id="previewGradeLabel" class="text-secondary font-bold"></span>
-                                    </label>
+                                    <label class="block font-label-md text-label-md text-on-surface">Available Subjects for <span id="previewGradeLabel" class="text-secondary font-bold"></span></label>
                                     <div class="currency-toggle">
                                         <button type="button" id="currencyUSD" class="active" onclick="switchCurrency('usd')">USD</button>
                                         <button type="button" id="currencyNGN" onclick="switchCurrency('ngn')">NGN</button>
                                     </div>
                                 </div>
-                                <div id="subjectPreviewGrid" class="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto custom-scrollbar pr-1">
-                                    <!-- Dynamically populated -->
-                                </div>
-                                <p class="text-xs text-outline italic flex items-center gap-1 mt-3">
-                                    <i class="fa-solid fa-circle-info text-[10px]"></i>
-                                    You'll select and pay for subjects after completing your profile.
-                                </p>
+                                <div id="subjectPreviewGrid" class="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto custom-scrollbar pr-1"></div>
+                                <p class="text-xs text-outline italic flex items-center gap-1 mt-3"><i class="fa-solid fa-circle-info text-[10px]"></i> You'll select and pay for subjects after completing your profile.</p>
                             </div>
-                            
                             <div class="flex items-start gap-2 mt-4">
                                 <input type="checkbox" id="terms" class="mt-1 accent-secondary"/>
-                                <label for="terms" class="text-xs text-on-surface-variant">
-                                    I agree to the <a href="/terms" class="text-secondary hover:underline" target="_blank">Terms of Service</a> and <a href="/privacy" class="text-secondary hover:underline" target="_blank">Privacy Policy</a>
-                                </label>
+                                <label for="terms" class="text-xs text-on-surface-variant">I agree to the <a href="/terms" class="text-secondary hover:underline" target="_blank">Terms of Service</a> and <a href="/privacy" class="text-secondary hover:underline" target="_blank">Privacy Policy</a></label>
                             </div>
-                            <p id="termsWarning" class="hidden text-xs text-error font-medium flex items-center gap-1 terms-warning mt-2">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
-                                You need to agree to the Terms and Privacy Policy to create an account.
-                            </p>
+                            <p id="termsWarning" class="hidden text-xs text-error font-medium flex items-center gap-1 terms-warning mt-2"><i class="fa-solid fa-triangle-exclamation"></i> You need to agree to the Terms and Privacy Policy to create an account.</p>
                         </div>
                         
                         <!-- Navigation Buttons -->
                         <div class="flex gap-3 mt-6">
-                            <button type="button" id="prevBtn" onclick="prevStep()" class="flex-1 py-3.5 bg-surface-container text-primary rounded-xl font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-all hidden">
-                                <i class="fa-solid fa-arrow-left mr-2"></i>Back
-                            </button>
-                            <button type="button" id="nextBtn" onclick="nextStep()" class="flex-1 py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2">
-                                Next<i class="fa-solid fa-arrow-right text-[18px]"></i>
-                            </button>
-                            <button type="submit" id="submitBtn" class="flex-1 py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg hidden flex items-center justify-center gap-2">
-                                Create Account<i class="fa-solid fa-check text-[18px]"></i>
-                            </button>
+                            <button type="button" id="prevBtn" onclick="prevStep()" class="flex-1 py-3.5 bg-surface-container text-primary rounded-xl font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-all hidden"><i class="fa-solid fa-arrow-left mr-2"></i>Back</button>
+                            <button type="button" id="nextBtn" onclick="nextStep()" class="flex-1 py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2">Next<i class="fa-solid fa-arrow-right text-[18px]"></i></button>
+                            <button type="submit" id="submitBtn" class="flex-1 py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg hidden flex items-center justify-center gap-2">Create Account<i class="fa-solid fa-check text-[18px]"></i></button>
                         </div>
                     </form>
-                    
                     <div class="mt-6 text-center">
-                        <p class="font-body-md text-body-md text-on-surface-variant">
-                            Already have an account? 
-                            <a href="/login" class="text-secondary font-semibold hover:underline">Login</a>
-                        </p>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Already have an account? <a href="/login" class="text-secondary font-semibold hover:underline">Login</a></p>
                     </div>
                 </div>
                 
                 <!-- Email OTP Verification Form -->
                 <div id="verifyEmailForm" class="form-container hidden bg-surface-container-lowest p-8 md:p-10 rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30">
                     <div class="text-center mb-8">
-                        <div class="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-2xl mb-4">
-                            <i class="fa-solid fa-envelope-circle-check text-secondary text-2xl"></i>
-                        </div>
+                        <div class="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-2xl mb-4"><i class="fa-solid fa-envelope-circle-check text-secondary text-2xl"></i></div>
                         <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Verify Your Email</h1>
                         <p class="font-body-md text-body-md text-on-surface-variant">We've sent an 8-digit code to<br/><span id="emailDisplay" class="font-semibold text-primary">your email</span></p>
                     </div>
                     
                     <form onsubmit="handleOTPVerification(event)">
                         <div class="flex justify-center gap-1.5 md:gap-2 mb-6">
-                            <input type="text" maxlength="1" class="otp-input" data-otp-index="0" required/>
-                            <input type="text" maxlength="1" class="otp-input" data-otp-index="1" required/>
-                            <input type="text" maxlength="1" class="otp-input" data-otp-index="2" required/>
-                            <input type="text" maxlength="1" class="otp-input" data-otp-index="3" required/>
-                            <input type="text" maxlength="1" class="otp-input" data-otp-index="4" required/>
-                            <input type="text" maxlength="1" class="otp-input" data-otp-index="5" required/>
-                            <input type="text" maxlength="1" class="otp-input" data-otp-index="6" required/>
-                            <input type="text" maxlength="1" class="otp-input" data-otp-index="7" required/>
+                            <input type="text" maxlength="1" class="otp-input" data-otp-index="0" required autocomplete="one-time-code"/>
+                            <input type="text" maxlength="1" class="otp-input" data-otp-index="1" required autocomplete="one-time-code"/>
+                            <input type="text" maxlength="1" class="otp-input" data-otp-index="2" required autocomplete="one-time-code"/>
+                            <input type="text" maxlength="1" class="otp-input" data-otp-index="3" required autocomplete="one-time-code"/>
+                            <input type="text" maxlength="1" class="otp-input" data-otp-index="4" required autocomplete="one-time-code"/>
+                            <input type="text" maxlength="1" class="otp-input" data-otp-index="5" required autocomplete="one-time-code"/>
+                            <input type="text" maxlength="1" class="otp-input" data-otp-index="6" required autocomplete="one-time-code"/>
+                            <input type="text" maxlength="1" class="otp-input" data-otp-index="7" required autocomplete="one-time-code"/>
                         </div>
-                        
-                        <button type="submit" class="w-full py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2 mb-4">
-                            Verify Email
-                            <i class="fa-solid fa-check text-[18px]"></i>
-                        </button>
+                        <button type="submit" class="w-full py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2 mb-4">Verify Email<i class="fa-solid fa-check text-[18px]"></i></button>
                     </form>
                     
+                    <!-- Change Email Button -->
+                    <div class="text-center mb-4">
+                        <button type="button" onclick="goBackToChangeEmail()" class="text-secondary font-semibold hover:underline text-sm flex items-center gap-1 mx-auto">
+                            <i class="fa-solid fa-pen text-xs"></i> Use a different email
+                        </button>
+                    </div>
+                    
                     <div class="text-center">
-                        <p class="font-body-md text-body-md text-on-surface-variant">
-                            Didn't receive the code? 
-                            <a class="text-secondary font-semibold hover:underline cursor-pointer" onclick="resendOTP()">Resend</a>
-                        </p>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Didn't receive the code? <a class="text-secondary font-semibold hover:underline cursor-pointer" onclick="resendOTP()">Resend</a></p>
                         <p id="resendTimer" class="text-xs text-outline mt-2 hidden">Resend available in <span id="timerCount">60</span>s</p>
                     </div>
                     
                     <div class="mt-6 p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
-                        <p class="text-xs text-on-surface-variant">
-                            <i class="fa-solid fa-circle-info text-secondary mr-2"></i>
-                            You can paste the full code directly into any box.
-                        </p>
+                        <p class="text-xs text-on-surface-variant"><i class="fa-solid fa-circle-info text-secondary mr-2"></i> You can paste the full code directly into any box.</p>
                     </div>
                 </div>
                 
@@ -755,44 +375,21 @@
         <div class="hidden lg:flex flex-col justify-center items-start space-y-stack-md order-1 lg:order-2">
             <div class="relative w-full aspect-square max-w-xl mx-auto">
                 <div class="absolute -top-10 -right-10 w-64 h-64 bg-secondary/5 rounded-full blur-3xl animate-pulse"></div>
-                
                 <div class="relative z-10 bg-surface-container-lowest rounded-2xl shadow-xl border border-outline-variant/30 p-6 overflow-hidden">
                     <div class="flex items-center justify-between mb-6">
-                        <div class="space-y-1">
-                            <div class="h-4 w-32 bg-surface-container-high rounded-full"></div>
-                            <div class="h-3 w-20 bg-surface-container rounded-full"></div>
-                        </div>
-                        <div class="h-10 w-10 rounded-xl bg-secondary/10 flex items-center justify-center">
-                            <i class="fa-solid fa-school text-secondary"></i>
-                        </div>
+                        <div class="space-y-1"><div class="h-4 w-32 bg-surface-container-high rounded-full"></div><div class="h-3 w-20 bg-surface-container rounded-full"></div></div>
+                        <div class="h-10 w-10 rounded-xl bg-secondary/10 flex items-center justify-center"><i class="fa-solid fa-school text-secondary"></i></div>
                     </div>
-                    
                     <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="p-4 rounded-xl border border-outline-variant/20 bg-surface-bright shadow-sm">
-                            <div class="h-2 w-12 bg-secondary/20 rounded-full mb-3"></div>
-                            <div class="h-5 w-24 bg-surface-container-highest rounded-full"></div>
-                        </div>
-                        <div class="p-4 rounded-xl border border-outline-variant/20 bg-surface-bright shadow-sm">
-                            <div class="h-2 w-12 bg-secondary-container/20 rounded-full mb-3"></div>
-                            <div class="h-5 w-20 bg-surface-container-highest rounded-full"></div>
-                        </div>
+                        <div class="p-4 rounded-xl border border-outline-variant/20 bg-surface-bright shadow-sm"><div class="h-2 w-12 bg-secondary/20 rounded-full mb-3"></div><div class="h-5 w-24 bg-surface-container-highest rounded-full"></div></div>
+                        <div class="p-4 rounded-xl border border-outline-variant/20 bg-surface-bright shadow-sm"><div class="h-2 w-12 bg-secondary-container/20 rounded-full mb-3"></div><div class="h-5 w-20 bg-surface-container-highest rounded-full"></div></div>
                     </div>
-                    
                     <img alt="Student studying" class="w-full h-48 object-cover rounded-xl mb-4" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=400&fit=crop"/>
-                    
-                    <div class="space-y-3">
-                        <div class="h-3 w-full bg-surface-container rounded-full"></div>
-                        <div class="h-3 w-4/5 bg-surface-container rounded-full"></div>
-                        <div class="h-3 w-2/3 bg-surface-container rounded-full"></div>
-                    </div>
+                    <div class="space-y-3"><div class="h-3 w-full bg-surface-container rounded-full"></div><div class="h-3 w-4/5 bg-surface-container rounded-full"></div><div class="h-3 w-2/3 bg-surface-container rounded-full"></div></div>
                 </div>
-                
                 <div class="absolute -bottom-6 -left-6 bg-secondary text-white p-4 rounded-xl shadow-lg flex items-center gap-3 animate-bounce shadow-secondary/20">
                     <i class="fa-solid fa-star"></i>
-                    <div>
-                        <p class="font-label-sm text-label-sm">Join 10,000+ Students</p>
-                        <p class="text-[10px] opacity-80">Start learning today</p>
-                    </div>
+                    <div><p class="font-label-sm text-label-sm">Join 10,000+ Students</p><p class="text-[10px] opacity-80">Start learning today</p></div>
                 </div>
             </div>
         </div>
@@ -805,30 +402,16 @@
             <div class="md:col-span-1">
                 <div class="flex items-center gap-3 mb-4">
                     <i class="fa-solid fa-graduation-cap text-secondary text-2xl"></i>
-                    <div class="flex flex-col">
-                        <span class="font-headline-md font-bold text-primary">NaijaAssets</span>
-                        <span class="text-[10px] text-outline uppercase tracking-wider">Student Portal</span>
-                    </div>
+                    <div class="flex flex-col"><span class="font-headline-md font-bold text-primary">NaijaAssets</span><span class="text-[10px] text-outline uppercase tracking-wider">Student Portal</span></div>
                 </div>
-                <p class="font-body-md text-body-md text-on-surface-variant mb-6 max-w-xs">
-                    Structured online tutoring for Nigerian secondary school students.
-                </p>
+                <p class="font-body-md text-body-md text-on-surface-variant mb-6 max-w-xs">Structured online tutoring for Nigerian secondary school students.</p>
                 <div class="flex gap-3">
-                    <a href="/fb" aria-label="Facebook" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
-                    <a href="/tk" aria-label="TikTok" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
-                        <i class="fa-brands fa-tiktok"></i>
-                    </a>
-                    <a href="/ig" aria-label="Instagram" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                    <a href="/x" aria-label="X/Twitter" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors">
-                        <i class="fa-brands fa-x-twitter"></i>
-                    </a>
+                    <a href="/fb" aria-label="Facebook" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="/tk" aria-label="TikTok" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="/ig" aria-label="Instagram" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="/x" aria-label="X/Twitter" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:bg-secondary-container transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
                 </div>
             </div>
-
             <div class="md:col-span-1">
                 <h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-4 uppercase tracking-wide">Navigation</h4>
                 <nav class="flex flex-col gap-3">
@@ -839,7 +422,6 @@
                     <a href="/contact" class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors">Contact</a>
                 </nav>
             </div>
-
             <div class="md:col-span-1">
                 <h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-4 uppercase tracking-wide">Legal</h4>
                 <nav class="flex flex-col gap-3">
@@ -849,7 +431,6 @@
                 </nav>
             </div>
         </div>
-
         <div class="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-outline-variant/30 gap-4">
             <p class="font-label-sm text-label-sm text-on-surface-variant">© 2026 NaijaAssets. All rights reserved.</p>
         </div>
@@ -868,22 +449,8 @@
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
     const body = document.body;
 
-    function openMenu() {
-        mobileMenu.classList.remove('inactive');
-        mobileMenu.classList.add('active');
-        mobileMenuOverlay.classList.remove('inactive');
-        mobileMenuOverlay.classList.add('active');
-        body.style.overflow = 'hidden';
-    }
-
-    function closeMenu() {
-        mobileMenu.classList.remove('active');
-        mobileMenu.classList.add('inactive');
-        mobileMenuOverlay.classList.remove('active');
-        mobileMenuOverlay.classList.add('inactive');
-        body.style.overflow = '';
-    }
-
+    function openMenu() { mobileMenu.classList.remove('inactive'); mobileMenu.classList.add('active'); mobileMenuOverlay.classList.remove('inactive'); mobileMenuOverlay.classList.add('active'); body.style.overflow = 'hidden'; }
+    function closeMenu() { mobileMenu.classList.remove('active'); mobileMenu.classList.add('inactive'); mobileMenuOverlay.classList.remove('active'); mobileMenuOverlay.classList.add('inactive'); body.style.overflow = ''; }
     mobileMenuBtn.addEventListener('click', openMenu);
     mobileMenuClose.addEventListener('click', closeMenu);
     mobileMenuOverlay.addEventListener('click', closeMenu);
@@ -892,24 +459,15 @@
     function showForm(formToShow, formToHide) {
         const toShow = document.getElementById(formToShow);
         const toHide = document.getElementById(formToHide);
-        toHide.classList.remove('active');
-        toHide.classList.add('hidden');
-        setTimeout(() => {
-            toShow.classList.remove('hidden');
-            toShow.classList.add('active');
-        }, 150);
+        toHide.classList.remove('active'); toHide.classList.add('hidden');
+        setTimeout(() => { toShow.classList.remove('hidden'); toShow.classList.add('active'); }, 150);
     }
 
     function togglePassword(inputId, button) {
         const input = document.getElementById(inputId);
         const icon = button.querySelector('i');
-        if (input.type === 'password') {
-            input.type = 'text';
-            icon.className = 'fa-regular fa-eye-slash';
-        } else {
-            input.type = 'password';
-            icon.className = 'fa-regular fa-eye';
-        }
+        if (input.type === 'password') { input.type = 'text'; icon.className = 'fa-regular fa-eye-slash'; }
+        else { input.type = 'password'; icon.className = 'fa-regular fa-eye'; }
     }
 
     function startResendTimer() {
@@ -918,12 +476,8 @@
         timerEl.classList.remove('hidden');
         let count = 60;
         const interval = setInterval(() => {
-            count--;
-            countEl.textContent = count;
-            if (count <= 0) {
-                clearInterval(interval);
-                timerEl.classList.add('hidden');
-            }
+            count--; countEl.textContent = count;
+            if (count <= 0) { clearInterval(interval); timerEl.classList.add('hidden'); }
         }, 1000);
     }
 
@@ -932,50 +486,27 @@
     // ==========================================
     let currentStep = 1;
     const totalSteps = 3;
+    let emailIsAvailable = false; // Track if email has been verified as available
 
     function updateProgress() {
         const progressFill = document.getElementById('progressFill');
-        const percentage = (currentStep / totalSteps) * 100;
-        progressFill.style.width = percentage + '%';
-
-        // Update step indicators
+        progressFill.style.width = ((currentStep / totalSteps) * 100) + '%';
         for (let i = 1; i <= totalSteps; i++) {
             const indicator = document.getElementById(`step${i}Indicator`);
-            if (i < currentStep) {
-                indicator.innerHTML = '<i class="fa-solid fa-check text-xs"></i>';
-                indicator.className = 'w-8 h-8 rounded-full bg-on-tertiary-container text-white flex items-center justify-center text-sm font-bold';
-            } else if (i === currentStep) {
-                indicator.textContent = i;
-                indicator.className = 'w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center text-sm font-bold';
-            } else {
-                indicator.textContent = i;
-                indicator.className = 'w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center text-sm font-bold';
-            }
+            if (i < currentStep) { indicator.innerHTML = '<i class="fa-solid fa-check text-xs"></i>'; indicator.className = 'w-8 h-8 rounded-full bg-on-tertiary-container text-white flex items-center justify-center text-sm font-bold'; }
+            else if (i === currentStep) { indicator.textContent = i; indicator.className = 'w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center text-sm font-bold'; }
+            else { indicator.textContent = i; indicator.className = 'w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center text-sm font-bold'; }
         }
-
-        // Update buttons
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const submitBtn = document.getElementById('submitBtn');
-
-        if (currentStep === 1) {
-            prevBtn.classList.add('hidden');
-        } else {
-            prevBtn.classList.remove('hidden');
-        }
-
-        if (currentStep === totalSteps) {
-            nextBtn.classList.add('hidden');
-            submitBtn.classList.remove('hidden');
-        } else {
-            nextBtn.classList.remove('hidden');
-            submitBtn.classList.add('hidden');
-        }
+        if (currentStep === 1) prevBtn.classList.add('hidden'); else prevBtn.classList.remove('hidden');
+        if (currentStep === totalSteps) { nextBtn.classList.add('hidden'); submitBtn.classList.remove('hidden'); }
+        else { nextBtn.classList.remove('hidden'); submitBtn.classList.add('hidden'); }
     }
 
     function nextStep() {
         if (!validateStep(currentStep)) return;
-
         const currentStepEl = document.getElementById(`step${currentStep}`);
         currentStepEl.classList.remove('active');
         currentStep++;
@@ -996,13 +527,9 @@
     }
 
     function validateStep(step) {
-        if (step === 1) {
-            return validateStep1();
-        } else if (step === 2) {
-            return validateStep2();
-        } else if (step === 3) {
-            return validateStep3();
-        }
+        if (step === 1) return validateStep1();
+        if (step === 2) return validateStep2();
+        if (step === 3) return validateStep3();
         return true;
     }
 
@@ -1013,32 +540,44 @@
         const email = document.getElementById('signupEmail').value.trim();
         const phone = document.getElementById('phone').value.trim();
 
-        if (!firstName) {
-            showFieldError('firstNameError', 'First name is required');
-            valid = false;
-        } else {
-            hideFieldError('firstNameError');
-        }
+        if (!firstName) { showFieldError('firstNameError', 'First name is required'); document.getElementById('firstName').classList.add('error'); valid = false; }
+        else { hideFieldError('firstNameError'); document.getElementById('firstName').classList.remove('error'); }
 
-        if (!lastName) {
-            showFieldError('lastNameError', 'Last name is required');
-            valid = false;
-        } else {
-            hideFieldError('lastNameError');
-        }
+        if (!lastName) { showFieldError('lastNameError', 'Last name is required'); document.getElementById('lastName').classList.add('error'); valid = false; }
+        else { hideFieldError('lastNameError'); document.getElementById('lastName').classList.remove('error'); }
 
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            showFieldError('emailError', 'Please enter a valid email address');
+        // Email validation
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!email) {
+            showFieldError('emailError', 'Email address is required');
+            document.getElementById('signupEmail').classList.add('error');
+            document.getElementById('signupEmail').classList.remove('success');
+            hideEmailStatus();
+            valid = false;
+        } else if (!emailRegex.test(email)) {
+            showFieldError('emailError', 'Please enter a valid email (e.g., name@gmail.com)');
+            document.getElementById('signupEmail').classList.add('error');
+            document.getElementById('signupEmail').classList.remove('success');
+            hideEmailStatus();
+            valid = false;
+        } else if (!emailIsAvailable) {
+            // Email format is valid but hasn't been checked or is taken
+            showFieldError('emailError', 'Please wait for email availability check to complete');
+            document.getElementById('signupEmail').classList.add('error');
             valid = false;
         } else {
             hideFieldError('emailError');
+            document.getElementById('signupEmail').classList.remove('error');
         }
 
         if (phone && !/^[0-9+\s\-()]{7,15}$/.test(phone)) {
             showFieldError('phoneError', 'Please enter a valid phone number (7-15 digits)');
+            document.getElementById('phone').classList.add('error');
             valid = false;
         } else {
             hideFieldError('phoneError');
+            document.getElementById('phone').classList.remove('error');
+            if (phone) { document.getElementById('phone').classList.add('success'); showFieldSuccess('phoneSuccess'); }
         }
 
         return valid;
@@ -1050,38 +589,29 @@
         const confirmPassword = document.getElementById('confirmPassword').value;
 
         if (password.length < 8) {
-            alert('Password must be at least 8 characters');
+            showFieldError('confirmError', 'Password must be at least 8 characters');
             valid = false;
-        }
-
-        if (password !== confirmPassword) {
+        } else if (password !== confirmPassword) {
             showFieldError('confirmError', 'Passwords do not match');
+            document.getElementById('confirmPassword').classList.add('error');
             valid = false;
         } else {
             hideFieldError('confirmError');
+            document.getElementById('confirmPassword').classList.remove('error');
         }
-
         return valid;
     }
 
     function validateStep3() {
         const grade = document.getElementById('previewGrade').value;
         const terms = document.getElementById('terms').checked;
-
-        if (!grade) {
-            alert('Please select your grade');
-            return false;
-        }
-
+        if (!grade) { alert('Please select your grade'); return false; }
         if (!terms) {
             const warning = document.getElementById('termsWarning');
-            warning.classList.remove('hidden');
-            warning.classList.remove('terms-warning');
-            void warning.offsetWidth;
-            warning.classList.add('terms-warning');
+            warning.classList.remove('hidden'); warning.classList.remove('terms-warning');
+            void warning.offsetWidth; warning.classList.add('terms-warning');
             return false;
         }
-
         return true;
     }
 
@@ -1090,152 +620,175 @@
         errorEl.querySelector('span').textContent = message;
         errorEl.classList.add('show');
     }
+    function hideFieldError(id) { document.getElementById(id).classList.remove('show'); }
+    function showFieldSuccess(id) { document.getElementById(id).classList.add('show'); }
+    function hideFieldSuccess(id) { document.getElementById(id).classList.remove('show'); }
+    function showFieldChecking(id) { document.getElementById(id).classList.add('show'); }
+    function hideFieldChecking(id) { document.getElementById(id).classList.remove('show'); }
 
-    function hideFieldError(id) {
-        document.getElementById(id).classList.remove('show');
+    function hideEmailStatus() {
+        document.getElementById('emailStatusIcon').classList.add('hidden');
+        hideFieldSuccess('emailSuccess');
+        hideFieldError('emailError');
+        hideFieldChecking('emailChecking');
     }
 
     // ==========================================
-    // REAL-TIME VALIDATION
+    // AGGRESSIVE EMAIL VALIDATION
     // ==========================================
+    let emailCheckTimeout = null;
+    let lastCheckedEmail = '';
+
     document.getElementById('signupEmail').addEventListener('input', (e) => {
         const email = e.target.value.trim();
-        const errorEl = document.getElementById('emailError');
-        const successEl = document.getElementById('emailSuccess');
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         
-        if (!email) {
-            errorEl.classList.remove('show');
-            successEl.classList.remove('show');
-            e.target.classList.remove('error', 'success');
+        // Clear previous states
+        e.target.classList.remove('error', 'success', 'checking');
+        hideFieldError('emailError');
+        hideFieldSuccess('emailSuccess');
+        hideFieldChecking('emailChecking');
+        document.getElementById('emailStatusIcon').classList.add('hidden');
+        emailIsAvailable = false;
+
+        if (!email) return;
+
+        // Check format first
+        if (!emailRegex.test(email)) {
+            e.target.classList.add('error');
+            showFieldError('emailError', 'Invalid email format. Use format: name@example.com');
             return;
         }
 
-        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            errorEl.classList.remove('show');
-            successEl.classList.add('show');
-            e.target.classList.remove('error');
-            e.target.classList.add('success');
-        } else {
-            errorEl.classList.remove('show');
-            successEl.classList.remove('show');
-            e.target.classList.remove('success');
-        }
+        // Format is valid - show checking state and check availability after debounce
+        e.target.classList.add('checking');
+        showFieldChecking('emailChecking');
+        
+        // Clear previous timeout
+        if (emailCheckTimeout) clearTimeout(emailCheckTimeout);
+        
+        // Debounce: wait 800ms after user stops typing
+        emailCheckTimeout = setTimeout(() => {
+            checkEmailAvailability(email);
+        }, 800);
     });
 
+    async function checkEmailAvailability(email) {
+        const emailInput = document.getElementById('signupEmail');
+        
+        // Don't recheck if same email was already checked
+        if (email === lastCheckedEmail && emailIsAvailable) {
+            emailInput.classList.remove('checking');
+            emailInput.classList.add('success');
+            hideFieldChecking('emailChecking');
+            showFieldSuccess('emailSuccess');
+            return;
+        }
+
+        try {
+            // Try to check if user exists by attempting a password reset
+            // This is a non-destructive way to check email existence
+            const { error } = await supabase.auth.resetPasswordForEmail(email);
+            
+            emailInput.classList.remove('checking');
+            hideFieldChecking('emailChecking');
+            
+            // If resetPasswordForEmail succeeds, the email EXISTS (bad for signup)
+            // If it fails with "user not found", the email is AVAILABLE (good for signup)
+            if (error && (error.message.includes('not found') || error.message.includes('not registered') || error.message.includes('User not found'))) {
+                // Email doesn't exist - available for signup!
+                emailIsAvailable = true;
+                lastCheckedEmail = email;
+                emailInput.classList.add('success');
+                showFieldSuccess('emailSuccess');
+                hideFieldError('emailError');
+            } else if (!error) {
+                // resetPasswordForEmail succeeded = email EXISTS in the system
+                emailIsAvailable = false;
+                lastCheckedEmail = '';
+                emailInput.classList.add('error');
+                showFieldError('emailError', 'This email is already registered. Use a different email or login instead.');
+                hideFieldSuccess('emailSuccess');
+            } else {
+                // Some other error - treat as available but warn
+                emailIsAvailable = true;
+                lastCheckedEmail = email;
+                emailInput.classList.add('success');
+                showFieldSuccess('emailSuccess');
+            }
+        } catch (err) {
+            console.error('Email check error:', err);
+            emailInput.classList.remove('checking');
+            hideFieldChecking('emailChecking');
+            // On network error, allow proceeding but show warning
+            emailIsAvailable = true;
+            lastCheckedEmail = email;
+            emailInput.classList.add('success');
+            showFieldSuccess('emailSuccess');
+        }
+    }
+
+    // ==========================================
+    // PHONE VALIDATION
+    // ==========================================
     document.getElementById('phone').addEventListener('input', (e) => {
         const phone = e.target.value.trim();
-        const errorEl = document.getElementById('phoneError');
-        const successEl = document.getElementById('phoneSuccess');
-        
-        if (!phone) {
-            errorEl.classList.remove('show');
-            successEl.classList.remove('show');
-            e.target.classList.remove('error', 'success');
-            return;
-        }
-
+        e.target.classList.remove('error', 'success');
+        hideFieldError('phoneError');
+        hideFieldSuccess('phoneSuccess');
+        if (!phone) return;
         if (/^[0-9+\s\-()]{7,15}$/.test(phone)) {
-            errorEl.classList.remove('show');
-            successEl.classList.add('show');
-            e.target.classList.remove('error');
             e.target.classList.add('success');
-        } else {
-            errorEl.classList.remove('show');
-            successEl.classList.remove('show');
-            e.target.classList.remove('success');
+            showFieldSuccess('phoneSuccess');
         }
     });
 
+    // ==========================================
+    // CONFIRM PASSWORD VALIDATION
+    // ==========================================
     document.getElementById('confirmPassword').addEventListener('input', (e) => {
         const password = document.getElementById('signupPassword').value;
         const confirm = e.target.value;
-        const errorEl = document.getElementById('confirmError');
-        const successEl = document.getElementById('confirmSuccess');
-        
-        if (!confirm) {
-            errorEl.classList.remove('show');
-            successEl.classList.remove('show');
-            e.target.classList.remove('error', 'success');
-            return;
-        }
-
-        if (password === confirm) {
-            errorEl.classList.remove('show');
-            successEl.classList.add('show');
-            e.target.classList.remove('error');
-            e.target.classList.add('success');
-        } else {
-            errorEl.classList.remove('show');
-            successEl.classList.remove('show');
-            e.target.classList.remove('success');
-        }
+        e.target.classList.remove('error', 'success');
+        hideFieldError('confirmError');
+        hideFieldSuccess('confirmSuccess');
+        if (!confirm) return;
+        if (password === confirm) { e.target.classList.add('success'); showFieldSuccess('confirmSuccess'); }
+        else { e.target.classList.add('error'); showFieldError('confirmError', 'Passwords do not match'); }
     });
 
     // ==========================================
     // PASSWORD STRENGTH METER
     // ==========================================
     document.getElementById('signupPassword').addEventListener('input', (e) => {
-        const password = e.target.value;
-        updatePasswordStrength(password);
+        updatePasswordStrength(e.target.value);
     });
 
     function updatePasswordStrength(password) {
         let score = 0;
-        const bars = [
-            document.getElementById('strength1'),
-            document.getElementById('strength2'),
-            document.getElementById('strength3'),
-            document.getElementById('strength4'),
-            document.getElementById('strength5')
-        ];
+        const bars = [document.getElementById('strength1'), document.getElementById('strength2'), document.getElementById('strength3'), document.getElementById('strength4'), document.getElementById('strength5')];
         const text = document.getElementById('strengthText');
-
-        // Reset
         bars.forEach(bar => bar.style.background = '#e0e3e5');
-
-        if (!password) {
-            text.textContent = 'Enter a password';
-            text.className = 'strength-text text-outline';
-            updateRequirements(password);
-            return;
-        }
-
+        if (!password) { text.textContent = 'Enter a password'; text.className = 'strength-text text-outline'; updateRequirements(password); return; }
         if (password.length >= 8) score++;
         if (password.length >= 12) score++;
         if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
         if (/\d/.test(password)) score++;
         if (/[^A-Za-z0-9]/.test(password)) score++;
-
         const colors = ['#ba1a1a', '#ff6b35', '#ffc107', '#7cb342', '#009485'];
         const labels = ['Very Weak', 'Weak', 'Fair', 'Strong', 'Very Strong'];
-
-        for (let i = 0; i < score; i++) {
-            bars[i].style.background = colors[score - 1];
-        }
-
+        for (let i = 0; i < score; i++) bars[i].style.background = colors[score - 1];
         text.textContent = labels[score - 1] || 'Very Weak';
         text.style.color = colors[score - 1] || '#ba1a1a';
-
         updateRequirements(password);
     }
 
     function updateRequirements(password) {
-        const reqs = {
-            reqLength: password.length >= 8,
-            reqUpper: /[a-z]/.test(password) && /[A-Z]/.test(password),
-            reqNumber: /\d/.test(password),
-            reqSpecial: /[^A-Za-z0-9]/.test(password)
-        };
-
+        const reqs = { reqLength: password.length >= 8, reqUpper: /[a-z]/.test(password) && /[A-Z]/.test(password), reqNumber: /\d/.test(password), reqSpecial: /[^A-Za-z0-9]/.test(password) };
         for (const [id, met] of Object.entries(reqs)) {
             const el = document.getElementById(id);
-            if (met) {
-                el.classList.add('met');
-                el.querySelector('i').className = 'fa-solid fa-circle-check';
-            } else {
-                el.classList.remove('met');
-                el.querySelector('i').className = 'fa-solid fa-circle';
-            }
+            if (met) { el.classList.add('met'); el.querySelector('i').className = 'fa-solid fa-circle-check'; }
+            else { el.classList.remove('met'); el.querySelector('i').className = 'fa-solid fa-circle'; }
         }
     }
 
@@ -1249,60 +802,24 @@
         const section = document.getElementById('subjectPreviewSection');
         const grid = document.getElementById('subjectPreviewGrid');
         const gradeLabel = document.getElementById('previewGradeLabel');
-        
-        if (!grade) {
-            section.classList.add('hidden');
-            return;
-        }
-        
+        if (!grade) { section.classList.add('hidden'); return; }
         gradeLabel.textContent = grade;
         grid.innerHTML = '<p class="col-span-2 text-sm text-outline italic text-center py-4"><i class="fa-solid fa-spinner fa-spin"></i> Loading subjects...</p>';
         section.classList.remove('hidden');
-        
         try {
-            const { data, error } = await supabase
-                .from('subject_pricing')
-                .select('subject, price_usd, price_ngn')
-                .eq('grade', grade)
-                .order('subject', { ascending: true });
-                
+            const { data, error } = await supabase.from('subject_pricing').select('subject, price_usd, price_ngn').eq('grade', grade).order('subject', { ascending: true });
             if (error) throw error;
-            
             subjectsData = data || [];
-            
-            if (subjectsData.length === 0) {
-                grid.innerHTML = '<p class="col-span-2 text-sm text-error text-center py-4">No subjects found for this grade.</p>';
-                return;
-            }
-            
+            if (subjectsData.length === 0) { grid.innerHTML = '<p class="col-span-2 text-sm text-error text-center py-4">No subjects found for this grade.</p>'; return; }
             renderSubjectCards();
-            
-        } catch (err) {
-            console.error('Failed to load subjects:', err);
-            grid.innerHTML = '<p class="col-span-2 text-sm text-error text-center py-4">Failed to load subjects.</p>';
-        }
+        } catch (err) { console.error('Failed to load subjects:', err); grid.innerHTML = '<p class="col-span-2 text-sm text-error text-center py-4">Failed to load subjects.</p>'; }
     }
 
     function renderSubjectCards() {
         const grid = document.getElementById('subjectPreviewGrid');
-        
         grid.innerHTML = subjectsData.map(subject => {
-            const price = currentCurrency === 'usd' 
-                ? `$${parseFloat(subject.price_usd).toFixed(2)}`
-                : `₦${parseFloat(subject.price_ngn).toLocaleString()}`;
-            
-            return `
-                <div class="subject-card">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-book text-secondary text-sm"></i>
-                        <span class="text-sm font-semibold text-primary">${subject.subject}</span>
-                    </div>
-                    <div class="subject-price">
-                        ${price}
-                        <span class="subject-period">/month</span>
-                    </div>
-                </div>
-            `;
+            const price = currentCurrency === 'usd' ? `$${parseFloat(subject.price_usd).toFixed(2)}` : `₦${parseFloat(subject.price_ngn).toLocaleString()}`;
+            return `<div class="subject-card"><div class="flex items-center gap-2"><i class="fa-solid fa-book text-secondary text-sm"></i><span class="text-sm font-semibold text-primary">${subject.subject}</span></div><div class="subject-price">${price}<span class="subject-period">/month</span></div></div>`;
         }).join('');
     }
 
@@ -1321,20 +838,13 @@
     async function captureReferral() {
         const urlParams = new URLSearchParams(window.location.search);
         const refUsername = urlParams.get('ref');
-        
         if (refUsername) {
-            const { data: referrer, error } = await supabase
-                .from('users')
-                .select('username')
-                .eq('username', refUsername)
-                .maybeSingle();
-            
+            const { data: referrer } = await supabase.from('users').select('username').eq('username', refUsername).maybeSingle();
             if (referrer) {
                 referralUsername = refUsername;
                 localStorage.setItem('referral_code', refUsername);
-                const banner = document.getElementById('referralBanner');
                 document.getElementById('referrerName').textContent = `@${refUsername}`;
-                banner.classList.remove('hidden');
+                document.getElementById('referralBanner').classList.remove('hidden');
             }
         }
     }
@@ -1346,7 +856,6 @@
 
     async function handleFinalSubmit(event) {
         event.preventDefault();
-        
         if (!validateStep3()) return;
         
         const email = document.getElementById('signupEmail').value.trim();
@@ -1361,65 +870,84 @@
         button.disabled = true;
         
         try {
-            const metadata = {
-                first_name: firstName,
-                last_name: lastName,
-                phone: phone
-            };
+            const metadata = { first_name: firstName, last_name: lastName, phone: phone };
+            if (referralUsername) metadata.referred_by = referralUsername;
             
-            if (referralUsername) {
-                metadata.referred_by = referralUsername;
+            const { data, error } = await supabase.auth.signUp({ email, password, options: { data: metadata } });
+            
+            if (error) {
+                // Handle specific errors with clear messages
+                if (error.message.includes('already registered') || error.message.includes('already been registered')) {
+                    // Go back to step 1 and show email error
+                    currentStep = 1;
+                    document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+                    document.getElementById('step1').classList.add('active');
+                    updateProgress();
+                    
+                    const emailInput = document.getElementById('signupEmail');
+                    emailInput.classList.add('error');
+                    emailInput.classList.remove('success');
+                    emailIsAvailable = false;
+                    lastCheckedEmail = '';
+                    showFieldError('emailError', 'This email is already registered. Please use a different email or login instead.');
+                    emailInput.focus();
+                    
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    return;
+                }
+                throw error;
             }
-            
-            const { data, error } = await supabase.auth.signUp({
-                email: email,
-                password: password,
-                options: { data: metadata }
-            });
-            
-            if (error) throw error;
             
             currentOtpEmail = email;
             localStorage.setItem('pending_signup_email', email);
-            
             document.getElementById('emailDisplay').textContent = email;
             showForm('verifyEmailForm', 'signupForm');
             startResendTimer();
             
         } catch (error) {
-            alert(error.message);
+            alert('Signup failed: ' + error.message);
             button.innerHTML = originalText;
             button.disabled = false;
         }
     }
 
     // ==========================================
+    // GO BACK TO CHANGE EMAIL
+    // ==========================================
+    function goBackToChangeEmail() {
+        // Reset OTP inputs
+        document.querySelectorAll('.otp-input').forEach(input => input.value = '');
+        
+        // Go back to step 1
+        currentStep = 1;
+        document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step1').classList.add('active');
+        updateProgress();
+        
+        // Show the signup form
+        showForm('signupForm', 'verifyEmailForm');
+        
+        // Focus on email field
+        setTimeout(() => {
+            document.getElementById('signupEmail').focus();
+            document.getElementById('signupEmail').select();
+        }, 300);
+    }
+
+    // ==========================================
     // OTP VERIFICATION
     // ==========================================
     const otpInputs = document.querySelectorAll('.otp-input');
-    
     otpInputs.forEach((input, index) => {
-        input.addEventListener('input', (e) => {
-            const value = e.target.value;
-            if (value && index < otpInputs.length - 1) {
-                otpInputs[index + 1].focus();
-            }
-        });
-        
-        input.addEventListener('keydown', (e) => {
-            if (e.key === 'Backspace' && !input.value && index > 0) {
-                otpInputs[index - 1].focus();
-            }
-        });
-        
+        input.addEventListener('input', (e) => { if (e.target.value && index < otpInputs.length - 1) otpInputs[index + 1].focus(); });
+        input.addEventListener('keydown', (e) => { if (e.key === 'Backspace' && !input.value && index > 0) otpInputs[index - 1].focus(); });
         input.addEventListener('paste', (e) => {
             e.preventDefault();
             const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim();
             if (/^\d+$/.test(pasteData)) {
                 const digits = pasteData.split('');
-                otpInputs.forEach((inp, i) => {
-                    inp.value = digits[i] || '';
-                });
+                otpInputs.forEach((inp, i) => { inp.value = digits[i] || ''; });
                 const nextIndex = Math.min(digits.length, otpInputs.length - 1);
                 otpInputs[nextIndex].focus();
             }
@@ -1428,14 +956,9 @@
 
     async function handleOTPVerification(event) {
         event.preventDefault();
-        
         let otp = '';
         otpInputs.forEach(input => otp += input.value);
-        
-        if (otp.length !== 8) {
-            alert('Please enter all 8 digits');
-            return;
-        }
+        if (otp.length !== 8) { alert('Please enter all 8 digits'); return; }
         
         const button = event.target.querySelector('button[type="submit"]');
         const originalText = button.innerHTML;
@@ -1444,21 +967,13 @@
         
         try {
             const email = currentOtpEmail || localStorage.getItem('pending_signup_email');
-            
-            const { data, error } = await supabase.auth.verifyOtp({
-                email: email,
-                token: otp,
-                type: 'signup'
-            });
-            
+            const { data, error } = await supabase.auth.verifyOtp({ email, token: otp, type: 'signup' });
             if (error) throw error;
             
             localStorage.removeItem('pending_signup_email');
             localStorage.removeItem('referral_code');
-            
             button.innerHTML = originalText;
             button.disabled = false;
-            
             window.location.href = '/login?onboarding';
             
         } catch (error) {
@@ -1473,12 +988,10 @@
     async function resendOTP() {
         try {
             const email = currentOtpEmail || localStorage.getItem('pending_signup_email');
-            await supabase.auth.resend({ type: 'signup', email: email });
+            await supabase.auth.resend({ type: 'signup', email });
             alert('Code resent! Check your email.');
             startResendTimer();
-        } catch (error) {
-            alert('Failed to resend code: ' + error.message);
-        }
+        } catch (error) { alert('Failed to resend code: ' + error.message); }
     }
 
     // ==========================================
@@ -1493,6 +1006,7 @@
     window.resendOTP = resendOTP;
     window.loadSubjectPreview = loadSubjectPreview;
     window.switchCurrency = switchCurrency;
+    window.goBackToChangeEmail = goBackToChangeEmail;
 
     // ==========================================
     // INITIAL LOAD
@@ -1501,14 +1015,10 @@
         const { data: { session } } = await supabase.auth.getSession();
         if (session) {
             const { data: profile } = await supabase.from('users').select('grade').eq('id', session.user.id).single();
-            if (!profile || !profile.grade) {
-                window.location.href = '/login?onboarding';
-            } else {
-                window.location.href = '/dashboard/';
-            }
+            if (!profile || !profile.grade) window.location.href = '/login?onboarding';
+            else window.location.href = '/dashboard/';
             return;
         }
-        
         await captureReferral();
         updateProgress();
     });
