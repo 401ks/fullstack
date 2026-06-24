@@ -377,6 +377,40 @@
                     </div>
                 </div>
                 
+                <!-- MFA Verification Form -->
+                <div id="mfaVerifyForm" class="form-container hidden bg-surface-container-lowest p-8 md:p-10 rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30">
+                    <div class="text-center mb-8">
+                        <div class="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-2xl mb-4">
+                            <i class="fa-solid fa-shield-halved text-secondary text-2xl"></i>
+                        </div>
+                        <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Two-Factor Authentication</h1>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Enter the 6-digit code from your authenticator app</p>
+                    </div>
+                    
+                    <form onsubmit="handleMFAVerification(event)">
+                        <div class="flex justify-center gap-2 md:gap-3 mb-6">
+                            <input type="text" maxlength="1" class="otp-input mfa-input" data-mfa-index="0" required autocomplete="one-time-code"/>
+                            <input type="text" maxlength="1" class="otp-input mfa-input" data-mfa-index="1" required/>
+                            <input type="text" maxlength="1" class="otp-input mfa-input" data-mfa-index="2" required/>
+                            <input type="text" maxlength="1" class="otp-input mfa-input" data-mfa-index="3" required/>
+                            <input type="text" maxlength="1" class="otp-input mfa-input" data-mfa-index="4" required/>
+                            <input type="text" maxlength="1" class="otp-input mfa-input" data-mfa-index="5" required/>
+                        </div>
+                        
+                        <button type="submit" class="w-full py-3.5 bg-secondary text-white rounded-xl font-label-md text-label-md font-semibold hover:bg-secondary/90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2 mb-4">
+                            Verify
+                            <i class="fa-solid fa-check text-[18px]"></i>
+                        </button>
+                    </form>
+                    
+                    <div class="text-center">
+                        <p class="font-body-md text-body-md text-on-surface-variant">
+                            Lost access to your authenticator?
+                        </p>
+                        <a href="/support" class="text-secondary font-semibold hover:underline text-sm mt-2 inline-block">Contact Support</a>
+                    </div>
+                </div>
+                
                 <!-- Email OTP Verification Form (for password reset) -->
                 <div id="verifyEmailForm" class="form-container hidden bg-surface-container-lowest p-8 md:p-10 rounded-2xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30">
                     <div class="text-center mb-8">
@@ -735,8 +769,10 @@
     // ==========================================
     let currentOtpEmail = '';
     let otpType = 'email'; // 'email' for password reset
+    let mfaChallengeId = null;
+    let mfaFactorId = null;
 
-    // Login Handler
+    // Login Handler with MFA Support
     async function handleLogin(event) {
         event.preventDefault();
         const email = document.getElementById('loginEmail').value;
@@ -748,8 +784,81 @@
         button.disabled = true;
         
         try {
-            await signInWithEmail(email, password);
+            // First, sign in with email/password
+            const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
             
+            if (signInError) throw signInError;
+            
+            // Check if MFA is required
+            const { data: mfaData } = await supabase.auth.mfa.listFactors();
+            const totpFactors = mfaData?.totp || [];
+            const verifiedFactor = totpFactors.find(f => f.status === 'verified');
+            
+            if (verifiedFactor) {
+                // MFA is enabled, need to verify
+                mfaFactorId = verifiedFactor.id;
+                
+                // Create a challenge
+                const { data: challengeData, error: challengeError } = await supabase.auth.mfa.challenge({
+                    factorId: verifiedFactor.id
+                });
+                
+                if (challengeError) throw challengeError;
+                
+                mfaChallengeId = challengeData.id;
+                
+                // Show MFA verification form
+                showForm('mfaVerifyForm', 'loginForm');
+                setupMFAInputs();
+            } else {
+                // No MFA, proceed normally
+                const { data: { session } } = await supabase.auth.getSession();
+                const { data: profile } = await supabase.from('users').select('grade').eq('id', session.user.id).single();
+                
+                if (!profile || !profile.grade) {
+                    window.location.href = '/login?onboarding';
+                } else {
+                    window.location.href = '/dashboard/';
+                }
+            }
+        } catch (error) {
+            alert(error.message);
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }
+    }
+
+    // MFA Verification Handler
+    async function handleMFAVerification(event) {
+        event.preventDefault();
+        
+        const mfaInputs = document.querySelectorAll('.mfa-input');
+        let code = '';
+        mfaInputs.forEach(input => code += input.value);
+        
+        if (code.length !== 6) {
+            alert('Please enter all 6 digits');
+            return;
+        }
+        
+        const button = event.target.querySelector('button[type="submit"]');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying...';
+        button.disabled = true;
+        
+        try {
+            const { data, error } = await supabase.auth.mfa.verify({
+                factorId: mfaFactorId,
+                challengeId: mfaChallengeId,
+                code: code
+            });
+            
+            if (error) throw error;
+            
+            // MFA verified, now check profile and redirect
             const { data: { session } } = await supabase.auth.getSession();
             const { data: profile } = await supabase.from('users').select('grade').eq('id', session.user.id).single();
             
@@ -759,10 +868,50 @@
                 window.location.href = '/dashboard/';
             }
         } catch (error) {
-            alert(error.message);
+            alert('Invalid MFA code. ' + error.message);
             button.innerHTML = originalText;
             button.disabled = false;
+            mfaInputs.forEach(input => input.value = '');
+            mfaInputs[0].focus();
         }
+    }
+
+    // Setup MFA input auto-advance and paste
+    function setupMFAInputs() {
+        const mfaInputs = document.querySelectorAll('.mfa-input');
+        
+        mfaInputs.forEach((input, index) => {
+            input.value = '';
+            
+            input.addEventListener('input', (e) => {
+                const value = e.target.value;
+                if (value && index < mfaInputs.length - 1) {
+                    mfaInputs[index + 1].focus();
+                }
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !input.value && index > 0) {
+                    mfaInputs[index - 1].focus();
+                }
+            });
+            
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim();
+                
+                if (/^\d+$/.test(pasteData)) {
+                    const digits = pasteData.split('');
+                    mfaInputs.forEach((inp, i) => {
+                        inp.value = digits[i] || '';
+                    });
+                    const nextIndex = Math.min(digits.length, mfaInputs.length - 1);
+                    mfaInputs[nextIndex].focus();
+                }
+            });
+        });
+        
+        mfaInputs[0].focus();
     }
 
     // Google Login Handler (for existing Google users)
@@ -815,11 +964,10 @@
         }
     }
 
-    // OTP Inputs with PASTE SUPPORT
-    const otpInputs = document.querySelectorAll('.otp-input');
+    // OTP Inputs with PASTE SUPPORT (for password reset)
+    const otpInputs = document.querySelectorAll('.otp-input:not(.mfa-input)');
     
     otpInputs.forEach((input, index) => {
-        // Auto-advance on input
         input.addEventListener('input', (e) => {
             const value = e.target.value;
             if (value && index < otpInputs.length - 1) {
@@ -827,14 +975,12 @@
             }
         });
         
-        // Backspace handling
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Backspace' && !input.value && index > 0) {
                 otpInputs[index - 1].focus();
             }
         });
         
-        // PASTE SUPPORT: One-click paste full code
         input.addEventListener('paste', (e) => {
             e.preventDefault();
             const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim();
@@ -852,7 +998,7 @@
         });
     });
 
-    // OTP Verification
+    // OTP Verification (for password reset)
     async function handleOTPVerification(event) {
         event.preventDefault();
         
@@ -950,6 +1096,7 @@
     window.handleLogin = handleLogin;
     window.handleGoogleLogin = handleGoogleLogin;
     window.handleOTPVerification = handleOTPVerification;
+    window.handleMFAVerification = handleMFAVerification;
     window.handleOnboarding = handleOnboarding;
     window.resendOTP = resendOTP;
     window.loadOnboardingSubjects = loadOnboardingSubjects;
