@@ -222,6 +222,33 @@
             color: white;
         }
         
+        /* Payment Status */
+        .payment-status-card {
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .payment-status-pending { border-left: 4px solid #f59e0b; }
+        .payment-status-completed { border-left: 4px solid #10b981; }
+        .payment-status-failed { border-left: 4px solid #ef4444; }
+        
+        /* Crypto selector */
+        .crypto-option {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .crypto-option:hover {
+            border-color: #0051D5;
+            background: rgba(0, 81, 213, 0.02);
+        }
+        .crypto-option.selected {
+            border-color: #0051D5;
+            background: rgba(0, 81, 213, 0.05);
+        }
+        
         @media (max-width: 1023px) {
             #sidebar { position: fixed; left: -100%; z-index: 60; width: 280px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
             #sidebar.active { left: 0; }
@@ -371,11 +398,27 @@
         </header>
         
         <main class="px-margin-mobile md:px-margin-desktop pb-margin-desktop max-w-container-max mx-auto space-y-stack-lg">
+            <!-- Payment Status Banner (shown after redirect from NOWPayments) -->
+            <div id="paymentStatusBanner" class="hidden payment-status-card bg-surface-container-lowest rounded-2xl border border-outline-variant card-shadow p-6">
+                <div class="flex items-center gap-4">
+                    <div id="paymentStatusIcon" class="w-12 h-12 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-spinner fa-spin text-2xl text-secondary"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 id="paymentStatusTitle" class="font-headline-md text-primary">Checking payment status...</h3>
+                        <p id="paymentStatusMessage" class="text-sm text-on-surface-variant">Please wait while we verify your payment.</p>
+                    </div>
+                    <button onclick="dismissPaymentBanner()" class="p-2 hover:bg-surface-container rounded-full transition-colors">
+                        <i class="fa-solid fa-times text-outline"></i>
+                    </button>
+                </div>
+            </div>
+
             <!-- Header with Currency Toggle -->
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h2 class="font-headline-lg text-headline-lg text-primary">Tuition & Subscriptions</h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Manage your subject subscriptions, view pricing, and upload payment confirmations.</p>
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Manage your subject subscriptions, view pricing, and make payments.</p>
                 </div>
                 <div class="currency-toggle">
                     <button id="currency-usd" class="active">USD ($)</button>
@@ -406,46 +449,32 @@
                             <i class="fa-solid fa-lock text-outline"></i>
                         </div>
                         
-                        <!-- Bank Transfer (Disabled) -->
-                        <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 opacity-50 cursor-not-allowed">
+                        <!-- Crypto (Active - NOWPayments) -->
+                        <div id="cryptoPaymentOption" class="flex items-center justify-between p-4 bg-secondary/5 rounded-xl border-2 border-secondary hover:bg-secondary/10 transition-colors cursor-pointer" onclick="scrollToCryptoSection()">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-surface-container rounded-lg flex items-center justify-center">
-                                    <i class="fa-solid fa-building-columns text-outline"></i>
-                                </div>
-                                <div>
-                                    <p class="font-label-md text-primary font-bold">Bank Transfer</p>
-                                    <p class="text-xs text-outline">Coming soon</p>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-lock text-outline"></i>
-                        </div>
-                        
-                        <!-- Crypto (Coming Soon) -->
-                        <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 opacity-50 cursor-not-allowed">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-surface-container rounded-lg flex items-center justify-center">
-                                    <i class="fa-brands fa-bitcoin text-outline"></i>
+                                <div class="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center">
+                                    <i class="fa-brands fa-bitcoin text-secondary text-xl"></i>
                                 </div>
                                 <div>
                                     <p class="font-label-md text-primary font-bold">Cryptocurrency</p>
-                                    <p class="text-xs text-outline">In development</p>
+                                    <p class="text-xs text-secondary">BTC, ETH, USDT & more</p>
                                 </div>
                             </div>
-                            <i class="fa-solid fa-clock text-outline"></i>
+                            <span class="px-3 py-1 bg-secondary text-white text-xs font-bold rounded-full">ACTIVE</span>
                         </div>
                         
-                        <!-- Other (Active - WhatsApp) -->
-                        <a href="https://wa.me/2349034110894?text=Hi%2C%20I%20want%20to%20pay%20for%20my%20subjects" target="_blank" class="flex items-center justify-between p-4 bg-secondary/5 rounded-xl border-2 border-secondary hover:bg-secondary/10 transition-colors group">
+                        <!-- WhatsApp (Fallback) -->
+                        <a href="#" id="whatsappLink" target="_blank" class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 hover:bg-surface-container transition-colors group">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center">
-                                    <i class="fa-brands fa-whatsapp text-secondary text-xl"></i>
+                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa-brands fa-whatsapp text-green-600 text-xl"></i>
                                 </div>
                                 <div>
-                                    <p class="font-label-md text-primary font-bold">Contact on WhatsApp</p>
-                                    <p class="text-xs text-secondary">Choose your preferred payment method</p>
+                                    <p class="font-label-md text-primary font-bold">WhatsApp Support</p>
+                                    <p class="text-xs text-outline">Manual payment assistance</p>
                                 </div>
                             </div>
-                            <i class="fa-solid fa-arrow-right text-secondary group-hover:translate-x-1 transition-transform"></i>
+                            <i class="fa-solid fa-arrow-right text-outline group-hover:text-secondary group-hover:translate-x-1 transition-transform"></i>
                         </a>
                     </div>
                 </div>
@@ -474,10 +503,10 @@
                                 <div class="flex items-center gap-2"><i class="fa-solid fa-check text-xs"></i> Priority support</div>
                             </div>
                         </div>
-                        <a href="https://wa.me/2349034110894?text=Hi%2C%20I%20want%20to%20upgrade%20to%20REX" target="_blank" class="inline-flex items-center gap-2 bg-white text-secondary px-6 py-3 rounded-xl font-bold hover:bg-white/90 transition-colors">
-                            <i class="fa-solid fa-rocket"></i>
-                            <span>Upgrade Now</span>
-                        </a>
+                        <button onclick="addRexToCart()" class="inline-flex items-center gap-2 bg-white text-secondary px-6 py-3 rounded-xl font-bold hover:bg-white/90 transition-colors">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span>Add to Cart</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -502,7 +531,6 @@
                 
                 <div class="p-8">
                     <div id="subjects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- Subjects will be dynamically loaded here -->
                         <div class="col-span-full text-center py-12">
                             <i class="fa-solid fa-spinner fa-spin text-3xl text-secondary"></i>
                             <p class="mt-4 text-on-surface-variant">Loading your subjects...</p>
@@ -511,13 +539,79 @@
                 </div>
             </div>
 
-            <!-- Upload Payment Confirmation -->
+            <!-- Crypto Payment Section -->
+            <div id="cryptoPaymentSection" class="bg-surface-container-lowest rounded-2xl border border-outline-variant card-shadow overflow-hidden">
+                <div class="px-8 py-6 border-b border-outline-variant bg-gradient-to-r from-orange-50 to-amber-50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-brands fa-bitcoin text-orange-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-headline-md text-headline-md text-primary">Pay with Cryptocurrency</h3>
+                            <p class="text-sm text-on-surface-variant">Secure payments via NOWPayments</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-8">
+                    <!-- Order Summary -->
+                    <div class="mb-6 p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                        <h4 class="font-label-md text-label-md text-primary font-bold mb-3">Order Summary</h4>
+                        <div id="orderSummaryItems" class="space-y-2 text-sm">
+                            <p class="text-on-surface-variant italic">No items selected yet</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-outline-variant/30 flex justify-between items-center">
+                            <span class="font-label-md text-primary font-bold">Total:</span>
+                            <span id="orderTotal" class="text-xl font-bold text-secondary">$0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Crypto Currency Selection -->
+                    <div class="mb-6">
+                        <label class="font-label-md text-label-md text-primary font-bold block mb-3">Select Cryptocurrency</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="cryptoCurrencyGrid">
+                            <div class="crypto-option selected p-3 border-2 border-secondary rounded-xl text-center" data-crypto="BTC" onclick="selectCrypto(this)">
+                                <i class="fa-brands fa-bitcoin text-2xl text-orange-500 mb-1"></i>
+                                <p class="text-xs font-bold">Bitcoin</p>
+                                <p class="text-[10px] text-outline">BTC</p>
+                            </div>
+                            <div class="crypto-option p-3 border-2 border-outline-variant rounded-xl text-center" data-crypto="ETH" onclick="selectCrypto(this)">
+                                <i class="fa-brands fa-ethereum text-2xl text-blue-500 mb-1"></i>
+                                <p class="text-xs font-bold">Ethereum</p>
+                                <p class="text-[10px] text-outline">ETH</p>
+                            </div>
+                            <div class="crypto-option p-3 border-2 border-outline-variant rounded-xl text-center" data-crypto="USDT" onclick="selectCrypto(this)">
+                                <i class="fa-solid fa-dollar-sign text-2xl text-green-500 mb-1"></i>
+                                <p class="text-xs font-bold">USDT</p>
+                                <p class="text-[10px] text-outline">TRC20</p>
+                            </div>
+                            <div class="crypto-option p-3 border-2 border-outline-variant rounded-xl text-center" data-crypto="LTC" onclick="selectCrypto(this)">
+                                <i class="fa-solid fa-coins text-2xl text-gray-500 mb-1"></i>
+                                <p class="text-xs font-bold">Litecoin</p>
+                                <p class="text-[10px] text-outline">LTC</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pay Button -->
+                    <button id="payWithCryptoBtn" onclick="createCryptoInvoice()" class="w-full py-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-xl font-bold text-lg hover:from-orange-600 hover:to-amber-600 transition-all shadow-lg flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <i class="fa-brands fa-bitcoin text-xl"></i>
+                        <span>Pay with Crypto</span>
+                    </button>
+                    <p class="text-xs text-outline text-center mt-3">
+                        <i class="fa-solid fa-shield-halved mr-1"></i>
+                        Secure payment powered by NOWPayments. You'll be redirected to complete payment.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Manual Receipt Upload (Fallback) -->
             <div class="receipt-upload-widget" id="receiptWidget">
                 <div class="flex items-center gap-3 mb-4 border-b border-outline-variant pb-3">
                     <i class="fa-solid fa-receipt text-secondary text-xl"></i>
-                    <h3 class="font-headline-md text-headline-md text-primary">Upload Payment Confirmation</h3>
+                    <h3 class="font-headline-md text-headline-md text-primary">Manual Payment (WhatsApp)</h3>
                 </div>
-                <p class="text-sm text-on-surface-variant mb-4">After contacting us on WhatsApp and making payment, upload your receipt here for verification.</p>
+                <p class="text-sm text-on-surface-variant mb-4">Prefer to pay via bank transfer or other methods? Contact us on WhatsApp, make payment, then upload your receipt here for manual verification.</p>
                 
                 <div class="ruw-group">
                     <label class="ruw-label"><i class="fa-solid fa-list-check mr-2"></i>Subjects Paid For</label>
@@ -525,7 +619,7 @@
                 </div>
                 
                 <div class="ruw-group">
-                    <label class="ruw-label"><i class="fa-solid fa-file-invoice mr-2"></i>Invoice Number (Optional)</label>
+                    <label class="ruw-label"><i class="fa-solid fa-file-invoice mr-2"></i>Invoice/Reference Number (Optional)</label>
                     <input type="text" class="ruw-input" id="invoiceNumber" placeholder="e.g., INV-2026-0421">
                 </div>
 
@@ -547,7 +641,7 @@
                 </div>
 
                 <button class="ruw-btn" id="submitReceiptBtn">
-                    <i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT
+                    <i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT FOR VERIFICATION
                 </button>
             </div>
 
@@ -752,7 +846,7 @@
             previewImg.src = ''; 
             fileInput.value = '';
             submitBtn.disabled = false; 
-            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT';
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT RECEIPT FOR VERIFICATION';
         }, 1500);
     });
     
@@ -766,16 +860,43 @@
             mainWrapper.style.marginRight = '0';
         }
     });
+
+    // Crypto payment helpers
+    function scrollToCryptoSection() {
+        document.getElementById('cryptoPaymentSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function selectCrypto(element) {
+        document.querySelectorAll('.crypto-option').forEach(el => {
+            el.classList.remove('selected', 'border-secondary');
+            el.classList.add('border-outline-variant');
+        });
+        element.classList.add('selected', 'border-secondary');
+        element.classList.remove('border-outline-variant');
+    }
+
+    function dismissPaymentBanner() {
+        document.getElementById('paymentStatusBanner').classList.add('hidden');
+        // Clean URL
+        const url = new URL(window.location);
+        url.searchParams.delete('payment_id');
+        url.searchParams.delete('status');
+        window.history.replaceState({}, '', url);
+    }
 </script>
 
 <script type="module">
     import { initializeAuth, requireAuth, signOut } from '../../auth.js';
     import { supabase } from '../../supabaseClient.js';
 
+    const PAYMENTS_API = 'https://payments.naijaassets.com';
+
     let userSubjects = [];
     let userSubscriptions = [];
     let pricingData = [];
     let selectedSubjects = new Set();
+    let selectedCrypto = 'BTC';
+    let rexAdded = false;
 
     async function initPaymentsPage() {
         await initializeAuth();
@@ -798,6 +919,15 @@
         if (headerName) headerName.textContent = fullName;
         if (headerLevel) headerLevel.textContent = user.grade || 'Student';
 
+        // Check for payment status in URL (redirect from NOWPayments)
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentId = urlParams.get('payment_id');
+        const paymentStatus = urlParams.get('status');
+        
+        if (paymentId) {
+            await checkPaymentStatus(paymentId);
+        }
+
         // Load data
         await loadData(user);
         
@@ -811,18 +941,79 @@
         }
     }
 
+    async function checkPaymentStatus(paymentId) {
+        const banner = document.getElementById('paymentStatusBanner');
+        const icon = document.getElementById('paymentStatusIcon');
+        const title = document.getElementById('paymentStatusTitle');
+        const message = document.getElementById('paymentStatusMessage');
+        
+        banner.classList.remove('hidden');
+        banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) return;
+            
+            const response = await fetch(`${PAYMENTS_API}/api/payments/status/${paymentId}`, {
+                headers: {
+                    'Authorization': `Bearer ${session.access_token}`
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (!data.success) {
+                throw new Error(data.error || 'Failed to check status');
+            }
+            
+            const payment = data.payment;
+            
+            if (payment.status === 'completed') {
+                icon.innerHTML = '<i class="fa-solid fa-check-circle text-3xl text-on-tertiary-container"></i>';
+                icon.className = 'w-12 h-12 rounded-full bg-on-tertiary-container/10 flex items-center justify-center';
+                title.textContent = 'Payment Successful!';
+                message.textContent = `Your payment of $${payment.amount_usd} has been confirmed. Your subscriptions are now active.`;
+                banner.classList.add('payment-status-completed');
+                
+                // Reload data to show updated subscriptions
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+            } else if (payment.status === 'pending') {
+                icon.innerHTML = '<i class="fa-solid fa-clock text-3xl text-amber-500"></i>';
+                icon.className = 'w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center';
+                title.textContent = 'Payment Pending';
+                message.textContent = 'Your payment is being confirmed on the blockchain. This usually takes a few minutes.';
+                banner.classList.add('payment-status-pending');
+                
+                // Poll again in 15 seconds
+                setTimeout(() => checkPaymentStatus(paymentId), 15000);
+            } else {
+                icon.innerHTML = '<i class="fa-solid fa-times-circle text-3xl text-error"></i>';
+                icon.className = 'w-12 h-12 rounded-full bg-error/10 flex items-center justify-center';
+                title.textContent = 'Payment Failed';
+                message.textContent = 'Your payment could not be processed. Please try again or contact support.';
+                banner.classList.add('payment-status-failed');
+            }
+        } catch (error) {
+            console.error('Error checking payment status:', error);
+            icon.innerHTML = '<i class="fa-solid fa-exclamation-triangle text-3xl text-error"></i>';
+            icon.className = 'w-12 h-12 rounded-full bg-error/10 flex items-center justify-center';
+            title.textContent = 'Error Checking Status';
+            message.textContent = error.message;
+            banner.classList.add('payment-status-failed');
+        }
+    }
+
     async function loadData(user) {
-        // Fetch user's subject wishlist
         userSubjects = user.subjects || [];
         
-        // Fetch pricing data
         const { data: pricing } = await supabase
             .from('subject_pricing')
             .select('*')
             .eq('grade', user.grade);
         pricingData = pricing || [];
         
-        // Fetch active subscriptions
         const { data: subs } = await supabase
             .from('subject_subscriptions')
             .select('*')
@@ -856,14 +1047,11 @@
             if (!pricing) return '';
             
             const isActive = subscription && subscription.is_active && new Date(subscription.expires_at) > new Date();
-            const isExpired = subscription && !subscription.is_active;
             
             let statusBadge = '';
             if (isActive) {
                 const daysLeft = Math.ceil((new Date(subscription.expires_at) - new Date()) / (1000 * 60 * 60 * 24));
                 statusBadge = `<span class="text-xs font-bold text-on-tertiary-container flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Active (${daysLeft}d)</span>`;
-            } else if (isExpired) {
-                statusBadge = `<span class="text-xs font-bold text-error flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Expired</span>`;
             } else {
                 statusBadge = `<span class="text-xs font-bold text-outline flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> Unpaid</span>`;
             }
@@ -873,17 +1061,17 @@
             const displayPrice = currentCurrency === 'usd' ? `$${priceUSD}` : `₦${priceNGN.toLocaleString()}`;
             
             return `
-                <div class="subject-card ${isActive ? 'active' : ''} ${selectedSubjects.has(subjectName) ? 'selected' : ''} p-5 bg-surface-container-lowest rounded-xl border-2 border-outline-variant" data-subject="${subjectName}">
+                <div class="subject-card ${isActive ? 'active' : ''} ${selectedSubjects.has(subjectName) ? 'selected' : ''} p-5 bg-surface-container-lowest rounded-xl border-2 border-outline-variant" data-subject="${subjectName}" data-price-usd="${priceUSD}" data-price-ngn="${priceNGN}">
                     <div class="flex items-start justify-between mb-3">
                         <div class="flex-1">
                             <h4 class="font-label-md text-primary font-bold mb-1">${subjectName}</h4>
-                            <p class="text-2xl font-bold text-secondary mb-2" data-price-usd="${priceUSD}" data-price-ngn="${priceNGN}">${displayPrice}</p>
+                            <p class="text-2xl font-bold text-secondary mb-2">${displayPrice}</p>
                         </div>
                         ${statusBadge}
                     </div>
                     ${!isActive ? `
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" class="subject-checkbox w-4 h-4 accent-secondary" ${selectedSubjects.has(subjectName) ? 'checked' : ''} ${isActive ? 'disabled' : ''}>
+                            <input type="checkbox" class="subject-checkbox w-4 h-4 accent-secondary" ${selectedSubjects.has(subjectName) ? 'checked' : ''}>
                             <span class="text-sm text-on-surface-variant">Select for payment</span>
                         </label>
                     ` : `
@@ -895,7 +1083,7 @@
             `;
         }).join('');
 
-        // Add event listeners to checkboxes
+        // Add event listeners
         document.querySelectorAll('.subject-checkbox').forEach(checkbox => {
             checkbox.addEventListener('change', (e) => {
                 const subjectName = e.target.closest('.subject-card').dataset.subject;
@@ -908,7 +1096,6 @@
             });
         });
 
-        // Add click handlers to cards
         document.querySelectorAll('.subject-card:not(.active)').forEach(card => {
             card.addEventListener('click', (e) => {
                 if (e.target.type !== 'checkbox') {
@@ -926,8 +1113,8 @@
         const count = selectedSubjects.size;
         document.getElementById('selected-count').textContent = count;
         
-        let totalUSD = 0;
-        let totalNGN = 0;
+        let totalUSD = rexAdded ? 25 : 0;
+        let totalNGN = rexAdded ? 38750 : 0;
         
         selectedSubjects.forEach(subjectName => {
             const pricing = pricingData.find(p => p.subject === subjectName);
@@ -939,14 +1126,40 @@
         
         const displayTotal = currentCurrency === 'usd' ? `$${totalUSD.toFixed(2)}` : `₦${totalNGN.toLocaleString()}`;
         document.getElementById('selected-total').textContent = displayTotal;
+        document.getElementById('orderTotal').textContent = displayTotal;
         
-        // Update summary in upload widget
+        // Update order summary
+        const summaryEl = document.getElementById('orderSummaryItems');
+        if (count === 0 && !rexAdded) {
+            summaryEl.innerHTML = '<p class="text-on-surface-variant italic">No items selected yet</p>';
+        } else {
+            let items = [];
+            if (rexAdded) {
+                items.push(`<div class="flex justify-between"><span>REX Subscription (1 month)</span><span class="font-bold">$25.00</span></div>`);
+            }
+            selectedSubjects.forEach(subjectName => {
+                const pricing = pricingData.find(p => p.subject === subjectName);
+                if (pricing) {
+                    const price = currentCurrency === 'usd' ? `$${pricing.price_usd}` : `₦${parseFloat(pricing.price_ngn).toLocaleString()}`;
+                    items.push(`<div class="flex justify-between"><span>${subjectName}</span><span class="font-bold">${price}</span></div>`);
+                }
+            });
+            summaryEl.innerHTML = items.join('');
+        }
+        
+        // Update summary in receipt widget
         const summary = document.getElementById('paid-subjects-summary');
         if (count === 0) {
             summary.innerHTML = '<em>No subjects selected yet</em>';
         } else {
             summary.innerHTML = Array.from(selectedSubjects).map(s => `<span class="inline-block bg-secondary/10 text-secondary px-2 py-1 rounded-full text-xs font-bold mr-2 mb-2">${s}</span>`).join('');
         }
+        
+        // Update WhatsApp link
+        const whatsappLink = document.getElementById('whatsappLink');
+        const subjectsList = Array.from(selectedSubjects).join(', ');
+        const whatsappText = encodeURIComponent(`Hi, I want to pay for my subjects: ${subjectsList || 'none selected yet'}. Total: ${displayTotal}`);
+        whatsappLink.href = `https://wa.me/2349034110894?text=${whatsappText}`;
         
         // Update card selection state
         document.querySelectorAll('.subject-card').forEach(card => {
@@ -957,15 +1170,109 @@
                 card.classList.remove('selected');
             }
         });
+        
+        // Enable/disable pay button
+        const payBtn = document.getElementById('payWithCryptoBtn');
+        payBtn.disabled = (count === 0 && !rexAdded);
     }
 
     window.updateCurrencyDisplay = function() {
         document.querySelectorAll('[data-price-usd]').forEach(el => {
             const usd = parseFloat(el.dataset.priceUsd);
             const ngn = parseFloat(el.dataset.priceNgn);
-            el.textContent = currentCurrency === 'usd' ? `$${usd}` : `₦${ngn.toLocaleString()}`;
+            const priceEl = el.querySelector('.text-2xl');
+            if (priceEl) {
+                priceEl.textContent = currentCurrency === 'usd' ? `$${usd}` : `₦${ngn.toLocaleString()}`;
+            }
         });
         updateSelectionDisplay();
+    };
+
+    window.addRexToCart = function() {
+        rexAdded = !rexAdded;
+        const btn = event.target.closest('button');
+        if (rexAdded) {
+            btn.innerHTML = '<i class="fa-solid fa-check"></i><span>REX Added to Cart</span>';
+            btn.classList.remove('bg-white', 'text-secondary');
+            btn.classList.add('bg-on-tertiary-container', 'text-white');
+        } else {
+            btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i><span>Add to Cart</span>';
+            btn.classList.remove('bg-on-tertiary-container', 'text-white');
+            btn.classList.add('bg-white', 'text-secondary');
+        }
+        updateSelectionDisplay();
+    };
+
+    window.createCryptoInvoice = async function() {
+        if (selectedSubjects.size === 0 && !rexAdded) {
+            alert('Please select at least one subject or add REX subscription');
+            return;
+        }
+        
+        const btn = document.getElementById('payWithCryptoBtn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Creating invoice...';
+        btn.disabled = true;
+        
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                alert('Please login to continue');
+                return;
+            }
+            
+            // Build items array
+            const items = [];
+            
+            // Add REX if selected
+            if (rexAdded) {
+                items.push({
+                    type: 'rex',
+                    price_usd: 25.00
+                });
+            }
+            
+            // Add subjects
+            selectedSubjects.forEach(subjectName => {
+                const pricing = pricingData.find(p => p.subject === subjectName);
+                if (pricing) {
+                    items.push({
+                        type: 'subject_subscription',
+                        subject: subjectName,
+                        grade: window.currentUser.grade,
+                        price_usd: parseFloat(pricing.price_usd)
+                    });
+                }
+            });
+            
+            const response = await fetch(`${PAYMENTS_API}/api/payments/create-nowpayments-invoice`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${session.access_token}`
+                },
+                body: JSON.stringify({
+                    items: items,
+                    currency: 'USD',
+                    pay_currency: selectedCrypto
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (!response.ok || !data.success) {
+                throw new Error(data.error || 'Failed to create invoice');
+            }
+            
+            // Redirect to NOWPayments
+            window.location.href = data.invoice_url;
+            
+        } catch (error) {
+            console.error('Error creating invoice:', error);
+            alert('Error: ' + error.message);
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
     };
 
     initPaymentsPage();
